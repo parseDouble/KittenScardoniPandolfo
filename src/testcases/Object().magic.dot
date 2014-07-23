@@ -1,0 +1,10 @@
+digraph "Object()" {
+size = "11,7.5";
+codeblock_529 [ shape = box, label = "block 529\nreceiver_is Object,List\nreturn void"];
+codeblock_586 [ shape = box, label = "block 586, component 15\nnop\n\n"];
+codeblock_606 [ shape = box, label = "block 606, component 16\nblockcall 566\nmakescope Object throws 0\n\n"];
+codeblock_587 [ shape = box, label = "block 587, component 33\nreceiver_is Object,List\nreturn void\n\n"];
+codeblock_606->codeblock_587 [color = blue label = "" fontsize = 8]
+codeblock_586->codeblock_606 [color = blue label = "" fontsize = 8]
+codeblock_529->codeblock_586 [color = green style = dashed label = "magic" fontsize = 8]
+}

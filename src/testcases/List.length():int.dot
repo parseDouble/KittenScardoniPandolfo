@@ -1,0 +1,11 @@
+digraph "List.length():int" {
+size = "11,7.5";
+codeblock_22 [ shape = box, label = "block 22, component 28\nreceiver_is List\nload 0 of type List\nstore 1 of type List\nconst 0\nstore 2 of type int\n o(s0) o(l2)\n -o(s0) -o(l2)\n"];
+codeblock_21 [ shape = box, label = "block 21, component 29\nload 1 of type List\nconst null\n o(s0) o(l2)\n -o(s0) -o(l2)\n"];
+codeblock_20 [ shape = box, label = "block 20, component 29\nif_cmpne List\nload 2 of type int\nconst 1\nadd int\nstore 2 of type int\nload 1 of type List\ngetfield List.tail:List\nstore 1 of type List\n o(s0) o(l2)\n -o(s0) -o(l2)\n"];
+codeblock_20->codeblock_21 [color = blue label = "" fontsize = 8]
+codeblock_21->codeblock_20 [color = blue label = "" fontsize = 8]
+codeblock_18 [ shape = box, label = "block 18, component 30\nif_cmpeq List\nload 2 of type int\nreturn int\n o(s0) i(l2) o(l2)\n -o(s0) -i(l2) -o(l2)\n"];
+codeblock_21->codeblock_18 [color = blue label = "" fontsize = 8]
+codeblock_22->codeblock_21 [color = blue label = "" fontsize = 8]
+}

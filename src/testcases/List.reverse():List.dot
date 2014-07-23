@@ -1,0 +1,8 @@
+digraph "List.reverse():List" {
+size = "11,7.5";
+codeblock_10 [ shape = box, label = "block 10, component 42\nreceiver_is List\nload 0 of type List\ngetfield List.tail:List\nconst null\n\n"];
+codeblock_8 [ shape = box, label = "block 8, component 43\nif_cmpeq List\nload 0 of type List\nreturn List\n\n"];
+codeblock_10->codeblock_8 [color = blue label = "" fontsize = 8]
+codeblock_9 [ shape = box, label = "block 9, component 42\nif_cmpne List\nload 0 of type List\ngetfield List.tail:List\ncall List.reverse():List [List.reverse():List]\nnew List\ndup List\nload 0 of type List\ngetfield List.head:int\nconst null\ncall List(int,List) [List(int,List)]\ncall List.append(List):List [List.append(List):List]\nreturn List\n\n"];
+codeblock_10->codeblock_9 [color = blue label = "" fontsize = 8]
+}

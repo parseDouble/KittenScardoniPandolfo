@@ -1,0 +1,33 @@
+digraph "List.append(List):List" {
+size = "11,7.5";
+codeblock_545 [ shape = box, label = "block 545\nreceiver_is List\nload 0 of type List\ngetfield List.tail:List\nconst null"];
+codeblock_597 [ shape = box, label = "block 597, component 50\nnop\n\n"];
+codeblock_615 [ shape = box, label = "block 615, component 50\nblockcall 599\nmakescope List,List throws 3\n\n"];
+codeblock_598 [ shape = box, label = "block 598, component 67\nreceiver_is List\nload 0 of type List\ngetfield List.tail:List\nconst null\n\n"];
+codeblock_615->codeblock_598 [color = blue label = "" fontsize = 8]
+codeblock_597->codeblock_615 [color = blue label = "" fontsize = 8]
+codeblock_609 [ shape = box, label = "block 609, component 51\nblockcall 573 591\nmakescope List,List throws 0\n\n"];
+codeblock_609->codeblock_598 [color = blue label = "" fontsize = 8]
+codeblock_597->codeblock_609 [color = blue label = "" fontsize = 8]
+codeblock_545->codeblock_597 [color = green style = dashed label = "magic" fontsize = 8]
+codeblock_550 [ shape = box, label = "block 550\nif_cmpne List\nnew List\ndup List\nload 0 of type List\ngetfield List.head:int\nload 0 of type List\ngetfield List.tail:List\nload 1 of type List"];
+codeblock_599 [ shape = box, label = "block 599, component 50\nblockcall 597\nif_cmpne List\nnew List\ndup List\nload 0 of type List\ngetfield List.head:int\nload 0 of type List\ngetfield List.tail:List\nload 1 of type List\n\n"];
+codeblock_550->codeblock_599 [color = green style = dashed label = "magic" fontsize = 8]
+codeblock_552 [ shape = box, label = "block 552\ncall List.append(List):List [List.append(List):List]"];
+codeblock_600 [ shape = box, label = "block 600, component 47\nblockcall 599\ncall List.append(List):List [List.append(List):List]\n\n"];
+codeblock_552->codeblock_600 [color = green style = dashed label = "magic" fontsize = 8]
+codeblock_553 [ shape = box, label = "block 553\ncall List(int,List) [List(int,List)]\nreturn List"];
+codeblock_601 [ shape = box, label = "block 601, component 46\nblockcall 600\ncall List(int,List) [List(int,List)]\nreturn List\n\n"];
+codeblock_553->codeblock_601 [color = green style = dashed label = "magic" fontsize = 8]
+codeblock_552->codeblock_553 [color = blue label = "" fontsize = 8]
+codeblock_550->codeblock_552 [color = blue label = "" fontsize = 8]
+codeblock_545->codeblock_550 [color = blue label = "" fontsize = 8]
+codeblock_547 [ shape = box, label = "block 547\nif_cmpeq List\nnew List\ndup List\nload 0 of type List\ngetfield List.head:int\nload 1 of type List"];
+codeblock_602 [ shape = box, label = "block 602, component 49\nblockcall 597\nif_cmpeq List\nnew List\ndup List\nload 0 of type List\ngetfield List.head:int\nload 1 of type List\n\n"];
+codeblock_547->codeblock_602 [color = green style = dashed label = "magic" fontsize = 8]
+codeblock_548 [ shape = box, label = "block 548\ncall List(int,List) [List(int,List)]\nreturn List"];
+codeblock_603 [ shape = box, label = "block 603, component 48\nblockcall 602\ncall List(int,List) [List(int,List)]\nreturn List\n\n"];
+codeblock_548->codeblock_603 [color = green style = dashed label = "magic" fontsize = 8]
+codeblock_547->codeblock_548 [color = blue label = "" fontsize = 8]
+codeblock_545->codeblock_547 [color = blue label = "" fontsize = 8]
+}
