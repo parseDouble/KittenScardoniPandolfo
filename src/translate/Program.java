@@ -9,7 +9,6 @@ import java.util.HashSet;
 import types.ClassMemberSignature;
 import types.CodeSignature;
 import types.KittenClassType;
-import util.graph.Graph;
 import bytecode.Bytecode;
 import bytecode.CALL;
 import bytecode.FieldAccessBytecode;
@@ -44,14 +43,6 @@ public class Program {
     private CodeSignature start;
 
     /**
-     * A graph of nodes representing the set of field modifiers that might be
-     * executed by a constructor or method in this program or by the
-     * constructors or methods that it calls.
-     */
-
-    private Graph<FieldWriterBytecode> graph;
-
-    /**
      * Builds a program, that is, a set of <tt>ClassMemberSignature</tt>'s.
      *
      * @param sigs the set of signatures
@@ -65,11 +56,6 @@ public class Program {
 	this.sigs = sigs;
 	this.name = name;
 	this.start = start;
-	this.graph = new Graph<FieldWriterBytecode>();
-
-	for (ClassMemberSignature sig: sigs)
-	    if (sig instanceof CodeSignature)
-		((CodeSignature)sig).computeModified(graph);
 
 	// we clean-up the code, in order to remove useless nop's
 	// and merge blocks whenever possible
@@ -197,13 +183,7 @@ public class Program {
 	    done.add(cb);
 
 	    // we add a box to the dot file
-	    if (cb.getComponent() > 0)
-		where.write
-		    (name + " [ shape = box, label = \"block " +
-		     cb.getId() + ", component " + cb.getComponent() + "\\n");
-	    else
-		where.write(name + " [ shape = box, label = \"block " +
-			    cb.getId() + "\\n");
+		where.write(name + " [ shape = box, label = \"block " + cb.getId() + "\\n");
 
 	    // in the middle there is a dump of the bytecode inside the block
 	    where.write(cb.getBytecode().toString().replaceAll("\n","\\\\n"));

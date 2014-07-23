@@ -3,12 +3,9 @@ package types;
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.INVOKEVIRTUAL;
 import org.apache.bcel.generic.MethodGen;
-import org.apache.bcel.generic.InstructionList;
 
-import util.List;
 import absyn.MethodDeclaration;
 import symbol.Symbol;
-import bytecode.RECEIVER_IS;
 import translate.CodeBlock;
 import generateJB.KittenClassGen;
 
@@ -95,18 +92,6 @@ public class MethodSignature extends CodeSignature {
      */
 
     protected CodeBlock addPrefixToCode(CodeBlock code) {
-	// we compute the set of instances of the static type of the receiver
-	// which might arise at run-time. They are the instances of the
-	// receiver such that a call to a method with our signature
-	// leads to this method
-	List<ClassType> receivers = new List<ClassType>();
-
-	for (ClassType rec: getDefiningClass().getInstances())
-	    if (rec.methodLookup(getName(),getParameters()) == this)
-		receivers.addFirst(rec);
-
-	// we add an annotation which enumerates the possible dynamic
-	// receivers of this method declaration
-	return new RECEIVER_IS(this,receivers).followedBy(code);
+    	return code;
     }
 }

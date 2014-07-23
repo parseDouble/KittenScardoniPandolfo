@@ -10,11 +10,9 @@ import org.apache.bcel.generic.MethodGen;
 
 import symbol.Symbol;
 import translate.CodeBlock;
-import util.List;
 import absyn.ConstructorDeclaration;
 import bytecode.CONSTRUCTORCALL;
 import bytecode.LOAD;
-import bytecode.RECEIVER_IS;
 
 /**
  * The signature of a constructor of a Kitten class.
@@ -144,16 +142,6 @@ public class ConstructorSignature extends CodeSignature {
 				.followedBy(code));
 		}
 
-		// we add an annotation which enumerates the possible dynamic
-		// receivers of this constructor declaration: just one!
-		// Except for the empty constructor, which is chained to the
-		// constructors of all its subclasses
-		List<ClassType> instances = new List<ClassType>();
-		if (getParameters() == TypeList.EMPTY)
-			instances.addAll(getDefiningClass().getInstances());
-		else
-			instances.addFirst(getDefiningClass());
-
-		return new RECEIVER_IS(this,instances).followedBy(code);
+		return code;
 	}
 }

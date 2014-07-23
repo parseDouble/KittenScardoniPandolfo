@@ -100,24 +100,6 @@ public abstract class CALL extends SequentialBytecode {
     	return dynamicTargets;
     }
 
-    /**
-     * Yields an overapproximation of the set of local variables that might
-     * be modified by any of the dynamic targets of this call.
-     *
-     * @return the overapproximation of the set of local variables that might
-     *         be modified by any of the dynamic targets of this call
-     */
-
-    public Set<Integer> getModifiedLocals() {
-    	if (modifiedLocals == null) {
-    		modifiedLocals = new HashSet<Integer>();
-    		for (CodeSignature target: dynamicTargets)
-    			modifiedLocals.addAll(target.getModifiedLocals());
-    	}
-
-    	return modifiedLocals;
-    }
-
     @Override
     public String toString() {
     	return "call " + staticTarget + " " + dynamicTargets;

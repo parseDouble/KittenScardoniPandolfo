@@ -1,13 +1,10 @@
 package types;
 
-import org.apache.bcel.generic.ClassGen;
-
-import java.util.HashSet;
 import java.util.HashMap;
-import java.util.Collection;
+import java.util.HashSet;
 
-import util.List;
 import symbol.Symbol;
+import util.List;
 
 /**
  * The type of a class.
@@ -66,13 +63,6 @@ public abstract class ClassType extends ReferenceType {
 	= new HashMap<Symbol,HashSet<MethodSignature>>();
 
     /**
-     * The node of the graph of reachable types that contains the set
-     * of types that are reachable from the fields of this class.
-     */
-
-    private FieldNode reachFieldNode;
-
-    /**
      * Constructs a class type with the given name.
      *
      * @param name the name of the class
@@ -84,13 +74,6 @@ public abstract class ClassType extends ReferenceType {
 
 	// there are no subclasses at the moment
 	this.subclasses = new List<ClassType>();
-
-	// we initialise the node that represents the set of all types
-	// reachable from the fields of this type. At the beginning, it is empty
-	reachFieldNode = new FieldNode(this);
-
-	// all types reachable from the fields are also reachable from the class
-	containsAllTypesReachableFromFieldsOf(this);
     }
 
     /**
@@ -104,34 +87,6 @@ public abstract class ClassType extends ReferenceType {
 	// we are a direct subclass of our superclass
 	(superclass = make(superclassName)).subclasses.addFirst(this);
 
-	// the types reachable from this class are also
-	// reachable from its superclass
-	getReachGraph().arc(getReachNode(),superclass.getReachNode());
-
-	// the types reachable from the fields of the superclass are also
-	// reachable from the fields of this class
-	includeFieldsOf(superclass);
-    }
-
-    /**
-     * Takes note that all types reachable from the fields of the given class
-     * are also reachable from the fields of this class.
-     *
-     * @param clazz the given class
-     */
-
-    protected void includeFieldsOf(ClassType clazz) {
-	getReachGraph().arc(clazz.reachFieldNode,reachFieldNode);
-    }
-
-    /**
-     * Takes note that this class has a field of the given type.
-     *
-     * @param type the type
-     */
-
-    protected void hasFieldOfType(Type type) {
-	getReachGraph().arc(type.getReachNode(),reachFieldNode);
     }
 
     /**
@@ -180,17 +135,6 @@ public abstract class ClassType extends ReferenceType {
 
     public String toString() {
 	return name.toString();
-    }
-
-    /**
-     * Yields the node of the graph representing the set of types reachable
-     * from the fields of this class.
-     *
-     * @return the node
-     */
-
-    protected FieldNode getReachFieldNode() {
-	return reachFieldNode;
     }
 
     /**
@@ -296,11 +240,7 @@ public abstract class ClassType extends ReferenceType {
      */
 
     public void addField(Symbol name, FieldSignature sig) {
-	fields.put(name,sig);
-
-	// the types reachable from the field are also
-	// reachable from the fields of this class
-	hasFieldOfType(sig.getType());
+    	fields.put(name,sig);
     }
 
     /**
@@ -581,60 +521,5 @@ public abstract class ClassType extends ReferenceType {
 	for (HashSet<MethodSignature> ms: methods.values()) union.addAll(ms);
 
 	return result + union;
-    }
-
-    /**
-     * Auxiliary method that
-     * checks if this type is <i>cyclical</i>, that is, a value of the same
-     * type can be reached from it or it can reach a cyclical type.
-     *
-     * @return true if and only if the superclass of this class is cyclical or
-     *         one of the types of the fields of this class is cyclical or
-     *         if the set of reachable types from the fields of
-     *         this class (even inherited) or of one of its subclasses
-     *         contain a subclass this type
-     */
-
-    protected boolean isCyclical$0() {
-	ClassType cursor;
-
-	for (cursor = superclass; cursor != null; cursor = cursor.superclass)
-	    for (FieldSignature field: cursor.getFields().values())
-		if (this.isReachableFrom(field.getType())) return true;
-
-	for (ClassType ins: getInstances())
-	    for (FieldSignature field: ins.getFields().values())
-		if (this.isReachableFrom(field.getType())) return true;
-
-	for (cursor = superclass; cursor != null; cursor = cursor.superclass)
-	    for (FieldSignature field: cursor.getFields().values())
-		if (field.getType().isCyclical()) return true;
-
-	for (ClassType ins: getInstances())
-	    for (FieldSignature field: ins.getFields().values())
-		if (field.getType().isCyclical()) return true;
-
-	return false;
-    }
-
-    /**
-     * Checks if this class is a <i>one-selector data structure</i>, that is,
-     * a data structure with at most one field of reference type. Note that
-     * the fields of all subclasses are considered also.
-     *
-     * @return true if and only if this is a one-selector data structure
-     */
-
-    public boolean isOneSelector() {
-	int count = 0;
-
-	for (ClassType cl: getInstances())
-	    for (FieldSignature f: cl.getFields().values())
-		if (f.getType() instanceof ReferenceType) {
-		    if (count > 0) return false;
-		    else count++;
-		}
-
-	return true;
     }
 }

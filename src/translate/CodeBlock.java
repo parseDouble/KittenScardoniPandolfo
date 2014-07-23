@@ -187,29 +187,6 @@ public class CodeBlock extends Node {
     }
 
     /**
-     * Assumes that this block is unreachable and removes it from the program.
-     * This entails that the <tt>previous</tt> set of each following block
-     * is updated accordingly to the removal of this block.
-     */
-
-    public void unlink() {
-	// we are not anymore a successor of our predecessors, if any
-	for (Node p: getPrevious()) ((CodeBlock)p).follows.remove(this);
-	getPrevious().clear();
-
-	List<CodeBlock> follows = new List<CodeBlock>(this.follows);
-
-	// we remove any successor, so that if someone tries to unlink this
-	// block again, we won't process the followers again
-	this.follows.clear();
-
-	for (CodeBlock cb: follows) {
-	    cb.getPrevious().remove(this);
-	    if (cb.getPrevious().isEmpty()) cb.unlink();
-	}
-    }
-
-    /**
      * Specifies that this block cannot be merged when prefixed with
      * a bytecode. See <tt>prefixedBy()</tt>.
      */

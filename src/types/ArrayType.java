@@ -52,10 +52,6 @@ public class ArrayType extends ReferenceType {
 		result = new ArrayType(elementsType);
 		memory.put(elementsType,result);
 
-		// the types reachable from the elements of the array are also
-		// reachable from the array
-		getReachGraph().arc(elementsType.getReachNode(),result.getReachNode());
-
 		return result;
 	}
 
@@ -165,19 +161,6 @@ public class ArrayType extends ReferenceType {
 
 		// no common supertype exists
 		return null;
-	}
-
-	/**
-	 * Auxiliary method that
-	 * checks if this type is <i>cyclical</i>, that is, a value of the same
-	 * type can be reached from it or it can reach a cyclical type.
-	 *
-	 * @return true if the type of the elements reaches this array type or
-	 *         if it is cyclical
-	 */
-
-	protected boolean isCyclical$0() {
-		return this.isReachableFrom(elementsType) || elementsType.isCyclical();
 	}
 
 	public org.apache.bcel.generic.Type toBCEL() {
