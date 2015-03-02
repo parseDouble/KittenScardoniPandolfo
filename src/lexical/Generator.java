@@ -7,6 +7,6 @@ import JLex.CLexGen;
 public class Generator {
 
 	public static void main(String[] args) throws IOException {
-		new CLexGen("resources/Kitten.lex", "Lexer").generate();
+		new CLexGen("resources/Kitten.lex", "src/lexical/Lexer").generate();
 	}
 }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="Kitten" basedir="." default="generate-lexical-analyzer" xmlns:ivy="antlib:org.apache.ivy.ant">
+
+	<!-- load the properties stored into the external file -->
+	<property file="build.properties" />
+
+	<target name="clean-bin">
+		<delete dir="${build.out.folder}" />
+	</target>
+
+	<target name="generate-lexical-analyzer" depends="clean-bin">
+		<mkdir dir="${build.out.folder}" />
+		<javac includeantruntime="false" srcdir="${build.in.folder}" destdir="${build.out.folder}" encoding="utf8" debug="on" debuglevel="lines,vars,source">
+			<include name="lexical/Generator.java" />
+
+			<classpath>
+				<fileset dir="${build.lib.folder}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+		<java classname="lexical.Generator">
+            <classpath>
+                <pathelement location="${build.out.folder}"/>
+            </classpath>
+            <classpath>
+				<fileset dir="${build.lib.folder}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</java>
+	</target>
+
+	<target name="compile-lexical-analyzer" depends="generate-lexical-analyzer">
+		<javac includeantruntime="false" srcdir="${build.in.folder}" destdir="${build.out.folder}" encoding="utf8" debug="on" debuglevel="lines,vars,source">
+			<include name="lexical/*.java" />
+
+			<classpath>
+				<fileset dir="${build.lib.folder}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="run-lexical-analyzer" depends="compile-lexical-analyzer">
+		<java classname="lexical.Main">
+		    <arg value="testcases/Fibonacci" />
+            <classpath>
+                <pathelement location="${build.out.folder}"/>
+            </classpath>
+            <classpath>
+				<fileset dir="${build.lib.folder}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</java>
+	</target>
+
+</project>

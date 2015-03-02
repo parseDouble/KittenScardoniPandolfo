@@ -1,4 +1,6 @@
 bin/*
+ant-build/*
+lexical/Lexer.java
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

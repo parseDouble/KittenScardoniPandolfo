@@ -8,7 +8,7 @@ import java_cup.runtime.Symbol;
 import syntactical.sym;
 import lexical.Lexer;
 
-public class Kitten {
+public class Main {
 	public static void main(String args[]) {
 		if (args.length == 0) {
 			System.out.println("You must specify a Kitten class name to compile");

@@ -4,7 +4,7 @@ package lexical;
  * A lexical analyser.
  *
  * This Java code is automatically generated from the file
- * {@code lexical/Lexer.lex} through the JLex utility.
+ * {@code resources/Lexer.lex} through the JLex utility.
  * The following author hence is not completely responsible for its content
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
@@ -60,7 +60,7 @@ private void err(int pos, String msg) {
  */
 
 private void err(String msg) {
-  err(yychar,msg);
+  err(yychar, msg);
 }
 
 /**
@@ -68,14 +68,14 @@ private void err(String msg) {
  * Creates a token of a given kind and with a given lexical value
  *
  * @param kind the kind of token to be created, as enumerated in
- *             <tt>syntactical/sym.java</tt>
+ *             {@code syntactical/sym.java}
  * @param value the lexical value associated with the token.
- *              It may be <tt>null</tt>
+ *              It may be {@code null}
  *
  */
 
 private java_cup.runtime.Symbol tok(int kind, Object value) {
-    return new java_cup.runtime.Symbol(kind, yychar, yychar+yylength(), value);
+    return new java_cup.runtime.Symbol(kind, yychar, yychar + yylength(), value);
 }
 
 /**
@@ -100,13 +100,13 @@ public ErrorMsg getErrorMsg() {
  * Creates a lexical analyser for a given class name.
  *
  * @param className the name of the class to be lexically analysed
- *                  (without the trailing <tt>.kit</tt>)
+ *                  (without the trailing {@code .kit})
  * @throws java.io.FileNotFoundException if the source file cannot be found
  */
 
 public Lexer(Symbol className) throws java.io.FileNotFoundException {
   this();
-
+  
   String fileName = className + ".kit";
   errorMsg = new ErrorMsg(fileName);
   FileInputStream inp;
@@ -115,7 +115,7 @@ public Lexer(Symbol className) throws java.io.FileNotFoundException {
     inp = new FileInputStream(fileName);
   }
   catch (java.io.FileNotFoundException e) {
-    errorMsg.error(-1,"Cannot find \"" + fileName + "\"");
+    errorMsg.error(-1, "Cannot find \"" + fileName + "\"");
     throw e;
   }
 
@@ -126,7 +126,7 @@ public Lexer(Symbol className) throws java.io.FileNotFoundException {
  * Creates a lexical analyser for a given source file.
  *
  * @param fileName the name of the file to be lexically analysed
- *                 (with the trailing <tt>.kit</tt>)
+ *                 (with the trailing {@code .kit})
  * @throws java.io.FileNotFoundException if the source file cannot be found
  */
 
@@ -159,7 +159,7 @@ String myString = "";
 
 %%
 <YYINITIAL>"\""         {myString=""; yybegin(STRING);}
-<YYINITIAL>[ \t\f]	{}
+<YYINITIAL>[ \t\f]		{}
 <YYINITIAL>"/*"         {commentCount++; yybegin(COMMENT);}
 <YYINITIAL>\n	        {newline();}
 <YYINITIAL>while        {return tok(sym.WHILE, null);}
@@ -218,8 +218,8 @@ String myString = "";
 <STRING>\\t             {myString+="\t";}
 <STRING>\\[0-9][0-9][0-9]
                         {myNum=(yytext().charAt(1)-48)*100+
-			   (yytext().charAt(2)-48)*10+
-                           (yytext().charAt(3)-48);
+			   				(yytext().charAt(2)-48)*10+
+                            (yytext().charAt(3)-48);
                         if (myNum>255) err("Overflow in ASCII Code");
                         else myString += (char)myNum;}
 <STRING>\\\\            {myString += "\\";}
@@ -227,7 +227,7 @@ String myString = "";
 <STRING>"\\""           {myString += "\"";}
 <STRING>"\\'"           {myString += "'";}
 <STRING>"\""            {yybegin(YYINITIAL); return tok(sym.STRING, myString);}
-<STRING>\n	        {newline(); myString += "\n";}
+<STRING>\n	  		    {newline(); myString += "\n";}
 <STRING>.               {myString += yytext();}
 
 <COMMENT>"*/"           {commentCount--;
