@@ -1,16 +1,16 @@
 package types;
 
-import java.util.Collection;
-import java.util.HashMap;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.HashMap;
 
-import errorMsg.ErrorMsg;
-import symbol.Symbol;
 import lexical.Lexer;
+import symbol.Symbol;
 import syntactical.Parser;
-import absyn.ClassDefinition;
 import translate.Program;
+import absyn.ClassDefinition;
+import errorMsg.ErrorMsg;
 
 /**
  * A type representing a class type ofthe Kitten language.

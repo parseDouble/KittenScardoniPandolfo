@@ -12,30 +12,23 @@ import util.List;
 public class ErrorMsg {
 
 	/**
-	 * The sequence of newline positions in the source <tt>fileName</tt>.
+	 * The sequence of newline positions in the source {@link #fileName}.
+	 * This is useful to know where source lines stop.
 	 */
 
-	private List<Integer> linePos;
+	private final List<Integer> linePos = new List<Integer>();
 
 	/**
-	 * The number of lines in the source <tt>fileName</tt>.
+	 * The name of the file to which this error reporting utility is associated.
 	 */
 
-	private int lineNum;
+	private final String fileName;
 
 	/**
-	 * The name of the file to which this error reporting utility
-	 * is associated.
+	 * Has any error occurred up to now?
 	 */
 
-	private String fileName;
-
-	/**
-	 * Has any error occurred up to now? By using a <tt>static</tt> field,
-	 * this information is global for the whole set of program classes.
-	 */
-
-	private static boolean anyErrors = false;
+	private boolean anyErrors;
 
 	/**
 	 * Creates an error reporting utility for the specified source file.
@@ -44,8 +37,6 @@ public class ErrorMsg {
 	 */
 
 	public ErrorMsg(String fileName) {
-		this.linePos = new List<Integer>();
-		this.lineNum = 1;
 		this.fileName = fileName;
 	}
 
@@ -60,13 +51,12 @@ public class ErrorMsg {
 	}
 
 	/**
-	 * Determines if any error has been reported up to now with
-	 * some <tt>ErrorMsg</tt> utility.
+	 * Determines if any error has been reported up to now.
 	 *
 	 * @return true if some error has been reported, false otherwise
 	 */
 
-	public static boolean anyErrors() {
+	public boolean anyErrors() {
 		return anyErrors;
 	}
 
@@ -78,7 +68,6 @@ public class ErrorMsg {
 	 */
 
 	public void newline(int pos) {
-		lineNum++;
 		linePos.addLast(pos);
 	}
 
@@ -94,15 +83,13 @@ public class ErrorMsg {
 	 */
 
 	public void error(int pos, String msg) {
-		// an error has been reported at least
-		anyErrors = true;
+		anyErrors = true; // an error has been reported at least
 
-		String sayPos = "";
-
+		String where;
 		if (pos >= 0) {
 			int last = 0, n = 1;
 
-			// we look for the last new line before position <tt>pos</tt>
+			// we look for the last new line before position pos
 			for (int line: linePos) {
 				if (line >= pos) break;
 
@@ -110,9 +97,11 @@ public class ErrorMsg {
 				n++;
 			}
 
-			sayPos = n + "." + (pos - last);
+			where = n + "." + (pos - last);
 		}
+		else
+			where = "";
 
-		System.out.println(fileName + "::" + sayPos + ": " + msg);
+		System.out.println(fileName + "::" + where + ": " + msg);
 	}
 }
