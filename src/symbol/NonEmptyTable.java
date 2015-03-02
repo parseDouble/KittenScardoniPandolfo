@@ -1,88 +1,101 @@
 package symbol;
 
 /**
- * A non-empty symbol table. It is organised as a binary search tree.
+ * A non-empty symbol table. It is organized as a binary search tree.
  *
  * @author  <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-class NonEmptyTable extends Table {
-    /**
-     * the key on top of the tree.
-     */
+final class NonEmptyTable<E> extends Table<E> {
 
-    private Symbol key;
+	/**
+	 * the key on top of the tree.
+	 */
 
-    /**
-     * the value bound on key at the top of the tree.
-     */
+	private final Symbol key;
 
-    private Object value;
+	/**
+	 * the value bound on key at the top of the tree.
+	 */
 
-    /**
-     * the left subtree.
-     */
+	private final E value;
 
-    private Table left;
+	/**
+	 * the left subtree.
+	 */
 
-    /**
-     * the right subtree.
-     */
+	private final Table<E> left;
 
-    private Table right;
+	/**
+	 * the right subtree.
+	 */
 
-    /**
-     * Builds a non-empty table.
-     *
-     * @param key the key in the root of the tree
-     * @param value the value bound to <tt>key</tt>
-     * @param left the left subtree
-     * @param right the right subtree
-     */
+	private final Table<E> right;
 
-    private NonEmptyTable(Symbol key, Object value, Table left, Table right) {
-	this.key = key;
-	this.value = value;
-	this.left = left;
-	this.right = right;
-    }
+	/**
+	 * Builds a non-empty table.
+	 *
+	 * @param key the key in the root of the tree
+	 * @param value the value bound to <tt>key</tt>
+	 * @param left the left subtree
+	 * @param right the right subtree
+	 */
 
-    /**
-     * Builds a non-empty table having empty subtrees.
-     *
-     * @param key the key in the root of the tree
-     * @param value the value bound to <tt>key</tt>
-     */
-
-    NonEmptyTable(Symbol key, Object value) {
-	this(key,value,EMPTY,EMPTY);
-    }
-
-    public Object get(Symbol key) {
-	int comp = this.key.compareTo(key);
-
-	if (comp < 0) return left.get(key);
-	else if (comp == 0) return value;
-	else return right.get(key);
-    }
-
-    public Table put(Symbol key, Object value) {
-	Table temp;
-	int comp = this.key.compareTo(key);
-
-	if (comp < 0) {
-	    temp = left.put(key,value);
-	    if (temp == left) return this;
-	    else return new NonEmptyTable(this.key,this.value,temp,right);
+	private NonEmptyTable(Symbol key, E value, Table<E> left, Table<E> right) {
+		this.key = key;
+		this.value = value;
+		this.left = left;
+		this.right = right;
 	}
-	else if (comp == 0)
-	    if (value == this.value) return this;
-	    else return new NonEmptyTable(this.key,value,left,right);
-	else {
-	    temp = right.put(key,value);
-	    if (temp == right) return this;
-	    else return new NonEmptyTable(this.key,this.value,left,temp);
+
+	/**
+	 * Builds a non-empty table having empty subtrees.
+	 *
+	 * @param key the key in the root of the tree
+	 * @param value the value bound to {@code key}
+	 */
+
+	NonEmptyTable(Symbol key, E value) {
+		this.key = key;
+		this.value = value;
+		this.left = Table.empty();
+		this.right = Table.empty();
 	}
-    }
+
+	@Override
+	public E get(Symbol key) {
+		int comp = this.key.compareTo(key);
+
+		if (comp < 0)
+			return left.get(key);
+		else if (comp == 0)
+			return value;
+		else
+			return right.get(key);
+	}
+
+	@Override
+	public Table<E> put(Symbol key, E value) {
+		int comp = this.key.compareTo(key);
+
+		if (comp < 0) {
+			Table<E> temp = left.put(key,value);
+			if (temp == left)
+				return this;
+			else
+				return new NonEmptyTable<E>(this.key, this.value, temp, right);
+		}
+		else if (comp == 0)
+			if (value == this.value)
+				return this;
+			else
+				return new NonEmptyTable<E>(this.key, value, left, right);
+		else {
+			Table<E> temp = right.put(key,value);
+			if (temp == right)
+				return this;
+			else
+				return new NonEmptyTable<E>(this.key, this.value, left, temp);
+		}
+	}
 }
-

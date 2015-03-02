@@ -6,23 +6,35 @@ package symbol;
  * @author  <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public abstract class Table {
+public abstract class Table<E> {
 
     /**
      * An empty table.
      */
 
-    public final static EmptyTable EMPTY = new EmptyTable();
+    @SuppressWarnings("rawtypes")
+	private final static Table<?> EMPTY = new EmptyTable();
 
     /**
-     * Returns the object bound to a given symbol.
+     * Yields the empty table.
      *
-     * @param key the symbol to look up for in the table
-     * @return the object bound to that symbol.
-     *         Returns <tt>null</tt> if no object is bound to that symbol
+     * @return the empty table
      */
 
-    public abstract Object get(Symbol key);
+    @SuppressWarnings("unchecked")
+	public static <T> Table<T> empty() {
+    	return (Table<T>) EMPTY;
+    }
+
+    /**
+     * Returns the object bound to a given symbol, if any.
+     *
+     * @param key the symbol to look up for in the table
+     * @return the object bound to {@code key}.
+     *         Yields {@code null} if no object is bound to {@code key}
+     */
+
+    public abstract E get(Symbol key);
 
     /**
      * Builds a new table, identical to this, but where a given symbol is
@@ -30,10 +42,9 @@ public abstract class Table {
      *
      * @param key the symbol to be bound to the given value
      * @param value to value to be bound to the symbol
-     * @return a symbol table identical to this except for <tt>key</tt> which
-     *         is bound to <tt>value</tt>
+     * @return a symbol table identical to this except for {@code key}, that
+     *         is bound to {@code value}
      */
 
-    public abstract Table put(Symbol key, Object value);
+    public abstract Table<E> put(Symbol key, E value);
 }
-

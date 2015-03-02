@@ -25,7 +25,7 @@ public class TypeChecker {
 	 * to their declared type.
 	 */
 
-	private Table env;
+	private Table<TypeAndNumber> env;
 
 	/**
 	 * The number of local variables seen so far by this type-checker.
@@ -48,7 +48,7 @@ public class TypeChecker {
 	 * @param errorMsg the error reporting utility of the type-checker
 	 */
 
-	private TypeChecker(Type returnType, Table env, int varNum, ErrorMsg errorMsg) {
+	private TypeChecker(Type returnType, Table<TypeAndNumber> env, int varNum, ErrorMsg errorMsg) {
 		this.returnType = returnType;
 		this.env = env;
 		this.varNum = varNum;
@@ -64,15 +64,16 @@ public class TypeChecker {
 	 */
 
 	public TypeChecker(Type returnType, ErrorMsg errorMsg) {
-		this(returnType,Table.EMPTY,0,errorMsg);
+		this.returnType = returnType;
+		this.env = Table.empty();
+		this.varNum = 0;
+		this.errorMsg = errorMsg;
 	}
 
 	/**
-	 * Yields the type expected by this type-checker for the <tt>return</tt>
-	 * commands.
+	 * Yields the type expected by this type-checker for the {@code return} commands.
 	 *
-	 * @return the type expected by this type-checker for the <tt>return</tt>
-	 *         commands.
+	 * @return the type expected by this type-checker for the {@code return} commands
 	 */
 
 	public Type getReturnType() {
@@ -93,7 +94,7 @@ public class TypeChecker {
 		// note that in the new type-checker the number of local
 		// variables is one more than in this type-checker
 		return new TypeChecker(returnType,
-				env.put(var,new TypeAndNumber(type,varNum)),
+				env.put(var, new TypeAndNumber(type, varNum)),
 				varNum + 1,errorMsg);
 	}
 

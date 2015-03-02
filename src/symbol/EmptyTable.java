@@ -6,18 +6,18 @@ package symbol;
  * @author  <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-class EmptyTable extends Table {
+final class EmptyTable<E> extends Table<E> {
 
-    EmptyTable() {}
+	EmptyTable() {}
 
-    public Object get(Symbol key) {
-	// there is no key in this empty table
-	return null;
-    }
+	@Override
+	public E get(Symbol key) {
+		return null;  // there is no key in this empty table
+	}
 
-    public Table put(Symbol key, Object value) {
-	// builds a non-empty symbol table with empty subtrees
-	return new NonEmptyTable(key,value);
-    }
+	@Override
+	public Table<E> put(Symbol key, E value) {
+		// builds a non-empty symbol table with empty subtrees
+		return new NonEmptyTable<E>(key, value);
+	}
 }
-

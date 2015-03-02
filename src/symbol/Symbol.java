@@ -3,125 +3,104 @@ package symbol;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A symbol of the abstract syntax. It represents an identifier in the
  * source code. Two occurrences of the same identifier are represented by the
- * same, unique symbol.
+ * same, unique symbol, by using the singleton design pattern.
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class Symbol implements Comparable {
+public class Symbol implements Comparable<Symbol> {
 
-    /**
-     * A table which binds strings to their corresponding symbol.
-     * Two occurrences of the same identifier are represented
-     * by the same, unique symbol.
-     */
+	/**
+	 * A table that binds names to their corresponding symbol.
+	 * Two occurrences of the same identifier are represented
+	 * by the same, unique symbol.
+	 */
 
-    private static HashMap<String,Symbol> memory
-	= new HashMap<String,Symbol>();
+	private static Map<String,Symbol> memory = new HashMap<String,Symbol>();
 
-    /**
-     * The symbol representing the identifier <tt>this</tt>.
-     */
+	/**
+	 * The symbol representing the identifier {@code this}.
+	 */
 
-    public static final Symbol THIS = mk("this");
+	public static final Symbol THIS = mk("this");
 
-    /**
-     * The symbol representing the identifier <tt>Object</tt>.
-     */
+	/**
+	 * The symbol representing the identifier {@code Object}.
+	 */
 
-    public static final Symbol OBJECT = mk("Object");
+	public static final Symbol OBJECT = mk("Object");
 
-    /**
-     * The symbol representing the identifier <tt>String</tt>.
-     */
+	/**
+	 * The symbol representing the identifier {@code String}.
+	 */
 
-    public static final Symbol STRING = mk("String");
+	public static final Symbol STRING = mk("String");
 
-    /**
-     * The symbol of the method where the application starts.
-     */
+	/**
+	 * The symbol of the method where the application starts.
+	 */
 
-    public static final Symbol MAIN = mk("main");
+	public static final Symbol MAIN = mk("main");
 
-    /**
-     * The string representation of the symbol.
-     */
+	/**
+	 * The string representation of the symbol.
+	 */
 
-    private String name;
+	private final String name;
 
-    /**
-     * Creates a symbol with the given name (identifier).
-     *
-     * @param name the name (identifier)
-     */
+	/**
+	 * Creates a symbol with the given name (identifier).
+	 *
+	 * @param name the name (identifier)
+	 */
 
-    private Symbol(String name) {
-	this.name = name;
-    }
+	private Symbol(String name) {
+		this.name = name;
+	}
 
-    /**
-     * Returns the unique symbol representing the given string (identifier).
-     *
-     * @param name the name of the symbol (identifier)
-     * @return the unique symbol representing that name
-     */
+	/**
+	 * Returns the unique symbol representing the given string (identifier).
+	 *
+	 * @param name the name of the symbol (identifier)
+	 * @return the unique symbol representing that name
+	 */
 
-    public static Symbol mk(String name) {
-	// we first look in the memory, to see if we already
-	// created a symbol for this name
-	Symbol s = memory.get(name);
-	if (s != null) return s;
+	public static Symbol mk(String name) {
+		// we first look in the memory, to see if we already created a symbol for this name
+		Symbol s = memory.get(name);
+		if (s == null)
+			// if not, we build a new symbol for the name and store it in memory
+			memory.put(name, s = new Symbol(name));
 
-	// if not, we build a new symbol for the name and we store it
-	// in memory for future lookup
-	s = new Symbol(name);
-	memory.put(name,s);
+		return s;
+	}
 
-	return s;
-    }
+	@Override
+	public String toString() {
+		return name;
+	}
 
-    /**
-     * Returns a string representation of the symbol.
-     *
-     * @return a string representation of the symbol
-     */
+	@Override
+	public int compareTo(Symbol other) {
+		return name.compareTo(other.name);
+	}
 
-    public String toString() {
-	return name;
-    }
+	/**
+	 * Writes in a file the node for the dot representation of this symbol.
+	 *
+	 * @param where the file where the dot representation must be written
+	 * @return the string representing this node in the dot file
+	 */
 
-    /**
-     * Lexicographic comparison between this symbol and another symbol.
-     *
-     * @param other the symbol to compare with this
-     * @return a negative integer if this symbol precedes <tt>other</tt>,
-     *         0 if they are the same symbol, a positive integer
-     *         if this symbol follows <tt>other</tt>
-     */
+	public String toDot(FileWriter where) throws IOException {
+		String id = "symbol_" + name;
+		where.write(id + " [label = \"" + name + "\" fontname = \"Times-Italic\" shape = box]\n");
 
-    public int compareTo(Object other) {
-	if (!(other instanceof Symbol)) return 0;
-
-	return name.compareTo(((Symbol)other).name);
-    }
-
-    /**
-     * Writes in a file the node for the dot representation of this symbol.
-     *
-     * @param where the file where the dot representation must be written
-     * @return the string representing this node in the dot file
-     */
-
-    public String toDot(FileWriter where) throws IOException {
-	where.write("symbol_" + name +
-		    " [label = \"" + name + "\"" +
-		    " fontname = \"Times-Italic\" shape = box]\n");
-
-	// it must be the same string as above
-	return "symbol_" + name;
-    }
+		return id;
+	}
 }
