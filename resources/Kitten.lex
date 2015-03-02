@@ -16,6 +16,8 @@ import errorMsg.ErrorMsg;
 import syntactical.sym;
 import symbol.Symbol;
 
+@SuppressWarnings("unused")
+
 public
 
 %% 

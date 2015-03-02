@@ -1,6 +1,9 @@
 bin/*
 ant-build/*
 lexical/Lexer.java
+syntactical/Parser.java
+syntactical/sym.java
+testcases/*.dot
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

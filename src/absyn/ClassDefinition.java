@@ -1,5 +1,6 @@
 package absyn;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
@@ -155,8 +156,8 @@ public class ClassDefinition extends Absyn {
      * @throws IOException if the dot file cannot be created
      */
 
-    public final void dumpDot() throws IOException {
-	FileWriter dot = new FileWriter(name + ".dot");
+    public final void dumpDot(String directory) throws IOException {
+	FileWriter dot = new FileWriter(directory + File.separatorChar + name + ".dot");
 
 	toDot(dot);
 	dot.flush();

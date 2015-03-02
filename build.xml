@@ -12,7 +12,6 @@
 		<mkdir dir="${build.out.folder}" />
 		<javac includeantruntime="false" srcdir="${build.in.folder}" destdir="${build.out.folder}" encoding="utf8" debug="on" debuglevel="lines,vars,source">
 			<include name="${lexical.generator.source}" />
-
 			<classpath>
 				<fileset dir="${build.lib.folder}">
 					<include name="**/*.jar" />
@@ -44,6 +43,55 @@
 
 	<target name="run-lexical-analyzer" depends="compile-lexical-analyzer">
 		<java classname="${lexical.main}">
+		    <arg value="${kitten.example}" />
+            <classpath>
+                <pathelement location="${build.out.folder}"/>
+            </classpath>
+            <classpath>
+				<fileset dir="${build.lib.folder}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</java>
+	</target>
+
+	<target name="generate-syntactical-analyzer" depends="compile-lexical-analyzer">
+		<mkdir dir="${build.out.folder}" />
+		<javac includeantruntime="false" srcdir="${build.in.folder}" destdir="${build.out.folder}" encoding="utf8" debug="on" debuglevel="lines,vars,source">
+			<include name="${syntactical.generator.source}" />
+			<classpath>
+				<fileset dir="${build.lib.folder}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+		<java classname="${syntactical.generator}">
+            <classpath>
+                <pathelement location="${build.out.folder}"/>
+            </classpath>
+            <classpath>
+				<fileset dir="${build.lib.folder}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</java>
+		<move file="Parser.java" todir="src/${syntactical.package}"/>
+		<move file="sym.java" todir="src/${syntactical.package}"/>
+	</target>
+
+	<target name="compile-syntactical-analyzer" depends="generate-syntactical-analyzer">
+		<javac includeantruntime="false" srcdir="${build.in.folder}" destdir="${build.out.folder}" encoding="utf8" debug="on" debuglevel="lines,vars,source">
+			<include name="${syntactical.package}/*.java" />
+			<classpath>
+				<fileset dir="${build.lib.folder}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="run-syntactical-analyzer" depends="compile-syntactical-analyzer">
+		<java classname="${syntactical.main}">
 		    <arg value="${kitten.example}" />
             <classpath>
                 <pathelement location="${build.out.folder}"/>

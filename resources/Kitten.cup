@@ -4,10 +4,10 @@ package syntactical;
  * A syntactical analyser.
  *
  * This Java code is automatically generated from the file
- * <tt>syntactical/Kitten.cup</tt> through the JavaCup utility.
+ * {@code resources/Kitten.cup} through the JavaCup utility.
  * The following author hence is not completely responsible for its content.
  *
- * @author  <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
+ * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
 import absyn.*;

@@ -1,15 +1,14 @@
 package syntactical;
 
 import java.io.FileInputStream;
-
-import java_cup.internal_error;
+import java.io.IOException;
 
 public class Generator {
 
-	public static void main(String[] args) throws internal_error, Exception {
+	public static void main(String[] args) throws IOException, Exception {
 		FileInputStream fis = new FileInputStream("resources/Kitten.cup");
 		System.setIn(fis);
-		java_cup.Main.main(new String[] { "-parser", "Parser", "-dump_grammar", "-dump_states"});
+		java_cup.Main.main(new String[] { "-parser", "Parser" });
 		fis.close();
 	}
 }
