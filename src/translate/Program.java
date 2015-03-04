@@ -5,6 +5,7 @@ import generateJB.KittenClassGen;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Set;
 
 import types.ClassMemberSignature;
 import types.CodeSignature;
@@ -12,7 +13,6 @@ import types.KittenClassType;
 import bytecode.Bytecode;
 import bytecode.CALL;
 import bytecode.FieldAccessBytecode;
-import bytecode.FieldWriterBytecode;
 
 /**
  * A program, that is, a set of <tt>ClassMemberSignature</tt>'s.
@@ -26,7 +26,7 @@ public class Program {
      * The set of <tt>ClassMemberSignature</tt>'s making up this program.
      */
 
-    private HashSet<ClassMemberSignature> sigs;
+    private Set<ClassMemberSignature> sigs;
 
     /**
      * The name of the program. This is usually the name
@@ -50,7 +50,7 @@ public class Program {
      * @param start the code where the program starts
      */
 
-    public Program(HashSet<ClassMemberSignature> sigs, String name,
+    public Program(Set<ClassMemberSignature> sigs, String name,
 		   CodeSignature start) {
 
 	this.sigs = sigs;
@@ -68,7 +68,7 @@ public class Program {
      * @return the <tt>ClassMemberSignature</tt>'s which make up this program
      */
 
-    public HashSet<ClassMemberSignature> getSigs() {
+    public Set<ClassMemberSignature> getSigs() {
 	return sigs;
     }
 

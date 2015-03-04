@@ -1,18 +1,18 @@
 package absyn;
 
 import java.util.HashSet;
+import java.util.Set;
 
-import symbol.Symbol;
-import types.Type;
-import types.CodeSignature;
-import types.ClassMemberSignature;
 import translate.CodeBlock;
+import types.ClassMemberSignature;
+import types.CodeSignature;
+import types.Type;
 import bytecode.Bytecode;
 import bytecode.BytecodeList;
-import bytecode.RETURN;
 import bytecode.CALL;
 import bytecode.GETFIELD;
 import bytecode.PUTFIELD;
+import bytecode.RETURN;
 
 /**
  * A node of abstract syntax representing the declaration of a constructor
@@ -118,7 +118,7 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
      *             already translated
      */
 
-    public void translate(HashSet<ClassMemberSignature> done) {
+    public void translate(Set<ClassMemberSignature> done) {
 	if (done.contains(sig)) return;
 	else done.add(sig);
 
@@ -151,7 +151,7 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
 
     private void translateReferenced
 	(CodeBlock cb,
-	 HashSet<ClassMemberSignature> done, HashSet<CodeBlock> blocksDone) {
+	 Set<ClassMemberSignature> done, Set<CodeBlock> blocksDone) {
 
 	// if we already processed the block, we return immediately
 	if (blocksDone.contains(cb)) return;

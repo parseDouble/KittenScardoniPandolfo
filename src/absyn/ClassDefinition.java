@@ -4,13 +4,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
+import java.util.Set;
 
 import symbol.Symbol;
+import translate.Program;
+import types.ClassMemberSignature;
 import types.KittenClassType;
 import types.MethodSignature;
-import types.ClassMemberSignature;
 import types.TypeList;
-import translate.Program;
 
 /**
  * The abstract syntax of the definition of a Kitten class.
@@ -173,7 +174,7 @@ public class ClassDefinition extends Absyn {
      */
 
     public void addMembers(KittenClassType clazz) {
-	if (declarations != null) declarations.addMembers(clazz);
+    	if (declarations != null) declarations.addMembers(clazz);
     }
 
     /**
@@ -201,8 +202,7 @@ public class ClassDefinition extends Absyn {
      */
 
     public Program translate() {
-	HashSet<ClassMemberSignature> done
-	    = new HashSet<ClassMemberSignature>();
+    	Set<ClassMemberSignature> done = new HashSet<>();
 
 	// we look up for the main method, if any
 	MethodSignature main = staticType.methodLookup

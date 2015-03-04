@@ -14,7 +14,7 @@ public class TypeList {
      * so that no list of types is <tt>null</tt>.
      */
 
-    public final static TypeList EMPTY = new TypeList(Type.UNUSED,null);
+    public final static TypeList EMPTY = new TypeList(Type.UNUSED, null);
 
     /**
      * The head of the list.

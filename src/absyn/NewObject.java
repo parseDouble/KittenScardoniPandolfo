@@ -1,20 +1,20 @@
 package absyn;
 
 import java.io.FileWriter;
-import java.util.HashSet;
+import java.util.Set;
 
+import semantical.TypeChecker;
 import symbol.Symbol;
+import translate.CodeBlock;
+import types.ClassType;
+import types.CodeSignature;
 import types.ConstructorSignature;
+import types.KittenClassType;
 import types.Type;
 import types.TypeList;
-import types.ClassType;
-import types.KittenClassType;
-import types.CodeSignature;
-import semantical.TypeChecker;
-import translate.CodeBlock;
-import bytecode.NEW;
-import bytecode.DUP;
 import bytecode.CONSTRUCTORCALL;
+import bytecode.DUP;
+import bytecode.NEW;
 
 /**
  * A node of abstract syntax representing the creation of an object.
@@ -143,7 +143,7 @@ public class NewObject extends Expression {
 	// we collect the set of constructors which are compatible
 	// with the static types of the parameters, and have no other
 	// compatible constructor which is more specific than them
-	HashSet constructors = target.constructorsLookup(actualsTypes);
+	Set<ConstructorSignature> constructors = target.constructorsLookup(actualsTypes);
 
 	if (constructors.isEmpty())
 	    // there is no matching constructor!

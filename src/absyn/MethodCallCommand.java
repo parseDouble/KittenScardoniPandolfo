@@ -1,18 +1,18 @@
 package absyn;
 
 import java.io.FileWriter;
-import java.util.HashSet;
+import java.util.Set;
 
-import symbol.Symbol;
 import semantical.TypeChecker;
-import types.Type;
-import types.ClassType;
-import types.TypeList;
-import types.MethodSignature;
-import types.CodeSignature;
+import symbol.Symbol;
 import translate.CodeBlock;
-import bytecode.VIRTUALCALL;
+import types.ClassType;
+import types.CodeSignature;
+import types.MethodSignature;
+import types.Type;
+import types.TypeList;
 import bytecode.POP;
+import bytecode.VIRTUALCALL;
 
 /**
  * A node of abstract syntax representing a method call command, that is,
@@ -169,8 +169,7 @@ public class MethodCallCommand extends Command {
 	    // with the static types of the parameters,
 	    // and have no other compatible method which is
 	    // more specific than them
-	    HashSet methods = ((ClassType)receiverType).methodsLookup
-		(name,actualsTypes);
+	    Set<MethodSignature> methods = ((ClassType) receiverType).methodsLookup(name,actualsTypes);
 
 	    if (methods.isEmpty())
 		// there is no matching method!

@@ -1,8 +1,8 @@
 package types;
 
-import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 import lexical.Lexer;
 import symbol.Symbol;
@@ -12,7 +12,7 @@ import absyn.ClassDefinition;
 import errorMsg.ErrorMsg;
 
 /**
- * A type representing a class type ofthe Kitten language.
+ * A type representing a class type of the Kitten language.
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
@@ -20,16 +20,16 @@ import errorMsg.ErrorMsg;
 public class KittenClassType extends ClassType {
 
 	/**
-	 * The parser used to parse the source file of this class.
+	 * The utility for issuing errors about this class.
 	 */
 
-	private Parser parser;
+	private ErrorMsg errorMsg;
 
 	/**
 	 * The abstract syntax of this class.
 	 */
 
-	private ClassDefinition abstractSyntax;
+	private final ClassDefinition abstractSyntax;
 
 	/**
 	 * True if and only if this class has been already type-checked.
@@ -38,13 +38,11 @@ public class KittenClassType extends ClassType {
 	private boolean typeChecked;
 
 	/**
-	 * A table which binds each symbol to its corresponding
-	 * <tt>KittenClassType</tt>.
-	 * This lets us have a unique <tt>KittenClassType</tt> with a given name.
+	 * A table which binds each symbol to its corresponding {@code KittenClassType}.
+	 * This lets us have a unique {@code KittenClassType} for a given name.
 	 */
 
-	private static HashMap<Symbol,KittenClassType> memory
-	= new HashMap<Symbol,KittenClassType>();
+	private final static Map<Symbol, KittenClassType> memory = new HashMap<>();
 
 	/**
 	 * Constructs a Kitten class type with the given name. If the class
@@ -58,50 +56,39 @@ public class KittenClassType extends ClassType {
 		super(name);
 
 		// we record this object for future lookup
-		this.memory.put(name,this);
+		memory.put(name, this);
 
 		// we have not type-checked this class yet
 		this.typeChecked = false;
 
+		ClassDefinition abstractSyntax;
+
 		// we perform lexical and syntactical analysis. The result is
 		// the abstract syntax of this class definition
 		try {
-			this.parser = new Parser(new Lexer(name));
-		}
-		catch (FileNotFoundException e) {
-			// there is a syntax error in the class text or the same class
-			// cannot be found on the file system: we build a fictitious
-			// syntax for the class, so that the processing can go on
-			if (name == Symbol.OBJECT)
-				this.abstractSyntax = new ClassDefinition(0,name,null,null);
-			else
-				this.abstractSyntax
-				= new ClassDefinition(0,name,Symbol.OBJECT,null);
-		}
-
-		if (this.parser != null) try {
-			this.abstractSyntax = (ClassDefinition)parser.parse().value;
+			Parser parser = new Parser(new Lexer(name));
+			errorMsg = parser.getErrorMsg();
+			abstractSyntax = (ClassDefinition) parser.parse().value;
+			// we add the fields, constructors and methods of the class
+			abstractSyntax.addMembers(this);
 		}
 		catch (Exception e) {
 			// there is a syntax error in the class text or the same class
-			// cannot be found on the file system: we build a fictitious
-			// syntax for the class, so that the processing can go on
+			// cannot be found on the file system or cannot be type-checked:
+			// we build a fictitious syntax for the class, so that the processing can go on
 			if (name == Symbol.OBJECT)
-				this.abstractSyntax = new ClassDefinition(0,name,null,null);
+				abstractSyntax = new ClassDefinition(0, name, null, null);
 			else
-				this.abstractSyntax
-				= new ClassDefinition(0,name,Symbol.OBJECT,null);
+				abstractSyntax = new ClassDefinition(0, name, Symbol.OBJECT, null);
 		}
 
-		// we add the fields, constructors and methods of the class
-		abstractSyntax.addMembers(this);
+		this.abstractSyntax = abstractSyntax;
 
 		if (name != Symbol.OBJECT)
-			// if this is not <tt>Object</tt>, we create its superclass also
+			// if this is not Object, we create its superclass also
 			addSuperclass(abstractSyntax.getSuperclassName());
 		else
-			//otherwise we take note of the top of the hierarchy
-			// of the reference types
+			// otherwise we take note of the top of the hierarchy of the reference types
 			setObjectType(this);
 	}
 
@@ -179,16 +166,14 @@ public class KittenClassType extends ClassType {
 	 */
 
 	public ErrorMsg getErrorMsg() {
-		return parser.getErrorMsg();
+		return errorMsg;
 	}
 
 	/**
 	 * Type-checks this class type, <i>i.e.</i>, its abstract syntax.
-	 *
-	 * @return this class type itself
 	 */
 
-	public KittenClassType typeCheck() {
+	public void typeCheck() {
 		// this check is just to avoid repeated error messages
 		if (!typeChecked) {
 			// we are going to type-check this class now
@@ -203,17 +188,14 @@ public class KittenClassType extends ClassType {
 			if (superclass != null && superclass instanceof KittenClassType)
 				((KittenClassType)superclass).typeCheck();
 		}
-
-		return this;
 	}
 
 	/**
 	 * Translates this class into intermediate Kitten code.
 	 * It is assumed that this class has been already type-checked.
 	 *
-	 * @return the set of <tt>ClassMemberSignature</tt>'s which are reachable
-	 *         from the empty constructor or the <tt>main</tt> method of the
-	 *         class compiled by Kitten, translated into Kitten code
+	 * @return the program reachable from the empty constructor or the main of
+	 *         this class, translated into Kitten code
 	 */
 
 	public Program translate() {

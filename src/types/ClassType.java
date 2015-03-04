@@ -2,6 +2,8 @@ package types;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import symbol.Symbol;
 import util.List;
@@ -14,512 +16,462 @@ import util.List;
 
 public abstract class ClassType extends ReferenceType {
 
-    /**
-     * The name of this class.
-     */
+	/**
+	 * The name of this class.
+	 */
 
-    private Symbol name;
+	private final Symbol name;
 
-    /**
-     * The superclass of this class, if any.
-     */
+	/**
+	 * The superclass of this class, if any.
+	 */
 
-    private ClassType superclass;
+	private ClassType superclass;
 
-    /**
-     * The direct subclasses of this class, if any.
-     */
+	/**
+	 * The direct subclasses of this class, if any.
+	 */
 
-    private List<ClassType> subclasses;
+	private final List<ClassType> subclasses;
 
-    /**
-     * The set of instances of this class. This is a cache for the method
-     * <tt>getInstances()</tt>.
-     */
+	/**
+	 * The set of instances of this class. This is a cache for {@link #getInstances()}.
+	 */
 
-    private List<ClassType> instances;
+	private List<ClassType> instances;
 
-    /**
-     * A map from field symbols to their signature.
-     */
+	/**
+	 * A map from field symbols to their signature.
+	 */
 
-    private HashMap<Symbol,FieldSignature> fields
-	= new HashMap<Symbol,FieldSignature>();
+	private final Map<Symbol, FieldSignature> fields = new HashMap<>();
 
-    /**
-     * The set of constructor signatures in this class.
-     */
+	/**
+	 * The set of constructor signatures in this class.
+	 */
 
-    private HashSet<ConstructorSignature> constructors
-	= new HashSet<ConstructorSignature>();
+	private Set<ConstructorSignature> constructors = new HashSet<>();
 
-    /**
-     * A map from method symbols to the set of signatures of the methods
-     * having that name. Because of overloading,
-     * more than one method might have a given name.
-     */
+	/**
+	 * A map from method symbols to the set of signatures of the methods with
+	 * that name. Because of overloading, more than one method might have a given name.
+	 */
 
-    private HashMap<Symbol,HashSet<MethodSignature>> methods
-	= new HashMap<Symbol,HashSet<MethodSignature>>();
+	private Map<Symbol, Set<MethodSignature>> methods = new HashMap<>();
 
-    /**
-     * Constructs a class type with the given name.
-     *
-     * @param name the name of the class
-     */
+	/**
+	 * Constructs a class type with the given name.
+	 *
+	 * @param name the name of the class
+	 */
 
-    protected ClassType(Symbol name) {
-	// we record its name
-	this.name = name;
+	protected ClassType(Symbol name) {
+		// we record its name
+		this.name = name;
 
-	// there are no subclasses at the moment
-	this.subclasses = new List<ClassType>();
-    }
-
-    /**
-     * Sets the superclass of this class type to the class type of
-     * name <tt>superclassName</tt>.
-     *
-     * @param superclassName the name of the superclass
-     */
-
-    protected void addSuperclass(Symbol superclassName) {
-	// we are a direct subclass of our superclass
-	(superclass = make(superclassName)).subclasses.addFirst(this);
-
-    }
-
-    /**
-     * Creates a class type with the given name.
-     *
-     * @param name the name of the class type
-     * @return the new class type with the given <tt>name</tt>
-     */
-
-    protected abstract ClassType make(Symbol name);
-
-    /**
-     * Yields the superclass of this class type, if any.
-     *
-     * @return the superclass of this class type.
-     */
-
-    public ClassType getSuperclass() {
-	return superclass;
-    }
-
-    /**
-     * Yields the direct subclasses of this class.
-     *
-     * @return the direct subclasses of this class, if any
-     */
-
-    public List<ClassType> getSubclasses() {
-	return subclasses;
-    }
-
-    /**
-     * Yields the name of this class.
-     */
-
-    public final Symbol getName() {
-	return name;
-    }
-
-    /**
-     * Yields a <tt>String</tt> representation of this class type, namely,
-     * its name.
-     *
-     * @return the name of this class type, as a <tt>String</tt> object
-     */
-
-    public String toString() {
-	return name.toString();
-    }
-
-    /**
-     * Determines whether this class type can be assigned to a given type.
-     * The latter must be a class type, and it must be a (non-necessarily
-     * strict) superclass of this class.
-     *
-     * @param other what this class should be assigned to
-     * @return true if the assignment is possible, false otherwise
-     */
-
-    public final boolean canBeAssignedTo(Type other) {
-	return other instanceof ClassType && this.subclass((ClassType)other);
-    }
-
-    /**
-     * Checks if this class is a (non-necessarily strict) subclass of another.
-     *
-     * @param other the other class
-     * @return true if this class is a (non-necessarily strict) subclass
-     *         of <tt>other</tt>, false otherwise
-     */
-
-    public boolean subclass(ClassType other) {
-	return this == other ||
-	    (superclass != null && superclass.subclass(other));
-    }
-
-   /**
-     * Computes the least common supertype of a given type and this class type.
-     * That is, a common supertype which is the least amongst all possible
-     * supertypes.
-     * <ul>
-     * <li> If <tt>other</tt> is an array type, then class
-     * type <tt>Object</tt> is returned;
-     * <li> Otherwise, if <tt>other</tt> is a class type then the least common
-     * superclass of this and <tt>other</tt> is returned;
-     * <li> Otherwise, if <tt>other</tt> is a <tt>NilType</tt> or an
-     * <tt>UnusedType</tt>, then <tt>this</tt> is returned;
-     * <li> Otherwise, <tt>null</tt> is returned.
-     * </ul>
-     *
-     * @param other the type whose least supertype with this class
-     *              type must be found
-     * @return the least common supertype of this class
-     *         type and <tt>other</tt>,
-     *         if it exists, <tt>null</tt> otherwise (for instance, there
-     *         is no least common supertype between <tt>int</tt> and
-     *         any class type)
-     */
-
-    public Type leastCommonSupertype(Type other) {
-	// between a class type and an array type, the least common
-	// supertype is Object
-	if (other instanceof ArrayType) return getObjectType();
-	else if (other instanceof ClassType) {
-	    // we look in our superclasses for a superclass of <tt>other</tt>
-	    for (ClassType cursor = this; cursor != null;
-		 cursor = cursor.getSuperclass())
-		if (other.canBeAssignedTo(cursor)) return cursor;
-
-	    // last chance, always valid
-	    return getObjectType();
+		// there are no subclasses at the moment
+		this.subclasses = new List<ClassType>();
 	}
-	// the supertype of a class type and <tt>null</tt> or an unused type
-	// is the class type
-	else if (other == Type.NIL || other == Type.UNUSED) return this;
-	// otherwise, there is no common supertype
-	else return null;
-    }
 
-    /**
-     * Yields the set of strict and non-strict, direct and indirect
-     * subclasses of this class.
-     *
-     * @return the set of strict and non-strict, direct and indirect
-     *         subclasses of this class. This list is never empty
-     *         since this class is always an instance of itself
-     */
+	/**
+	 * Sets the superclass of this class type to the class named {@code superclassName}.
+	 *
+	 * @param superclassName the name of the superclass
+	 */
 
-    public List<? extends ClassType> getInstances() {
-	// we first check to see if we already computed the set of instances
-	// of this class
-	if (instances != null) return instances;
+	protected void addSuperclass(Symbol superclassName) {
+		// we are a direct subclass of our superclass
+		(superclass = make(superclassName)).subclasses.addFirst(this);
+	}
 
-	// we add this class itself
-	List<ClassType> result = new List<ClassType>(this);
+	/**
+	 * Creates a class type with the given name.
+	 *
+	 * @param name the name of the class type
+	 * @return the class type
+	 */
 
-	// we add the instances of our subclasses
-	for (ClassType sub: subclasses) result.addAll(sub.getInstances());
+	protected abstract ClassType make(Symbol name);
 
-	// we take note of the set of instances, so that we do not recompute it
-	// next time
-	return instances = result;
-    }
+	/**
+	 * Yields the superclass of this class type, if any.
+	 *
+	 * @return the superclass of this class type.
+	 */
 
-    /**
-     * Adds a field to this class. If a field with the given name
-     * already existed, it is overwritten.
-     *
-     * @param name the name of the field
-     * @param sig the signature of the field
-     */
+	public ClassType getSuperclass() {
+		return superclass;
+	}
 
-    public void addField(Symbol name, FieldSignature sig) {
-    	fields.put(name,sig);
-    }
+	/**
+	 * Yields the direct subclasses of this class.
+	 *
+	 * @return the direct subclasses of this class, if any
+	 */
 
-    /**
-     * Adds a constructor to this class. If a constructor with the given
-     * signature already existed, it is overwritten.
-     *
-     * @param sig the signature of the constructor
-     */
+	public Iterable<ClassType> getSubclasses() {
+		return subclasses;
+	}
 
-    public final void addConstructor(ConstructorSignature sig) {
-	constructors.add(sig);
-    }
+	/**
+	 * Yields the name of this class.
+	 */
 
-    /**
-     * Adds a method to this class. If a method with the given name
-     * and signature already existed, it is overwritten.
-     *
-     * @param name the name of the method
-     * @param sig the signature of the method
-     */
+	public final Symbol getName() {
+		return name;
+	}
 
-    public final void addMethod(Symbol name, MethodSignature sig) {
-	// we read all methods, in this class, with the given name
-	HashSet<MethodSignature> set = methods.get(name);
-	if (set == null)
-	    methods.put(name,set = new HashSet<MethodSignature>());
+	@Override
+	public String toString() {
+		return name.toString();
+	}
 
-	// we add this new method
-	set.add(sig);
-    }
+	/**
+	 * Determines whether this class type can be assigned to a given type.
+	 * The latter must be a class type, and it must be a (non-necessarily
+	 * strict) superclass of this class.
+	 *
+	 * @param other what this class should be assigned to
+	 * @return true if the assignment is possible, false otherwise
+	 */
 
-    /**
-     * Yields the set of fields of this class.
-     *
-     * @return the set of <tt>FieldSignature</tt>'s of this class
-     */
+	@Override
+	public final boolean canBeAssignedTo(Type other) {
+		return other instanceof ClassType && this.subclass((ClassType) other);
+	}
 
-    public HashMap<Symbol,FieldSignature> getFields() {
-	return fields;
-    }
+	/**
+	 * Checks if this class is a (non-necessarily strict) subclass of another.
+	 *
+	 * @param other the other class
+	 * @return true if this class is a (non-necessarily strict) subclass
+	 *         of {@code other}, false otherwise
+	 */
 
-    /**
-     * Yields the set of constructors of this class.
-     *
-     * @return the set of <tt>ConstructorSignature</tt>'s of this class
-     */
+	public boolean subclass(ClassType other) {
+		return this == other || (superclass != null && superclass.subclass(other));
+	}
 
-    public HashSet<? extends ConstructorSignature> getConstructors() {
-	return constructors;
-    }
+	/**
+	 * Computes the least common supertype of a given type and this class type.
+	 * That is, a common supertype which is the least amongst all possible supertypes.
+	 * <ul>
+	 * <li> If {@code other} is an array type, then {@code Object} is returned;
+	 * <li> Otherwise, if {@code other} is a class type then the least common
+	 *      superclass of this and {@code other} is returned;
+	 * <li> Otherwise, if {@code other} is a {@code NilType} or an
+	 *      {@code UnusedType}, then {@code this} is returned;
+	 * <li> Otherwise, {@code null} is returned.
+	 * </ul>
+	 *
+	 * @param other the type whose least supertype with this class must be found
+	 * @return the least common supertype of this class and {@code other},
+	 *         if it exists, {@code null} otherwise (for instance, there
+	 *         is no least common supertype between {@code int} and any class type)
+	 */
 
-    /**
-     * Yields the set of methods of this class.
-     *
-     * @return the set of <tt>MethodSignature</tt>'s of this class
-     */
+	@Override
+	public Type leastCommonSupertype(Type other) {
+		// between a class type and an array type, the least common supertype is Object
+		if (other instanceof ArrayType)
+			return getObjectType();
+		else if (other instanceof ClassType) {
+			// we look in our superclasses for a superclass of other
+			for (ClassType cursor = this; cursor != null; cursor = cursor.getSuperclass())
+				if (other.canBeAssignedTo(cursor))
+					return cursor;
 
-    public HashMap<Symbol,HashSet<MethodSignature>> getMethods() {
-	return methods;
-    }
-
-    /**
-     * Looks up from this class for the signature of the field
-     * with the given name, if any.
-     *
-     * @param name the name of the field to look up for
-     * @return the signature of the field, as defined in this class or
-     *         in one of its superclasses. Returns <tt>null</tt> if no
-     *         such field has been found
-     */
-
-    public final FieldSignature fieldLookup(Symbol name) {
-	FieldSignature result;
-
-	// we first look in this signature
-	if ((result = fields.get(name)) != null) return result;
-
-	// otherwise we look in the signature of the superclass
-	if (superclass == null) return null;
-	else return superclass.fieldLookup(name);
-    }
-
-    /**
-     * Looks up in this class for the signatures of all
-     * constructors with parameters types compatible with those
-     * provided, if any. It is guaranteed that in the resulting set no
-     * constructor signature is more specific than another, that is, they are
-     * not comparable.
-     *
-     * @param formals the types the formal parameters of the constructors
-     *                should be more general of
-     * @return the signatures of the resulting constructors.
-     *         Returns an empty set if no constructor has been found
-     */
-
-    public final HashSet<ConstructorSignature> constructorsLookup
-	(TypeList formals) {
-
-	// we return the most specific constructors amongst those
-	// available for this class and whose formal parameters are
-	// compatible with <tt>formals</tt>
-	return mostSpecific(constructors,formals);
-    }
-
-    /**
-     * Looks up in this class for the signature of the constructor
-     * with exactly the given parameters types, if any.
-     *
-     * @param formals the types of the formal parameters of the constructor
-     * @return the signature of the constructor, as defined in this class.
-     *         Returns <tt>null</tt> if no such constructor has been found
-     */
-
-    public ConstructorSignature constructorLookup(TypeList formals) {
-	// we check all constructors in this class signature
-	for (ConstructorSignature constructor: constructors)
-	    // we check if they have the same parameters types
-	    if (constructor.getParameters().equals(formals))
-		// found!
-		return constructor;
-
-	// otherwise, we return <tt>null</tt>
-	return null;
-    }
-
-    /**
-     * Looks up from this class for the signature of the method
-     * with exactly the given name and parameters types, if any.
-     *
-     * @param name the name of the method to look up for
-     * @param formals the types of the formal parameters of the method
-     * @return the signature of the method, as defined in this class or
-     *         in one of its superclasses. Returns <tt>null</tt> if no
-     *         such method has been found
-     */
-
-    public final MethodSignature methodLookup(Symbol name, TypeList formals) {
-	// we check all methods in this signature having the given name
-	HashSet<MethodSignature> candidates = methods.get(name);
-	if (candidates != null)
-	    for (MethodSignature method: candidates)
-		// we check if they have the same parameters types
-		if (method.getParameters().equals(formals))
-		    // found!
-		    return method;
-
-	// otherwise, we look up in the superclass, if any
-	if (superclass == null) return null;
-	else return superclass.methodLookup(name,formals);
-    }
-
-    /**
-     * Looks up from this class for the signatures of all methods
-     * with the given name and parameters types compatible with those
-     * provided, if any. It is guaranteed that in the resulting set no
-     * method signature is more specific than another, that is, they are
-     * not comparable.
-     *
-     * @param name the name of the method to look up for
-     * @param formals the types the formal parameters of the methods
-     *                should be more general of
-     * @return the signatures of the resulting methods.
-     *         Returns an empty set if no method has been found
-     */
-
-    public final HashSet<MethodSignature> methodsLookup
-	(Symbol name, TypeList formals) {
-
-	// the set of candidates is initially the set of all methods
-	// called <tt>name</tt> and defined in this class
-	HashSet<MethodSignature> candidates = methods.get(name);
-	if (candidates == null) candidates = new HashSet<MethodSignature>();
-
-	if (superclass != null) {
-	    // if this class extends another class, we consider all possible
-	    // candidate targets in the superclass, so that we allow method
-	    // inheritance
-	    HashSet<MethodSignature> superCandidates
-		= superclass.methodsLookup(name,formals);
-
-	    // we remove from the inherited candidates those which are
-	    // redefined in this class, in order to model method overriding
-	    HashSet<MethodSignature> toBeRemoved
-		= new HashSet<MethodSignature>();
-
-	    TypeList sigFormals, sig2Formals;
-	    for (MethodSignature sig: superCandidates) {
-		sigFormals = sig.getParameters();
-
-		for (MethodSignature sig2: candidates) {
-		    sig2Formals = sig2.getParameters();
-
-		    if (sigFormals.equals(sig2Formals)) toBeRemoved.add(sig);
+			// last chance, always valid
+			return getObjectType();
 		}
-	    }
-
-	    superCandidates.removeAll(toBeRemoved);
-
-	    // we add the inherited and not overridden candidates
-	    candidates.addAll(superCandidates);
+		// the supertype of a class type and null or an unused type is the class itself
+		else if (other == Type.NIL || other == Type.UNUSED)
+			return this;
+		// otherwise, there is no common supertype
+		else
+			return null;
 	}
 
-	// we return the most specific methods amongst those called
-	// <tt>name</tt> and whose formal parameters are
-	// compatible with <tt>formals</tt>
-	return mostSpecific(candidates,formals);
-    }
+	/**
+	 * Yields the set of strict and non-strict, direct and indirect
+	 * subclasses of this class.
+	 *
+	 * @return the set of strict and non-strict, direct and indirect
+	 *         subclasses of this class. This list is never empty
+	 *         since this class is always an instance of itself
+	 */
 
-    /**
-     * Yields the subset of a set of code signatures whose parameters
-     * are compatible with those provided and such that no two signatures in
-     * the subset are one more general than the other.
-     *
-     * @param sigs the original set of code signatures
-     * @param formals the parameters which are used to select the signatures
-     * @return the subset of <tt>sigs</tt> whose parameters
-     *         are compatible with <tt>formals</tt> and such that no two
-     *         signatures in this subset are one more general than the other
-     */
+	public final List<ClassType> getInstances() {
+		// we first check to see if we already computed the set of instances of this class
+		if (instances != null)
+			return instances;
 
-    private static <T extends CodeSignature> HashSet<T> mostSpecific
-	(HashSet<T> sigs, TypeList formals) {
+		// we add this class itself
+		List<ClassType> result = new List<ClassType>(this);
 
-	HashSet<T> result = new HashSet<T>();
-	HashSet<T> toBeRemoved = new HashSet<T>();
+		// we add the instances of our subclasses
+		for (ClassType sub: subclasses)
+			result.addAll(sub.getInstances());
 
-	// we scan all codes of this class
-	for (T sig: sigs)
-	    // if the parameters of <tt>sig</tt> are compatible with
-	    // <tt>formals</tt>, we add it to the set of candidates
-	    if (formals.canBeAssignedTo(sig.getParameters())) result.add(sig);
+		// we take note of the set of instances, so that we do not recompute it next time
+		return instances = result;
+	}
 
-	// we remove a candidate if it is less general than another
-	for (T sig: result)
-	    for (T sig2: result)
-		if (sig != sig2 &&
-		    sig.getParameters().canBeAssignedTo(sig2.getParameters()))
-		    toBeRemoved.add(sig2);
+	/**
+	 * Adds a field to this class. If a field with the given name
+	 * already existed, it is overwritten.
+	 *
+	 * @param name the name of the field
+	 * @param sig the signature of the field
+	 */
 
-	result.removeAll(toBeRemoved);
+	public void addField(Symbol name, FieldSignature sig) {
+		fields.put(name,sig);
+	}
 
-	return result;
-    }
+	/**
+	 * Adds a constructor to this class. If a constructor with the given
+	 * signature already existed, it is overwritten.
+	 *
+	 * @param sig the signature of the constructor
+	 */
 
-    /**
-     * Translates a Kitten type into its BCEL equivalent. It generates an
-     * <tt>org.apache.bcel.generic.ObjectType</tt> for the name of this class.
-     * For <tt>String</tt>, it generates one for <tt>runTime.String</tt>.
-     *
-     * @return the BCEL type corresponding to this Kitten type
-     */
+	public final void addConstructor(ConstructorSignature sig) {
+		constructors.add(sig);
+	}
 
-    public final org.apache.bcel.generic.Type toBCEL() {
-	// we transform "String" into "runTime.String"
-	if (name == Symbol.STRING)
-	    return new org.apache.bcel.generic.ObjectType("runTime.String");
-	else
-	    return new org.apache.bcel.generic.ObjectType(name.toString());
-    }
+	/**
+	 * Adds a method to this class. If a method with the given name
+	 * and signature already existed, it is overwritten.
+	 *
+	 * @param name the name of the method
+	 * @param sig the signature of the method
+	 */
 
-   /**
-     * Yields a <tt>String</tt> which describes the <i>structure</i>
-     * of this class, such as its superclass, subclasses, field, constructors
-     * and methods.
-     *
-     * @return a <tt>String</tt> providing name, superclass and subclasses
-     *         of this class, as well as its fields, constructors and methods
-     */
+	public final void addMethod(Symbol name, MethodSignature sig) {
+		// we read all methods, in this class, with the given name
+		Set<MethodSignature> set = methods.get(name);
+		if (set == null)
+			methods.put(name, set = new HashSet<>());
 
-    public String structure() {
-	String result = "class " + name + "\n" +
-	    "  fields: " + fields.values() + "\n" +
-	    "  constructors: " + constructors + "\n" +
-	    "  methods: ";
+		// we add this new method
+		set.add(sig);
+	}
 
-	// we merge the set of methods
-	HashSet<MethodSignature> union = new HashSet<MethodSignature>();
-	for (HashSet<MethodSignature> ms: methods.values()) union.addAll(ms);
+	/**
+	 * Yields the fields of this class.
+	 *
+	 * @return the fields
+	 */
 
-	return result + union;
-    }
+	public Map<Symbol, FieldSignature> getFields() {
+		return fields;
+	}
+
+	/**
+	 * Yields the constructors of this class.
+	 *
+	 * @return the constructors
+	 */
+
+	public Set<ConstructorSignature> getConstructors() {
+		return constructors;
+	}
+
+	/**
+	 * Yields the methods of this class.
+	 *
+	 * @return the methods
+	 */
+
+	public Map<Symbol, Set<MethodSignature>> getMethods() {
+		return methods;
+	}
+
+	/**
+	 * Looks up from this class for the signature of the field
+	 * with the given name, if any.
+	 *
+	 * @param name the name of the field to look up for
+	 * @return the signature of the field, as defined in this class or
+	 *         in one of its superclasses. Yields {@code null} if no
+	 *         such field has been found
+	 */
+
+	public final FieldSignature fieldLookup(Symbol name) {
+		FieldSignature result;
+
+		// we first look in this signature
+		if ((result = fields.get(name)) != null)
+			return result;
+
+		// otherwise we look in the signature of the superclass
+		return superclass == null ? null : superclass.fieldLookup(name);
+	}
+
+	/**
+	 * Looks up in this class for the signatures of all constructors
+	 * with parameters types compatible with those provided, if any.
+	 * It is guaranteed that in the resulting set no constructor signature
+	 * is more specific than another, that is, they are not comparable.
+	 *
+	 * @param formals the types the formal parameters of the constructors
+	 *                should be more general of
+	 * @return the signatures of the resulting constructors.
+	 *         Returns an empty set if no constructor has been found
+	 */
+
+	public final Set<ConstructorSignature> constructorsLookup(TypeList formals) {
+		// we return the most specific constructors amongst those available
+		// for this class and whose formal parameters are compatible with formals
+		return mostSpecific(constructors, formals);
+	}
+
+	/**
+	 * Looks up in this class for the signature of the constructor
+	 * with exactly the given parameters types, if any.
+	 *
+	 * @param formals the types of the formal parameters of the constructor
+	 * @return the signature of the constructor, as defined in this class.
+	 *         Yields {@code null} if no such constructor has been found
+	 */
+
+	public ConstructorSignature constructorLookup(TypeList formals) {
+		// we check all constructors in this class signature
+		for (ConstructorSignature constructor: constructors)
+			// we check if they have the same parameters types
+			if (constructor.getParameters().equals(formals))
+				// found!
+				return constructor;
+
+		// otherwise, we return <tt>null</tt>
+		return null;
+	}
+
+	/**
+	 * Looks up from this class for the signature of the method
+	 * with exactly the given name and parameters types, if any.
+	 *
+	 * @param name the name of the method to look up for
+	 * @param formals the types of the formal parameters of the method
+	 * @return the signature of the method, as defined in this class or
+	 *         in one of its superclasses. Yields {@code null} if no
+	 *         such method has been found
+	 */
+
+	public final MethodSignature methodLookup(Symbol name, TypeList formals) {
+		// we check all methods in this signature having the given name
+		Set<MethodSignature> candidates = methods.get(name);
+		if (candidates != null)
+			for (MethodSignature method: candidates)
+				// we check if they have the same parameters types
+				if (method.getParameters().equals(formals))
+					// found!
+					return method;
+
+		// otherwise, we look up in the superclass, if any
+		return superclass == null ? null : superclass.methodLookup(name, formals);
+	}
+
+	/**
+	 * Looks up from this class for the signatures of all methods
+	 * with the given name and parameters types compatible with those
+	 * provided, if any. It is guaranteed that in the resulting set no
+	 * method signature is more specific than another, that is, they are
+	 * not comparable.
+	 *
+	 * @param name the name of the method to look up for
+	 * @param formals the types the formal parameters of the methods
+	 *                should be more general of
+	 * @return the signatures of the resulting methods.
+	 *         Returns an empty set if no method has been found
+	 */
+
+	public final Set<MethodSignature> methodsLookup(Symbol name, TypeList formals) {
+		// the set of candidates is initially the set of all methods
+		// called name and defined in this class
+		Set<MethodSignature> candidates = methods.get(name);
+		if (candidates == null) candidates = new HashSet<>();
+
+		if (superclass != null) {
+			// if this class extends another class, we consider all possible
+			// candidate targets in the superclass, so that we allow method inheritance
+			Set<MethodSignature> superCandidates = superclass.methodsLookup(name,formals);
+
+			// we remove from the inherited candidates those which are
+			// redefined in this class, in order to model method overriding
+			Set<MethodSignature> toBeRemoved = new HashSet<>();
+
+			TypeList sigFormals, sig2Formals;
+			for (MethodSignature sig: superCandidates) {
+				sigFormals = sig.getParameters();
+
+				for (MethodSignature sig2: candidates) {
+					sig2Formals = sig2.getParameters();
+
+					if (sigFormals.equals(sig2Formals))
+						toBeRemoved.add(sig);
+				}
+			}
+
+			superCandidates.removeAll(toBeRemoved);
+
+			// we add the inherited and not overridden candidates
+			candidates.addAll(superCandidates);
+		}
+
+		// we return the most specific methods amongst those called name
+		// and whose formal parameters are compatible with formals
+		return mostSpecific(candidates, formals);
+	}
+
+	/**
+	 * Yields the subset of a set of code signatures whose parameters
+	 * are compatible with those provided and such that no two signatures in
+	 * the subset are one more general than the other.
+	 *
+	 * @param sigs the original set of code signatures
+	 * @param formals the parameters which are used to select the signatures
+	 * @return the subset of {@code sigs} whose parameters
+	 *         are compatible with {@code formals} and such that no two
+	 *         signatures in this subset are one more general than the other
+	 */
+
+	private static <T extends CodeSignature> Set<T> mostSpecific(Set<T> sigs, TypeList formals) {
+		Set<T> result = new HashSet<>();
+		Set<T> toBeRemoved = new HashSet<>();
+
+		// we scan all codes of this class
+		for (T sig: sigs)
+			// if the parameters of <tt>sig</tt> are compatible with
+			// <tt>formals</tt>, we add it to the set of candidates
+			if (formals.canBeAssignedTo(sig.getParameters())) result.add(sig);
+
+		// we remove a candidate if it is less general than another
+		for (T sig: result)
+			for (T sig2: result)
+				if (sig != sig2 && sig.getParameters().canBeAssignedTo(sig2.getParameters()))
+					toBeRemoved.add(sig2);
+
+		result.removeAll(toBeRemoved);
+
+		return result;
+	}
+
+	/**
+	 * Translates a Kitten type into its BCEL equivalent. It generates an
+	 * {@code org.apache.bcel.generic.ObjectType} for the name of this class.
+	 * For {@code String}, it generates one for {@code runTime.String}.
+	 *
+	 * @return the BCEL type corresponding to this Kitten type
+	 */
+
+	@Override
+	public final org.apache.bcel.generic.Type toBCEL() {
+		// we transform "String" into "runTime.String"
+		if (name == Symbol.STRING)
+			return new org.apache.bcel.generic.ObjectType(runTime.String.class.getName());
+		else
+			return new org.apache.bcel.generic.ObjectType(name.toString());
+	}
 }
