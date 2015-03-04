@@ -128,7 +128,7 @@ public class IfThenElse extends Command {
      * @return the type-checker <tt>checker</tt>
      */
 
-    protected TypeChecker typeCheck$0(TypeChecker checker) {
+    protected TypeChecker typeCheckAux(TypeChecker checker) {
 	condition.mustBeBoolean(checker);
 	then.typeCheck(checker);
 	_else.typeCheck(checker);

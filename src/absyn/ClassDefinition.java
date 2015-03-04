@@ -16,7 +16,7 @@ import types.TypeList;
 /**
  * The abstract syntax of the definition of a Kitten class.
  *
- * @author  <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
+ * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
 public class ClassDefinition extends Absyn {

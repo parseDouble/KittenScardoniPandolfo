@@ -70,7 +70,7 @@ public class CommandSeq extends Command {
      *         second command
      */
 
-    protected TypeChecker typeCheck$0(TypeChecker checker) {
+    protected TypeChecker typeCheckAux(TypeChecker checker) {
 	return second.typeCheck(first.typeCheck(checker));
     }
 

@@ -92,7 +92,7 @@ public class Assignment extends Command {
      */
 
     @Override
-    protected TypeChecker typeCheck$0(TypeChecker checker) {
+    protected TypeChecker typeCheckAux(TypeChecker checker) {
     	// we type-check the left-hand side
     	Type left = lvalue.typeCheck(checker);
 

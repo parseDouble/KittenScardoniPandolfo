@@ -28,8 +28,7 @@ public abstract class BinOp extends Expression {
 	private final Expression right;
 
 	/**
-	 * Constructs the abstract syntax of a binary operation between two
-	 * expressions.
+	 * Constructs the abstract syntax of a binary operation between two expressions.
 	 *
 	 * @param pos the position in the source file where it starts
 	 *            the concrete syntax represented by this abstract syntax

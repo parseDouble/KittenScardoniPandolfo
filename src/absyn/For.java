@@ -93,7 +93,7 @@ public class For extends Command {
      * @return the type-checker <tt>checker</tt>
      */
 
-    protected TypeChecker typeCheck$0(TypeChecker checker) {
+    protected TypeChecker typeCheckAux(TypeChecker checker) {
 	// we consider the type-checker resulting from type-checking
 	// the <tt>initialisation</tt> component. By using this
 	// new type-checker in the following checks, we allow local variables

@@ -121,7 +121,7 @@ public class LocalDeclaration extends Command {
      *         <tt>name</tt> is bound to <tt>type</tt>
      */
 
-    protected TypeChecker typeCheck$0(TypeChecker checker) {
+    protected TypeChecker typeCheckAux(TypeChecker checker) {
 	// we type check the declared type of the variable
 	Type left = type.typeCheck();
 

@@ -80,7 +80,7 @@ public class Return extends Command {
      * @return the type-checker <tt>checker</tt>
      */
 
-    protected TypeChecker typeCheck$0(TypeChecker checker) {
+    protected TypeChecker typeCheckAux(TypeChecker checker) {
 	// we get from the type-checker the expected type
 	// for the <tt>return</tt> instructions
 	Type expectedReturnType = checker.getReturnType();

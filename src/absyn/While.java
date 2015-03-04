@@ -91,7 +91,7 @@ public class While extends Command {
      * @return the type-checker <tt>checker</tt>
      */
 
-    protected TypeChecker typeCheck$0(TypeChecker checker) {
+    protected TypeChecker typeCheckAux(TypeChecker checker) {
 	// the condition of the loop must be a Boolean expression
 	condition.mustBeBoolean(checker);
 

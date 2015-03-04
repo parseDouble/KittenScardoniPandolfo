@@ -156,7 +156,7 @@ public class MethodCallCommand extends Command {
      * @return the type-checker <tt>checker</tt>
      */
 
-    protected TypeChecker typeCheck$0(TypeChecker checker) {
+    protected TypeChecker typeCheckAux(TypeChecker checker) {
 	Type receiverType = receiver.typeCheck(checker);
 	TypeList actualsTypes = actuals != null ?
 	    actuals.typeCheck(checker) : TypeList.EMPTY;

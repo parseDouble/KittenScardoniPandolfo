@@ -99,18 +99,17 @@ public abstract class Command extends Absyn {
     public final TypeChecker typeCheck(TypeChecker checker) {
 	// we perform the command-specific type-checking and record
 	// the resulting type-checker
-	return this.checker = checker = typeCheck$0(this.checker = checker);
+	return this.checker = checker = typeCheckAux(this.checker = checker);
     }
 
     /**
-     * Performs the type-checking of this command by using a given
-     * type-checker.
+     * Performs the type-checking of this command by using a given type-checker.
      *
      * @param checker the type-checker to be used for type-checking
      * @return the type-checker resulting from the type-checking of the command
      */
 
-    protected abstract TypeChecker typeCheck$0(TypeChecker checker);
+    protected abstract TypeChecker typeCheckAux(TypeChecker checker);
 
     /**
      * Checks that this command does not contain <i>dead-code</i>, that is,
