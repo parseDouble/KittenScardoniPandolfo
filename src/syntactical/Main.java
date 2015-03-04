@@ -1,11 +1,10 @@
 package syntactical;
 
-import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 
 import java_cup.runtime.Symbol;
 import lexical.Lexer;
-import syntactical.Parser;
 import absyn.ClassDefinition;
 
 public class Main {
@@ -22,10 +21,10 @@ public class Main {
 
 				ClassDefinition absyn = (ClassDefinition) symbol.value;
 				if (absyn != null) {
-					int index = fileName.lastIndexOf(File.separatorChar);
-					String dir = index > 0 ? fileName.substring(0, index) : "";
-					absyn.dumpDot(dir);
 					String dotName = fileName.substring(0, fileName.length() - ".kit".length()) + ".dot";
+					try (FileWriter file = new FileWriter(dotName)) {
+						absyn.toDot(file);
+					}
 					System.out.println("Abstract syntax saved into " + dotName);
 				}
 				else
