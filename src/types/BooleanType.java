@@ -1,9 +1,9 @@
 package types;
 
 /**
- * The Boolean type of the Kitten language.
+ * The {@code boolean} type of the Kitten language.
  *
- * @author  <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
+ * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
 public class BooleanType extends PrimitiveType {

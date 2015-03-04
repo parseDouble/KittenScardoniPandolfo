@@ -4,193 +4,201 @@ import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.InstructionHandle;
 
 /**
- * The float type of the Kitten language.
+ * The {@code float} type of the Kitten language.
  *
  * @author  <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
 public class FloatType extends NumericalType {
 
-    /**
-     * Builds a float type. This constructor is protected, so that the only
-     * float type object is the constant in <tt>Types.Type</tt>.
-     */
+	/**
+	 * Builds a float type. This constructor is protected, so that the only
+	 * float type object is the constant in {@code Types.Type}.
+	 */
 
-    protected FloatType() {}
+	protected FloatType() {}
 
-    /**
-     * Yields a <tt>String</tt> representation of this type.
-     *
-     * @return the <tt>String</tt> <tt>float</tt>
-     */
+	@Override
+	public String toString() {
+		return "float";
+	}
 
-    public String toString() {
-	return "float";
-    }
+	/**
+	 * Determines if this type can be assigned to {@code other}.
+	 * This is only true if {@code other} is a {@code float}.
+	 *
+	 * @param other the other type
+	 * @return true if and only if {@code other} is {@code float}
+	 */
 
-    /**
-     * Determines if this type can be assigned to <tt>other</tt>.
-     * This is only true if <tt>other</tt> is a <tt>float</tt>.
-     *
-     * @param other the other type
-     * @return true if and only if <tt>other</tt> is <tt>float</tt>
-     */
+	@Override
+	public boolean canBeAssignedTo(Type other) {
+		// a float can only be assigned to another float
+		return this == other;
+	}
 
-    public boolean canBeAssignedTo(Type other) {
-	// a float can only be assigned to another float
-	return this == other;
-    }
+	@Override
+	public org.apache.bcel.generic.Type toBCEL() {
+		return org.apache.bcel.generic.Type.FLOAT;
+	}
 
-    public org.apache.bcel.generic.Type toBCEL() {
-	return org.apache.bcel.generic.Type.FLOAT;
-    }
+	/**
+	 * Adds to {@code il} the Java bytecodes that go to {@code yes}
+	 * if the the top two elements of the stack are equal.
+	 * In this case, it adds an {@code fcmpl} Java bytecode followed
+	 * by an {@code ifeq} Java bytecode.
+	 *
+	 * @param il the list of instructions that must be expanded
+	 * @param yes to place where to jump
+	 */
 
-    /**
-     * Adds to <tt>il</tt> the Java bytecodes which go to <tt>yes</tt>
-     * if the the top two elements of the stack are equal.
-     * In this case, it adds an <tt>fcmpl</tt> Java bytecode followed
-     * by an <tt>ifeq</tt> Java bytecode.
-     *
-     * @param il the list of instructions which must be expanded
-     * @param yes to place where to jump
-     */
+	@Override
+	public void JB_if_cmpeq(InstructionList il, InstructionHandle yes) {
+		il.append(new org.apache.bcel.generic.FCMPL());
+		il.append(new org.apache.bcel.generic.IFEQ(yes));
+	}
 
-    public void JB_if_cmpeq(InstructionList il, InstructionHandle yes) {
-	il.append(new org.apache.bcel.generic.FCMPL());
-	il.append(new org.apache.bcel.generic.IFEQ(yes));
-    }
+	/**
+	 * Adds to {@code il} the Java bytecodes that go to {@code yes}
+	 * if the the top two elements of the stack are not equal.
+	 * In this case, it adds an {@code fcmpl} Java bytecode followed
+	 * by an {@code ifne} Java bytecode.
+	 *
+	 * @param il the list of instructions that must be expanded
+	 * @param yes to place where to jump
+	 */
 
-    /**
-     * Adds to <tt>il</tt> the Java bytecodes which go to <tt>yes</tt>
-     * if the the top two elements of the stack are not equal.
-     * In this case, it adds an <tt>fcmpl</tt> Java bytecode followed
-     * by an <tt>ifne</tt> Java bytecode.
-     *
-     * @param il the list of instructions which must be expanded
-     * @param yes to place where to jump
-     */
+	@Override
+	public void JB_if_cmpne(InstructionList il, InstructionHandle yes) {
+		il.append(new org.apache.bcel.generic.FCMPL());
+		il.append(new org.apache.bcel.generic.IFNE(yes));
+	}
 
-    public void JB_if_cmpne(InstructionList il, InstructionHandle yes) {
-	il.append(new org.apache.bcel.generic.FCMPL());
-	il.append(new org.apache.bcel.generic.IFNE(yes));
-    }
+	/**
+	 * Adds to {@code il} the Java bytecodes which go to {@code yes}
+	 * if the element under the top of the stack is less than the element
+	 * at the top of the stack.
+	 * In this case, it adds an {@code fcmpl} Java bytecode followed
+	 * by an {@code iflt} Java bytecode.
+	 *
+	 * @param il the list of instructions which must be expanded
+	 * @param yes to place where to jump
+	 */
 
-    /**
-     * Adds to <tt>il</tt> the Java bytecodes which go to <tt>yes</tt>
-     * if the element under the top of the stack is less than the element
-     * at the top of the stack.
-     * In this case, it adds an <tt>fcmpl</tt> Java bytecode followed
-     * by an <tt>iflt</tt> Java bytecode.
-     *
-     * @param il the list of instructions which must be expanded
-     * @param yes to place where to jump
-     */
+	@Override
+	public void JB_if_cmplt(InstructionList il, InstructionHandle yes) {
+		il.append(new org.apache.bcel.generic.FCMPL());
+		il.append(new org.apache.bcel.generic.IFLT(yes));
+	}
 
-    public void JB_if_cmplt(InstructionList il, InstructionHandle yes) {
-	il.append(new org.apache.bcel.generic.FCMPL());
-	il.append(new org.apache.bcel.generic.IFLT(yes));
-    }
+	/**
+	 * Adds to {@code il} the Java bytecodes that go to {@code yes}
+	 * if the element under the top of the stack is greater than the element
+	 * at the top of the stack.
+	 * In this case, it adds an {@code fcmpl} Java bytecode followed
+	 * by an {@code ifgt} Java bytecode.
+	 *
+	 * @param il the list of instructions that must be expanded
+	 * @param yes to place where to jump
+	 */
 
-    /**
-     * Adds to <tt>il</tt> the Java bytecodes which go to <tt>yes</tt>
-     * if the element under the top of the stack is greater than the element
-     * at the top of the stack.
-     * In this case, it adds an <tt>fcmpl</tt> Java bytecode followed
-     * by an <tt>ifgt</tt> Java bytecode.
-     *
-     * @param il the list of instructions which must be expanded
-     * @param yes to place where to jump
-     */
+	@Override
+	public void JB_if_cmpgt(InstructionList il, InstructionHandle yes) {
+		il.append(new org.apache.bcel.generic.FCMPL());
+		il.append(new org.apache.bcel.generic.IFGT(yes));
+	}
 
-    public void JB_if_cmpgt(InstructionList il, InstructionHandle yes) {
-	il.append(new org.apache.bcel.generic.FCMPL());
-	il.append(new org.apache.bcel.generic.IFGT(yes));
-    }
+	/**
+	 * Adds to {@code il} the Java bytecodes that go to {@code yes}
+	 * if the element under the top of the stack is less than or equal to
+	 * the element at the top of the stack.
+	 * In this case, it adds an {@code fcmpl} Java bytecode followed
+	 * by an {@code ifle} Java bytecode.
+	 *
+	 * @param il the list of instructions which must be expanded
+	 * @param yes to place where to jump
+	 */
 
-    /**
-     * Adds to <tt>il</tt> the Java bytecodes which go to <tt>yes</tt>
-     * if the element under the top of the stack is less than or equal to
-     * the element at the top of the stack.
-     * In this case, it adds an <tt>fcmpl</tt> Java bytecode followed
-     * by an <tt>ifle</tt> Java bytecode.
-     *
-     * @param il the list of instructions which must be expanded
-     * @param yes to place where to jump
-     */
+	@Override
+	public void JB_if_cmple(InstructionList il, InstructionHandle yes) {
+		il.append(new org.apache.bcel.generic.FCMPL());
+		il.append(new org.apache.bcel.generic.IFLE(yes));
+	}
 
-    public void JB_if_cmple(InstructionList il, InstructionHandle yes) {
-	il.append(new org.apache.bcel.generic.FCMPL());
-	il.append(new org.apache.bcel.generic.IFLE(yes));
-    }
+	/**
+	 * Adds to {@code il} the Java bytecodes that go to {@code yes}
+	 * if the element under the top of the stack is greater than or equal to
+	 * the element at the top of the stack.
+	 * In this case, it adds an {@code fcmpl} Java bytecode followed
+	 * by an {@code ifge} Java bytecode.
+	 *
+	 * @param il the list of instructions that must be expanded
+	 * @param yes to place where to jump
+	 */
 
-    /**
-     * Adds to <tt>il</tt> the Java bytecodes which go to <tt>yes</tt>
-     * if the element under the top of the stack is greater than or equal to
-     * the element at the top of the stack.
-     * In this case, it adds an <tt>fcmpl</tt> Java bytecode followed
-     * by an <tt>ifge</tt> Java bytecode.
-     *
-     * @param il the list of instructions which must be expanded
-     * @param yes to place where to jump
-     */
+	@Override
+	public void JB_if_cmpge(InstructionList il, InstructionHandle yes) {
+		il.append(new org.apache.bcel.generic.FCMPL());
+		il.append(new org.apache.bcel.generic.IFGE(yes));
+	}
 
-    public void JB_if_cmpge(InstructionList il, InstructionHandle yes) {
-	il.append(new org.apache.bcel.generic.FCMPL());
-	il.append(new org.apache.bcel.generic.IFGE(yes));
-    }
+	/**
+	 * Adds to {@code il} the Java bytecodes that add two values of this
+	 * type, namely an {@code fadd} bytecode.
+	 *
+	 * @param il the list of instructions that must be expanded
+	 */
 
-    /**
-     * Adds to <tt>il</tt> the Java bytecodes which add two values of this
-     * type, namely an <tt>fadd</tt> bytecode.
-     *
-     * @param il the list of instructions which must be expanded
-     */
+	@Override
+	public void add(InstructionList il) {
+		il.append(new org.apache.bcel.generic.FADD());
+	}
 
-    public void add(InstructionList il) {
-	il.append(new org.apache.bcel.generic.FADD());
-    }
+	/**
+	 * Adds to {@code il} the Java bytecodes that multiply two values of this
+	 * type, namely an {@code fmul} bytecode.
+	 *
+	 * @param il the list of instructions that must be expanded
+	 */
 
-    /**
-     * Adds to <tt>il</tt> the Java bytecodes which multiply two values of this
-     * type, namely an <tt>fmul</tt> bytecode.
-     *
-     * @param il the list of instructions which must be expanded
-     */
+	@Override
+	public void mul(InstructionList il) {
+		il.append(new org.apache.bcel.generic.FMUL());
+	}
 
-    public void mul(InstructionList il) {
-	il.append(new org.apache.bcel.generic.FMUL());
-    }
+	/**
+	 * Adds to {@code il} the Java bytecodes that divide two values of this
+	 * type, namely an {@code fdiv} bytecode.
+	 *
+	 * @param il the list of instructions that must be expanded
+	 */
 
-    /**
-     * Adds to <tt>il</tt> the Java bytecodes which divide two values of this
-     * type, namely an <tt>fdiv</tt> bytecode.
-     *
-     * @param il the list of instructions which must be expanded
-     */
+	@Override
+	public void div(InstructionList il) {
+		il.append(new org.apache.bcel.generic.FDIV());
+	}
 
-    public void div(InstructionList il) {
-	il.append(new org.apache.bcel.generic.FDIV());
-    }
+	/**
+	 * Adds to {@code il} the Java bytecodes that subtract two values of this
+	 * type, namely an {@code fsub} bytecode.
+	 *
+	 * @param il the list of instructions which must be expanded
+	 */
 
-    /**
-     * Adds to <tt>il</tt> the Java bytecodes which subtract two values of this
-     * type, namely an <tt>fsub</tt> bytecode.
-     *
-     * @param il the list of instructions which must be expanded
-     */
+	@Override
+	public void sub(InstructionList il) {
+		il.append(new org.apache.bcel.generic.FSUB());
+	}
 
-    public void sub(InstructionList il) {
-	il.append(new org.apache.bcel.generic.FSUB());
-    }
+	/**
+	 * Adds to {@code il} the Java bytecodes that negate a value of this
+	 * type, namely, an {@code fneg} Java bytecode.
+	 *
+	 * @param il the list of instructions that must be expanded
+	 */
 
-    /**
-     * Adds to <tt>il</tt> the Java bytecodes which negate a value of this
-     * type, namely, an <tt>fneg</tt> Java bytecode.
-     *
-     * @param il the list of instructions which must be expanded
-     */
-
-    public void neg(InstructionList il) {
-	il.insert(new org.apache.bcel.generic.FNEG());
-    }
+	@Override
+	public void neg(InstructionList il) {
+		il.insert(new org.apache.bcel.generic.FNEG());
+	}
 }

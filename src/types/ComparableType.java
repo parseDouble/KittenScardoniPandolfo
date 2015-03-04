@@ -11,25 +11,23 @@ import org.apache.bcel.generic.InstructionHandle;
 
 public abstract class ComparableType extends Type {
 
-    /**
-     * Adds to <tt>il</tt> the Java bytecodes which go to <tt>yes</tt>
-     * if the the top two elements of the stack are equal.
-     *
-     * @param il the list of instructions which must be expanded
-     * @param yes to place where to jump
-     */
+	/**
+	 * Adds to {@code il} the Java bytecodes that go to {@code yes}
+	 * if the the top two elements of the stack are equal.
+	 *
+	 * @param il the list of instructions which must be expanded
+	 * @param yes to place where to jump
+	 */
 
-    public abstract void JB_if_cmpeq
-	(InstructionList il, InstructionHandle yes);
+	public abstract void JB_if_cmpeq(InstructionList il, InstructionHandle yes);
 
-    /**
-     * Adds to <tt>il</tt> the Java bytecodes which go to <tt>yes</tt>
-     * if the the top two elements of the stack are not equal.
-     *
-     * @param il the list of instructions which must be expanded
-     * @param yes to place where to jump
-     */
+	/**
+	 * Adds to {@code il} the Java bytecodes that go to {@code yes}
+	 * if the the top two elements of the stack, of this type, are not equal.
+	 *
+	 * @param il the list of instructions which must be expanded
+	 * @param yes to place where to jump
+	 */
 
-    public abstract void JB_if_cmpne
-	(InstructionList il, InstructionHandle yes);
+	public abstract void JB_if_cmpne(InstructionList il, InstructionHandle yes);
 }

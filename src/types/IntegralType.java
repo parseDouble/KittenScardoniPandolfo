@@ -14,15 +14,4 @@ public abstract class IntegralType extends NumericalType {
      */
 
     protected IntegralType() {}
-
-    /**
-     * Determines whether this type can be assigned to a given type.
-     *
-     * @param other what this type should be assigned to
-     * @return true if and only if <tt>other</tt> is <tt>this</tt>
-     */
-
-    public boolean canBeAssignedTo(Type other) {
-	return other == this;
-    }
 }
