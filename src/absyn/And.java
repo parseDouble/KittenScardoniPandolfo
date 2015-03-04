@@ -1,10 +1,9 @@
 package absyn;
 
-import semantical.TypeChecker;
-import types.Type;
 import types.CodeSignature;
-import bytecode.BinOpBytecode;
+import types.Type;
 import bytecode.AND;
+import bytecode.BinOpBytecode;
 
 /**
  * A node of abstract syntax representing a logical <i>and</i> operation.
@@ -14,31 +13,31 @@ import bytecode.AND;
 
 public class And extends BooleanBinOp {
 
-    /**
-     * Constructs the abstract syntax of a binary <i>and</i> logical operation.
-     *
-     * @param pos the position in the source file where it starts
-     *            the concrete syntax represented by this abstract syntax
-     * @param left the abstract syntax of the left-hand side expression
-     * @param right the abstract syntax of the right-hand side expression
-     */
+	/**
+	 * Constructs the abstract syntax of a binary <i>and</i> logical operation.
+	 *
+	 * @param pos the position in the source file where it starts
+	 *            the concrete syntax represented by this abstract syntax
+	 * @param left the abstract syntax of the left-hand side expression
+	 * @param right the abstract syntax of the right-hand side expression
+	 */
 
-    public And(int pos, Expression left, Expression right) {
-	super(pos,left,right);
-    }
+	public And(int pos, Expression left, Expression right) {
+		super(pos, left, right);
+	}
 
-    /**
-     * A binary operation-specific bytecode which performs a binary
-     * computation on the left and right sides of this binary operation.
-     * Namely, an <tt>and</tt> bytecode.
-     *
-     * @param where the method or constructor where this expression occurs
-     * @param type the type of the values of the left and right sides of this
-     *             binary expression
-     * @return an <tt>and</tt> bytecode
-     */
+	/**
+	 * A binary operation-specific bytecode that performs a binary
+	 * computation on the left and right sides of this binary operation.
+	 *
+	 * @param where the method or constructor where this expression occurs
+	 * @param type the type of the values of the left and right sides of this
+	 *             binary expression
+	 * @return an {@code and} bytecode
+	 */
 
-    protected BinOpBytecode operator(CodeSignature where, Type type) {
-	return new AND(where);
-    }
+	@Override
+	protected BinOpBytecode operator(CodeSignature where, Type type) {
+		return new AND(where);
+	}
 }
