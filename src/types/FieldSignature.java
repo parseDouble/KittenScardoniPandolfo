@@ -1,11 +1,10 @@
 package types;
 
-import generateJB.KittenClassGen;
-
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.FieldGen;
 import org.apache.bcel.generic.FieldInstruction;
 
+import bytecodeGenerator.KittenClassGen;
 import symbol.Symbol;
 import absyn.FieldDeclaration;
 

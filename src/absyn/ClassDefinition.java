@@ -25,23 +25,22 @@ public class ClassDefinition extends Absyn {
      * The name of the class.
      */
 
-    private Symbol name;
+    private final Symbol name;
 
     /**
      * The name of the superclass.
      */
 
-    private Symbol superclassName;
+    private final Symbol superclassName;
 
     /**
-     * The sequence of fields or methods declarations.
-     * This might be <tt>null</tt>.
+     * The sequence of fields or methods declarations. This might be {@code null}.
      */
 
-    private ClassMemberDeclaration declarations;
+    private final ClassMemberDeclaration declarations;
 
     /**
-     * The class type of this class definition. It is <tt>null</tt> if
+     * The class type of this class definition. This is {@code null} if
      * type-checking has not been performed yet.
      */
 
@@ -55,16 +54,15 @@ public class ClassDefinition extends Absyn {
      * @param name the name of the class
      * @param superclassName the name of the superclass
      * @param declarations the sequence of fields or methods declarations.
-     *                     This might be <tt>null</tt>
+     *                     This might be {@code null}
      */
 
-    public ClassDefinition(int pos, Symbol name, Symbol superclassName,
-			   ClassMemberDeclaration declarations) {
-	super(pos);
+    public ClassDefinition(int pos, Symbol name, Symbol superclassName, ClassMemberDeclaration declarations) {
+    	super(pos);
 
-	this.name = name;
-	this.superclassName = superclassName;
-	this.declarations = declarations;
+    	this.name = name;
+    	this.superclassName = superclassName;
+    	this.declarations = declarations;
     }
 
     /**
@@ -74,7 +72,7 @@ public class ClassDefinition extends Absyn {
      */
 
     public Symbol getName() {
-	return name;
+    	return name;
     }
 
     /**
@@ -86,7 +84,7 @@ public class ClassDefinition extends Absyn {
      */
 
     public Symbol getSuperclassName() {
-	return superclassName;
+    	return superclassName;
     }
 
     /**
@@ -95,74 +93,70 @@ public class ClassDefinition extends Absyn {
      *
      * @return the abstract syntax of the sequence of fields and methods
      *         declarations in this class definition, if any. Returns
-     *         <tt>null</tt> if there is no declaration inside this class
-     *         definition
+     *         {@code null} if there is no declaration inside this class definition
      */
 
     public ClassMemberDeclaration getDeclarations() {
-	return declarations;
+    	return declarations;
     }
 
     /**
      * Yields the static type of this class definition.
      *
-     * @return the static type of thie class definition. It returns
-     *         <tt>null</tt> if type-checking has not been performed yet
+     * @return the static type of this class definition. It yields
+     *         {@code null} if type-checking has not been performed yet
      */
 
     public ClassType getStaticType() {
-	return staticType;
+    	return staticType;
     }
 
     /**
      * Writes in the specified file a dot representation of the abstract
-     * syntax of this class. It writes the preamble specifying the paper
+     * syntax of this class. It writes the prefix specifying the paper
      * size and orientation, then puts a node for this class definition,
-     * with three children corresponding to the <tt>name</tt>,
-     * <tt>superclassName</tt> and <tt>declarations</tt> fields, if any. Then
+     * with three children corresponding to {@link #name},
+     * {@link #superclassName} and {@link #declarations}, if any. Then
      * it builds the subtrees rooted at those children.
      *
      * @param where the file where the dot representation must be written
-     * @throws IOException if there is an error while writing in <tt>where</tt>
+     * @throws IOException if there is an error while writing into {@code where}
      */
 
     public final void toDot(FileWriter where) throws IOException {
-	where.write("digraph " + name + " {\n");
+    	where.write("digraph " + name + " {\n");
 
-	// the size of a standard A4 sheet (in inches)
-	where.write("size = \"11,7.5\";\n");
+    	// the size of a standard A4 sheet (in inches)
+    	where.write("size = \"11,7.5\";\n");
 
-	// landscape mode
-	where.write("rotate = 90\n");
+    	// landscape mode
+    	where.write("rotate = 90\n");
 
-	// dumps in the file the name of the node in the dot file,
-	// followed by the label used to show the node to the user of dot.
-	// This label is computed by the <tt>label()</tt> method
-	where.write(dotNodeName() + " [ label = \"" + label() + "\"];\n");
+    	// dumps in the file the name of the node in the dot file,
+    	// followed by the label used to show the node to the user of dot
+    	where.write(dotNodeName() + " [ label = \"" + label() + "\"];\n");
 
-	linkToNode("name",name.toDot(where),where);
-	if (superclassName != null)
-	    linkToNode("superclassName",superclassName.toDot(where),where);
-	if (declarations != null)
-	    linkToNode("declarations",declarations.toDot(where),where);
+    	linkToNode("name", name.toDot(where), where);
+    	if (superclassName != null)
+    		linkToNode("superclassName", superclassName.toDot(where), where);
+    	if (declarations != null)
+    		linkToNode("declarations", declarations.toDot(where), where);
 
-	where.write("}");
+    	where.write("}");
     }
 
     /**
-     * Writes in a file named as this class (plus the trailing
-     * <tt>.dot</tt>) a dot representation of the abstract syntax of this
-     * class.
+     * Writes in a file named as this class (plus the trailing {@code .dot})
+     * a dot representation of the abstract syntax of this class.
      *
      * @throws IOException if the dot file cannot be created
      */
 
     public final void dumpDot(String directory) throws IOException {
-	FileWriter dot = new FileWriter(directory + File.separatorChar + name + ".dot");
-
-	toDot(dot);
-	dot.flush();
-	dot.close();
+    	try (FileWriter dot = new FileWriter(directory + File.separatorChar + name + ".dot")) {
+    		toDot(dot);
+    		dot.flush();
+    	}
     }
 
     /**
@@ -173,9 +167,9 @@ public class ClassDefinition extends Absyn {
      *              constructors and methods must be added
      */
 
-    public void addMembers(ClassType clazz) {
+    public void addMembersTo(ClassType clazz) {
     	if (declarations != null)
-    		declarations.addMembers(clazz);
+    		declarations.addMembersTo(clazz);
     }
 
     /**
@@ -188,9 +182,9 @@ public class ClassDefinition extends Absyn {
      */
 
     public void typeCheck(ClassType currentClass) {
-	staticType = currentClass;
+    	staticType = currentClass;
 
-	if (declarations != null) declarations.typeCheck(currentClass);
+    	if (declarations != null) declarations.typeCheck(currentClass);
     }
 
     /**
@@ -205,14 +199,14 @@ public class ClassDefinition extends Absyn {
     public Program translate() {
     	Set<ClassMemberSignature> done = new HashSet<>();
 
-	// we look up for the main method, if any
-	MethodSignature main = staticType.methodLookup
-	    (Symbol.MAIN,TypeList.EMPTY);
+    	// we look up for the main method, if any
+    	MethodSignature main = staticType.methodLookup(Symbol.MAIN, TypeList.EMPTY);
 
-	// we translate everything which is reachable from the main
-	// method of this class (if any)
-	if (main != null) main.getAbstractSyntax().translate(done);
+    	// we translate everything which is reachable from the main
+    	// method of this class (if any)
+    	if (main != null)
+    		main.getAbstractSyntax().translate(done);
 
-	return new Program(done,name.toString(),main);
+    	return new Program(done,name.toString(),main);
     }
 }

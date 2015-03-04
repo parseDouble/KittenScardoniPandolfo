@@ -4,10 +4,10 @@ import org.apache.bcel.Constants;
 import org.apache.bcel.generic.INVOKEVIRTUAL;
 import org.apache.bcel.generic.MethodGen;
 
+import bytecodeGenerator.KittenClassGen;
 import absyn.MethodDeclaration;
 import symbol.Symbol;
 import translate.Block;
-import generateJB.KittenClassGen;
 
 /**
  * The signature of a method of a Kitten class.

@@ -1,11 +1,10 @@
 package bytecode;
 
-import generateJB.KittenClassGen;
-
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
+import bytecodeGenerator.KittenClassGen;
 import types.BooleanType;
 import types.CodeSignature;
 import types.NumericalType;

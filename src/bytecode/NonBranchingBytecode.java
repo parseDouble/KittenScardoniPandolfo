@@ -2,8 +2,8 @@ package bytecode;
 
 import org.apache.bcel.generic.InstructionList;
 
+import bytecodeGenerator.KittenClassGen;
 import types.CodeSignature;
-import generateJB.KittenClassGen;
 
 /**
  * A bytecode of the intermediate Kitten language with one or no

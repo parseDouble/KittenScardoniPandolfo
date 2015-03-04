@@ -1,4 +1,4 @@
-package generateJB;
+package bytecodeGenerator;
 
 import java.util.HashMap;
 import java.util.Iterator;

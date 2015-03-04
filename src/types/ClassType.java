@@ -115,8 +115,8 @@ public final class ClassType extends ReferenceType {
 			Parser parser = new Parser(new Lexer(name));
 			errorMsg = parser.getErrorMsg();
 			abstractSyntax = (ClassDefinition) parser.parse().value;
-			// we add the fields, constructors and methods of the class
-			abstractSyntax.addMembers(this);
+			// we add the fields, constructors and methods of this class
+			abstractSyntax.addMembersTo(this);
 		}
 		catch (Exception e) {
 			// there is a syntax error in the class text or the same class

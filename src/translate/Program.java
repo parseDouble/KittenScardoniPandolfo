@@ -1,7 +1,5 @@
 package translate;
 
-import generateJB.KittenClassGen;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
@@ -13,6 +11,7 @@ import types.ClassType;
 import bytecode.Bytecode;
 import bytecode.CALL;
 import bytecode.FieldAccessBytecode;
+import bytecodeGenerator.KittenClassGen;
 
 /**
  * A program, that is, a set of <tt>ClassMemberSignature</tt>'s.

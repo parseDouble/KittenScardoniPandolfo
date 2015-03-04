@@ -94,7 +94,7 @@ public class MethodDeclaration extends CodeDeclaration {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	linkToNode("returnType",returnType.toDot(where),where);
 	linkToNode("name",name.toDot(where),where);
 
@@ -112,7 +112,7 @@ public class MethodDeclaration extends CodeDeclaration {
      */
 
     @Override
-    protected void addMember(ClassType clazz) {
+    protected void addTo(ClassType clazz) {
 	Type rt = returnType.toType();
 	TypeList pars = getFormals() != null ?
 	    getFormals().toType() : TypeList.EMPTY;
@@ -143,7 +143,7 @@ public class MethodDeclaration extends CodeDeclaration {
      */
 
     @Override
-    protected void typeCheck$0(ClassType clazz) {
+    protected void typeCheckAux(ClassType clazz) {
 	TypeChecker checker;
 	ClassType superclass;
 	MethodSignature overridden;
@@ -162,15 +162,14 @@ public class MethodDeclaration extends CodeDeclaration {
 	    checker = checker.putVar(Symbol.THIS,clazz);
 
 	// we enrich the type-checker with the formal parameters
-	checker = getFormals() != null ?
-	    getFormals().typeCheck(checker) : checker;
+	checker = getFormals() != null ? getFormals().typeCheck(checker) : checker;
 
 	TypeList pars = getFormals() != null ? getFormals().typeCheck() : null;
 
 	// we check if this method overrides a method of some superclass
 	superclass = clazz.getSuperclass();
 	if (superclass != null) {
-	    overridden = superclass.methodLookup(name,pars);
+	    overridden = superclass.methodLookup(name, pars);
 
 	    if (overridden != null)
 		// it does override a method of a superclass. We check

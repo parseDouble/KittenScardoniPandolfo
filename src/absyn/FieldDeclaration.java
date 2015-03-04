@@ -80,7 +80,7 @@ public class FieldDeclaration extends ClassMemberDeclaration {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	linkToNode("type",type.toDot(where),where);
 	linkToNode("name",name.toDot(where),where);
     }
@@ -93,7 +93,7 @@ public class FieldDeclaration extends ClassMemberDeclaration {
      */
 
     @Override
-    protected void addMember(ClassType clazz) {
+    protected void addTo(ClassType clazz) {
 	this.sig = new FieldSignature(clazz, type.toType(), name, this);
 	clazz.addField(name,this.sig);
     }
@@ -107,7 +107,7 @@ public class FieldDeclaration extends ClassMemberDeclaration {
      */
 
     @Override
-    protected void typeCheck$0(ClassType currentClass) {
+    protected void typeCheckAux(ClassType currentClass) {
 	type.typeCheck();
     }
 

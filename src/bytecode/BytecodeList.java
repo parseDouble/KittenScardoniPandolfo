@@ -2,7 +2,7 @@ package bytecode;
 
 import org.apache.bcel.generic.InstructionList;
 
-import generateJB.KittenClassGen;
+import bytecodeGenerator.KittenClassGen;
 
 /**
  * A list of Kitten bytecodes.

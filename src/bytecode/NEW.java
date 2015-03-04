@@ -1,9 +1,8 @@
 package bytecode;
 
-import generateJB.KittenClassGen;
-
 import org.apache.bcel.generic.InstructionList;
 
+import bytecodeGenerator.KittenClassGen;
 import types.ClassType;
 import types.CodeSignature;
 import types.ReferenceType;

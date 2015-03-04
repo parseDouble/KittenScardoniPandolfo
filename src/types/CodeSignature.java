@@ -1,9 +1,8 @@
 package types;
 
-import generateJB.KittenClassGen;
-
 import org.apache.bcel.generic.InvokeInstruction;
 
+import bytecodeGenerator.KittenClassGen;
 import symbol.Symbol;
 import translate.Block;
 import absyn.CodeDeclaration;

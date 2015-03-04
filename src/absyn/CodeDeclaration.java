@@ -119,23 +119,23 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
      */
 
     public void translate(Set<ClassMemberSignature> done) {
-	if (done.contains(sig)) return;
-	else done.add(sig);
+    	if (done.contains(sig)) return;
+    	else done.add(sig);
 
-	// we translate the body of the constructor or
-	// method with a block containing RETURN as continuation. This way,
-	// all methods returning <tt>void</tt> and
-	// with some missing <tt>return</tt> command are correctly
-	// terminated anyway. If the method is not <tt>void</tt>, this
-	// precaution is useless since we know that every execution path
-	// ends with a <tt>return</tt> command, as guaranteed by
-	// <tt>checkForDeadCode()</tt> (see <tt>typeCheck()</tt> in
-	// <tt>MethodDeclaration.java</tt>)
-	sig.setCode(getBody().translate(sig, new Block(new RETURN(sig, VoidType.INSTANCE))));
+    	// we translate the body of the constructor or
+    	// method with a block containing RETURN as continuation. This way,
+    	// all methods returning <tt>void</tt> and
+    	// with some missing <tt>return</tt> command are correctly
+    	// terminated anyway. If the method is not <tt>void</tt>, this
+    	// precaution is useless since we know that every execution path
+    	// ends with a <tt>return</tt> command, as guaranteed by
+    	// <tt>checkForDeadCode()</tt> (see <tt>typeCheck()</tt> in
+    	// <tt>MethodDeclaration.java</tt>)
+    	sig.setCode(getBody().translate(sig, new Block(new RETURN(sig, VoidType.INSTANCE))));
 
-	// we translate all methods and constructors which are referenced
-	// from the code we have generated
-	translateReferenced(sig.getCode(),done,new HashSet<Block>());
+    	// we translate all methods and constructors which are referenced
+    	// from the code we have generated
+    	translateReferenced(sig.getCode(),done,new HashSet<Block>());
     }
 
     /**

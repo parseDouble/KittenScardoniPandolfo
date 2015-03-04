@@ -2,10 +2,9 @@ package absyn;
 
 import java.io.FileWriter;
 
+import semantical.TypeChecker;
 import symbol.Symbol;
 import types.TypeList;
-import types.Type;
-import semantical.TypeChecker;
 
 /**
  * A node of abstract syntax representing the formal parameters of a Kitten

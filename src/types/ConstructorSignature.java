@@ -1,7 +1,5 @@
 package types;
 
-import generateJB.KittenClassGen;
-
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.INVOKESPECIAL;
 import org.apache.bcel.generic.InstructionFactory;
@@ -13,6 +11,7 @@ import translate.Block;
 import absyn.ConstructorDeclaration;
 import bytecode.CONSTRUCTORCALL;
 import bytecode.LOAD;
+import bytecodeGenerator.KittenClassGen;
 
 /**
  * The signature of a constructor of a Kitten class.

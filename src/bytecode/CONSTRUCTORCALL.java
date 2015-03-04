@@ -1,11 +1,10 @@
 package bytecode;
 
-import generateJB.KittenClassGen;
-
 import java.util.HashSet;
 
 import org.apache.bcel.generic.InstructionList;
 
+import bytecodeGenerator.KittenClassGen;
 import types.CodeSignature;
 import types.ConstructorSignature;
 
