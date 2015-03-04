@@ -238,31 +238,6 @@ public class Block extends Node {
     }
 
     /**
-     * Yields the list of blocks of code which are used by this one.
-     * This list includes the <tt>follows</tt> blocks but also the
-     * starting blocks of the code of all methods and constructors
-     * called by the bytecode inside this block.
-     *
-     * @return the list of blocks of code which are used by this block
-     */
-
-    public List<Node> forward() {
-    	// we add to <tt>follows</tt> the starting blocks of the methods
-    	// and constructors called by the bytecode inside this block
-    	List<Node> result = new List<Node>(follows);
-
-    	for (BytecodeList cursor = bytecode; cursor != null;
-    			cursor = cursor.getTail()) {
-    		Bytecode h = cursor.getHead();
-    		if (h instanceof CALL)
-    			for (CodeSignature target: ((CALL)h).getDynamicTargets())
-    				result.addLast(target.getCode());
-    	}
-
-	return result;
-    }
-
-    /**
      * Yields a <tt>String</tt> identifying this node in a dot file.
      *
      * @return a <tt>String</tt> identifying this node in a dot file
