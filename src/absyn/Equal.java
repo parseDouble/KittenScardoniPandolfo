@@ -42,7 +42,7 @@ public class Equal extends ComparisonBinOp {
      * @return the semantical <tt>boolean</tt> type
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	Type leftType = getLeft().typeCheck(checker);
 	Type rightType = getRight().typeCheck(checker);
 

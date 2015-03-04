@@ -66,7 +66,7 @@ public class IntLiteral extends Literal {
      * @return the semantical <tt>int</tt> type
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	return Type.INT;
     }
 

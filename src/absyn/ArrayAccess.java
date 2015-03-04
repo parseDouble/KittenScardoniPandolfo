@@ -85,7 +85,7 @@ public class ArrayAccess extends Lvalue {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	linkToNode("array",array.toDot(where),where);
 	linkToNode("index",index.toDot(where),where);
     }
@@ -102,7 +102,7 @@ public class ArrayAccess extends Lvalue {
      *         which is the static type of <tt>array</tt>
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	// we type-check the reference to the array
 	Type arrayType = array.typeCheck(checker);
 

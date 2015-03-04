@@ -56,7 +56,7 @@ public class Minus extends Expression {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	linkToNode("expression",expression.toDot(where),where);
     }
 
@@ -69,7 +69,7 @@ public class Minus extends Expression {
      * @return the static type of the minus'ed expression
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	Type expressionType = expression.typeCheck(checker);
 
 	// we can only negate integers or floats

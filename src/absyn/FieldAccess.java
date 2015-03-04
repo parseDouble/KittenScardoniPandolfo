@@ -117,7 +117,7 @@ public class FieldAccess extends Lvalue {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	linkToNode("receiver",receiver.toDot(where),where);
 	linkToNode("name",name.toDot(where),where);
     }
@@ -133,7 +133,7 @@ public class FieldAccess extends Lvalue {
      *         which is the static type of <tt>receiver</tt>
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	Type receiverType = receiver.typeCheck(checker);
 
 	// the receiver must have class type!

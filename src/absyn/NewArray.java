@@ -80,7 +80,7 @@ public class NewArray extends Expression {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	linkToNode("elementsType",elementsType.toDot(where),where);
 	linkToNode("size",size.toDot(where),where);
     }
@@ -96,7 +96,7 @@ public class NewArray extends Expression {
      * @return the array type for the type of the elements of the array
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	size.mustBeInt(checker);
 
 	return ArrayType.mk(elementsType.typeCheck());

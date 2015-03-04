@@ -33,7 +33,7 @@ public class True extends Literal {
      * @return the semantical Boolean type
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	return Type.BOOLEAN;
     }
 

@@ -33,7 +33,7 @@ public class Nil extends Literal {
      * @return the semantical <i>nil</i> type
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	return Type.NIL;
     }
 

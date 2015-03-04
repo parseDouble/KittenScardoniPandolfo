@@ -39,7 +39,7 @@ public abstract class ArithmeticBinOp extends BinOp {
      *         of the binary expression
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	Type leftType = getLeft().typeCheck(checker);
 	Type rightType = getRight().typeCheck(checker);
 

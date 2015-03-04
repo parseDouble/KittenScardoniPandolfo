@@ -70,7 +70,7 @@ public class Variable extends Lvalue {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	linkToNode("name",name.toDot(where),where);
     }
 
@@ -83,7 +83,7 @@ public class Variable extends Lvalue {
      * @return the static type assigned by <tt>checker</tt> to this variable
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	// we ask the type-checker for the type of this variable
 	Type result = checker.getVar(name);
 

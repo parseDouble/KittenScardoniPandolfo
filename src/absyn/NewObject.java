@@ -112,7 +112,7 @@ public class NewObject extends Expression {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	linkToNode("className",className.toDot(where),where);
 	if (actuals != null) linkToNode("actuals",actuals.toDot(where),where);
     }
@@ -128,7 +128,7 @@ public class NewObject extends Expression {
      * @return the semantical class type <tt>className</tt>
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	ClassType target = ClassType.mk(className);
 
 	target.typeCheck();

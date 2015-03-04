@@ -36,7 +36,7 @@ public abstract class BooleanBinOp extends BinOp {
      * @return the semantical <tt>boolean</tt> type
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	getLeft().mustBeBoolean(checker);
 	getRight().mustBeBoolean(checker);
 

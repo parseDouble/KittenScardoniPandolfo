@@ -71,7 +71,7 @@ public class StringLiteral extends Literal {
      * @return the semantical <tt>String</tt> class type
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	// we type-check the <tt>String</tt> type since it is the only
 	// class type which can be used in a program without
 	// an explicit reference to its name (through constants like this)

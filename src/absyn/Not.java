@@ -55,7 +55,7 @@ public class Not extends Expression {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	linkToNode("expression",expression.toDot(where),where);
     }
 
@@ -68,7 +68,7 @@ public class Not extends Expression {
      * @return the semantical Boolean type
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	// we check that the negated expression has Boolean type
 	expression.mustBeBoolean(checker);
 

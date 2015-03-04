@@ -80,7 +80,7 @@ public class Cast extends Expression {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	linkToNode("type",type.toDot(where),where);
 	linkToNode("expression",expression.toDot(where),where);
     }
@@ -102,7 +102,7 @@ public class Cast extends Expression {
      * @return the semantical type of <tt>type</tt>
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	Type fromType = expression.typeCheck(checker);
 	Type intoType = type.typeCheck();
 

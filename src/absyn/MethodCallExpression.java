@@ -138,7 +138,7 @@ public class MethodCallExpression extends Expression {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	linkToNode("receiver",receiver.toDot(where),where);
 	linkToNode("name",name.toDot(where),where);
 
@@ -157,7 +157,7 @@ public class MethodCallExpression extends Expression {
      * @return the return type of the static target method
      */
 
-    protected Type typeCheck$0(TypeChecker checker) {
+    protected Type typeCheckAux(TypeChecker checker) {
 	Type receiverType = receiver.typeCheck(checker);
 	TypeList actualsTypes = actuals != null ?
 	    actuals.typeCheck(checker) : TypeList.EMPTY;
