@@ -1,5 +1,7 @@
 package types;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -625,5 +627,11 @@ public final class ClassType extends ReferenceType {
 
 	public Program translate() {
 		return abstractSyntax.translate();
+	}
+
+	public void dumpDot() throws IOException {
+		try (FileWriter file = new FileWriter(name + ".dot")) {
+			abstractSyntax.toDot(file);
+		}
 	}
 }

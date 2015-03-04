@@ -1,4 +1,0 @@
-digraph "List(int,List)" {
-size = "11,7.5";
-codeblock_1 [ shape = box, label = "block 1, component 81\nreceiver_is List\nload 0 of type List\ncall Object() [Object()]\nload 0 of type List\nload 1 of type int\nputfield List.head:int\nload 0 of type List\nload 2 of type List\nputfield List.tail:List\nreturn void\n i(l1) o(l1)\n -i(l1) -o(l1)\n"];
-}

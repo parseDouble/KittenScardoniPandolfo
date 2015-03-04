@@ -1,4 +1,0 @@
-digraph "List.reverseAcc():List" {
-size = "11,7.5";
-codeblock_12 [ shape = box, label = "block 12, component 25\nreceiver_is List\nload 0 of type List\nnew List\ndup List\nload 0 of type List\ngetfield List.head:int\nconst null\ncall List(int,List) [List(int,List)]\ncall List.reverseAux(List):List [List.reverseAux(List):List]\nreturn List\n\n"];
-}

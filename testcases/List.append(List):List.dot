@@ -1,8 +1,0 @@
-digraph "List.append(List):List" {
-size = "11,7.5";
-codeblock_6 [ shape = box, label = "block 6, component 78\nreceiver_is List\nload 0 of type List\ngetfield List.tail:List\nconst null\n\n"];
-codeblock_4 [ shape = box, label = "block 4, component 79\nif_cmpeq List\nnew List\ndup List\nload 0 of type List\ngetfield List.head:int\nload 1 of type List\ncall List(int,List) [List(int,List)]\nreturn List\n\n"];
-codeblock_6->codeblock_4 [color = blue label = "" fontsize = 8]
-codeblock_5 [ shape = box, label = "block 5, component 78\nif_cmpne List\nnew List\ndup List\nload 0 of type List\ngetfield List.head:int\nload 0 of type List\ngetfield List.tail:List\nload 1 of type List\ncall List.append(List):List [List.append(List):List]\ncall List(int,List) [List(int,List)]\nreturn List\n\n"];
-codeblock_6->codeblock_5 [color = blue label = "" fontsize = 8]
-}

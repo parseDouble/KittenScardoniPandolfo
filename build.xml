@@ -42,7 +42,7 @@
 	</target>
 
 	<target name="run-lexical-analyzer" depends="compile-lexical-analyzer">
-		<java classname="${lexical.main}">
+		<java classname="${lexical.package}.Main}">
 		    <arg value="${kitten.example}" />
             <classpath>
                 <pathelement location="${build.out.folder}"/>
@@ -91,7 +91,32 @@
 	</target>
 
 	<target name="run-syntactical-analyzer" depends="compile-syntactical-analyzer">
-		<java classname="${syntactical.main}">
+		<java classname="${syntactical.package}.Main}">
+		    <arg value="${kitten.example}" />
+            <classpath>
+                <pathelement location="${build.out.folder}"/>
+            </classpath>
+            <classpath>
+				<fileset dir="${build.lib.folder}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</java>
+	</target>
+
+	<target name="compile-semantical-analyzer" depends="compile-syntactical-analyzer">
+		<javac includeantruntime="false" srcdir="${build.in.folder}" destdir="${build.out.folder}" encoding="utf8" debug="on" debuglevel="lines,vars,source">
+			<include name="${semantical.package}/*.java" />
+			<classpath>
+				<fileset dir="${build.lib.folder}">
+					<include name="**/*.jar" />
+				</fileset>
+			</classpath>
+		</javac>
+	</target>
+
+	<target name="run-semantical-analyzer" depends="compile-semantical-analyzer">
+		<java classname="${semantical.package}.Main}">
 		    <arg value="${kitten.example}" />
             <classpath>
                 <pathelement location="${build.out.folder}"/>

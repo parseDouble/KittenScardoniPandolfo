@@ -16,7 +16,7 @@ public class Kitten {
 		long time = System.currentTimeMillis();
 		ClassType clazz = ClassType.mkFromFileName(args[0]);
 		System.out.println("Parsing and type-checking completed     \t\t["
-				+ (System.currentTimeMillis() - time) + "ms]");
+			+ (System.currentTimeMillis() - time) + "ms]");
 
 		// if this class did not parse and type-check correctly,
 		// we cannot translate the program into intermediate Kitten code

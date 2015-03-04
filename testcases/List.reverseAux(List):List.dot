@@ -1,8 +1,0 @@
-digraph "List.reverseAux(List):List" {
-size = "11,7.5";
-codeblock_16 [ shape = box, label = "block 16, component 56\nreceiver_is List\nload 0 of type List\ngetfield List.tail:List\nconst null\n\n"];
-codeblock_14 [ shape = box, label = "block 14, component 57\nif_cmpeq List\nload 1 of type List\nreturn List\n\n"];
-codeblock_16->codeblock_14 [color = blue label = "" fontsize = 8]
-codeblock_15 [ shape = box, label = "block 15, component 56\nif_cmpne List\nload 0 of type List\ngetfield List.tail:List\nnew List\ndup List\nload 0 of type List\ngetfield List.head:int\nload 1 of type List\ncall List(int,List) [List(int,List)]\ncall List.reverseAux(List):List [List.reverseAux(List):List]\nreturn List\n\n"];
-codeblock_16->codeblock_15 [color = blue label = "" fontsize = 8]
-}
