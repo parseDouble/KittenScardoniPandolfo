@@ -18,26 +18,26 @@ public class TypeChecker {
 	 * The return type expected by this type-checker.
 	 */
 
-	private Type returnType;
+	private final Type returnType;
 
 	/**
 	 * The <i>environment</i>, i.e., a symbol table mapping variable names
 	 * to their declared type.
 	 */
 
-	private Table<TypeAndNumber> env;
+	private final Table<TypeAndNumber> env;
 
 	/**
 	 * The number of local variables seen so far by this type-checker.
 	 */
 
-	private int varNum;
+	private final int varNum;
 
 	/**
 	 * The error reporting utility used to signal errors in the source code.
 	 */
 
-	private ErrorMsg errorMsg;
+	private final ErrorMsg errorMsg;
 
 	/**
 	 * Constructs a type-checker.
@@ -57,7 +57,8 @@ public class TypeChecker {
 
 	/**
 	 * Constructs a type-checker having a given expected return type,
-	 * a given error reporting utility and an empty symbol table
+	 * a given error reporting utility, an empty symbol table and that
+	 * has not seen any variable up to now.
 	 *
 	 * @param returnType the expected return type
 	 * @param errorMsg the error reporting utility used to signal errors
@@ -85,33 +86,29 @@ public class TypeChecker {
 	 * has been bound to a given type.
 	 *
 	 * @param var the variable to be bound
-	 * @param type the type to which <tt>var</tt> must be bound
-	 * @return the new type-checker where <tt>var</tt> is bound
-	 *         to <tt>type</tt>
+	 * @param type the type to which {@code var} must be bound
+	 * @return the new type-checker where {@code var} is bound to {@code type}
 	 */
 
 	public TypeChecker putVar(Symbol var, Type type) {
 		// note that in the new type-checker the number of local
 		// variables is one more than in this type-checker
 		return new TypeChecker(returnType,
-				env.put(var, new TypeAndNumber(type, varNum)),
-				varNum + 1,errorMsg);
+			env.put(var, new TypeAndNumber(type, varNum)), varNum + 1, errorMsg);
 	}
 
 	/**
-	 * Yields the type bound to a given variable by this type-checker.
+	 * Yields the type bound to a given variable in this type-checker.
 	 *
 	 * @param var the variable
-	 * @return the type bound to <tt>var</tt> by this type-checker.
-	 *         Returns <tt>null</tt> if <tt>var</tt> is not bound by this
-	 *         type-checker
+	 * @return the type bound to {@code var} in this type-checker.
+	 *         Yields {@code null} if {@code var} is not bound in this type-checker
 	 */
 
 	public Type getVar(Symbol var) {
-		TypeAndNumber tan = (TypeAndNumber)env.get(var);
+		TypeAndNumber tan = env.get(var);
 
-		if (tan != null) return tan.getType();
-		else return null;
+		return tan != null ? tan.getType() : null;
 	}
 
 	/**
@@ -119,27 +116,24 @@ public class TypeChecker {
 	 * by this type-checker.
 	 *
 	 * @param var the variable
-	 * @return the progressive number of <tt>var</tt> in some enumeration
+	 * @return the progressive number of {@code var} in some enumeration
 	 *         of the variables seen so far by this type-checker. It is
 	 *         guaranteed that progressive numbers are non-negative and that
-	 *         two distinct variables have different
-	 *         progressive numbers. Returns <tt>-1</tt> if <tt>var</tt>
-	 *         is not bound by this type-checker
+	 *         two distinct variables have distinct progressive numbers. Yields
+	 *         -1 if <{@code var} is not bound in this type-checker
 	 */
 
 	public int getVarNum(Symbol var) {
-		TypeAndNumber tan = (TypeAndNumber)env.get(var);
+		TypeAndNumber tan = env.get(var);
 
-		if (tan != null) return tan.getNumber();
-		else return -1;
+		return tan != null ? tan.getNumber() : -1;
 	}
 
 	/**
 	 * Reports an error through this type-checker.
 	 *
 	 * @param pos the position where the error must be reported
-	 *            (number of characters from the beginning of the
-	 *            source file)
+	 *            (number of characters from the beginning of the source file)
 	 * @param msg the message to be reported
 	 */
 
@@ -149,10 +143,8 @@ public class TypeChecker {
 
 	/**
 	 * Determines if any error has been reported up to now
-	 * by this type-checker.
 	 *
-	 * @return true if some error has been reported by this type-checker,
-	 *         false otherwise
+	 * @return true if some error has been reported up to now, false otherwise
 	 */
 
 	public boolean anyErrors() {
