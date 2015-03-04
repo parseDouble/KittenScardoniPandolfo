@@ -21,11 +21,11 @@ public class BooleanTypeExpression extends TypeExpression {
 	super(pos);
     }
 
-    protected Type typeCheck$0() {
+    protected Type typeCheckAux() {
 	return Type.BOOLEAN;
     }
 
-    protected Type toType$0() {
+    protected Type toTypeAux() {
 	return Type.BOOLEAN;
     }
 

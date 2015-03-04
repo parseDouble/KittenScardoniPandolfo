@@ -66,7 +66,7 @@ public abstract class Command extends Absyn {
 	// This label is computed by the <tt>label()</tt> method
 	where.write(dotNodeName() + " [ label = \"" + label() + "\"];\n");
 
-	toDot$0(where);
+	toDotAux(where);
 
 	return dotNodeName();
     }
@@ -80,7 +80,7 @@ public abstract class Command extends Absyn {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	// nothing, by default
     }
 

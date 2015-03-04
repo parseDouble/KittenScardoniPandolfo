@@ -69,7 +69,7 @@ public class For extends Command {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	linkToNode("initialisation",initialisation.toDot(where),where);
 	linkToNode("condition",condition.toDot(where),where);
 	linkToNode("update",update.toDot(where),where);

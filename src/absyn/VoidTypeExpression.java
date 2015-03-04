@@ -21,11 +21,11 @@ public class VoidTypeExpression extends TypeExpression {
 	super(pos);
     }
 
-    protected Type typeCheck$0() {
+    protected Type typeCheckAux() {
 	return types.Type.VOID;
     }
 
-    protected Type toType$0() {
+    protected Type toTypeAux() {
 	return types.Type.VOID;
     }
 

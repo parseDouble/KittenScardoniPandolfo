@@ -94,7 +94,7 @@ public class FieldDeclaration extends ClassMemberDeclaration {
 
     @Override
     protected void addMember(ClassType clazz) {
-	this.sig = new FieldSignature(clazz,type.toType(),name,this);
+	this.sig = new FieldSignature(clazz, type.toType(), name, this);
 	clazz.addField(name,this.sig);
     }
 

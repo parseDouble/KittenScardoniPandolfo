@@ -54,7 +54,7 @@ public class ClassTypeExpression extends TypeExpression {
      *         class type expression
      */
 
-    protected Type typeCheck$0() {
+    protected Type typeCheckAux() {
 	ClassType result = ClassType.mk(name);
 
 	result.typeCheck();
@@ -73,7 +73,7 @@ public class ClassTypeExpression extends TypeExpression {
      */
 
     @Override
-    protected Type toType$0() {
+    protected Type toTypeAux() {
 	return ClassType.mk(name);
     }
 
@@ -86,7 +86,7 @@ public class ClassTypeExpression extends TypeExpression {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	linkToNode("name",name.toDot(where),where);
     }
 

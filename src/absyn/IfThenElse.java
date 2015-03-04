@@ -108,7 +108,7 @@ public class IfThenElse extends Command {
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
 	linkToNode("condition",condition.toDot(where),where);
 	linkToNode("then",then.toDot(where),where);
 	linkToNode("_else",_else.toDot(where),where);

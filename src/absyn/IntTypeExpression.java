@@ -21,11 +21,11 @@ public class IntTypeExpression extends TypeExpression {
 	super(pos);
     }
 
-    protected Type typeCheck$0() {
+    protected Type typeCheckAux() {
 	return Type.INT;
     }
 
-    protected Type toType$0() {
+    protected Type toTypeAux() {
 	return Type.INT;
     }
 

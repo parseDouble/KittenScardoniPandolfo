@@ -17,17 +17,17 @@ public class Assignment extends Command {
 
     /**
      * The left-hand side of the assignment. Note that this is
-     * an <tt>Lvalue</tt> rather than, more generally, an expression, since
+     * an {@link #absyn.Lvalue} rather than, more generally, an expression, since
      * it is meaningless to assign a value to, say, an integer or addition.
      */
 
-    private Lvalue lvalue;
+    private final Lvalue lvalue;
 
     /**
      * The right-hand side of the assignment.
      */
 
-    private Expression rvalue;
+    private final Expression rvalue;
 
     /**
      * Constructs the abstract syntax of an assignment command.
@@ -39,10 +39,10 @@ public class Assignment extends Command {
      */
 
     public Assignment(int pos, Lvalue lvalue, Expression rvalue) {
-	super(pos);
+    	super(pos);
 
-	this.lvalue = lvalue;
-	this.rvalue = rvalue;
+    	this.lvalue = lvalue;
+    	this.rvalue = rvalue;
     }
 
     /**
@@ -52,7 +52,7 @@ public class Assignment extends Command {
      */
 
     public Lvalue getLvalue() {
-	return lvalue;
+    	return lvalue;
     }
 
     /**
@@ -62,22 +62,23 @@ public class Assignment extends Command {
      */
 
     public Expression getRvalue() {
-	return rvalue;
+    	return rvalue;
     }
 
     /**
      * Adds abstract syntax class-specific information in the dot file
      * representing the abstract syntax of the assignment command.
      * This amounts to adding two arcs from the node for the assignment
-     * command to the abstract syntax for its <tt>lvalue</tt>
-     * and <tt>rvalue</tt> components.
+     * command to the abstract syntax for its {@link #lvalue} and
+     * {@link #rvalue} components.
      *
      * @param where the file where the dot representation must be written
      */
 
-    protected void toDot$0(FileWriter where) throws java.io.IOException {
-	linkToNode("lvalue",lvalue.toDot(where),where);
-	linkToNode("rvalue",rvalue.toDot(where),where);
+    @Override
+    protected void toDotAux(FileWriter where) throws java.io.IOException {
+    	linkToNode("lvalue", lvalue.toDot(where), where);
+    	linkToNode("rvalue", rvalue.toDot(where), where);
     }
 
     /**
@@ -87,62 +88,59 @@ public class Assignment extends Command {
      * can be assigned to that of the left-hand side.
      *
      * @param checker the type-checker to be used for type-checking
-     * @return the type-checker <tt>checker</tt>
+     * @return {@code checker}
      */
 
+    @Override
     protected TypeChecker typeCheck$0(TypeChecker checker) {
-	// we type-check the left-hand side
-	Type left = lvalue.typeCheck(checker);
+    	// we type-check the left-hand side
+    	Type left = lvalue.typeCheck(checker);
 
-	// we type-check the right-hand side
-	Type right = rvalue.typeCheck(checker);
+    	// we type-check the right-hand side
+    	Type right = rvalue.typeCheck(checker);
 
-	// if the right-hand side cannot be assigned to the left-hand side
-	// then the assignment is illegal
-	if (!right.canBeAssignedTo(left))
-	    error(right + " cannot be assigned to " + left);
+    	// if the right-hand side cannot be assigned to the left-hand side
+    	// then the assignment is illegal
+    	if (!right.canBeAssignedTo(left))
+    		error(right + " cannot be assigned to " + left);
 
-	// the type-checker is not modified
-	return checker;
+    	// the type-checker is not modified
+    	return checker;
     }
 
     /**
-     * Checks that this assignment
-     * does not contain <i>dead-code</i>, that is,
-     * commands which can never be executed. This is always true for
-     * assignments.
+     * Checks that this assignment does not contain <i>dead-code</i>, that is,
+     * commands which can never be executed. This is always true for assignments.
      *
-     * @return false, since this command never terminates with a
-     *         <tt>return</tt> command
+     * @return false, since this command never terminates with a {@code return}
      */
 
+    @Override
     public boolean checkForDeadcode() {
-	return false;
+    	return false;
     }
 
     /**
      * Translates this command into intermediate
-     * Kitten bytecode. Namely, it returns a code which starts with
+     * Kitten bytecode. Namely, it returns a code that starts with
      * <br>
-     * <i>translation of <tt>lvalue</tt> through
-     *   <tt>translateBeforeAssignment()</tt></i><br>
-     * <i>translation of <tt>rvalue</tt> through
-     *   <tt>translateAs(lvalue.getStaticType())</tt></i><br>
-     * <i>translation of <tt>lvalue</tt> through
-     *   <tt>translateAfterAssignment()</tt></i><br>
+     * <i>translation of {@link #lvalue} through
+     *    {@code translateBeforeAssignment()}</i><br>
+     * <i>translation of {@link #rvalue} through
+     *    {@code translateAs(lvalue.getStaticType())}</i><br>
+     * <i>translation of {@link #lvalue} through
+     *    {@code translateAfterAssignment()}</i><br>
      * <br>
-     * and continues with the <tt>continuation</tt>.
+     * and continues with {@code continuation}.
      *
      * @param where the method or constructor where this expression occurs
      * @param continuation the continuation to be executed after this command
-     * @return the code executing this command and then
-     *         the <tt>continuation</tt>
+     * @return the code executing this command and then {@code continuation}
      */
 
     public Block translate(CodeSignature where, Block continuation) {
-	return lvalue.translateBeforeAssignment
-	    (where,rvalue.translateAs
-	     (where,lvalue.getStaticType(),
-	      lvalue.translateAfterAssignment(where,continuation)));
+    	return lvalue.translateBeforeAssignment
+   			(where,rvalue.translateAs(where, lvalue.getStaticType(),
+    		lvalue.translateAfterAssignment(where, continuation)));
     }
 }
