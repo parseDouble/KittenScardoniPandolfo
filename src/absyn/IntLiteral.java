@@ -1,5 +1,6 @@
 package absyn;
 
+import types.IntType;
 import types.Type;
 import types.CodeSignature;
 import semantical.TypeChecker;
@@ -67,7 +68,7 @@ public class IntLiteral extends Literal {
      */
 
     protected Type typeCheckAux(TypeChecker checker) {
-	return Type.INT;
+	return IntType.INSTANCE;
     }
 
     /**

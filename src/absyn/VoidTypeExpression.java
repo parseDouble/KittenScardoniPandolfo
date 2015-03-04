@@ -1,6 +1,7 @@
 package absyn;
 
 import types.Type;
+import types.VoidType;
 
 /**
  * A node of abstract syntax representing the Kitten <tt>void</tt> type.
@@ -22,11 +23,11 @@ public class VoidTypeExpression extends TypeExpression {
     }
 
     protected Type typeCheckAux() {
-	return types.Type.VOID;
+	return VoidType.INSTANCE;
     }
 
     protected Type toTypeAux() {
-	return types.Type.VOID;
+	return VoidType.INSTANCE;
     }
 
     public String toString() {

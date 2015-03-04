@@ -6,10 +6,10 @@ import java.util.HashSet;
 import semantical.TypeChecker;
 import symbol.Symbol;
 import types.ClassMemberSignature;
-import types.ConstructorSignature;
 import types.ClassType;
-import types.Type;
+import types.ConstructorSignature;
 import types.TypeList;
+import types.VoidType;
 
 /**
  * A node of abstract syntax representing the declaration of a constructor
@@ -106,7 +106,7 @@ public class ConstructorDeclaration extends CodeDeclaration {
 		// <tt>this</tt> of type <tt>clazz</tt> and
 		// the parameters of the constructor, and
 		// where return instructions of type <tt>void</tt> are allowed
-		checker = new TypeChecker(Type.VOID,clazz.getErrorMsg());
+		checker = new TypeChecker(VoidType.INSTANCE, clazz.getErrorMsg());
 		checker = checker.putVar(Symbol.THIS,clazz);
 
 		// we enrich the type-checker with the formal parameters

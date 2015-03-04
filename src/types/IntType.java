@@ -11,11 +11,18 @@ import org.apache.bcel.generic.InstructionList;
 public class IntType extends IntegralType {
 
 	/**
-	 * Builds an {@code int} type. This constructor is protected, so that the only
-	 * int type object is the constant in {@code Types.Type}.
+	 * The integer type. Always use this constant to refer to the integer type,
+	 * so that type comparison can be carried out by simple == tests.
 	 */
 
-	protected IntType() {}
+	public final static IntType INSTANCE = new IntType();
+
+	/**
+	 * Builds an {@code int} type. This constructor is private, so that the only
+	 * int type object is {@link #INSTANCE}.
+	 */
+
+	private IntType() {}
 
 	@Override
 	public String toString() {
@@ -33,7 +40,7 @@ public class IntType extends IntegralType {
 	@Override
 	public boolean canBeAssignedTo(Type other) {
 		// an int can only be assigned to an int or to a float
-		return other == Type.INT || other == Type.FLOAT;
+		return other == this || other == FloatType.INSTANCE;
 	}
 
 	@Override

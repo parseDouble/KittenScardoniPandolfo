@@ -5,6 +5,7 @@ import generateJB.KittenClassGen;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
+import types.BooleanType;
 import types.CodeSignature;
 import types.Type;
 
@@ -32,7 +33,7 @@ public class IF_TRUE extends BranchingConstantComparisonBytecode {
 
 	public IF_TRUE(CodeSignature where) {
 		// we are comparing with a <tt>boolean</tt> constant
-		super(where,Type.BOOLEAN);
+		super(where, BooleanType.INSTANCE);
 	}
 
 	/**

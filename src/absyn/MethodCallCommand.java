@@ -11,6 +11,7 @@ import types.CodeSignature;
 import types.MethodSignature;
 import types.Type;
 import types.TypeList;
+import types.VoidType;
 import bytecode.POP;
 import bytecode.VIRTUALCALL;
 
@@ -221,7 +222,7 @@ public class MethodCallCommand extends Command {
      */
 
     public Block translate(CodeSignature where, Block continuation) {
-	if (method.getReturnType() != Type.VOID)
+	if (method.getReturnType() != VoidType.INSTANCE)
 	    // if the method does return a value, we must throw it away
 	    continuation = new POP(where,method.getReturnType())
 		.followedBy(continuation);

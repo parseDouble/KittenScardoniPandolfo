@@ -8,6 +8,7 @@ import types.ClassType;
 import types.MethodSignature;
 import types.Type;
 import types.TypeList;
+import types.VoidType;
 
 /**
  * A node of abstract syntax representing the declaration of a method
@@ -193,7 +194,7 @@ public class MethodDeclaration extends CodeDeclaration {
 	// every syntactical execution path in the method ends with
 	// a <tt>return</tt> command (<tt>continue</tt> and <tt>break</tt>
 	// are forbidden in this position)
-	if (rt != Type.VOID && !stopping)
-	    error(checker,"missing return statement");
+	if (rt != VoidType.INSTANCE && !stopping)
+	    error(checker, "missing return statement");
     }
 }

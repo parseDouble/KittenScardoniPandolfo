@@ -2,6 +2,7 @@ package absyn;
 
 import java.io.FileWriter;
 
+import types.FloatType;
 import types.Type;
 import types.CodeSignature;
 import semantical.TypeChecker;
@@ -69,7 +70,7 @@ public class FloatLiteral extends Literal {
      */
 
     protected Type typeCheckAux(TypeChecker checker) {
-	return Type.FLOAT;
+	return FloatType.INSTANCE;
     }
 
     /**

@@ -142,7 +142,7 @@ public class ArrayType extends ReferenceType {
 			}
 
 		// the least common supertype of an array and null or an UnusedType is the array
-		if (other == Type.NIL || other == Type.UNUSED)
+		if (other == NilType.INSTANCE || other == UnusedType.INSTANCE)
 			return this;
 		else
 			// no common supertype exists

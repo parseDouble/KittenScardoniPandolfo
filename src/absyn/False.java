@@ -1,6 +1,7 @@
 package absyn;
 
 import semantical.TypeChecker;
+import types.BooleanType;
 import types.Type;
 import types.CodeSignature;
 import translate.Block;
@@ -34,7 +35,7 @@ public class False extends Literal {
      */
 
     protected Type typeCheckAux(TypeChecker checker) {
-	return Type.BOOLEAN;
+	return BooleanType.INSTANCE;
     }
 
     /**

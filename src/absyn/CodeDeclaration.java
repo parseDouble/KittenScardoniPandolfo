@@ -6,7 +6,7 @@ import java.util.Set;
 import translate.Block;
 import types.ClassMemberSignature;
 import types.CodeSignature;
-import types.Type;
+import types.VoidType;
 import bytecode.Bytecode;
 import bytecode.BytecodeList;
 import bytecode.CALL;
@@ -131,8 +131,7 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
 	// ends with a <tt>return</tt> command, as guaranteed by
 	// <tt>checkForDeadCode()</tt> (see <tt>typeCheck()</tt> in
 	// <tt>MethodDeclaration.java</tt>)
-	sig.setCode(getBody().translate
-		    (sig,new Block(new RETURN(sig,Type.VOID))));
+	sig.setCode(getBody().translate(sig, new Block(new RETURN(sig, VoidType.INSTANCE))));
 
 	// we translate all methods and constructors which are referenced
 	// from the code we have generated

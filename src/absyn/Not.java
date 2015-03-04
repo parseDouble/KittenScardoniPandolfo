@@ -2,6 +2,7 @@ package absyn;
 
 import java.io.FileWriter;
 
+import types.BooleanType;
 import types.Type;
 import types.CodeSignature;
 import semantical.TypeChecker;
@@ -73,7 +74,7 @@ public class Not extends Expression {
 	expression.mustBeBoolean(checker);
 
 	// the negation of an expression has Boolean type
-	return Type.BOOLEAN;
+	return BooleanType.INSTANCE;
     }
 
     /**
@@ -92,6 +93,6 @@ public class Not extends Expression {
 
     public Block translate(CodeSignature where, Block continuation) {
 	return expression.translate
-	    (where,new NEG(where,Type.BOOLEAN).followedBy(continuation));
+	    (where, new NEG(where, BooleanType.INSTANCE).followedBy(continuation));
     }
 }

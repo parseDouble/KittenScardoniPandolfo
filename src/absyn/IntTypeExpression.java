@@ -1,5 +1,6 @@
 package absyn;
 
+import types.IntType;
 import types.Type;
 
 /**
@@ -22,11 +23,11 @@ public class IntTypeExpression extends TypeExpression {
     }
 
     protected Type typeCheckAux() {
-	return Type.INT;
+	return IntType.INSTANCE;
     }
 
     protected Type toTypeAux() {
-	return Type.INT;
+	return IntType.INSTANCE;
     }
 
     public String toString() {

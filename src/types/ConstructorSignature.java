@@ -33,7 +33,7 @@ public class ConstructorSignature extends CodeSignature {
 
 	public ConstructorSignature(ClassType clazz, TypeList parameters, ConstructorDeclaration abstractSyntax) {
 		// a constructor always returns void and its name is by default init
-		super(clazz, Type.VOID, parameters, Symbol.mk("<init>"), abstractSyntax);
+		super(clazz, VoidType.INSTANCE, parameters, Symbol.mk("<init>"), abstractSyntax);
 	}
 
 	@Override

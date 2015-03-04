@@ -12,11 +12,18 @@ import org.apache.bcel.generic.InstructionHandle;
 public class FloatType extends NumericalType {
 
 	/**
-	 * Builds a float type. This constructor is protected, so that the only
-	 * float type object is the constant in {@code Types.Type}.
+	 * The float type. Always use this constant to refer to the float type,
+	 * so that type comparison can be carried out by simple == tests.
 	 */
 
-	protected FloatType() {}
+	public final static FloatType INSTANCE = new FloatType();
+
+	/**
+	 * Builds a float type. This constructor is private, so that the only
+	 * float type object is {@link #INSTANCE}.
+	 */
+
+	private FloatType() {}
 
 	@Override
 	public String toString() {

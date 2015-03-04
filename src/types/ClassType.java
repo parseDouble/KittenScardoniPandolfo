@@ -234,7 +234,7 @@ public final class ClassType extends ReferenceType {
 			return getObjectType();
 		}
 		// the supertype of a class type and null or an unused type is the class itself
-		else if (other == Type.NIL || other == Type.UNUSED)
+		else if (other == NilType.INSTANCE || other == UnusedType.INSTANCE)
 			return this;
 		// otherwise, there is no common supertype
 		else

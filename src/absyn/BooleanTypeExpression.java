@@ -1,5 +1,6 @@
 package absyn;
 
+import types.BooleanType;
 import types.Type;
 
 /**
@@ -22,11 +23,11 @@ public class BooleanTypeExpression extends TypeExpression {
     }
 
     protected Type typeCheckAux() {
-	return Type.BOOLEAN;
+	return BooleanType.INSTANCE;
     }
 
     protected Type toTypeAux() {
-	return Type.BOOLEAN;
+	return BooleanType.INSTANCE;
     }
 
     public String toString() {

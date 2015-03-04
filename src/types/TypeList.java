@@ -14,7 +14,7 @@ public class TypeList {
 	 * so that no list of types is <tt>null</tt>.
 	 */
 
-	public final static TypeList EMPTY = new TypeList(Type.UNUSED, null);
+	public final static TypeList EMPTY = new TypeList(UnusedType.INSTANCE, null);
 
 	/**
 	 * The head of the list.
@@ -102,9 +102,9 @@ public class TypeList {
 			}
 
 		// trailing unused elements do not affect the equality
-		while (cursor != null && cursor.head == Type.UNUSED)
+		while (cursor != null && cursor.head == UnusedType.INSTANCE)
 			cursor = cursor.tail;
-		while (otherTL != null && otherTL.head == Type.UNUSED)
+		while (otherTL != null && otherTL.head == UnusedType.INSTANCE)
 			otherTL = otherTL.tail;
 
 		return cursor == otherTL;
@@ -117,7 +117,7 @@ public class TypeList {
 		int code = 0;
 
 		for (int i = 0; cursor != EMPTY; cursor = cursor.tail, i++)
-			if ((t = cursor.head) != Type.UNUSED)
+			if ((t = cursor.head) != UnusedType.INSTANCE)
 				code += (t.hashCode() << i);
 
 		return code;
@@ -225,7 +225,7 @@ public class TypeList {
 
 	public Type getTop() {
 		if (this == EMPTY)
-			return Type.UNUSED;
+			return UnusedType.INSTANCE;
 		else
 			return head;
 	}

@@ -11,12 +11,19 @@ import org.apache.bcel.generic.InstructionList;
 
 public class NilType extends PrimitiveType {
 
-    /**
-     * Builds a {@code nil} type. This constructor is protected, so that the only
-     * {@code nil} type object is the constant in {@code Types.Type}.
+	/**
+	 * The {@code nil} type. Always use this constant to refer to the nil type,
+	 * so that type comparison can be carried out by simple == tests.
+	 */
+
+	public final static NilType INSTANCE = new NilType();
+
+	/**
+     * Builds a {@code nil} type. This constructor is private, so that the only
+     * {@code nil} type object is {@link #INSTANCE}.
      */
 
-    protected NilType() {}
+    private NilType() {}
 
     @Override
     public String toString() {

@@ -9,11 +9,18 @@ package types;
 public class VoidType extends Type {
 
 	/**
-	 * Builds a {@code void} type. This constructor is protected, so that the only
-	 * {@code void} type object is the constant in {@code Types.Type}.
+	 * The {@code void} type. Always use this constant to refer to the void type,
+	 * so that type comparison can be carried out by simple == tests.
 	 */
 
-	protected VoidType() {}
+	public final static VoidType INSTANCE = new VoidType();
+
+	/**
+	 * Builds a {@code void} type. This constructor is private, so that the only
+	 * {@code void} type object is {@link #INSTANCE}.
+	 */
+
+	private VoidType() {}
 
 	@Override
 	public String toString() {

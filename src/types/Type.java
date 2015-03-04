@@ -9,48 +9,6 @@ package types;
 public abstract class Type {
 
 	/**
-	 * The Boolean type. Always use this constant to refer to the Boolean type,
-	 * so that type comparison can be carried out by simple == tests.
-	 */
-
-	public final static BooleanType BOOLEAN = new BooleanType();
-
-	/**
-	 * The float type. Always use this constant to refer to the float type,
-	 * so that type comparison can be carried out by simple == tests.
-	 */
-
-	public final static FloatType FLOAT = new FloatType();
-
-	/**
-	 * The integer type. Always use this constant to refer to the integer type,
-	 * so that type comparison can be carried out by simple == tests.
-	 */
-
-	public final static IntType INT = new IntType();
-
-	/**
-	 * The nil type. Always use this constant to refer to the nil type,
-	 * so that type comparison can be carried out by simple == tests.
-	 */
-
-	public final static NilType NIL = new NilType();
-
-	/**
-	 * The void type. Always use this constant to refer to the void type,
-	 * so that type comparison can be carried out by simple == tests.
-	 */
-
-	public final static VoidType VOID = new VoidType();
-
-	/**
-	 * The unused type. Always use this constant to refer to the unused type,
-	 * so that type comparison can be carried out by simple == tests.
-	 */
-
-	public final static UnusedType UNUSED = new UnusedType();
-
-	/**
 	 * The top of the hierarchy of the reference types.
 	 */
 
@@ -145,7 +103,7 @@ public abstract class Type {
 
 	public Type leastCommonSupertype(Type other) {
 		// the  least upper bound with an unused type is this
-		if (other == Type.UNUSED)
+		if (other == UnusedType.INSTANCE)
 			return this;
 		// this works fine for primitive types. Class and array types
 		// will have to redefine this behaviour

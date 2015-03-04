@@ -1,6 +1,7 @@
 package absyn;
 
 import semantical.TypeChecker;
+import types.BooleanType;
 import types.Type;
 import types.ComparableType;
 import types.CodeSignature;
@@ -53,7 +54,7 @@ public class Equal extends ComparisonBinOp {
 	    error("illegal comparison");
 
 	// the result is always <tt>boolean</tt>
-	return Type.BOOLEAN;
+	return BooleanType.INSTANCE;
     }
 
     /**

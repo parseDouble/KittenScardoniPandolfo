@@ -1,5 +1,6 @@
 package absyn;
 
+import types.FloatType;
 import types.Type;
 
 /**
@@ -22,11 +23,11 @@ public class FloatTypeExpression extends TypeExpression {
     }
 
     protected Type typeCheckAux() {
-	return Type.FLOAT;
+	return FloatType.INSTANCE;
     }
 
     protected Type toTypeAux() {
-	return Type.FLOAT;
+	return FloatType.INSTANCE;
     }
 
     public String toString() {

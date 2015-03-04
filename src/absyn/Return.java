@@ -3,11 +3,11 @@ package absyn;
 import java.io.FileWriter;
 
 import semantical.TypeChecker;
-import types.Type;
-import types.CodeSignature;
-import bytecode.NOP;
-import bytecode.RETURN;
 import translate.Block;
+import types.CodeSignature;
+import types.Type;
+import types.VoidType;
+import bytecode.RETURN;
 
 /**
  * A node of abstract syntax representing a <tt>return</tt> command.
@@ -87,7 +87,7 @@ public class Return extends Command {
 
 	// a <tt>return</tt> instruction without expression is legal
 	// only inside a <tt>void</tt> method
-	if (returned == null && expectedReturnType != Type.VOID)
+	if (returned == null && expectedReturnType != VoidType.INSTANCE)
 	    error("missing return value");
 
 	// if there is a returned expression, we check that its static

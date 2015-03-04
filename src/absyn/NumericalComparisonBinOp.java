@@ -1,6 +1,9 @@
 package absyn;
 
 import semantical.TypeChecker;
+import types.BooleanType;
+import types.FloatType;
+import types.IntType;
 import types.Type;
 
 /**
@@ -44,10 +47,10 @@ public abstract class NumericalComparisonBinOp extends ComparisonBinOp {
         Type leftType = getLeft().typeCheck(checker);
         Type rightType = getRight().typeCheck(checker);
  
-        if ((leftType != Type.INT && leftType != Type.FLOAT) ||
-            (rightType != Type.INT && rightType != Type.FLOAT))
+        if ((leftType != IntType.INSTANCE && leftType != FloatType.INSTANCE	) ||
+            (rightType != IntType.INSTANCE && rightType != FloatType.INSTANCE))
             error("numerical arguments required");
  
-        return Type.BOOLEAN;
+        return BooleanType.INSTANCE;
     }
 }

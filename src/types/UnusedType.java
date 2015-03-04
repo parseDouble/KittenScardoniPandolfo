@@ -9,11 +9,18 @@ package types;
 public class UnusedType extends Type {
 
 	/**
-	 * Builds an unused type. This constructor is protected, so that the only
-	 * unused type object is the constant in {@code Types.Type}.
+	 * The unused type. Always use this constant to refer to the unused type,
+	 * so that type comparison can be carried out by simple == tests.
 	 */
 
-	protected UnusedType() {}
+	public final static UnusedType INSTANCE = new UnusedType();
+
+	/**
+	 * Builds an unused type. This constructor is private, so that the only
+	 * unused type object is {@link #INSTANCE}.
+	 */
+
+	private UnusedType() {}
 
 	@Override
 	public String toString() {

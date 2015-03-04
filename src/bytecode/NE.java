@@ -5,9 +5,11 @@ import generateJB.KittenClassGen;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
+import types.BooleanType;
 import types.CodeSignature;
 import types.ComparableType;
-import types.Type;
+import types.FloatType;
+import types.IntType;
 
 /**
  * A bytecode which checks if the top two elements of the stack
@@ -99,9 +101,9 @@ public class NE extends ComparisonBinOpBytecode {
 		il.insert(new org.apache.bcel.generic.GOTO(follow));
 		il.insert(new org.apache.bcel.generic.ICONST(0));
 
-		if (getType() == Type.INT || getType() == Type.BOOLEAN)
+		if (getType() == IntType.INSTANCE || getType() == BooleanType.INSTANCE)
 			il.insert(new org.apache.bcel.generic.IF_ICMPNE(after));
-		else if (getType() == Type.FLOAT) {
+		else if (getType() == FloatType.INSTANCE) {
 			il.insert(new org.apache.bcel.generic.IFNE(after));
 			il.insert(new org.apache.bcel.generic.FCMPL());
 		}

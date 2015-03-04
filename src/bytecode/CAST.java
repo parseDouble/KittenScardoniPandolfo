@@ -7,6 +7,8 @@ import org.apache.bcel.generic.I2F;
 import org.apache.bcel.generic.InstructionList;
 
 import types.CodeSignature;
+import types.FloatType;
+import types.IntType;
 import types.NumericalType;
 import types.ReferenceType;
 import types.Type;
@@ -126,7 +128,7 @@ public class CAST extends NonCallingSequentialBytecode {
 	    return new InstructionList
 		(classGen.getFactory().createCheckCast
 		 ((org.apache.bcel.generic.ReferenceType)intoType.toBCEL()));
-	else if (fromType == Type.INT && intoType == Type.FLOAT)
+	else if (fromType == IntType.INSTANCE && intoType == FloatType.INSTANCE)
 	    return new InstructionList(new I2F());
 	else // it must be float into int
 	    return new InstructionList(new F2I());

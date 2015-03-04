@@ -1,12 +1,13 @@
 package bytecode;
 
-import org.apache.bcel.generic.InstructionList;
-import org.apache.bcel.generic.InstructionHandle;
-
-import types.Type;
-import types.NumericalType;
-import types.CodeSignature;
 import generateJB.KittenClassGen;
+
+import org.apache.bcel.generic.InstructionHandle;
+import org.apache.bcel.generic.InstructionList;
+
+import types.CodeSignature;
+import types.IntType;
+import types.NumericalType;
 
 /**
  * A bytecode which checks if the one but last element of the stack
@@ -88,7 +89,7 @@ public class GE extends ComparisonNumericalBinOpBytecode {
 	il.insert(new org.apache.bcel.generic.GOTO(follow));
 	il.insert(new org.apache.bcel.generic.ICONST(0));
 
-	if (getType() == Type.INT)
+	if (getType() == IntType.INSTANCE)
 	    il.insert(new org.apache.bcel.generic.IF_ICMPGE(after));
 	else {
 	    il.insert(new org.apache.bcel.generic.IFGE(after));

@@ -100,7 +100,7 @@ public class NEG extends NonCallingSequentialBytecode {
 	public InstructionList generateJB(KittenClassGen classGen) {
 		InstructionList il = new InstructionList();
 
-		if (type == Type.BOOLEAN) {
+		if (type == BooleanType.INSTANCE) {
 			// the negation of a Boolean value: it becomes an alternative
 			// which loads 0 or 1 on the stack
 			InstructionFactory factory = classGen.getFactory();

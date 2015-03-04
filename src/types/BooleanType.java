@@ -8,8 +8,15 @@ package types;
 
 public class BooleanType extends PrimitiveType {
 
-	protected BooleanType() {
-		// this constructor is protected, the only Boolean type object is Types.Type
+	/**
+	 * The unique instance of Boolean type. Always use this constant to refer
+	 * to the Boolean type, so that type comparison can be carried out by simple == tests.
+	 */
+
+	public final static BooleanType INSTANCE = new BooleanType();
+
+	private BooleanType() {
+		// this constructor is private, the only Boolean type object is INSTANCE
 	}
 
 	@Override
@@ -19,7 +26,7 @@ public class BooleanType extends PrimitiveType {
 
 	@Override
 	public boolean canBeAssignedTo(Type other) {
-		return other == Type.BOOLEAN;
+		return other == BooleanType.INSTANCE;
 	}
 
 	@Override

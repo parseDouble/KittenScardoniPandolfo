@@ -3,6 +3,9 @@ package absyn;
 import java.io.FileWriter;
 
 import semantical.TypeChecker;
+import types.BooleanType;
+import types.FloatType;
+import types.IntType;
 import types.Type;
 import types.CodeSignature;
 import translate.Block;
@@ -71,7 +74,7 @@ public abstract class Expression extends Absyn {
 	 */
 
 	protected void mustBeBoolean(TypeChecker checker) {
-		if (typeCheck(checker) != Type.BOOLEAN)
+		if (typeCheck(checker) != BooleanType.INSTANCE)
 			error("boolean expected");
 	}
 
@@ -83,7 +86,7 @@ public abstract class Expression extends Absyn {
 	 */
 
 	protected void mustBeInt(TypeChecker checker) {
-		if (typeCheck(checker) != Type.INT)
+		if (typeCheck(checker) != IntType.INSTANCE)
 			error("integer expected");
 	}
 
@@ -198,9 +201,9 @@ public abstract class Expression extends Absyn {
 	 */
 
 	public final Block translateAs(CodeSignature where, Type type, Block continuation) {
-		if (staticType == Type.INT && type == Type.FLOAT)
+		if (staticType == IntType.INSTANCE && type == FloatType.INSTANCE)
 			// type promotion
-			continuation = new CAST(where, Type.INT, Type.FLOAT).followedBy(continuation);
+			continuation = new CAST(where, IntType.INSTANCE, FloatType.INSTANCE).followedBy(continuation);
 
 		return translate(where, continuation);
 	}
@@ -237,6 +240,6 @@ public abstract class Expression extends Absyn {
 		error(checker, msg);
 
 		// this type is fine for most cases
-		return Type.INT;
+		return IntType.INSTANCE;
 	}
 }

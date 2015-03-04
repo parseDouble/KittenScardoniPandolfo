@@ -1,5 +1,6 @@
 package absyn;
 
+import types.NilType;
 import types.Type;
 import types.CodeSignature;
 import semantical.TypeChecker;
@@ -34,7 +35,7 @@ public class Nil extends Literal {
      */
 
     protected Type typeCheckAux(TypeChecker checker) {
-	return Type.NIL;
+	return NilType.INSTANCE;
     }
 
     /**

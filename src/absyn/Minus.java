@@ -2,6 +2,8 @@ package absyn;
 
 import java.io.FileWriter;
 
+import types.FloatType;
+import types.IntType;
 import types.Type;
 import types.CodeSignature;
 import semantical.TypeChecker;
@@ -73,7 +75,7 @@ public class Minus extends Expression {
 	Type expressionType = expression.typeCheck(checker);
 
 	// we can only negate integers or floats
-	if (expressionType != Type.INT && expressionType != Type.FLOAT)
+	if (expressionType != IntType.INSTANCE && expressionType != FloatType.INSTANCE)
 	    error("integer or float expected");
 
 	return expressionType;
@@ -95,6 +97,6 @@ public class Minus extends Expression {
 
     public Block translate(CodeSignature where, Block continuation) {
 	return expression.translate
-	    (where,new NEG(where,Type.INT).followedBy(continuation));
+	    (where, new NEG(where, IntType.INSTANCE).followedBy(continuation));
     }
 }

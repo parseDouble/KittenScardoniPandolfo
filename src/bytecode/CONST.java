@@ -4,7 +4,11 @@ import generateJB.KittenClassGen;
 
 import org.apache.bcel.generic.InstructionList;
 
+import types.BooleanType;
 import types.CodeSignature;
+import types.FloatType;
+import types.IntType;
+import types.NilType;
 import types.Type;
 
 /**
@@ -106,10 +110,10 @@ public class CONST extends NonCallingSequentialBytecode {
 	 */
 
 	public Type getType() {
-		if (constant == null) return Type.NIL;
-		else if (constant instanceof Boolean) return Type.BOOLEAN;
-		else if (constant instanceof Integer) return Type.INT;
-		else return Type.FLOAT;
+		if (constant == null) return NilType.INSTANCE;
+		else if (constant instanceof Boolean) return BooleanType.INSTANCE;
+		else if (constant instanceof Integer) return IntType.INSTANCE;
+		else return FloatType.INSTANCE;
 	}
 
 	@Override
