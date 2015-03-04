@@ -12,8 +12,6 @@ import bytecode.FinalBytecode;
 import bytecode.NOP;
 import bytecode.SequentialBytecode;
 
-import components.Node;
-
 /**
  * A block of code of the Kitten intermediate language. There is no jump
  * to or from internal points of the code inside the block.
@@ -21,7 +19,7 @@ import components.Node;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class Block extends Node {
+public class Block {
 
     /**
      * The successors of this block. This should not be <tt>null</tt>.
@@ -284,27 +282,14 @@ public class Block extends Node {
 		if (cb != this && cb.bytecode.getHead() instanceof NOP &&
 		    cb.bytecode.getTail() == null) {
 		    newFollows.addAll(cb.follows);
-		    for (Block cb2: cb.follows)
-			if (cb2.getPrevious() != null) {
-			    cb2.getPrevious().remove(cb);
-			    cb2.getPrevious().addAll(cb.getPrevious());
-			}
-		} else newFollows.addLast(cb);
+		}
+		else
+			newFollows.addLast(cb);
 
 	    follows = newFollows;
 
 	    // we continue with the successors
 	    for (Block cb: follows) cb.cleanUp$0(done,program);
-
-	    // if we only have one successor which has only one predecessor,
-	    // we merge this block with our successor
-	    if (follows.size() == 1 &&
-		follows.getFirst().getPrevious() != null &&
-		follows.getFirst().getPrevious().size() == 1) {
-
-		bytecode = bytecode.append(follows.getFirst().bytecode);
-		follows = follows.getFirst().follows;
-	    }
 
 	    // if the bytecode contains a reference to a field or to a
 	    // constructor or to a method, we add it to the signatures
@@ -312,8 +297,7 @@ public class Block extends Node {
 	    for (BytecodeList bs = bytecode; bs != null; bs = bs.getTail()) {
 		Bytecode b = bs.getHead();
 
-		// we take note that the program contains the
-		// bytecodes in the block
+		// we take note that the program contains the bytecodes in the block
 		program.storeBytecode(b);
 
 		if (b instanceof CALL)
