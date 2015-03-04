@@ -3,9 +3,8 @@ package absyn;
 import java.io.FileWriter;
 
 import symbol.Symbol;
-import types.Type;
 import types.ClassType;
-import types.KittenClassType;
+import types.Type;
 
 /**
  * A node of abstract syntax representing a Kitten class type.
@@ -56,12 +55,9 @@ public class ClassTypeExpression extends TypeExpression {
      */
 
     protected Type typeCheck$0() {
-	ClassType result = KittenClassType.mk(name);
+	ClassType result = ClassType.mk(name);
 
-	// <tt>result</tt> might be an open class type if <tt>name</tt>
-	// could not be found or contained a syntax error
-	if (result instanceof KittenClassType)
-	    ((KittenClassType)result).typeCheck();
+	result.typeCheck();
 
 	return result;
     }
@@ -76,8 +72,9 @@ public class ClassTypeExpression extends TypeExpression {
      *         class type expression
      */
 
+    @Override
     protected Type toType$0() {
-	return KittenClassType.mk(name);
+	return ClassType.mk(name);
     }
 
     /**

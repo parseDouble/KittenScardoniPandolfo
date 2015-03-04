@@ -18,9 +18,9 @@ import org.apache.bcel.generic.TargetLostException;
 import symbol.Symbol;
 import translate.CodeBlock;
 import types.ClassMemberSignature;
+import types.ClassType;
 import types.ConstructorSignature;
 import types.FieldSignature;
-import types.KittenClassType;
 import types.MethodSignature;
 import util.List;
 import bytecode.BranchingBytecode;
@@ -74,7 +74,7 @@ public class KittenClassGen extends ClassGen {
 	protected KittenClassGen
 	(String className, String superName, String[] interfs,
 			String source, int access,
-			Map<Symbol,FieldSignature> fields,
+			Map<Symbol, FieldSignature> fields,
 			Set<ConstructorSignature> constructors,
 			Map<Symbol, Set<MethodSignature>> methods,
 			Set<ClassMemberSignature> sigs) {
@@ -109,7 +109,7 @@ public class KittenClassGen extends ClassGen {
 	 *             If this is <tt>null</tt>, all class members are translated
 	 */
 
-	public KittenClassGen(KittenClassType clazz, Set<ClassMemberSignature> sigs) {
+	public KittenClassGen(ClassType clazz, Set<ClassMemberSignature> sigs) {
 		this(clazz.getName().toString(), // name of the class
 				// the superclass of the Kitten <tt>Object</tt> class
 				// is set to be the Java <tt>java.lang.Object</tt> class

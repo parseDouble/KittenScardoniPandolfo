@@ -4,7 +4,7 @@ import java.io.FileWriter;
 
 import symbol.Symbol;
 import types.FieldSignature;
-import types.KittenClassType;
+import types.ClassType;
 
 /**
  * A node of abstract syntax representing the declaration of a field
@@ -92,7 +92,8 @@ public class FieldDeclaration extends ClassMemberDeclaration {
      *              declaration must be added
      */
 
-    protected void addMember(KittenClassType clazz) {
+    @Override
+    protected void addMember(ClassType clazz) {
 	this.sig = new FieldSignature(clazz,type.toType(),name,this);
 	clazz.addField(name,this.sig);
     }
@@ -105,7 +106,8 @@ public class FieldDeclaration extends ClassMemberDeclaration {
      *                     member occurs.
      */
 
-    protected void typeCheck$0(KittenClassType currentClass) {
+    @Override
+    protected void typeCheck$0(ClassType currentClass) {
 	type.typeCheck();
     }
 

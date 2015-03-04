@@ -9,7 +9,7 @@ import java.util.Set;
 
 import types.ClassMemberSignature;
 import types.CodeSignature;
-import types.KittenClassType;
+import types.ClassType;
 import bytecode.Bytecode;
 import bytecode.CALL;
 import bytecode.FieldAccessBytecode;
@@ -212,7 +212,7 @@ public class Program {
 
     public void generateJB() {
 	// we consider one class at the time and we generate its Java bytecode
-	for (KittenClassType clazz: KittenClassType.getAll())
+	for (ClassType clazz: ClassType.getAll())
 	    try {
 		new KittenClassGen(clazz,sigs).getJavaClass()
 		    .dump(clazz + ".class");

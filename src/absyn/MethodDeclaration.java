@@ -1,16 +1,14 @@
 package absyn;
 
 import java.io.FileWriter;
-import java.util.HashSet;
 
+import semantical.TypeChecker;
 import symbol.Symbol;
-import types.Type;
-import types.TypeList;
 import types.ClassType;
-import types.KittenClassType;
 import types.MethodSignature;
 import types.StartMethodSignature;
-import semantical.TypeChecker;
+import types.Type;
+import types.TypeList;
 
 /**
  * A node of abstract syntax representing the declaration of a method
@@ -113,7 +111,8 @@ public class MethodDeclaration extends CodeDeclaration {
      *              declaration must be added
      */
 
-    protected void addMember(KittenClassType clazz) {
+    @Override
+    protected void addMember(ClassType clazz) {
 	Type rt = returnType.toType();
 	TypeList pars = getFormals() != null ?
 	    getFormals().toType() : TypeList.EMPTY;
@@ -144,7 +143,8 @@ public class MethodDeclaration extends CodeDeclaration {
      * @param clazz the semantical type of the class where this method occurs
      */
 
-    protected void typeCheck$0(KittenClassType clazz) {
+    @Override
+    protected void typeCheck$0(ClassType clazz) {
 	TypeChecker checker;
 	ClassType superclass;
 	MethodSignature overridden;

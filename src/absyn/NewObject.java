@@ -9,7 +9,6 @@ import translate.CodeBlock;
 import types.ClassType;
 import types.CodeSignature;
 import types.ConstructorSignature;
-import types.KittenClassType;
 import types.Type;
 import types.TypeList;
 import bytecode.CONSTRUCTORCALL;
@@ -130,15 +129,11 @@ public class NewObject extends Expression {
      */
 
     protected Type typeCheck$0(TypeChecker checker) {
-	ClassType target = KittenClassType.mk(className);
+	ClassType target = ClassType.mk(className);
 
-	// <tt>target</tt> might be an open class type if <tt>className</tt>
-	// could not be found or contained a syntax error
-	if (target instanceof KittenClassType)
-	    ((KittenClassType)target).typeCheck();
+	target.typeCheck();
 
-	TypeList actualsTypes = actuals != null ?
-	    actuals.typeCheck(checker) : TypeList.EMPTY;
+	TypeList actualsTypes = actuals != null ? actuals.typeCheck(checker) : TypeList.EMPTY;
 
 	// we collect the set of constructors which are compatible
 	// with the static types of the parameters, and have no other

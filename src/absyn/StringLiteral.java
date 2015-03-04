@@ -1,7 +1,7 @@
 package absyn;
 
 import types.Type;
-import types.KittenClassType;
+import types.ClassType;
 import types.CodeSignature;
 import symbol.Symbol;
 import semantical.TypeChecker;
@@ -75,12 +75,11 @@ public class StringLiteral extends Literal {
 	// we type-check the <tt>String</tt> type since it is the only
 	// class type which can be used in a program without
 	// an explicit reference to its name (through constants like this)
-	Type result = KittenClassType.mk(Symbol.STRING);
+	ClassType result = ClassType.mk(Symbol.STRING);
 
-	// if <tt>String.kit</tt> cannlot be found, we get an open class type
-	// here!
-	if (result instanceof KittenClassType)
-	    ((KittenClassType)result).typeCheck();
+	// if <tt>String.kit</tt> cannot be found, we get an open class type here!
+	if (result != null)
+	    result.typeCheck();
 
 	return result;
     }

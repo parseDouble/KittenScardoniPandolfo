@@ -8,7 +8,7 @@ import org.apache.bcel.generic.InstructionList;
 
 import symbol.Symbol;
 import types.CodeSignature;
-import types.KittenClassType;
+import types.ClassType;
 import types.ReferenceType;
 
 /**
@@ -47,8 +47,9 @@ public class NEWSTRING extends CreationBytecode {
 	 * @return the class created by this bytecode
 	 */
 
+	@Override
 	public ReferenceType createdType() {
-		return KittenClassType.mk(Symbol.STRING);
+		return ClassType.mk(Symbol.STRING);
 	}
 
 	@Override

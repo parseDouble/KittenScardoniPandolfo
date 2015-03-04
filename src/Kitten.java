@@ -1,5 +1,5 @@
 import translate.Program;
-import types.KittenClassType;
+import types.ClassType;
 
 public class Kitten {
 	public static void main(String[] args) {
@@ -14,7 +14,7 @@ public class Kitten {
 		// referenced from it
 		long totalTime = System.currentTimeMillis();
 		long time = System.currentTimeMillis();
-		KittenClassType clazz = KittenClassType.mkFromFileName(args[0]);
+		ClassType clazz = ClassType.mkFromFileName(args[0]);
 		System.out.println("Parsing and type-checking completed     \t\t["
 				+ (System.currentTimeMillis() - time) + "ms]");
 
@@ -23,7 +23,7 @@ public class Kitten {
 		if (!clazz.getErrorMsg().anyErrors()) {
 			time = System.currentTimeMillis();
 			// we translate this class into Kitten bytecode
-			Program program = ((KittenClassType)clazz).translate();
+			Program program = clazz.translate();
 
 			System.out.println
 			("Translation into Kitten bytecode completed \t\t["

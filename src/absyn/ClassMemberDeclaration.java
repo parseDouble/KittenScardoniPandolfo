@@ -3,8 +3,8 @@ package absyn;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import types.KittenClassType;
 import types.ClassMemberSignature;
+import types.ClassType;
 
 /**
  * A node of abstract syntax representing the declaration of a class
@@ -98,7 +98,7 @@ public abstract class ClassMemberDeclaration extends Absyn {
      *              next class members must be added
      */
 
-    protected final void addMembers(KittenClassType clazz) {
+    protected final void addMembers(ClassType clazz) {
 	addMember(clazz);
 
 	// if there is another declaration, we process it
@@ -113,7 +113,7 @@ public abstract class ClassMemberDeclaration extends Absyn {
      *              class member must be added
      */
 
-    protected abstract void addMember(KittenClassType clazz);
+    protected abstract void addMember(ClassType clazz);
 
     /**
      * Type-checks this definition of a class member. It calls the auxiliary
@@ -126,7 +126,7 @@ public abstract class ClassMemberDeclaration extends Absyn {
      *                     parameter
      */
 
-    final void typeCheck(KittenClassType currentClass) {
+    final void typeCheck(ClassType currentClass) {
 	typeCheck$0(currentClass);
 
 	// if there is another declaration, we type-check it
@@ -142,5 +142,5 @@ public abstract class ClassMemberDeclaration extends Absyn {
      *                     parameter
      */
 
-    protected abstract void typeCheck$0(KittenClassType currentClass);
+    protected abstract void typeCheck$0(ClassType currentClass);
 }

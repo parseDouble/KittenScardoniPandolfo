@@ -7,7 +7,7 @@ import semantical.TypeChecker;
 import symbol.Symbol;
 import types.ClassMemberSignature;
 import types.ConstructorSignature;
-import types.KittenClassType;
+import types.ClassType;
 import types.Type;
 import types.TypeList;
 
@@ -70,7 +70,8 @@ public class ConstructorDeclaration extends CodeDeclaration {
 	 *              declaration must be added
 	 */
 
-	protected void addMember(KittenClassType clazz) {
+	@Override
+	protected void addMember(ClassType clazz) {
 		ConstructorSignature cSig =
 				new ConstructorSignature
 				(clazz,getFormals() != null ?
@@ -96,7 +97,7 @@ public class ConstructorDeclaration extends CodeDeclaration {
 	 *              constructor occurs.
 	 */
 
-	protected void typeCheck$0(KittenClassType clazz) {
+	protected void typeCheck$0(ClassType clazz) {
 		TypeChecker checker;
 
 		// we build a type-checker which signals errors for the source code

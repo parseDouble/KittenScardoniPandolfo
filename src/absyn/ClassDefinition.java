@@ -9,7 +9,7 @@ import java.util.Set;
 import symbol.Symbol;
 import translate.Program;
 import types.ClassMemberSignature;
-import types.KittenClassType;
+import types.ClassType;
 import types.MethodSignature;
 import types.TypeList;
 
@@ -45,7 +45,7 @@ public class ClassDefinition extends Absyn {
      * type-checking has not been performed yet.
      */
 
-    private KittenClassType staticType;
+    private ClassType staticType;
 
     /**
      * Constructs the abstract syntax of the definition of a Kitten class.
@@ -110,7 +110,7 @@ public class ClassDefinition extends Absyn {
      *         <tt>null</tt> if type-checking has not been performed yet
      */
 
-    public KittenClassType getStaticType() {
+    public ClassType getStaticType() {
 	return staticType;
     }
 
@@ -173,8 +173,9 @@ public class ClassDefinition extends Absyn {
      *              constructors and methods must be added
      */
 
-    public void addMembers(KittenClassType clazz) {
-    	if (declarations != null) declarations.addMembers(clazz);
+    public void addMembers(ClassType clazz) {
+    	if (declarations != null)
+    		declarations.addMembers(clazz);
     }
 
     /**
@@ -186,7 +187,7 @@ public class ClassDefinition extends Absyn {
      *                     parameter of all its constructors and methods
      */
 
-    public void typeCheck(KittenClassType currentClass) {
+    public void typeCheck(ClassType currentClass) {
 	staticType = currentClass;
 
 	if (declarations != null) declarations.typeCheck(currentClass);

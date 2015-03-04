@@ -1,11 +1,17 @@
 package types;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
+import lexical.Lexer;
+import absyn.ClassDefinition;
+import errorMsg.ErrorMsg;
 import symbol.Symbol;
+import syntactical.Parser;
+import translate.Program;
 import util.List;
 
 /**
@@ -14,7 +20,7 @@ import util.List;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public abstract class ClassType extends ReferenceType {
+public final class ClassType extends ReferenceType {
 
 	/**
 	 * The name of this class.
@@ -26,7 +32,7 @@ public abstract class ClassType extends ReferenceType {
 	 * The superclass of this class, if any.
 	 */
 
-	private ClassType superclass;
+	private final ClassType superclass;
 
 	/**
 	 * The direct subclasses of this class, if any.
@@ -50,48 +56,89 @@ public abstract class ClassType extends ReferenceType {
 	 * The set of constructor signatures in this class.
 	 */
 
-	private Set<ConstructorSignature> constructors = new HashSet<>();
+	private final Set<ConstructorSignature> constructors = new HashSet<>();
 
 	/**
 	 * A map from method symbols to the set of signatures of the methods with
 	 * that name. Because of overloading, more than one method might have a given name.
 	 */
 
-	private Map<Symbol, Set<MethodSignature>> methods = new HashMap<>();
+	private final Map<Symbol, Set<MethodSignature>> methods = new HashMap<>();
 
 	/**
-	 * Constructs a class type with the given name.
+	 * The utility for issuing errors about this class.
+	 */
+	
+	private ErrorMsg errorMsg;
+
+	/**
+	 * The abstract syntax of this class.
+	 */
+	
+	private final ClassDefinition abstractSyntax;
+
+	/**
+	 * True if and only if this class has been already type-checked.
+	 */
+	
+	private boolean typeChecked;
+
+	/**
+	 * Constructs a class type with the given name. If the class
+	 * cannot be found or contains a syntactical error, a fictitious class
+	 * with no fields, no constructors and no methods is created.
 	 *
 	 * @param name the name of the class
 	 */
-
-	protected ClassType(Symbol name) {
+	
+	private ClassType(Symbol name) {
 		// we record its name
 		this.name = name;
-
+	
 		// there are no subclasses at the moment
 		this.subclasses = new List<ClassType>();
+	
+		// we record this object for future lookup
+		memory.put(name, this);
+	
+		// we have not type-checked this class yet
+		this.typeChecked = false;
+	
+		ClassDefinition abstractSyntax;
+		ClassType superclass;
+	
+		// we perform lexical and syntactical analysis. The result is
+		// the abstract syntax of this class definition
+		try {
+			Parser parser = new Parser(new Lexer(name));
+			errorMsg = parser.getErrorMsg();
+			abstractSyntax = (ClassDefinition) parser.parse().value;
+			// we add the fields, constructors and methods of the class
+			abstractSyntax.addMembers(this);
+		}
+		catch (Exception e) {
+			// there is a syntax error in the class text or the same class
+			// cannot be found on the file system or cannot be type-checked:
+			// we build a fictitious syntax for the class, so that the processing can go on
+			if (name == Symbol.OBJECT)
+				abstractSyntax = new ClassDefinition(0, name, null, null);
+			else
+				abstractSyntax = new ClassDefinition(0, name, Symbol.OBJECT, null);
+		}
+	
+		if (name != Symbol.OBJECT)
+			// if this is not Object, we create its superclass also and take
+			// note that we are a direct subclass of our superclass
+			(superclass = mk(abstractSyntax.getSuperclassName())).subclasses.addFirst(this);
+		else {
+			// otherwise we take note of the top of the hierarchy of the reference types
+			setObjectType(this);
+			superclass = null;
+		}
+
+		this.abstractSyntax = abstractSyntax;
+		this.superclass = superclass;
 	}
-
-	/**
-	 * Sets the superclass of this class type to the class named {@code superclassName}.
-	 *
-	 * @param superclassName the name of the superclass
-	 */
-
-	protected void addSuperclass(Symbol superclassName) {
-		// we are a direct subclass of our superclass
-		(superclass = make(superclassName)).subclasses.addFirst(this);
-	}
-
-	/**
-	 * Creates a class type with the given name.
-	 *
-	 * @param name the name of the class type
-	 * @return the class type
-	 */
-
-	protected abstract ClassType make(Symbol name);
 
 	/**
 	 * Yields the superclass of this class type, if any.
@@ -473,5 +520,110 @@ public abstract class ClassType extends ReferenceType {
 			return new org.apache.bcel.generic.ObjectType(runTime.String.class.getName());
 		else
 			return new org.apache.bcel.generic.ObjectType(name.toString());
+	}
+	/**
+	 * A table which binds each symbol to its corresponding {@code KittenClassType}.
+	 * This lets us have a unique {@code KittenClassType} for a given name.
+	 */
+
+	private final static Map<Symbol, ClassType> memory = new HashMap<>();
+
+	/**
+	 * Yields a class type with the given name. If a class type object named
+	 * <tt>name</tt> already exists, that object is returned. Otherwise, if a
+	 * Kitten class named <tt>name.kit</tt> exists and contains no error, a
+	 * <tt>KittenClassType</tt> is returned. Otherwise, a fictitious
+	 * <tt>KittenClassType</tt> is returned, whose code has no fields nor
+	 * constructors nor methods.
+	 *
+	 * @param name the name of the class
+	 * @return the unique class type object for the class with the given name
+	 */
+
+	public static ClassType mk(Symbol name) {
+		ClassType result;
+
+		// we first check to see if we already built this class type
+		if ((result = memory.get(name)) != null)
+			return result;
+		else
+			return new ClassType(name);
+	}
+
+	/**
+	 * Yields a class type with the given file name. If a class type object
+	 * with this name already exists, that object is returned. Otherwise, if a
+	 * Kitten class named <tt>name</tt> exists and contains no syntax error, a
+	 * type-checked <tt>KittenClassType</tt> is returned. Otherwise, a
+	 * type-checked fictitious <tt>KittenClassType</tt> is returned, whose code
+	 * contains no fields, nor constructors nor methods.
+	 *
+	 * @param fileName the name of the file of the class, including the
+	 *                 <tt>.kit</tt> termination
+	 * @return the unique Kitten class type object for the (type-checked)
+	 *         class with the given name
+	 */
+
+	public static ClassType mkFromFileName(String fileName) {
+		if (fileName.endsWith(".kit"))
+			fileName = fileName.substring(0,fileName.length() - 4);
+
+		ClassType result = mk(Symbol.mk(fileName));
+
+		result.typeCheck();
+
+		return result;
+	}
+
+	/**
+	 * Yields {@code ClassType}'s that have been created so far.
+	 *
+	 * @return the types
+	 */
+
+	public final static Collection<ClassType> getAll() {
+		return memory.values();
+	}
+
+	/**
+	 * Yields the error reporting utility for this class.
+	 *
+	 * @return the error reporting utility for this class
+	 */
+
+	public ErrorMsg getErrorMsg() {
+		return errorMsg;
+	}
+
+	/**
+	 * Type-checks this class type, <i>i.e.</i>, its abstract syntax.
+	 */
+
+	public void typeCheck() {
+		// this check is just to avoid repeated error messages
+		if (!typeChecked) {
+			// we are going to type-check this class now
+			typeChecked = true;
+
+			// we type-check the abstract syntax of this class
+			abstractSyntax.typeCheck(this);
+
+			// we continue by type-checking our superclass, if any
+			ClassType superclass = getSuperclass();
+			if (superclass != null)
+				superclass.typeCheck();
+		}
+	}
+
+	/**
+	 * Translates this class into intermediate Kitten code.
+	 * It is assumed that this class has been already type-checked.
+	 *
+	 * @return the program reachable from the empty constructor or the main of
+	 *         this class, translated into Kitten code
+	 */
+
+	public Program translate() {
+		return abstractSyntax.translate();
 	}
 }
