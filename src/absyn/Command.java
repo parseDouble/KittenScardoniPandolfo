@@ -4,7 +4,7 @@ import java.io.FileWriter;
 
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 
 /**
  * A node of abstract syntax representing a Kitten command.
@@ -138,8 +138,8 @@ public abstract class Command extends Absyn {
      * @return the code executing this command
      */
 
-    public abstract CodeBlock translate
-	(CodeSignature where, CodeBlock continuation);
+    public abstract Block translate
+	(CodeSignature where, Block continuation);
 
     /**
      * Outputs an error message to the user, by using the type-checker

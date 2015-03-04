@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import types.Type;
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 import bytecode.NEG;
 
 /**
@@ -93,7 +93,7 @@ public class Minus extends Expression {
      *         with <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	return expression.translate
 	    (where,new NEG(where,Type.INT).followedBy(continuation));
     }

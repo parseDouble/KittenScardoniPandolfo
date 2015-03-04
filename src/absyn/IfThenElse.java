@@ -4,7 +4,7 @@ import java.io.FileWriter;
 
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 
 /**
  * A node of abstract syntax representing a conditional command.
@@ -164,7 +164,7 @@ public class IfThenElse extends Command {
      *         the <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	// by making the <tt>continuation</tt> unmergeable with whatever we
 	// prefix to it, we avoid duplicating it in the <tt>then</tt> and
 	// <tt>else</tt> branch. <b>This is just an optimisation!</b>.

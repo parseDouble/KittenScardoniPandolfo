@@ -1,7 +1,7 @@
 package bytecode;
 
 import types.CodeSignature;
-import translate.CodeBlock;
+import translate.Block;
 
 /**
  * A sequential bytecode of the intermediate Kitten language, that is,
@@ -32,7 +32,7 @@ public abstract class SequentialBytecode extends NonBranchingBytecode {
 	 *         followed by the given <tt>continuation</tt>
 	 */
 
-	public CodeBlock followedBy(CodeBlock continuation) {
+	public Block followedBy(Block continuation) {
 		return continuation.prefixedBy(this);
 	}
 }

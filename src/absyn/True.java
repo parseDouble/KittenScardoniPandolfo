@@ -3,7 +3,7 @@ package absyn;
 import semantical.TypeChecker;
 import types.Type;
 import types.CodeSignature;
-import translate.CodeBlock;
+import translate.Block;
 import bytecode.CONST;
 
 /**
@@ -51,8 +51,8 @@ public class True extends Literal {
      *         with <tt>continuation</tt>
      */
 
-    public final CodeBlock translate
-	(CodeSignature where, CodeBlock continuation) {
+    public final Block translate
+	(CodeSignature where, Block continuation) {
 
 	return new CONST(where,true).followedBy(continuation);
     }

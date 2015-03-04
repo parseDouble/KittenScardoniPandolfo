@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import semantical.TypeChecker;
 import types.Type;
 import types.CodeSignature;
-import translate.CodeBlock;
+import translate.Block;
 import bytecode.CAST;
 import bytecode.IF_TRUE;
 
@@ -186,8 +186,8 @@ public abstract class Expression extends Absyn {
      *         with <tt>continuation</tt>
      */
 
-    public abstract CodeBlock translate
-	(CodeSignature where, CodeBlock continuation);
+    public abstract Block translate
+	(CodeSignature where, Block continuation);
 
     /**
      * Translates this expression by requiring that it leaves onto the
@@ -205,8 +205,8 @@ public abstract class Expression extends Absyn {
      *         possible <tt>i2f</tt> bytecode and then by <tt>continuation</tt>
      */
 
-    public final CodeBlock translateAs
-	(CodeSignature where, Type type, CodeBlock continuation) {
+    public final Block translateAs
+	(CodeSignature where, Type type, Block continuation) {
 
 	if (staticType == Type.INT && type == Type.FLOAT)
 	    // type promotion
@@ -231,10 +231,10 @@ public abstract class Expression extends Absyn {
      *         <tt>yes</tt> or <tt>no</tt> continuation, respectively
      */
 
-    public CodeBlock translateAsTest
-	(CodeSignature where, CodeBlock yes, CodeBlock no) {
+    public Block translateAsTest
+	(CodeSignature where, Block yes, Block no) {
 
-	return translate(where,new CodeBlock(new IF_TRUE(where),yes,no));
+	return translate(where,new Block(new IF_TRUE(where),yes,no));
     }
 
     /**

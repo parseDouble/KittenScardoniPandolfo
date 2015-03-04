@@ -6,7 +6,7 @@ import types.Type;
 import types.ArrayType;
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 import bytecode.NEWARRAY;
 
 /**
@@ -120,7 +120,7 @@ public class NewArray extends Expression {
      *         the <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	return size.translate
 	    (where,new NEWARRAY(where,elementsType.getStaticType())
 	     .followedBy(continuation));

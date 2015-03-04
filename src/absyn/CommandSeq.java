@@ -4,7 +4,7 @@ import java.io.FileWriter;
 
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 
 /**
  * A node of abstract syntax representing a sequence of two commands.
@@ -103,7 +103,7 @@ public class CommandSeq extends Command {
      *         the <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	return first.translate(where,second.translate(where,continuation));
     }
 }

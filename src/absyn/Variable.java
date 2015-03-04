@@ -6,7 +6,7 @@ import types.Type;
 import types.CodeSignature;
 import symbol.Symbol;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 import bytecode.LOAD;
 import bytecode.STORE;
 
@@ -108,7 +108,7 @@ public class Variable extends Lvalue {
      *         with <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	return new LOAD
 	    (where,getVarNum(),getStaticType()).followedBy(continuation);
     }
@@ -124,8 +124,8 @@ public class Variable extends Lvalue {
      * @return <tt>continuation</tt> itself
      */
 
-    public CodeBlock translateBeforeAssignment
-	(CodeSignature where, CodeBlock continuation) {
+    public Block translateBeforeAssignment
+	(CodeSignature where, Block continuation) {
 
 	return continuation;
     }
@@ -141,8 +141,8 @@ public class Variable extends Lvalue {
      * @return a <tt>store</tt> bytecode followed by <tt>continuation</tt>
      */
 
-    public CodeBlock translateAfterAssignment
-	(CodeSignature where, CodeBlock continuation) {
+    public Block translateAfterAssignment
+	(CodeSignature where, Block continuation) {
 
 	return new STORE(where,getVarNum(),getStaticType())
 	    .followedBy(continuation);

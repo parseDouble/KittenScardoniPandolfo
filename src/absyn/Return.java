@@ -7,7 +7,7 @@ import types.Type;
 import types.CodeSignature;
 import bytecode.NOP;
 import bytecode.RETURN;
-import translate.CodeBlock;
+import translate.Block;
 
 /**
  * A node of abstract syntax representing a <tt>return</tt> command.
@@ -127,13 +127,13 @@ public class Return extends Command {
      *         the <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	// we get the type which must be returned by this the current method
 	Type returnType = getTypeChecker().getReturnType();
 
 	// we get a code which is made of a block containing
 	// the bytecode <tt>return</tt>
-	continuation = new CodeBlock(new RETURN(where,returnType));
+	continuation = new Block(new RETURN(where,returnType));
 
 	// if there is an initialising expression, we translate it
 	if (returned != null)

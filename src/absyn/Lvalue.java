@@ -1,7 +1,7 @@
 package absyn;
 
 import types.CodeSignature;
-import translate.CodeBlock;
+import translate.Block;
 
 /**
  * A node of abstract syntax representing a <i>leftvalue</i>, that is,
@@ -38,8 +38,8 @@ public abstract class Lvalue extends Expression {
      *         <tt>continuation</tt>
      */
 
-    public abstract CodeBlock translateBeforeAssignment
-	(CodeSignature where, CodeBlock continuation);
+    public abstract Block translateBeforeAssignment
+	(CodeSignature where, Block continuation);
 
     /**
      * Generates the intermediate Kitten code which must be executed after
@@ -54,6 +54,6 @@ public abstract class Lvalue extends Expression {
      *         <tt>continuation</tt>
      */
 
-    public abstract CodeBlock translateAfterAssignment
-	(CodeSignature where, CodeBlock continuation);
+    public abstract Block translateAfterAssignment
+	(CodeSignature where, Block continuation);
 }

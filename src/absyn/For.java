@@ -4,7 +4,7 @@ import java.io.FileWriter;
 
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 
 /**
  * A node of abstract syntax representing a <tt>for</tt> command.
@@ -164,7 +164,7 @@ public class For extends Command {
      *         the <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 
 	/* The idea is to translate a <tt>for</tt> command into the code
 
@@ -175,13 +175,13 @@ public class For extends Command {
 	*/
 
 	// we create an empty block which is used to close the loop
-	CodeBlock pivot = new CodeBlock(where);
+	Block pivot = new Block(where);
 
 	// we translate the condition of the loop. If the condition is true,
 	// we execute the translation of the body and then the update.
 	// Otherwise we execute what follows this command. This code will be
 	// used to translate the <tt>initialisation</tt> component
-	CodeBlock test = condition.translateAsTest
+	Block test = condition.translateAsTest
 	    (where,body.translate(where,update.translate(where,pivot)),
 	     continuation);
 

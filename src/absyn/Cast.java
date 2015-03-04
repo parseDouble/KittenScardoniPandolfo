@@ -7,7 +7,7 @@ import types.NumericalType;
 import types.ReferenceType;
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 import bytecode.CAST;
 
 /**
@@ -136,7 +136,7 @@ public class Cast extends Expression {
      *         with <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	Type fromType = expression.getStaticType();
 
 	// we get the type towards which this expression is cast

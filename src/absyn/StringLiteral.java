@@ -5,7 +5,7 @@ import types.ClassType;
 import types.CodeSignature;
 import symbol.Symbol;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 import bytecode.NEWSTRING;
 
 /**
@@ -98,7 +98,7 @@ public class StringLiteral extends Literal {
      *         with <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	return new NEWSTRING(where,value).followedBy(continuation);
     }
 }

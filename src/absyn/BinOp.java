@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import types.Type;
 import types.CodeSignature;
 import bytecode.BinOpBytecode;
-import translate.CodeBlock;
+import translate.Block;
 
 /**
  * A node of abstract syntax representing a binary operation between two
@@ -97,8 +97,8 @@ public abstract class BinOp extends Expression {
      *         with <tt>continuation</tt>
      */
 
-    public final CodeBlock translate
-	(CodeSignature where, CodeBlock continuation) {
+    public final Block translate
+	(CodeSignature where, Block continuation) {
 
 	Type type = getLeft().getStaticType()
 	    .leastCommonSupertype(getRight().getStaticType());

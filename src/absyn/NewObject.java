@@ -5,7 +5,7 @@ import java.util.Set;
 
 import semantical.TypeChecker;
 import symbol.Symbol;
-import translate.CodeBlock;
+import translate.Block;
 import types.ClassType;
 import types.CodeSignature;
 import types.ConstructorSignature;
@@ -175,7 +175,7 @@ public class NewObject extends Expression {
      *         the <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	continuation = new CONSTRUCTORCALL(where,constructor)
 	    .followedBy(continuation);
 

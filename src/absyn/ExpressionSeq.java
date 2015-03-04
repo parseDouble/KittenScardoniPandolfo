@@ -6,7 +6,7 @@ import types.Type;
 import types.TypeList;
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 
 /**
  * A node of abstract syntax representing a sequence (list)
@@ -128,8 +128,8 @@ public class ExpressionSeq extends Absyn {
      *         continues with <tt>continuation</tt>
      */
 
-    public CodeBlock translateAs
-	(CodeSignature where, TypeList types, CodeBlock continuation) {
+    public Block translateAs
+	(CodeSignature where, TypeList types, Block continuation) {
 
 	return head.translateAs
 	    (where,types.getHead(),tail != null ?

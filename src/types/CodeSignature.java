@@ -5,7 +5,7 @@ import generateJB.KittenClassGen;
 import org.apache.bcel.generic.InvokeInstruction;
 
 import symbol.Symbol;
-import translate.CodeBlock;
+import translate.Block;
 import absyn.CodeDeclaration;
 
 /**
@@ -20,27 +20,27 @@ public abstract class CodeSignature extends ClassMemberSignature {
      * The name of this code object.
      */
 
-    private Symbol name;
+    private final Symbol name;
 
     /**
      * The return type of this code object.
      */
 
-    private Type returnType;
+    private final Type returnType;
 
     /**
      * The parameters of this code object.
      */
 
-    private TypeList parameters;
+    private final TypeList parameters;
 
     /**
      * The intermediate Kitten code for this constructor or method.
-     * This is <tt>null</tt> if this constructor or method has not been
+     * This is {@code null} if this constructor or method has not been
      * translated yet.
      */
 
-    private CodeBlock code;
+    private Block code;
 
     /**
      * Builds a signature for a code object.
@@ -49,63 +49,43 @@ public abstract class CodeSignature extends ClassMemberSignature {
      * @param returnType the return type of this code
      * @param parameters the types of the parameters of this code
      * @param name the name of this code
-     * @param abstractSyntax the abstract syntax of the declaration
-     *                       of this code
+     * @param abstractSyntax the abstract syntax of the declaration of this code
      */
 
-    protected CodeSignature
-	(ClassType clazz, Type returnType,
-	 TypeList parameters, Symbol name,
-	 CodeDeclaration abstractSyntax) {
+    protected CodeSignature(ClassType clazz, Type returnType, TypeList parameters,
+    		Symbol name, CodeDeclaration abstractSyntax) {
 
-	super(clazz,abstractSyntax);
+    	super(clazz,abstractSyntax);
 
-	this.parameters = parameters;
-	this.name = name;
-	this.returnType = returnType;
+    	this.parameters = parameters;
+    	this.name = name;
+    	this.returnType = returnType;
     }
 
-    /**
-     * Determines if this signature is equal to another.
-     *
-     * @param other the other signature
-     * @return true if and only if this signature if equal to <tt>other</tt>
-     */
-
+    @Override
     public boolean equals(Object other) {
-	if (getClass() == other.getClass()) {
-	    CodeSignature otherM = (CodeSignature)other;
+    	if (getClass() == other.getClass()) {
+    		CodeSignature otherM = (CodeSignature) other;
 
-	    return otherM.getDefiningClass() == getDefiningClass() &&
-		otherM.name == name &&
-		otherM.parameters.equals(parameters) &&
-		otherM.returnType == returnType;
-	}
-	else return false;
+    		return otherM.getDefiningClass() == getDefiningClass() &&
+    				otherM.name == name &&
+    				otherM.parameters.equals(parameters) &&
+    				otherM.returnType == returnType;
+    	}
+    	else
+    		return false;
     }
 
-    /**
-     * Yields the hash code of this signature. This is consistent with
-     * <tt>equals()</tt>.
-     *
-     * @return the hash code of this signature
-     */
-
+    @Override
     public int hashCode() {
-	return getDefiningClass().hashCode()
-	    + name.hashCode() + parameters.hashCode() + returnType.hashCode();
+    	return getDefiningClass().hashCode()
+   			+ name.hashCode() + parameters.hashCode() + returnType.hashCode();
     }
 
-    /**
-     * Yields a <tt>String</tt> representation of this code signature,
-     * of the form <i>Class.name(parametersTypes):returnType</i>.
-     *
-     * @return a <tt>String</tt> representation of this method signature
-     */
-
+    @Override
     public String toString() {
-	return getDefiningClass() + "."
-	    + getName() + "(" + getParameters() + "):" + getReturnType();
+    	return getDefiningClass() + "."
+   			+ getName() + "(" + getParameters() + "):" + getReturnType();
     }
 
     /**
@@ -115,7 +95,7 @@ public abstract class CodeSignature extends ClassMemberSignature {
      */
 
     public TypeList getParameters() {
-	return parameters;
+    	return parameters;
     }
 
     /**
@@ -125,7 +105,7 @@ public abstract class CodeSignature extends ClassMemberSignature {
      */
 
     public Type getReturnType() {
-	return returnType;
+    	return returnType;
     }
 
     /**
@@ -135,7 +115,7 @@ public abstract class CodeSignature extends ClassMemberSignature {
      */
 
     public Symbol getName() {
-	return name;
+    	return name;
     }
 
     /**
@@ -144,8 +124,9 @@ public abstract class CodeSignature extends ClassMemberSignature {
      * @return the abstract syntax of this constructor or method declaration
      */
 
+    @Override
     public CodeDeclaration getAbstractSyntax() {
-	return (CodeDeclaration)super.getAbstractSyntax();
+    	return (CodeDeclaration) super.getAbstractSyntax();
     }
 
     /**
@@ -157,7 +138,7 @@ public abstract class CodeSignature extends ClassMemberSignature {
      */
 
     public TypeList requiredStackTypes() {
-	return parameters.push(getDefiningClass());
+    	return parameters.push(getDefiningClass());
     }
 
     /**
@@ -168,56 +149,51 @@ public abstract class CodeSignature extends ClassMemberSignature {
      *         constructor starts
      */
 
-    public CodeBlock getCode() {
-	return code;
+    public Block getCode() {
+    	return code;
     }
 
     /**
-     * Sets the Kitten code of this constructor or method to the given
-     * code, prefixed as required by <tt>addPrefixToCode()</tt>.
+     * Sets the Kitten code of this constructor or method, adding
+     * automatically the prefix expected for it.
      *
      * @param code the Kitten code
      */
 
-    public void setCode(CodeBlock code) {
-	this.code = addPrefixToCode(code);
+    public void setCode(Block code) {
+    	this.code = addPrefixToCode(code);
     }
 
     /**
      * Adds a prefix to the Kitten bytecode generated for this constructor or
-     * method. Constructors add a call to the constructor to the superclass.
-     * Constructors and methods add a <tt>receiver_is</tt> bytecode which
-     * qualifies the type of the receiver.
+     * method. This allows for instance constructors to add a call to the
+     * constructor to the superclass.
      *
      * @param code the code already compiled for this constructor or method
-     * @return <tt>code</tt> with a prefix
+     * @return {@code code} with a prefix
      */
 
-    protected abstract CodeBlock addPrefixToCode(CodeBlock code);
+    protected abstract Block addPrefixToCode(Block code);
 
     /**
      * Generates an invocation instruction that calls this method or
-     * constructor. The kind of invocation is specified by using the constants
-     * inside <tt>org.apache.bcel.Constants</tt>.
+     * constructor.
      *
      * @param classGen the class generator to be used to generate the
      *                 invocation instruction
      * @param invocationType the type of invocation required, as enumerated
-     *                       inside <tt>org.apache.bcel.Constants</tt>
+     *                       inside {@code org.apache.bcel.Constants}
      * @return an invocation instruction that calls this method or constructor
      */
 
-    protected InvokeInstruction createInvokeInstruction
-	(KittenClassGen classGen, short invocationType) {
-
-	// we use the instruction factory in order to put automatically inside
-	// the constant pool a reference to the Java signature of this method
-	// or constructor
-	return classGen.getFactory().createInvoke
-	    (getDefiningClass().toBCEL().toString(), // name of the class
-	     getName().toString(), // name of the method or constructor
-	     getReturnType().toBCEL(), // return type
-	     getParameters().toBCEL(), // parameters types
-	     invocationType); // the type of invocation (static, special, ecc.)
+    protected InvokeInstruction createInvokeInstruction(KittenClassGen classGen, short invocationType) {
+    	// we use the instruction factory in order to put automatically inside
+    	// the constant pool a reference to the Java signature of this method or constructor
+    	return classGen.getFactory().createInvoke
+   			(getDefiningClass().toBCEL().toString(), // name of the class
+			getName().toString(), // name of the method or constructor
+			getReturnType().toBCEL(), // return type
+			getParameters().toBCEL(), // parameters types
+			invocationType); // the type of invocation (static, special, ecc.)
     }
 }

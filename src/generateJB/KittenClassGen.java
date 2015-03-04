@@ -16,7 +16,7 @@ import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.TargetLostException;
 
 import symbol.Symbol;
-import translate.CodeBlock;
+import translate.Block;
 import types.ClassMemberSignature;
 import types.ClassType;
 import types.ConstructorSignature;
@@ -146,10 +146,10 @@ public class KittenClassGen extends ClassGen {
 	 *         from it
 	 */
 
-	public InstructionList generateJB(CodeBlock cb) {
+	public InstructionList generateJB(Block cb) {
 		InstructionList instructions = new InstructionList();
 
-		generateJB(cb,new HashMap<CodeBlock,InstructionHandle>(),instructions);
+		generateJB(cb,new HashMap<Block,InstructionHandle>(),instructions);
 
 		return removeRedundanciesJB(instructions);
 	}
@@ -170,7 +170,7 @@ public class KittenClassGen extends ClassGen {
 	 */
 
 	private InstructionHandle generateJB
-	(CodeBlock cb, HashMap<CodeBlock,InstructionHandle> done,
+	(Block cb, HashMap<Block,InstructionHandle> done,
 			InstructionList instructions) {
 
 		// we first check if we already processed <tt>cb</tt>
@@ -212,10 +212,10 @@ public class KittenClassGen extends ClassGen {
 	 */
 
 	private void generateJBFollows
-	(CodeBlock cb, HashMap<CodeBlock,InstructionHandle> done,
+	(Block cb, HashMap<Block,InstructionHandle> done,
 			InstructionList instructions) {
 
-		List<CodeBlock> follows = (List<CodeBlock>)cb.getFollows();
+		List<Block> follows = (List<Block>)cb.getFollows();
 		InstructionHandle ourLast, noH, yesH, followJB;
 		BranchingBytecode condition;
 

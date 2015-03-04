@@ -8,7 +8,7 @@ import types.ClassType;
 import types.FieldSignature;
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 import bytecode.GETFIELD;
 import bytecode.PUTFIELD;
 
@@ -170,7 +170,7 @@ public class FieldAccess extends Lvalue {
      *         with <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	return receiver.translate
 	    (where,new GETFIELD(where,field).followedBy(continuation));
     }
@@ -188,8 +188,8 @@ public class FieldAccess extends Lvalue {
      *         <tt>continuation</tt>
      */
 
-    public CodeBlock translateBeforeAssignment
-	(CodeSignature where, CodeBlock continuation) {
+    public Block translateBeforeAssignment
+	(CodeSignature where, Block continuation) {
 
 	return receiver.translate(where,continuation);
     }
@@ -205,8 +205,8 @@ public class FieldAccess extends Lvalue {
      * @return a <tt>putfield</tt> bytecode followed by <tt>continuation</tt>
      */
 
-    public CodeBlock translateAfterAssignment
-	(CodeSignature where, CodeBlock continuation) {
+    public Block translateAfterAssignment
+	(CodeSignature where, Block continuation) {
 
 	return new PUTFIELD(where,field).followedBy(continuation);
     }

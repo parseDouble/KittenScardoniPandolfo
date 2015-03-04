@@ -1,13 +1,13 @@
 package types;
 
-import org.apache.bcel.Constants;
-import org.apache.bcel.generic.FieldInstruction;
-import org.apache.bcel.generic.FieldGen;
-
-import absyn.FieldDeclaration;
-import symbol.Symbol;
-import translate.CodeBlock;
 import generateJB.KittenClassGen;
+
+import org.apache.bcel.Constants;
+import org.apache.bcel.generic.FieldGen;
+import org.apache.bcel.generic.FieldInstruction;
+
+import symbol.Symbol;
+import absyn.FieldDeclaration;
 
 /**
  * The signature of a field of a Kitten class.
@@ -21,13 +21,13 @@ public class FieldSignature extends ClassMemberSignature {
      * The type of the field.
      */
 
-    private Type type;
+    private final Type type;
 
     /**
      * The name of the field.
      */
 
-    private Symbol name;
+    private final Symbol name;
 
     /**
      * Constructs the signature of a field with the given type and name,
@@ -39,29 +39,28 @@ public class FieldSignature extends ClassMemberSignature {
      * @param abstractSyntax the abstract syntax of this field declaration
      */
 
-    public FieldSignature
-	(ClassType clazz, Type type, Symbol name,
-	 FieldDeclaration abstractSyntax) {
+    public FieldSignature(ClassType clazz, Type type, Symbol name, FieldDeclaration abstractSyntax) {
+    	super(clazz,abstractSyntax);
 
-	super(clazz,abstractSyntax);
-
-	this.type = type;
-	this.name = name;
+    	this.type = type;
+    	this.name = name;
     }
 
+    @Override
     public boolean equals(Object other) {
-	if (other instanceof FieldSignature) {
-	    FieldSignature otherF = (FieldSignature)other;
+    	if (other instanceof FieldSignature) {
+    		FieldSignature otherF = (FieldSignature) other;
 
-	    return otherF.getDefiningClass() == getDefiningClass() &&
-		otherF.name == name && otherF.type == type;
-	}
-	else return false;
+    		return otherF.getDefiningClass() == getDefiningClass() &&
+    			otherF.name == name && otherF.type == type;
+    	}
+    	else
+    		return false;
     }
 
+    @Override
     public int hashCode() {
-	return getDefiningClass().hashCode()
-	    + name.hashCode() + type.hashCode();
+    	return getDefiningClass().hashCode() + name.hashCode() + type.hashCode();
     }
 
     /**
@@ -71,7 +70,7 @@ public class FieldSignature extends ClassMemberSignature {
      */
 
     public Type getType() {
-	return type;
+    	return type;
     }
 
     /**
@@ -81,58 +80,38 @@ public class FieldSignature extends ClassMemberSignature {
      */
 
     public Symbol getName() {
-	return name;
+    	return name;
     }
 
-    /**
-     * Yields a <tt>String</tt> representation of the field, of the form
-     * <i>Class.name</i>.
-     *
-     * @return a <tt>String</tt> representation of this field
-     */
-
+    @Override
     public String toString() {
-	return getDefiningClass() + "." + name + ":" + type;
+    	return getDefiningClass() + "." + name + ":" + type;
     }
 
     /**
-     * Generates a <tt>getfield</tt> Java bytecode that reads the
-     * value of this field.
+     * Generates a {@code getfield} Java bytecode that reads the value of this field.
      *
-     * @param classGen the class generator to be used to generate
-     *                 the <tt>getfield</tt> Java bytecode
-     * @return a <tt>getfield</tt> Java bytecode that reads the
-     *         value of this field
+     * @param classGen the class generator to be used to generate the {@code getfield}
+     * @return a {@code getfield} Java bytecode that reads the value of this field
      */
 
     public FieldInstruction createGETFIELD(KittenClassGen classGen) {
-	// we use the instruction factory in order to simplify the
-	// creation of the <tt>getfield</tt> Java bytecode. The factory
-	// automatically puts in the constant pool a reference to the Java
-	// signature of the field that is being read
-	return classGen.getFactory().createGetField
-	    (getDefiningClass().toBCEL().toString(),
-	     name.toString(),type.toBCEL());
+    	return classGen.getFactory().createGetField
+    		(getDefiningClass().toBCEL().toString(), name.toString(), type.toBCEL());
     }
 
     /**
-     * Generates a <tt>putfield</tt> Java bytecode that writes a
+     * Generates a {@code putfield} Java bytecode that writes a
      * value inside this field.
      *
      * @param classGen the class generator to be used to generate
-     *                 the <tt>putfield</tt> Java bytecode
-     * @return a <tt>putfield</tt> Java bytecode that writes a value
-     *         inside this field
+     *                 the {@code putfield} Java bytecode
+     * @return a {@code putfield} Java bytecode that writes a value inside this field
      */
 
     public FieldInstruction createPUTFIELD(KittenClassGen classGen) {
-	// we use the instruction factory in order to simplify the
-	// creation of the <tt>putfield</tt> Java bytecode. The factory
-	// automatically puts in the constant pool a reference to the Java
-	// signature of the field that is being written
-	return classGen.getFactory().createPutField
-	    (getDefiningClass().toBCEL().toString(),
-	     name.toString(),type.toBCEL());
+    	return classGen.getFactory().createPutField
+   			(getDefiningClass().toBCEL().toString(), name.toString(), type.toBCEL());
     }
 
     /**
@@ -143,12 +122,11 @@ public class FieldSignature extends ClassMemberSignature {
      */
 
     public void createField(KittenClassGen classGen) {
-	classGen.addField(new FieldGen
-			  (Constants.ACC_PUBLIC, // the field is public
-			   getType().toBCEL(), // type
-			   getName().toString(), // name
-			   // constant pool where it must be stored
-			   classGen.getConstantPool())
-			  .getField());
+    	classGen.addField(new FieldGen
+   			(Constants.ACC_PUBLIC, // the field is public
+			getType().toBCEL(), // type
+			getName().toString(), // name
+			classGen.getConstantPool()) // constant pool where it must be stored
+    	.getField());
     }
 }

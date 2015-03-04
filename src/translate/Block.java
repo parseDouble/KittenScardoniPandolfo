@@ -21,13 +21,13 @@ import components.Node;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class CodeBlock extends Node {
+public class Block extends Node {
 
     /**
      * The successors of this block. This should not be <tt>null</tt>.
      */
 
-    private List<CodeBlock> follows;
+    private List<Block> follows;
 
     /**
      * The bytecode inside this block.
@@ -61,7 +61,7 @@ public class CodeBlock extends Node {
      * @param follows the list of successors of this block
      */
 
-    public CodeBlock(BytecodeList bytecode, List<CodeBlock> follows) {
+    public Block(BytecodeList bytecode, List<Block> follows) {
 	this.bytecode = bytecode;
 	this.follows = follows;
 	this.mergeable = true;
@@ -77,8 +77,8 @@ public class CodeBlock extends Node {
      * @param bytecode the final bytecode
      */
 
-    public CodeBlock(FinalBytecode bytecode) {
-	this(new BytecodeList(bytecode),new List<CodeBlock>());
+    public Block(FinalBytecode bytecode) {
+	this(new BytecodeList(bytecode),new List<Block>());
     }
 
     /**
@@ -94,9 +94,9 @@ public class CodeBlock extends Node {
      *           does not hold. This should not be <tt>null</tt>
      */
 
-    public CodeBlock(BranchingBytecode condition, CodeBlock yes, CodeBlock no) {
+    public Block(BranchingBytecode condition, Block yes, Block no) {
 	this(new BytecodeList(new NOP(condition.getWhere())),
-	     new List<CodeBlock>());
+	     new List<Block>());
 
 	// we prefix the <tt>condition</tt> and its negation to the
 	// code of the following blocks
@@ -111,9 +111,9 @@ public class CodeBlock extends Node {
      * @param where the method or constructor where the block will be put
      */
 
-    public CodeBlock(CodeSignature where) {
+    public Block(CodeSignature where) {
 	// we use <tt>nop</tt> for the initial code of a pivot
-	this(new BytecodeList(new NOP(where)),new List<CodeBlock>());
+	this(new BytecodeList(new NOP(where)),new List<Block>());
 
 	// a pivot cannot be merged, otherwise cycles cannot be built
 	mergeable = false;
@@ -126,8 +126,8 @@ public class CodeBlock extends Node {
      * @param bytecode the code inside the block
      */
 
-    public CodeBlock(BytecodeList bytecode) {
-	this(bytecode,new List<CodeBlock>());
+    public Block(BytecodeList bytecode) {
+	this(bytecode,new List<Block>());
     }
 
     /**
@@ -138,8 +138,8 @@ public class CodeBlock extends Node {
      * @param follow the only successor of this block
      */
 
-    public CodeBlock(BytecodeList bytecode, CodeBlock follow) {
-	this(bytecode,new List<CodeBlock>(follow));
+    public Block(BytecodeList bytecode, Block follow) {
+	this(bytecode,new List<Block>(follow));
     }
 
     /**
@@ -151,8 +151,8 @@ public class CodeBlock extends Node {
      *               not be <tt>null</tt>
      */
 
-    public CodeBlock(SequentialBytecode bytecode, CodeBlock follow) {
-	this(new BytecodeList(bytecode),new List<CodeBlock>(follow));
+    public Block(SequentialBytecode bytecode, Block follow) {
+	this(new BytecodeList(bytecode),new List<Block>(follow));
     }
 
     /**
@@ -171,7 +171,7 @@ public class CodeBlock extends Node {
      * @return the list <tt>follows</tt>
      */
 
-    public List<CodeBlock> getFollows() {
+    public List<Block> getFollows() {
 	return follows;
     }
 
@@ -182,7 +182,7 @@ public class CodeBlock extends Node {
      *               This should not be <tt>null</tt>
      */
 
-    public void linkTo(CodeBlock follow) {
+    public void linkTo(Block follow) {
 	follows.addFirst(follow);
     }
 
@@ -225,7 +225,7 @@ public class CodeBlock extends Node {
      * @return the result of prefixing <tt>bytecode</tt> to this block
      */
 
-    public CodeBlock prefixedBy(Bytecode bytecode) {
+    public Block prefixedBy(Bytecode bytecode) {
 	// we can expand our code if we have no predecessors,
 	// or otherwise we will also affect the view that our predecessors
 	// have of us
@@ -234,7 +234,7 @@ public class CodeBlock extends Node {
 	    return this;
 	}
 	else
-	    return new CodeBlock(new BytecodeList(bytecode),this);
+	    return new Block(new BytecodeList(bytecode),this);
     }
 
     /**
@@ -285,7 +285,7 @@ public class CodeBlock extends Node {
 	// the start method of the program is definitely called
 	program.getSigs().add(program.getStart());
 
-	cleanUp$0(new HashSet<CodeBlock>(),program);
+	cleanUp$0(new HashSet<Block>(),program);
     }
 
     /**
@@ -298,18 +298,18 @@ public class CodeBlock extends Node {
      * @param program the program which is being cleaned-up
      */
 
-    private void cleanUp$0(HashSet<CodeBlock> done, Program program) {
+    private void cleanUp$0(HashSet<Block> done, Program program) {
 	if (!done.contains(this)) {
 	    done.add(this);
 
-	    List<CodeBlock> newFollows = new List<CodeBlock>();
+	    List<Block> newFollows = new List<Block>();
 
 	    // we consider each successor and remove isolated nop's
-	    for (CodeBlock cb: follows)
+	    for (Block cb: follows)
 		if (cb != this && cb.bytecode.getHead() instanceof NOP &&
 		    cb.bytecode.getTail() == null) {
 		    newFollows.addAll(cb.follows);
-		    for (CodeBlock cb2: cb.follows)
+		    for (Block cb2: cb.follows)
 			if (cb2.getPrevious() != null) {
 			    cb2.getPrevious().remove(cb);
 			    cb2.getPrevious().addAll(cb.getPrevious());
@@ -319,7 +319,7 @@ public class CodeBlock extends Node {
 	    follows = newFollows;
 
 	    // we continue with the successors
-	    for (CodeBlock cb: follows) cb.cleanUp$0(done,program);
+	    for (Block cb: follows) cb.cleanUp$0(done,program);
 
 	    // if we only have one successor which has only one predecessor,
 	    // we merge this block with our successor

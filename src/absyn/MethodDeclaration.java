@@ -6,7 +6,6 @@ import semantical.TypeChecker;
 import symbol.Symbol;
 import types.ClassType;
 import types.MethodSignature;
-import types.StartMethodSignature;
 import types.Type;
 import types.TypeList;
 
@@ -120,8 +119,7 @@ public class MethodDeclaration extends CodeDeclaration {
 
 	// the main method, from which starts the execution of a Kitten class,
 	// uses a <tt>StartMethodSignature</tt>
-	if (name == Symbol.MAIN) mSig = new StartMethodSignature(clazz,this);
-	else mSig = new MethodSignature(clazz,rt,pars,name,this);
+	mSig = new MethodSignature(clazz,rt,pars,name,this);
 
 	clazz.addMethod(name,mSig);
 
@@ -159,7 +157,7 @@ public class MethodDeclaration extends CodeDeclaration {
 
 	// the main method is the only <i>static</i> method, where there
 	// is no <tt>this</tt> variable
-	if (!(getSignature() instanceof StartMethodSignature))
+	if (getSignature().getName() != Symbol.MAIN)
 	    checker = checker.putVar(Symbol.THIS,clazz);
 
 	// we enrich the type-checker with the formal parameters

@@ -6,7 +6,7 @@ import symbol.Symbol;
 import semantical.TypeChecker;
 import types.Type;
 import types.CodeSignature;
-import translate.CodeBlock;
+import translate.Block;
 import bytecode.STORE;
 
 /**
@@ -166,7 +166,7 @@ public class LocalDeclaration extends Command {
      *         the <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	// we get the number and type of the variable
 	int varNum = getTypeChecker().getVarNum(name);
 	Type staticType = type.getStaticType();

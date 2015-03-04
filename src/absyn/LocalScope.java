@@ -4,7 +4,7 @@ import java.io.FileWriter;
 
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 
 /**
  * A node of abstract syntax representing a local scope, <i>i.e.</i>, a block
@@ -102,7 +102,7 @@ public class LocalScope extends Command {
      *         the <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	// we translate the body of the local scope with
 	// the given <tt>continuation</tt>
 	return body.translate(where,continuation);

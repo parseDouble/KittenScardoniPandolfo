@@ -6,7 +6,7 @@ import types.Type;
 import types.ArrayType;
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 import bytecode.ARRAYLOAD;
 import bytecode.ARRAYSTORE;
 
@@ -135,7 +135,7 @@ public class ArrayAccess extends Lvalue {
      *         with <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	return array.translate
 	    (where,index.translate
 	     (where,new ARRAYLOAD(where,getStaticType()).followedBy
@@ -155,8 +155,8 @@ public class ArrayAccess extends Lvalue {
      *         <tt>index</tt> followed by the given <tt>continuation</tt>
      */
 
-    public CodeBlock translateBeforeAssignment
-	(CodeSignature where, CodeBlock continuation) {
+    public Block translateBeforeAssignment
+	(CodeSignature where, Block continuation) {
 
 	return array.translate(where,index.translate(where,continuation));
     }
@@ -172,8 +172,8 @@ public class ArrayAccess extends Lvalue {
      * @return a <tt>putfield</tt> bytecode followed by <tt>continuation</tt>
      */
 
-    public CodeBlock translateAfterAssignment
-	(CodeSignature where, CodeBlock continuation) {
+    public Block translateAfterAssignment
+	(CodeSignature where, Block continuation) {
 
 	return new ARRAYSTORE(where,getStaticType()).followedBy(continuation);
     }

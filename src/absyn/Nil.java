@@ -3,7 +3,7 @@ package absyn;
 import types.Type;
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 import bytecode.CONST;
 
 /**
@@ -51,7 +51,7 @@ public class Nil extends Literal {
      *         with <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	return new CONST(where).followedBy(continuation);
     }
 }

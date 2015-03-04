@@ -2,7 +2,7 @@ package absyn;
 
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.CodeBlock;
+import translate.Block;
 
 /**
  * A node of abstract syntax representing a skip command.
@@ -63,7 +63,7 @@ public class Skip extends Command {
      * @return <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	// yields the continuation, unchanged
 	return continuation;
     }

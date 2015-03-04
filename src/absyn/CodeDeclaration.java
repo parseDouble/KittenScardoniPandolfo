@@ -3,7 +3,7 @@ package absyn;
 import java.util.HashSet;
 import java.util.Set;
 
-import translate.CodeBlock;
+import translate.Block;
 import types.ClassMemberSignature;
 import types.CodeSignature;
 import types.Type;
@@ -132,11 +132,11 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
 	// <tt>checkForDeadCode()</tt> (see <tt>typeCheck()</tt> in
 	// <tt>MethodDeclaration.java</tt>)
 	sig.setCode(getBody().translate
-		    (sig,new CodeBlock(new RETURN(sig,Type.VOID))));
+		    (sig,new Block(new RETURN(sig,Type.VOID))));
 
 	// we translate all methods and constructors which are referenced
 	// from the code we have generated
-	translateReferenced(sig.getCode(),done,new HashSet<CodeBlock>());
+	translateReferenced(sig.getCode(),done,new HashSet<Block>());
     }
 
     /**
@@ -150,8 +150,8 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
      */
 
     private void translateReferenced
-	(CodeBlock cb,
-	 Set<ClassMemberSignature> done, Set<CodeBlock> blocksDone) {
+	(Block cb,
+	 Set<ClassMemberSignature> done, Set<Block> blocksDone) {
 
 	// if we already processed the block, we return immediately
 	if (blocksDone.contains(cb)) return;
@@ -171,7 +171,7 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
 	}
 
 	// we continue with the following blocks
-	for (CodeBlock f: cb.getFollows())
+	for (Block f: cb.getFollows())
 	    translateReferenced(f,done,blocksDone);
     }
 }

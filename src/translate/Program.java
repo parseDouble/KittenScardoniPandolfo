@@ -97,7 +97,7 @@ public class Program {
      * @return the first block of code from which the program starts
      */
 
-    public CodeBlock firstBlock() {
+    public Block firstBlock() {
 	return getStart().getCode();
     }
 
@@ -151,7 +151,7 @@ public class Program {
 	// landscape mode
 	//dot.write("rotate = 90\n");
 
-	toDot(sig.getCode(),dot,new HashSet<CodeBlock>());
+	toDot(sig.getCode(),dot,new HashSet<Block>());
 
 	dot.write("}");
 
@@ -171,7 +171,7 @@ public class Program {
      */
 
     private String toDot
-	(CodeBlock cb, FileWriter where, HashSet<CodeBlock> done)
+	(Block cb, FileWriter where, HashSet<Block> done)
 	throws IOException {
 
 	String name = cb.dotNodeName();
@@ -196,7 +196,7 @@ public class Program {
 	    // bytecode, which lead to the code of a method or constructor
 	    // which is not that whose code we are printing. This only happens
 	    // for the termination transformation of the Kitten code
-	    for (CodeBlock f: cb.getFollows())
+	    for (Block f: cb.getFollows())
 		where.write(name + "->" + toDot(f,where,done) +
 				" [color = blue label = \"\" fontsize = 8]\n");
 	}

@@ -4,7 +4,7 @@ import types.Type;
 import types.CodeSignature;
 import semantical.TypeChecker;
 import bytecode.ComparisonBinOpBytecode;
-import translate.CodeBlock;
+import translate.Block;
 
 /**
  * A node of abstract syntax representing a comparison binary operation
@@ -42,8 +42,8 @@ public abstract class ComparisonBinOp extends BinOp {
      *         <tt>yes</tt> or <tt>no</tt> continuation, respectively
      */
 
-    public CodeBlock translateAsTest
-	(CodeSignature where, CodeBlock yes, CodeBlock no) {
+    public Block translateAsTest
+	(CodeSignature where, Block yes, Block no) {
 
 	// we compute the least common supertype of the two sides of this
 	// binary expression
@@ -53,7 +53,7 @@ public abstract class ComparisonBinOp extends BinOp {
 	return getLeft().translateAs
 	    (where,type,getRight().translateAs
 	     (where,type,
-	      (new CodeBlock
+	      (new Block
 	       // we transform the operator into its branching version
 	       (((ComparisonBinOpBytecode)operator(where,type)).toBranching(),
 		yes,no))));

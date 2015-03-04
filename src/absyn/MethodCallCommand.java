@@ -5,7 +5,7 @@ import java.util.Set;
 
 import semantical.TypeChecker;
 import symbol.Symbol;
-import translate.CodeBlock;
+import translate.Block;
 import types.ClassType;
 import types.CodeSignature;
 import types.MethodSignature;
@@ -220,7 +220,7 @@ public class MethodCallCommand extends Command {
      *         the <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	if (method.getReturnType() != Type.VOID)
 	    // if the method does return a value, we must throw it away
 	    continuation = new POP(where,method.getReturnType())

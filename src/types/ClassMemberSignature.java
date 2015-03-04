@@ -15,13 +15,13 @@ public abstract class ClassMemberSignature {
      * The class this member belongs to.
      */
 
-    private ClassType clazz;
+    private final ClassType clazz;
 
     /**
      * The abstract syntax of the class member having this signature.
      */
 
-    private ClassMemberDeclaration abstractSyntax; 
+    private final ClassMemberDeclaration abstractSyntax; 
 
     /**
      * Constructs a signature for a member of the given class.
@@ -30,11 +30,9 @@ public abstract class ClassMemberSignature {
      * @param abstractSyntax the abstract syntax of this class member
      */
 
-    protected ClassMemberSignature
-	(ClassType clazz, ClassMemberDeclaration abstractSyntax) {
-
-	this.clazz = clazz;
-	this.abstractSyntax = abstractSyntax;
+    protected ClassMemberSignature(ClassType clazz, ClassMemberDeclaration abstractSyntax) {
+    	this.clazz = clazz;
+    	this.abstractSyntax = abstractSyntax;
     }
 
     /**
@@ -44,7 +42,7 @@ public abstract class ClassMemberSignature {
      */
 
     public ClassType getDefiningClass() {
-	return clazz;
+    	return clazz;
     }
 
     /**
@@ -54,6 +52,6 @@ public abstract class ClassMemberSignature {
      */
 
     public ClassMemberDeclaration getAbstractSyntax() {
-	return abstractSyntax;
+    	return abstractSyntax;
     }
 }

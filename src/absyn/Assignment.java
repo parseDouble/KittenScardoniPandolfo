@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import semantical.TypeChecker;
 import types.Type;
 import types.CodeSignature;
-import translate.CodeBlock;
+import translate.Block;
 
 /**
  * A node of abstract syntax representing an assignment command.
@@ -139,7 +139,7 @@ public class Assignment extends Command {
      *         the <tt>continuation</tt>
      */
 
-    public CodeBlock translate(CodeSignature where, CodeBlock continuation) {
+    public Block translate(CodeSignature where, Block continuation) {
 	return lvalue.translateBeforeAssignment
 	    (where,rvalue.translateAs
 	     (where,lvalue.getStaticType(),
