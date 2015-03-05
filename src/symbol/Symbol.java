@@ -1,7 +1,5 @@
 package symbol;
 
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * A symbol of the abstract syntax. It represents an identifier in the
@@ -14,36 +12,28 @@ import java.util.Map;
 public class Symbol implements Comparable<Symbol> {
 
 	/**
-	 * A table that binds names to their corresponding symbol.
-	 * Two occurrences of the same identifier are represented
-	 * by the same, unique symbol.
-	 */
-
-	private static Map<String,Symbol> memory = new HashMap<String,Symbol>();
-
-	/**
 	 * The symbol representing the identifier {@code this}.
 	 */
 
-	public static final Symbol THIS = mk("this");
+	public static final Symbol THIS = new Symbol("this");
 
 	/**
 	 * The symbol representing the identifier {@code Object}.
 	 */
 
-	public static final Symbol OBJECT = mk("Object");
+	public static final Symbol OBJECT = new Symbol("Object");
 
 	/**
 	 * The symbol representing the identifier {@code String}.
 	 */
 
-	public static final Symbol STRING = mk("String");
+	public static final Symbol STRING = new Symbol("String");
 
 	/**
 	 * The symbol of the method where the application starts.
 	 */
 
-	public static final Symbol MAIN = mk("main");
+	public static final Symbol MAIN = new Symbol("main");
 
 	/**
 	 * The string representation of the symbol.
@@ -59,23 +49,6 @@ public class Symbol implements Comparable<Symbol> {
 
 	public Symbol(String name) {
 		this.name = name;
-	}
-
-	/**
-	 * Returns the unique symbol representing the given string (identifier).
-	 *
-	 * @param name the name of the symbol (identifier)
-	 * @return the unique symbol representing that name
-	 */
-
-	public static Symbol mk(String name) {
-		// we first look in the memory, to see if we already created a symbol for this name
-		Symbol s = memory.get(name);
-		if (s == null)
-			// if not, we build a new symbol for the name and store it in memory
-			memory.put(name, s = new Symbol(name));
-
-		return s;
 	}
 
 	@Override
