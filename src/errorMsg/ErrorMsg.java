@@ -1,6 +1,7 @@
 package errorMsg;
 
-import util.List;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * An error reporting utility. It allows one to print error messages
@@ -16,7 +17,7 @@ public class ErrorMsg {
 	 * This is useful to know where source lines stop.
 	 */
 
-	private final List<Integer> linePos = new List<Integer>();
+	private final List<Integer> linePos = new ArrayList<>();
 
 	/**
 	 * The name of the file to which this error reporting utility is associated.
@@ -68,7 +69,7 @@ public class ErrorMsg {
 	 */
 
 	public void newline(int pos) {
-		linePos.addLast(pos);
+		linePos.add(pos);
 	}
 
 	/**

@@ -2,6 +2,7 @@ package bytecode;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 import org.apache.bcel.generic.InstructionList;
 
@@ -9,7 +10,6 @@ import bytecodeGenerator.KittenClassGen;
 import types.ClassType;
 import types.CodeSignature;
 import types.MethodSignature;
-import util.List;
 
 /**
  * A bytecode which calls a method of an object with dynamic lookup.
@@ -39,8 +39,7 @@ public class VIRTUALCALL extends CALL implements PointerDereferencer {
 	public VIRTUALCALL(CodeSignature where, ClassType receiverType, MethodSignature staticTarget) {
 		// we compute the dynamic targets by assuming that the run-time
 		// type of the receiver is any subclass of its static type
-		super(where,receiverType,staticTarget,
-				dynamicTargets(receiverType.getInstances(),staticTarget));
+		super(where, receiverType, staticTarget, dynamicTargets(receiverType.getInstances(), staticTarget));
 	}
 
 	/**
@@ -48,27 +47,21 @@ public class VIRTUALCALL extends CALL implements PointerDereferencer {
 	 * methods with the same signature of the static target which might
 	 * be called from a given set of run-time classes for the receiver.
 	 *
-	 * @param possibleRunTimeClasses the set of run-time classes
-	 *                               for the receiver
+	 * @param possibleRunTimeClasses the set of run-time classes for the receiver
 	 * @param staticTarget the static target of the call
-	 * @return the set of <tt>MethodSignature</tt>'s which might be called
+	 * @return the set of method signatures that might be called
 	 *         with the given set of classes as receiver
 	 */
 
-	private static Set<CodeSignature> dynamicTargets
-	(List<? extends ClassType> possibleRunTimeClasses,
-			CodeSignature staticTarget) {
-
-		HashSet<CodeSignature> dynamicTargets = new HashSet<CodeSignature>();
-		MethodSignature candidate;
+	private static Set<CodeSignature> dynamicTargets(List<ClassType> possibleRunTimeClasses, CodeSignature staticTarget) {
+		Set<CodeSignature> dynamicTargets = new HashSet<CodeSignature>();
 
 		for (ClassType rec: possibleRunTimeClasses) {
 			// we look up for the method from the dynamic receiver
-			candidate = rec.methodLookup
-					(staticTarget.getName(),staticTarget.getParameters());
+			MethodSignature candidate = rec.methodLookup
+					(staticTarget.getName(), staticTarget.getParameters());
 
-			// we add the dynamic target. If it was already there,
-			// the set is not modified
+			// we add the dynamic target. If it was already there, the set is not modified
 			if (candidate != null) dynamicTargets.add(candidate);
 		}
 

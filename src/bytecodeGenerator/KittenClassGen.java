@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.List;
 
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.ClassGen;
@@ -22,7 +23,6 @@ import types.ClassType;
 import types.ConstructorSignature;
 import types.FieldSignature;
 import types.MethodSignature;
-import util.List;
 import bytecode.BranchingBytecode;
 
 /**
@@ -212,40 +212,34 @@ public class KittenClassGen extends ClassGen {
 	 */
 
 	private void generateJBFollows
-	(Block cb, HashMap<Block,InstructionHandle> done,
-			InstructionList instructions) {
+	(Block cb, HashMap<Block,InstructionHandle> done, InstructionList instructions) {
 
-		List<Block> follows = (List<Block>)cb.getFollows();
+		List<Block> follows = cb.getFollows();
 		InstructionHandle ourLast, noH, yesH, followJB;
-		BranchingBytecode condition;
 
 		// this is where the Java bytecode currently ends
 		ourLast = instructions.getEnd();
 
 		if (!follows.isEmpty())
-			if (follows.getFirst().getBytecode().getHead()
-					instanceof BranchingBytecode) {
-
+			if (follows.get(0).getBytecode().getHead() instanceof BranchingBytecode) {
 				// we are facing a branch due to a comparison bytecode.
 				// That bytecode and its negation are at the beginning of
 				// our two following blocks
 
 				// we get the condition of the branching
-				condition = (BranchingBytecode)
-						(follows.getFirst().getBytecode().getHead());
+				BranchingBytecode condition = (BranchingBytecode) follows.get(0).getBytecode().getHead();
 
 				// we append the code for the two blocks that follow <tt>cb</tt>
 				noH = generateJB(follows.get(1),done,instructions);
-				yesH = generateJB(follows.getFirst(),done,instructions);
+				yesH = generateJB(follows.get(0),done,instructions);
 
 				// in between, we put some code that jumps to <tt>yesH</tt> if
 				// <tt>condition</tt> holds, and to <tt>noH</tt> otherwise
-				instructions.append
-				(ourLast,condition.generateJB(this,yesH,noH));
+				instructions.append(ourLast, condition.generateJB(this, yesH, noH));
 			}
 			else {
 				// we append the code for the first block after <tt>cb</tt>
-				followJB = generateJB(follows.getFirst(),done,instructions);
+				followJB = generateJB(follows.get(0),done,instructions);
 
 				// in between, we put a <tt>goto</tt> bytecode. Note that we
 				// need this <tt>goto</tt> since we have no guarantee that the
@@ -271,17 +265,15 @@ public class KittenClassGen extends ClassGen {
 	 */
 
 	private InstructionList removeRedundanciesJB(InstructionList il) {
-		Iterator it = il.iterator();
-		InstructionHandle handle;
-		Instruction instruction;
+		@SuppressWarnings("unchecked")
+		Iterator<InstructionHandle> it = il.iterator();
 
-		while(it.hasNext()) {
-			handle = (InstructionHandle)it.next();
-			instruction = handle.getInstruction();
+		while (it.hasNext()) {
+			InstructionHandle handle = it.next();
+			Instruction instruction = handle.getInstruction();
 
 			if (instruction instanceof org.apache.bcel.generic.NOP ||
-					(instruction instanceof GOTO &&
-							((GOTO)instruction).getTarget() == handle.getNext()))
+					(instruction instanceof GOTO && ((GOTO) instruction).getTarget() == handle.getNext()))
 				try {
 					il.redirectBranches(handle,handle.getNext());
 					il.delete(handle);

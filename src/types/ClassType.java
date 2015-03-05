@@ -2,19 +2,20 @@ package types;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import lexical.Lexer;
-import absyn.ClassDefinition;
-import errorMsg.ErrorMsg;
 import symbol.Symbol;
 import syntactical.Parser;
 import translate.Program;
-import util.List;
+import absyn.ClassDefinition;
+import errorMsg.ErrorMsg;
 
 /**
  * The type of a class.
@@ -98,7 +99,7 @@ public final class ClassType extends ReferenceType {
 		this.name = name;
 	
 		// there are no subclasses at the moment
-		this.subclasses = new List<ClassType>();
+		this.subclasses = new ArrayList<>();
 	
 		// we record this object for future lookup
 		memory.put(name, this);
@@ -131,7 +132,7 @@ public final class ClassType extends ReferenceType {
 		if (name != Symbol.OBJECT)
 			// if this is not Object, we create its superclass also and take
 			// note that we are a direct subclass of our superclass
-			(superclass = mk(abstractSyntax.getSuperclassName())).subclasses.addFirst(this);
+			(superclass = mk(abstractSyntax.getSuperclassName())).subclasses.add(this);
 		else {
 			// otherwise we take note of the top of the hierarchy of the reference types
 			setObjectType(this);
@@ -256,7 +257,8 @@ public final class ClassType extends ReferenceType {
 			return instances;
 
 		// we add this class itself
-		List<ClassType> result = new List<ClassType>(this);
+		List<ClassType> result = new ArrayList<>();
+		result.add(this);
 
 		// we add the instances of our subclasses
 		for (ClassType sub: subclasses)
