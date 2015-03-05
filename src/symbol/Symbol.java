@@ -89,18 +89,4 @@ public class Symbol implements Comparable<Symbol> {
 	public int compareTo(Symbol other) {
 		return name.compareTo(other.name);
 	}
-
-	/**
-	 * Writes in a file the node for the dot representation of this symbol.
-	 *
-	 * @param where the file where the dot representation must be written
-	 * @return the string representing this node in the dot file
-	 */
-
-	public String toDot(FileWriter where) throws IOException {
-		String id = "symbol_" + name;
-		where.write(id + " [label = \"" + name + "\" fontname = \"Times-Italic\" shape = box]\n");
-
-		return id;
-	}
 }

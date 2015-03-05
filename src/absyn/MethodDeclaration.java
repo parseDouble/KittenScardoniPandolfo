@@ -95,8 +95,8 @@ public class MethodDeclaration extends CodeDeclaration {
      */
 
     protected void toDotAux(FileWriter where) throws java.io.IOException {
-	linkToNode("returnType",returnType.toDot(where),where);
-	linkToNode("name",name.toDot(where),where);
+	linkToNode("returnType", returnType.toDot(where), where);
+	linkToNode("name", toDot(name, where), where);
 
 	if (getFormals() != null)
 	    linkToNode("formals",getFormals().toDot(where),where);

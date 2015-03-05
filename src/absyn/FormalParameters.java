@@ -100,9 +100,10 @@ public class FormalParameters extends Absyn {
 
 	// we add arcs between the dot node for this object and those for
 	// the <tt>type</tt>, <tt>name</tt> and <tt>next</tt> fields
-	linkToNode("type",type.toDot(where),where);
-	linkToNode("name",name.toDot(where),where);
-	if (next != null) boldLinkToNode("next",next.toDot(where),where);
+	linkToNode("type", type.toDot(where), where);
+	linkToNode("name", toDot(name, where), where);
+	if (next != null)
+		boldLinkToNode("next", next.toDot(where), where);
 
 	return dotNodeName();
     }

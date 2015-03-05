@@ -136,9 +136,9 @@ public class ClassDefinition extends Absyn {
     	// followed by the label used to show the node to the user of dot
     	where.write(dotNodeName() + " [ label = \"" + label() + "\"];\n");
 
-    	linkToNode("name", name.toDot(where), where);
+    	linkToNode("name", toDot(name, where), where);
     	if (superclassName != null)
-    		linkToNode("superclassName", superclassName.toDot(where), where);
+    		linkToNode("superclassName", toDot(superclassName, where), where);
     	if (declarations != null)
     		linkToNode("declarations", declarations.toDot(where), where);
 

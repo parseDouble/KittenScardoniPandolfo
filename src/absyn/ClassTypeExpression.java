@@ -85,7 +85,7 @@ public class ClassTypeExpression extends TypeExpression {
 
 	@Override
 	protected void toDotAux(FileWriter where) throws java.io.IOException {
-		linkToNode("name", name.toDot(where), where);
+		linkToNode("name", toDot(name, where), where);
 	}
 
 	@Override

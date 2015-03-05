@@ -102,8 +102,8 @@ public class LocalDeclaration extends Command {
      */
 
     protected void toDotAux(FileWriter where) throws java.io.IOException {
-	linkToNode("type",type.toDot(where),where);
-	linkToNode("name",name.toDot(where),where);
+	linkToNode("type", type.toDot(where), where);
+	linkToNode("name", toDot(name, where), where);
 	linkToNode("initialiser",initialiser.toDot(where),where);
     }
 

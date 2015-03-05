@@ -113,7 +113,7 @@ public class NewObject extends Expression {
      */
 
     protected void toDotAux(FileWriter where) throws java.io.IOException {
-	linkToNode("className",className.toDot(where),where);
+	linkToNode("className", toDot(className, where), where);
 	if (actuals != null) linkToNode("actuals",actuals.toDot(where),where);
     }
 

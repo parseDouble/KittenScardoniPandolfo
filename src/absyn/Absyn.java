@@ -1,8 +1,10 @@
 package absyn;
 
 import java.io.FileWriter;
+import java.io.IOException;
 
 import semantical.TypeChecker;
+import symbol.Symbol;
 
 /**
  * A node of abstract syntax.
@@ -91,6 +93,21 @@ public abstract class Absyn {
 
 	protected final String dotNodeName() {
 		return "node" + identifier;
+	}
+
+	/**
+	 * Writes in a file the node for the dot representation of the given symbol.
+	 *
+	 * @param symbol the symbol
+	 * @param where the file where the dot representation must be written
+	 * @return the string representing this node in the dot file
+	 */
+
+	protected String toDot(Symbol symbol, FileWriter where) throws IOException {
+		String id = "symbol_" + symbol.toString();
+		where.write(id + " [label = \"" + symbol.toString() + "\" fontname = \"Times-Italic\" shape = box]\n");
+
+		return id;
 	}
 
 	/**

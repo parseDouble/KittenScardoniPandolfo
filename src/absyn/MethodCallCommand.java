@@ -139,8 +139,8 @@ public class MethodCallCommand extends Command {
      */
 
     protected void toDotAux(FileWriter where) throws java.io.IOException {
-	linkToNode("receiver",receiver.toDot(where),where);
-	linkToNode("name",name.toDot(where),where);
+	linkToNode("receiver", receiver.toDot(where), where);
+	linkToNode("name", toDot(name, where), where);
 
 	if (actuals != null) linkToNode("actuals",actuals.toDot(where),where);
     }

@@ -81,8 +81,8 @@ public class FieldDeclaration extends ClassMemberDeclaration {
      */
 
     protected void toDotAux(FileWriter where) throws java.io.IOException {
-	linkToNode("type",type.toDot(where),where);
-	linkToNode("name",name.toDot(where),where);
+	linkToNode("type", type.toDot(where), where);
+	linkToNode("name", toDot(name, where), where);
     }
 
     /**
