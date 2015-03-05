@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.util.Set;
 
 import semantical.TypeChecker;
-import symbol.Symbol;
 import translate.Block;
 import types.ClassType;
 import types.CodeSignature;
@@ -35,7 +34,7 @@ public class MethodCallExpression extends Expression {
      * The name of the method which is called.
      */
 
-    private Symbol name;
+    private String name;
 
     /**
      * The abstract syntax of the actual parameters of the call.
@@ -66,7 +65,7 @@ public class MethodCallExpression extends Expression {
      */
 
     public MethodCallExpression(int pos, Expression receiver,
-				Symbol name, ExpressionSeq actuals) {
+    		String name, ExpressionSeq actuals) {
 	super(pos);
 
 	this.receiver = receiver;
@@ -94,7 +93,7 @@ public class MethodCallExpression extends Expression {
      * @return the name of the method which is called
      */
 
-    public Symbol getName() {
+    public String getName() {
 	return name;
     }
 

@@ -2,7 +2,6 @@ package absyn;
 
 import java.io.FileWriter;
 
-import symbol.Symbol;
 import types.ClassType;
 import types.Type;
 
@@ -18,7 +17,7 @@ public class ClassTypeExpression extends TypeExpression {
 	 * The name (identifier) of the class.
 	 */
 
-	private final Symbol name;
+	private final String name;
 
 	/**
 	 * Constructs the abstract syntax of a Kitten class type.
@@ -28,7 +27,7 @@ public class ClassTypeExpression extends TypeExpression {
 	 * @param name the name (identifier) of the class
 	 */
 
-	public ClassTypeExpression(int pos, Symbol name) {
+	public ClassTypeExpression(int pos, String name) {
 		super(pos);
 
 		this.name = name;
@@ -40,7 +39,7 @@ public class ClassTypeExpression extends TypeExpression {
 	 * @return the name of the class
 	 */
 
-	public Symbol getName() {
+	public String getName() {
 		return name;
 	}
 

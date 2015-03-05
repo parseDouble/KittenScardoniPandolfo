@@ -2,7 +2,6 @@ package absyn;
 
 import java.io.FileWriter;
 
-import symbol.Symbol;
 import types.FieldSignature;
 import types.ClassType;
 
@@ -25,7 +24,7 @@ public class FieldDeclaration extends ClassMemberDeclaration {
      * The name of the field.
      */
 
-    private Symbol name;
+    private String name;
 
     /**
      * The signature of this method. This is <tt>null</tt> if type-checking
@@ -45,8 +44,7 @@ public class FieldDeclaration extends ClassMemberDeclaration {
      *             subsequent class member, if any
      */
 
-    public FieldDeclaration(int pos, TypeExpression type, Symbol name,
-			    ClassMemberDeclaration next) {
+    public FieldDeclaration(int pos, TypeExpression type, String name, ClassMemberDeclaration next) {
 	super(pos,next);
 
 	this.type = type;
@@ -69,7 +67,7 @@ public class FieldDeclaration extends ClassMemberDeclaration {
      * @return the name of the field
      */
 
-    public Symbol getName() {
+    public String getName() {
 	return name;
     }
 

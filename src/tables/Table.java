@@ -1,4 +1,4 @@
-package symbol;
+package tables;
 
 /**
  * A table mapping symbols to objects.
@@ -34,7 +34,7 @@ public abstract class Table<E> {
      *         Yields {@code null} if no object is bound to {@code key}
      */
 
-    public abstract E get(Symbol key);
+    public abstract E get(String key);
 
     /**
      * Builds a new table, identical to this, but where a given symbol is
@@ -46,5 +46,5 @@ public abstract class Table<E> {
      *         is bound to {@code value}
      */
 
-    public abstract Table<E> put(Symbol key, E value);
+    public abstract Table<E> put(String key, E value);
 }

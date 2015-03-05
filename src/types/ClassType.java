@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.Set;
 
 import lexical.Lexer;
-import symbol.Symbol;
 import syntactical.Parser;
 import translate.Program;
 import absyn.ClassDefinition;
@@ -29,7 +28,7 @@ public final class ClassType extends ReferenceType {
 	 * The name of this class.
 	 */
 
-	private final Symbol name;
+	private final String name;
 
 	/**
 	 * The superclass of this class, if any.
@@ -53,7 +52,7 @@ public final class ClassType extends ReferenceType {
 	 * A map from field symbols to their signature.
 	 */
 
-	private final Map<Symbol, FieldSignature> fields = new HashMap<>();
+	private final Map<String, FieldSignature> fields = new HashMap<>();
 
 	/**
 	 * The set of constructor signatures in this class.
@@ -66,7 +65,7 @@ public final class ClassType extends ReferenceType {
 	 * that name. Because of overloading, more than one method might have a given name.
 	 */
 
-	private final Map<Symbol, Set<MethodSignature>> methods = new HashMap<>();
+	private final Map<String, Set<MethodSignature>> methods = new HashMap<>();
 
 	/**
 	 * The utility for issuing errors about this class.
@@ -94,7 +93,7 @@ public final class ClassType extends ReferenceType {
 	 * @param name the name of the class
 	 */
 	
-	private ClassType(Symbol name) {
+	private ClassType(String name) {
 		// we record its name
 		this.name = name;
 	
@@ -123,13 +122,13 @@ public final class ClassType extends ReferenceType {
 			// there is a syntax error in the class text or the same class
 			// cannot be found on the file system or cannot be type-checked:
 			// we build a fictitious syntax for the class, so that the processing can go on
-			if (name.equals(Symbol.OBJECT))
+			if (name.equals("Object"))
 				abstractSyntax = new ClassDefinition(0, name, null, null);
 			else
-				abstractSyntax = new ClassDefinition(0, name, Symbol.OBJECT, null);
+				abstractSyntax = new ClassDefinition(0, name, "Object", null);
 		}
 	
-		if (!name.equals(Symbol.OBJECT))
+		if (!name.equals("Object"))
 			// if this is not Object, we create its superclass also and take
 			// note that we are a direct subclass of our superclass
 			(superclass = mk(abstractSyntax.getSuperclassName())).subclasses.add(this);
@@ -167,7 +166,7 @@ public final class ClassType extends ReferenceType {
 	 * Yields the name of this class.
 	 */
 
-	public final Symbol getName() {
+	public final String getName() {
 		return name;
 	}
 
@@ -276,7 +275,7 @@ public final class ClassType extends ReferenceType {
 	 * @param sig the signature of the field
 	 */
 
-	public void addField(Symbol name, FieldSignature sig) {
+	public void addField(String name, FieldSignature sig) {
 		fields.put(name,sig);
 	}
 
@@ -299,7 +298,7 @@ public final class ClassType extends ReferenceType {
 	 * @param sig the signature of the method
 	 */
 
-	public final void addMethod(Symbol name, MethodSignature sig) {
+	public final void addMethod(String name, MethodSignature sig) {
 		// we read all methods, in this class, with the given name
 		Set<MethodSignature> set = methods.get(name);
 		if (set == null)
@@ -315,7 +314,7 @@ public final class ClassType extends ReferenceType {
 	 * @return the fields
 	 */
 
-	public Map<Symbol, FieldSignature> getFields() {
+	public Map<String, FieldSignature> getFields() {
 		return fields;
 	}
 
@@ -335,7 +334,7 @@ public final class ClassType extends ReferenceType {
 	 * @return the methods
 	 */
 
-	public Map<Symbol, Set<MethodSignature>> getMethods() {
+	public Map<String, Set<MethodSignature>> getMethods() {
 		return methods;
 	}
 
@@ -349,7 +348,7 @@ public final class ClassType extends ReferenceType {
 	 *         such field has been found
 	 */
 
-	public final FieldSignature fieldLookup(Symbol name) {
+	public final FieldSignature fieldLookup(String name) {
 		FieldSignature result;
 
 		// we first look in this signature
@@ -410,7 +409,7 @@ public final class ClassType extends ReferenceType {
 	 *         such method has been found
 	 */
 
-	public final MethodSignature methodLookup(Symbol name, TypeList formals) {
+	public final MethodSignature methodLookup(String name, TypeList formals) {
 		// we check all methods in this signature having the given name
 		Set<MethodSignature> candidates = methods.get(name);
 		if (candidates != null)
@@ -438,7 +437,7 @@ public final class ClassType extends ReferenceType {
 	 *         Returns an empty set if no method has been found
 	 */
 
-	public final Set<MethodSignature> methodsLookup(Symbol name, TypeList formals) {
+	public final Set<MethodSignature> methodsLookup(String name, TypeList formals) {
 		// the set of candidates is initially the set of all methods
 		// called name and defined in this class
 		Set<MethodSignature> candidates = methods.get(name);
@@ -520,7 +519,7 @@ public final class ClassType extends ReferenceType {
 	@Override
 	public final org.apache.bcel.generic.Type toBCEL() {
 		// we transform "String" into "runTime.String"
-		if (name.equals(Symbol.STRING))
+		if (name.equals("String"))
 			return new org.apache.bcel.generic.ObjectType(runTime.String.class.getName());
 		else
 			return new org.apache.bcel.generic.ObjectType(name.toString());
@@ -530,7 +529,7 @@ public final class ClassType extends ReferenceType {
 	 * This lets us have a unique {@code KittenClassType} for a given name.
 	 */
 
-	private final static Map<Symbol, ClassType> memory = new HashMap<>();
+	private final static Map<String, ClassType> memory = new HashMap<>();
 
 	/**
 	 * Yields a class type with the given name. If a class type object named
@@ -544,7 +543,7 @@ public final class ClassType extends ReferenceType {
 	 * @return the unique class type object for the class with the given name
 	 */
 
-	public static ClassType mk(Symbol name) {
+	public static ClassType mk(String name) {
 		ClassType result;
 
 		// we first check to see if we already built this class type
@@ -570,9 +569,9 @@ public final class ClassType extends ReferenceType {
 
 	public static ClassType mkFromFileName(String fileName) {
 		if (fileName.endsWith(".kit"))
-			fileName = fileName.substring(0,fileName.length() - 4);
+			fileName = fileName.substring(0, fileName.length() - 4);
 
-		ClassType result = mk(new Symbol(fileName));
+		ClassType result = mk(fileName);
 
 		result.typeCheck();
 

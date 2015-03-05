@@ -6,7 +6,6 @@ import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.MethodGen;
 
-import symbol.Symbol;
 import translate.Block;
 import absyn.ConstructorDeclaration;
 import bytecode.CONSTRUCTORCALL;
@@ -32,7 +31,7 @@ public class ConstructorSignature extends CodeSignature {
 
 	public ConstructorSignature(ClassType clazz, TypeList parameters, ConstructorDeclaration abstractSyntax) {
 		// a constructor always returns void and its name is by default init
-		super(clazz, VoidType.INSTANCE, parameters, new Symbol("<init>"), abstractSyntax);
+		super(clazz, VoidType.INSTANCE, parameters, "<init>", abstractSyntax);
 	}
 
 	@Override
@@ -73,7 +72,7 @@ public class ConstructorSignature extends CodeSignature {
 		//
 		// In this way we respect the constraint of the Java bytecode
 		// that each constructor must call a constructor of the superclass
-		if (getDefiningClass().getName().equals(Symbol.OBJECT)) {
+		if (getDefiningClass().getName().equals("Object")) {
 			il.insert(classGen.getFactory().createInvoke
 				("java.lang.Object", // the name of the class
 				Constants.CONSTRUCTOR_NAME, // <init>
@@ -117,7 +116,7 @@ public class ConstructorSignature extends CodeSignature {
 	protected Block addPrefixToCode(Block code) {
 		// we prefix a piece of code that calls the constructor of
 		// the superclass (if any)
-		if (!getDefiningClass().getName().equals(Symbol.OBJECT)) {
+		if (!getDefiningClass().getName().equals("Object")) {
 			ClassType superclass = getDefiningClass().getSuperclass();
 
 			code = new LOAD(this, 0, getDefiningClass()).followedBy

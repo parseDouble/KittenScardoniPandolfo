@@ -3,7 +3,6 @@ package absyn;
 import types.Type;
 import types.ClassType;
 import types.CodeSignature;
-import symbol.Symbol;
 import semantical.TypeChecker;
 import translate.Block;
 import bytecode.NEWSTRING;
@@ -75,7 +74,7 @@ public class StringLiteral extends Literal {
 	// we type-check the <tt>String</tt> type since it is the only
 	// class type which can be used in a program without
 	// an explicit reference to its name (through constants like this)
-	ClassType result = ClassType.mk(Symbol.STRING);
+	ClassType result = ClassType.mk("String");
 
 	// if <tt>String.kit</tt> cannot be found, we get an open class type here!
 	if (result != null)

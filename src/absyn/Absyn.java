@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 import semantical.TypeChecker;
-import symbol.Symbol;
 
 /**
  * A node of abstract syntax.
@@ -103,7 +102,7 @@ public abstract class Absyn {
 	 * @return the string representing this node in the dot file
 	 */
 
-	protected String toDot(Symbol symbol, FileWriter where) throws IOException {
+	protected String toDot(String symbol, FileWriter where) throws IOException {
 		String id = "symbol_" + symbol.toString();
 		where.write(id + " [label = \"" + symbol.toString() + "\" fontname = \"Times-Italic\" shape = box]\n");
 

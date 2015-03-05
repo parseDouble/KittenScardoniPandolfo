@@ -3,7 +3,6 @@ package absyn;
 import java.io.FileWriter;
 
 import semantical.TypeChecker;
-import symbol.Symbol;
 import types.ClassType;
 import types.ConstructorSignature;
 import types.TypeList;
@@ -93,7 +92,7 @@ public class ConstructorDeclaration extends CodeDeclaration {
 		FormalParameters formals = getFormals();
 
 		TypeChecker checker = new TypeChecker(VoidType.INSTANCE, clazz.getErrorMsg());
-		checker = checker.putVar(Symbol.THIS, clazz);
+		checker = checker.putVar("this", clazz);
 		// we enrich the type-checker with the formal parameters
 		if (formals != null)
 			checker = formals.typeCheck(checker);

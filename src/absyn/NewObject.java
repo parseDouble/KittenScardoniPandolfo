@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.util.Set;
 
 import semantical.TypeChecker;
-import symbol.Symbol;
 import translate.Block;
 import types.ClassType;
 import types.CodeSignature;
@@ -27,7 +26,7 @@ public class NewObject extends Expression {
      * The name of the class which in instantiated.
      */
 
-    private Symbol className;
+    private String className;
 
     /**
      * The abstract syntax of the actual parameters passed to the constructor.
@@ -52,7 +51,7 @@ public class NewObject extends Expression {
      *                to a constructor of <tt>className</tt>
      */
 
-    public NewObject(int pos, Symbol className, ExpressionSeq actuals) {
+    public NewObject(int pos, String className, ExpressionSeq actuals) {
 	super(pos);
 
 	this.className = className;
@@ -65,7 +64,7 @@ public class NewObject extends Expression {
      * @return the name of the class which is instantiated
      */
 
-    public Symbol getClassName() {
+    public String getClassName() {
 	return className;
     }
 

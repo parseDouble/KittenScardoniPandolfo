@@ -2,7 +2,6 @@ package absyn;
 
 import java.io.FileWriter;
 
-import symbol.Symbol;
 import types.Type;
 import types.ClassType;
 import types.FieldSignature;
@@ -34,7 +33,7 @@ public class FieldAccess extends Lvalue {
      * on the right of the dot in the <tt>receiver.f</tt> notation.
      */
 
-    private Symbol name;
+    private String name;
 
     /**
      * The signature of the field which is accessed. This is <tt>null</tt> if
@@ -56,7 +55,7 @@ public class FieldAccess extends Lvalue {
      *             <tt>receiver.f</tt> notation
      */
 
-    public FieldAccess(int pos, Expression receiver, Symbol name) {
+    public FieldAccess(int pos, Expression receiver, String name) {
 	super(pos);
 
 	this.receiver = receiver;
@@ -83,12 +82,12 @@ public class FieldAccess extends Lvalue {
      * @return the name of the field which is accessed
      */
 
-    public Symbol getName() {
+    public String getName() {
 	return name;
     }
 
     /**
-     * Yields a the string labelling the class
+     * Yields a the string labeling the class
      * of abstract syntax represented by
      * this node. We redefine this method in order to add the field referenced
      * by this access, if it has already been computed by a type-checker.

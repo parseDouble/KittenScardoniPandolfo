@@ -3,7 +3,6 @@ package absyn;
 import java.io.FileWriter;
 
 import semantical.TypeChecker;
-import symbol.Symbol;
 import types.TypeList;
 
 /**
@@ -25,7 +24,7 @@ public class FormalParameters extends Absyn {
      * The name of the first parameter.
      */
 
-    private Symbol name;
+    private String name;
 
     /**
      * The next parameters, if any.
@@ -44,7 +43,7 @@ public class FormalParameters extends Absyn {
      * @param next the declaration of the next parameters, if any
      */
 
-    public FormalParameters(int pos, TypeExpression type, Symbol name,
+    public FormalParameters(int pos, TypeExpression type, String name,
 			    FormalParameters next) {
 	super(pos);
 
@@ -69,7 +68,7 @@ public class FormalParameters extends Absyn {
      * @return the name of the first parameter
      */
 
-    public Symbol getName() {
+    public String getName() {
 	return name;
     }
 

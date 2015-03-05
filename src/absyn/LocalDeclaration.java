@@ -2,7 +2,6 @@ package absyn;
 
 import java.io.FileWriter;
 
-import symbol.Symbol;
 import semantical.TypeChecker;
 import types.Type;
 import types.CodeSignature;
@@ -27,7 +26,7 @@ public class LocalDeclaration extends Command {
      * The name of the variable which is declared.
      */
 
-    private Symbol name;
+    private String name;
 
     /**
      * The abstract syntax of the initialising expression
@@ -48,7 +47,7 @@ public class LocalDeclaration extends Command {
      *                    for the variable which is declared
      */
 
-    public LocalDeclaration(int pos, TypeExpression type, Symbol name,
+    public LocalDeclaration(int pos, TypeExpression type, String name,
 			    Expression initialiser) {
 	super(pos);
 
@@ -75,7 +74,7 @@ public class LocalDeclaration extends Command {
      * @return the name of the variable which is declared
      */
 
-    public Symbol getName() {
+    public String getName() {
 	return name;
     }
 

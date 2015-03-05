@@ -5,7 +5,6 @@ import org.apache.bcel.generic.FieldGen;
 import org.apache.bcel.generic.FieldInstruction;
 
 import bytecodeGenerator.JavaClassGenerator;
-import symbol.Symbol;
 import absyn.FieldDeclaration;
 
 /**
@@ -26,7 +25,7 @@ public class FieldSignature extends ClassMemberSignature {
      * The name of the field.
      */
 
-    private final Symbol name;
+    private final String name;
 
     /**
      * Constructs the signature of a field with the given type and name,
@@ -38,7 +37,7 @@ public class FieldSignature extends ClassMemberSignature {
      * @param abstractSyntax the abstract syntax of this field declaration
      */
 
-    public FieldSignature(ClassType clazz, Type type, Symbol name, FieldDeclaration abstractSyntax) {
+    public FieldSignature(ClassType clazz, Type type, String name, FieldDeclaration abstractSyntax) {
     	super(clazz,abstractSyntax);
 
     	this.type = type;
@@ -78,7 +77,7 @@ public class FieldSignature extends ClassMemberSignature {
      * @return the name of the field
      */
 
-    public Symbol getName() {
+    public String getName() {
     	return name;
     }
 

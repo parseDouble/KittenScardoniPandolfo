@@ -3,7 +3,6 @@ package types;
 import org.apache.bcel.generic.InvokeInstruction;
 
 import bytecodeGenerator.JavaClassGenerator;
-import symbol.Symbol;
 import translate.Block;
 import absyn.CodeDeclaration;
 
@@ -19,7 +18,7 @@ public abstract class CodeSignature extends ClassMemberSignature {
      * The name of this code object.
      */
 
-    private final Symbol name;
+    private final String name;
 
     /**
      * The return type of this code object.
@@ -52,7 +51,7 @@ public abstract class CodeSignature extends ClassMemberSignature {
      */
 
     protected CodeSignature(ClassType clazz, Type returnType, TypeList parameters,
-    		Symbol name, CodeDeclaration abstractSyntax) {
+    		String name, CodeDeclaration abstractSyntax) {
 
     	super(clazz,abstractSyntax);
 
@@ -113,7 +112,7 @@ public abstract class CodeSignature extends ClassMemberSignature {
      * @return the name of this code object
      */
 
-    public Symbol getName() {
+    public String getName() {
     	return name;
     }
 

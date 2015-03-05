@@ -1,4 +1,4 @@
-package symbol;
+package tables;
 
 /**
  * An empty symbol table.
@@ -11,12 +11,12 @@ final class EmptyTable<E> extends Table<E> {
 	EmptyTable() {}
 
 	@Override
-	public E get(Symbol key) {
+	public E get(String key) {
 		return null;  // there is no key in this empty table
 	}
 
 	@Override
-	public Table<E> put(Symbol key, E value) {
+	public Table<E> put(String key, E value) {
 		// builds a non-empty symbol table with empty subtrees
 		return new NonEmptyTable<E>(key, value);
 	}

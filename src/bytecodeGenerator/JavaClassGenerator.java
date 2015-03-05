@@ -16,7 +16,6 @@ import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.TargetLostException;
 
-import symbol.Symbol;
 import translate.Block;
 import types.ClassMemberSignature;
 import types.ClassType;
@@ -74,9 +73,9 @@ public class JavaClassGenerator extends ClassGen {
 	protected JavaClassGenerator
 	(String className, String superName, String[] interfs,
 			String source, int access,
-			Map<Symbol, FieldSignature> fields,
+			Map<String, FieldSignature> fields,
 			Set<ConstructorSignature> constructors,
-			Map<Symbol, Set<MethodSignature>> methods,
+			Map<String, Set<MethodSignature>> methods,
 			Set<ClassMemberSignature> sigs) {
 
 		super(className,superName,source,access,interfs,new ConstantPoolGen());

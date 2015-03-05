@@ -14,7 +14,6 @@ import java.io.FileInputStream;
 
 import errorMsg.ErrorMsg;
 import syntactical.sym;
-import symbol.Symbol;
 
 @SuppressWarnings("unused")
 
@@ -101,15 +100,16 @@ public ErrorMsg getErrorMsg() {
 /**
  * Creates a lexical analyser for a given class name.
  *
- * @param className the name of the class to be lexically analysed
- *                  (without the trailing {@code .kit})
+ * @param fileName the name of the file to be lexically analysed
+ *                 (with the trailing {@code .kit})
  * @throws java.io.FileNotFoundException if the source file cannot be found
  */
 
-public Lexer(Symbol className) throws java.io.FileNotFoundException {
+public Lexer(String fileName) throws java.io.FileNotFoundException {
   this();
   
-  String fileName = className + ".kit";
+  String className = fileName.endsWith(".kit") ? fileName.substring(0, fileName.length() - 4) : fileName;
+  fileName = className + ".kit";
   errorMsg = new ErrorMsg(fileName);
   FileInputStream inp;
 
@@ -124,24 +124,9 @@ public Lexer(Symbol className) throws java.io.FileNotFoundException {
   yy_reader = new java.io.BufferedReader(new java.io.InputStreamReader(inp));
 }
 
-/**
- * Creates a lexical analyser for a given source file.
- *
- * @param fileName the name of the file to be lexically analysed
- *                 (with the trailing {@code .kit})
- * @throws java.io.FileNotFoundException if the source file cannot be found
- */
-
-public Lexer(String fileName) throws java.io.FileNotFoundException {
-  this(new Symbol(fileName.endsWith(".kit") ?
-		 fileName.substring(0,fileName.length() - 4) : fileName));
-}
-
-
 // ritorna il simbolo della classe che si sta parsando
-public Symbol parsedClass() {
-  return new Symbol
-    (errorMsg.getFileName().substring(0,errorMsg.getFileName().length() - 4));
+public String parsedClass() {
+  return errorMsg.getFileName().substring(0, errorMsg.getFileName().length() - 4);
 }
 
 int commentCount = 0;

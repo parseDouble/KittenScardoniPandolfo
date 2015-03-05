@@ -11,7 +11,6 @@ package syntactical;
  */
 
 import absyn.*;
-import symbol.Symbol;
 import errorMsg.ErrorMsg;
 import lexical.Lexer;
 
@@ -108,9 +107,9 @@ start with class;
 
 lvalue ::=
      ID:id
-     {: RESULT = new Variable(idleft, new Symbol(id)); :}
+     {: RESULT = new Variable(idleft, id); :}
    | exp:receiver DOT:d ID:field
-     {: RESULT = new FieldAccess(dleft,receiver, new Symbol(field)); :}
+     {: RESULT = new FieldAccess(dleft,receiver, field); :}
    | exp:array LBRACK:b exp:index RBRACK
      {: RESULT = new ArrayAccess(bleft,array,index); :} ;
 
@@ -119,7 +118,7 @@ lvalue ::=
 
 type ::=
      ID:id
-     {: RESULT = new ClassTypeExpression(idleft,new Symbol(id)); :}
+     {: RESULT = new ClassTypeExpression(idleft, id); :}
    | BOOLEAN:b
      {: RESULT = new BooleanTypeExpression(bleft); :}
    | INT:i
@@ -144,11 +143,11 @@ typeplus ::=
 class ::=
      CLASS:c ID:name LBRACE class_members:declarations RBRACE
      {: RESULT = new ClassDefinition
-	(cleft,new Symbol(name),Symbol.OBJECT,declarations); :}
+	(cleft, name, "Object", declarations); :}
    | CLASS:c ID:name EXTENDS ID:superclass
        LBRACE class_members:declarations RBRACE
      {: RESULT = new ClassDefinition
-	(cleft,new Symbol(name),new Symbol(superclass),declarations); :} ;
+	(cleft, name, superclass, declarations); :} ;
 
 
 // a sequence of fields, constructors or methods declarations
@@ -156,14 +155,14 @@ class ::=
 class_members ::=
      {: RESULT = null; :}
    | FIELD:f type:t ID:name class_members:next
-     {: RESULT = new FieldDeclaration(fleft,t,new Symbol(name),next); :}
+     {: RESULT = new FieldDeclaration(fleft, t, name, next); :}
    | CONSTRUCTOR:c LPAREN formals:formals RPAREN com:body
        class_members:next
      {: RESULT = new ConstructorDeclaration(cleft,formals,body,next); :}
    | METHOD:m typeplus:returnType ID:name LPAREN formals:formals RPAREN
        com:body class_members:next
      {: RESULT = new MethodDeclaration
-	(mleft,returnType,new Symbol(name),formals,body,next); :} ;
+	(mleft, returnType, name, formals, body, next); :} ;
 
 // a comma-separated and possibly empty list
 // of formal parameters of a method or constructor
@@ -178,9 +177,9 @@ formals ::=
 
 formals_aux ::=
      type:t ID:id
-     {: RESULT = new FormalParameters(tleft,t,new Symbol(id),null); :}
+     {: RESULT = new FormalParameters(tleft,t, id, null); :}
    | type:t ID:id COMMA formals_aux:next
-     {: RESULT = new FormalParameters(tleft,t,new Symbol(id),next); :} ;
+     {: RESULT = new FormalParameters(tleft,t, id, next); :} ;
 
 // a command, i.e., something which does not yield any value
 
@@ -188,7 +187,7 @@ com ::=
      lvalue:leftvalue ASSIGN:a exp:rightvalue
      {: RESULT = new Assignment(aleft,leftvalue,rightvalue); :}
    | type:t ID:id ASSIGN exp:initialiser
-     {: RESULT = new LocalDeclaration(tleft,t,new Symbol(id),initialiser); :}
+     {: RESULT = new LocalDeclaration(tleft,t, id, initialiser); :}
    | RETURN:r
      {: RESULT = new Return(rleft,null); :}
    | RETURN:r exp:returned
@@ -207,8 +206,7 @@ com ::=
    | LBRACE:p RBRACE
      {: RESULT = new Skip(pleft); :}
    | exp:receiver DOT:d ID:name LPAREN expseq:actuals RPAREN
-     {: RESULT = new MethodCallCommand
-                   (dleft,receiver,new Symbol(name),actuals); :} ;
+     {: RESULT = new MethodCallCommand(dleft, receiver, name, actuals); :} ;
 
 // a non-empty sequence of commands
 
@@ -236,7 +234,7 @@ exp ::=
    | NIL:n
      {: RESULT = new Nil(nleft); :}
    | NEW:n ID:id LPAREN expseq:actuals RPAREN
-     {: RESULT = new NewObject(nleft,new Symbol(id),actuals); :}
+     {: RESULT = new NewObject(nleft, id, actuals); :}
    | NEW:n type:t LBRACK exp:size RBRACK
      {: RESULT = new NewArray(nleft,t,size); :}
    | exp:e AS:as type:t // un cast o una conversione di tipo
@@ -270,8 +268,7 @@ exp ::=
    | NOT:n exp:e
      {: RESULT = new Not(nleft,e); :}
    | exp:receiver DOT:d ID:name LPAREN expseq:actuals RPAREN
-     {: RESULT = new MethodCallExpression
-                   (dleft,receiver,new Symbol(name),actuals); :}
+     {: RESULT = new MethodCallExpression(dleft, receiver, name, actuals); :}
    | LPAREN exp:e RPAREN
      {: RESULT = e; :} ;
 

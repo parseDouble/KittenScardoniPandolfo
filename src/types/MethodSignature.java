@@ -6,7 +6,6 @@ import org.apache.bcel.generic.MethodGen;
 
 import bytecodeGenerator.JavaClassGenerator;
 import absyn.MethodDeclaration;
-import symbol.Symbol;
 import translate.Block;
 
 /**
@@ -29,7 +28,7 @@ public class MethodSignature extends CodeSignature {
 	 */
 
 	public MethodSignature(ClassType clazz, Type returnType,
-		TypeList parameters, Symbol name, MethodDeclaration abstractSyntax) {
+		TypeList parameters, String name, MethodDeclaration abstractSyntax) {
 
 		super(clazz,returnType,parameters,name,abstractSyntax);
 	}
@@ -56,7 +55,7 @@ public class MethodSignature extends CodeSignature {
 
 	public void createMethod(JavaClassGenerator classGen) {
 		MethodGen methodGen;
-		if (getName().equals(Symbol.MAIN))
+		if (getName().equals("main"))
 			methodGen = new MethodGen
 				(Constants.ACC_PUBLIC | Constants.ACC_STATIC, // public and static
 				org.apache.bcel.generic.Type.VOID, // return type

@@ -3,7 +3,6 @@ package absyn;
 import java.io.FileWriter;
 
 import semantical.TypeChecker;
-import symbol.Symbol;
 import types.ClassType;
 import types.MethodSignature;
 import types.Type;
@@ -29,7 +28,7 @@ public class MethodDeclaration extends CodeDeclaration {
      * The name of the method.
      */
 
-    private Symbol name;
+    private String name;
 
     /**
      * Constructs the abstract syntax of a method declaration.
@@ -45,7 +44,7 @@ public class MethodDeclaration extends CodeDeclaration {
      *             subsequent class member, if any
      */
 
-    public MethodDeclaration(int pos, TypeExpression returnType, Symbol name,
+    public MethodDeclaration(int pos, TypeExpression returnType, String name,
 			     FormalParameters formals, Command body,
 			     ClassMemberDeclaration next) {
 	super(pos,formals,body,next);
@@ -70,7 +69,7 @@ public class MethodDeclaration extends CodeDeclaration {
      * @return the name of this method
      */
 
-    public Symbol getName() {
+    public String getName() {
 	return name;
     }
 
@@ -158,8 +157,8 @@ public class MethodDeclaration extends CodeDeclaration {
 
 	// the main method is the only <i>static</i> method, where there
 	// is no <tt>this</tt> variable
-	if (!getSignature().getName().equals(Symbol.MAIN))
-	    checker = checker.putVar(Symbol.THIS, clazz);
+	if (!getSignature().getName().equals("main"))
+	    checker = checker.putVar("this", clazz);
 
 	// we enrich the type-checker with the formal parameters
 	checker = getFormals() != null ? getFormals().typeCheck(checker) : checker;

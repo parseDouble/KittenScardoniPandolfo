@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import symbol.Symbol;
 import translate.Program;
 import types.ClassMemberSignature;
 import types.ClassType;
@@ -25,13 +24,13 @@ public class ClassDefinition extends Absyn {
      * The name of the class.
      */
 
-    private final Symbol name;
+    private final String name;
 
     /**
      * The name of the superclass.
      */
 
-    private final Symbol superclassName;
+    private final String superclassName;
 
     /**
      * The sequence of fields or methods declarations. This might be {@code null}.
@@ -57,7 +56,7 @@ public class ClassDefinition extends Absyn {
      *                     This might be {@code null}
      */
 
-    public ClassDefinition(int pos, Symbol name, Symbol superclassName, ClassMemberDeclaration declarations) {
+    public ClassDefinition(int pos, String name, String superclassName, ClassMemberDeclaration declarations) {
     	super(pos);
 
     	this.name = name;
@@ -71,7 +70,7 @@ public class ClassDefinition extends Absyn {
      * @return the name of the class defined with this abstract syntax
      */
 
-    public Symbol getName() {
+    public String getName() {
     	return name;
     }
 
@@ -83,7 +82,7 @@ public class ClassDefinition extends Absyn {
      *         defined with this abstract syntax
      */
 
-    public Symbol getSuperclassName() {
+    public String getSuperclassName() {
     	return superclassName;
     }
 
@@ -200,7 +199,7 @@ public class ClassDefinition extends Absyn {
     	Set<ClassMemberSignature> done = new HashSet<>();
 
     	// we look up for the main method, if any
-    	MethodSignature main = staticType.methodLookup(Symbol.MAIN, TypeList.EMPTY);
+    	MethodSignature main = staticType.methodLookup("main", TypeList.EMPTY);
 
     	// we translate everything which is reachable from the main
     	// method of this class (if any)

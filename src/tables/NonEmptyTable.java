@@ -1,4 +1,4 @@
-package symbol;
+package tables;
 
 /**
  * A non-empty symbol table. It is organized as a binary search tree.
@@ -12,7 +12,7 @@ final class NonEmptyTable<E> extends Table<E> {
 	 * the key on top of the tree.
 	 */
 
-	private final Symbol key;
+	private final String key;
 
 	/**
 	 * the value bound on key at the top of the tree.
@@ -41,7 +41,7 @@ final class NonEmptyTable<E> extends Table<E> {
 	 * @param right the right subtree
 	 */
 
-	private NonEmptyTable(Symbol key, E value, Table<E> left, Table<E> right) {
+	private NonEmptyTable(String key, E value, Table<E> left, Table<E> right) {
 		this.key = key;
 		this.value = value;
 		this.left = left;
@@ -55,7 +55,7 @@ final class NonEmptyTable<E> extends Table<E> {
 	 * @param value the value bound to {@code key}
 	 */
 
-	NonEmptyTable(Symbol key, E value) {
+	NonEmptyTable(String key, E value) {
 		this.key = key;
 		this.value = value;
 		this.left = Table.empty();
@@ -63,7 +63,7 @@ final class NonEmptyTable<E> extends Table<E> {
 	}
 
 	@Override
-	public E get(Symbol key) {
+	public E get(String key) {
 		int comp = this.key.compareTo(key);
 
 		if (comp < 0)
@@ -75,7 +75,7 @@ final class NonEmptyTable<E> extends Table<E> {
 	}
 
 	@Override
-	public Table<E> put(Symbol key, E value) {
+	public Table<E> put(String key, E value) {
 		int comp = this.key.compareTo(key);
 
 		if (comp < 0) {

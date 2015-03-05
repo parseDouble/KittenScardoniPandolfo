@@ -4,7 +4,6 @@ import java.io.FileWriter;
 import java.util.Set;
 
 import semantical.TypeChecker;
-import symbol.Symbol;
 import translate.Block;
 import types.ClassType;
 import types.CodeSignature;
@@ -36,7 +35,7 @@ public class MethodCallCommand extends Command {
      * The name of the method which is called.
      */
 
-    private Symbol name;
+    private String name;
 
     /**
      * The abstract syntax of the actual parameters of the call.
@@ -67,7 +66,7 @@ public class MethodCallCommand extends Command {
      */
 
     public MethodCallCommand(int pos, Expression receiver,
-			     Symbol name, ExpressionSeq actuals) {
+    		String name, ExpressionSeq actuals) {
 	super(pos);
 
 	this.receiver = receiver;
@@ -95,7 +94,7 @@ public class MethodCallCommand extends Command {
      * @return the name of the method which is called
      */
 
-    public Symbol getName() {
+    public String getName() {
 	return name;
     }
 

@@ -5,7 +5,6 @@ import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
 import bytecodeGenerator.JavaClassGenerator;
-import symbol.Symbol;
 import types.CodeSignature;
 import types.ClassType;
 import types.ReferenceType;
@@ -48,7 +47,7 @@ public class NEWSTRING extends CreationBytecode {
 
 	@Override
 	public ReferenceType createdType() {
-		return ClassType.mk(Symbol.STRING);
+		return ClassType.mk("String");
 	}
 
 	@Override

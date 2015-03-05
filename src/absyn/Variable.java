@@ -4,7 +4,6 @@ import java.io.FileWriter;
 
 import types.Type;
 import types.CodeSignature;
-import symbol.Symbol;
 import semantical.TypeChecker;
 import translate.Block;
 import bytecode.LOAD;
@@ -22,7 +21,7 @@ public class Variable extends Lvalue {
      * The name of the variable.
      */
 
-    private Symbol name;
+    private String name;
 
     /**
      * Constructs the abstract syntax of a reference to a program variable.
@@ -32,7 +31,7 @@ public class Variable extends Lvalue {
      * @param name the name of the variable
      */
 
-    public Variable(int pos, Symbol name) {
+    public Variable(int pos, String name) {
 	super(pos);
 
 	this.name = name;
@@ -44,7 +43,7 @@ public class Variable extends Lvalue {
      * @return the name of the variable
      */
 
-    public Symbol getName() {
+    public String getName() {
 	return name;
     }
 

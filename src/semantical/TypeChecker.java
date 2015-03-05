@@ -1,7 +1,6 @@
 package semantical;
 
-import symbol.Symbol;
-import symbol.Table;
+import tables.Table;
 import types.Type;
 import errorMsg.ErrorMsg;
 
@@ -90,7 +89,7 @@ public class TypeChecker {
 	 * @return the new type-checker where {@code var} is bound to {@code type}
 	 */
 
-	public TypeChecker putVar(Symbol var, Type type) {
+	public TypeChecker putVar(String var, Type type) {
 		// note that in the new type-checker the number of local
 		// variables is one more than in this type-checker
 		return new TypeChecker(returnType,
@@ -105,7 +104,7 @@ public class TypeChecker {
 	 *         Yields {@code null} if {@code var} is not bound in this type-checker
 	 */
 
-	public Type getVar(Symbol var) {
+	public Type getVar(String var) {
 		TypeAndNumber tan = env.get(var);
 
 		return tan != null ? tan.getType() : null;
@@ -123,7 +122,7 @@ public class TypeChecker {
 	 *         -1 if <{@code var} is not bound in this type-checker
 	 */
 
-	public int getVarNum(Symbol var) {
+	public int getVarNum(String var) {
 		TypeAndNumber tan = env.get(var);
 
 		return tan != null ? tan.getNumber() : -1;
