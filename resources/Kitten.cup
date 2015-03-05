@@ -108,9 +108,9 @@ start with class;
 
 lvalue ::=
      ID:id
-     {: RESULT = new Variable(idleft,Symbol.mk(id)); :}
+     {: RESULT = new Variable(idleft, new Symbol(id)); :}
    | exp:receiver DOT:d ID:field
-     {: RESULT = new FieldAccess(dleft,receiver,Symbol.mk(field)); :}
+     {: RESULT = new FieldAccess(dleft,receiver, new Symbol(field)); :}
    | exp:array LBRACK:b exp:index RBRACK
      {: RESULT = new ArrayAccess(bleft,array,index); :} ;
 
@@ -119,7 +119,7 @@ lvalue ::=
 
 type ::=
      ID:id
-     {: RESULT = new ClassTypeExpression(idleft,Symbol.mk(id)); :}
+     {: RESULT = new ClassTypeExpression(idleft,new Symbol(id)); :}
    | BOOLEAN:b
      {: RESULT = new BooleanTypeExpression(bleft); :}
    | INT:i
@@ -144,11 +144,11 @@ typeplus ::=
 class ::=
      CLASS:c ID:name LBRACE class_members:declarations RBRACE
      {: RESULT = new ClassDefinition
-	(cleft,Symbol.mk(name),Symbol.OBJECT,declarations); :}
+	(cleft,new Symbol(name),Symbol.OBJECT,declarations); :}
    | CLASS:c ID:name EXTENDS ID:superclass
        LBRACE class_members:declarations RBRACE
      {: RESULT = new ClassDefinition
-	(cleft,Symbol.mk(name),Symbol.mk(superclass),declarations); :} ;
+	(cleft,new Symbol(name),new Symbol(superclass),declarations); :} ;
 
 
 // a sequence of fields, constructors or methods declarations
@@ -156,14 +156,14 @@ class ::=
 class_members ::=
      {: RESULT = null; :}
    | FIELD:f type:t ID:name class_members:next
-     {: RESULT = new FieldDeclaration(fleft,t,Symbol.mk(name),next); :}
+     {: RESULT = new FieldDeclaration(fleft,t,new Symbol(name),next); :}
    | CONSTRUCTOR:c LPAREN formals:formals RPAREN com:body
        class_members:next
      {: RESULT = new ConstructorDeclaration(cleft,formals,body,next); :}
    | METHOD:m typeplus:returnType ID:name LPAREN formals:formals RPAREN
        com:body class_members:next
      {: RESULT = new MethodDeclaration
-	(mleft,returnType,Symbol.mk(name),formals,body,next); :} ;
+	(mleft,returnType,new Symbol(name),formals,body,next); :} ;
 
 // a comma-separated and possibly empty list
 // of formal parameters of a method or constructor
@@ -178,9 +178,9 @@ formals ::=
 
 formals_aux ::=
      type:t ID:id
-     {: RESULT = new FormalParameters(tleft,t,Symbol.mk(id),null); :}
+     {: RESULT = new FormalParameters(tleft,t,new Symbol(id),null); :}
    | type:t ID:id COMMA formals_aux:next
-     {: RESULT = new FormalParameters(tleft,t,Symbol.mk(id),next); :} ;
+     {: RESULT = new FormalParameters(tleft,t,new Symbol(id),next); :} ;
 
 // a command, i.e., something which does not yield any value
 
@@ -188,7 +188,7 @@ com ::=
      lvalue:leftvalue ASSIGN:a exp:rightvalue
      {: RESULT = new Assignment(aleft,leftvalue,rightvalue); :}
    | type:t ID:id ASSIGN exp:initialiser
-     {: RESULT = new LocalDeclaration(tleft,t,Symbol.mk(id),initialiser); :}
+     {: RESULT = new LocalDeclaration(tleft,t,new Symbol(id),initialiser); :}
    | RETURN:r
      {: RESULT = new Return(rleft,null); :}
    | RETURN:r exp:returned
@@ -208,7 +208,7 @@ com ::=
      {: RESULT = new Skip(pleft); :}
    | exp:receiver DOT:d ID:name LPAREN expseq:actuals RPAREN
      {: RESULT = new MethodCallCommand
-                   (dleft,receiver,Symbol.mk(name),actuals); :} ;
+                   (dleft,receiver,new Symbol(name),actuals); :} ;
 
 // a non-empty sequence of commands
 
@@ -236,7 +236,7 @@ exp ::=
    | NIL:n
      {: RESULT = new Nil(nleft); :}
    | NEW:n ID:id LPAREN expseq:actuals RPAREN
-     {: RESULT = new NewObject(nleft,Symbol.mk(id),actuals); :}
+     {: RESULT = new NewObject(nleft,new Symbol(id),actuals); :}
    | NEW:n type:t LBRACK exp:size RBRACK
      {: RESULT = new NewArray(nleft,t,size); :}
    | exp:e AS:as type:t // un cast o una conversione di tipo
@@ -271,7 +271,7 @@ exp ::=
      {: RESULT = new Not(nleft,e); :}
    | exp:receiver DOT:d ID:name LPAREN expseq:actuals RPAREN
      {: RESULT = new MethodCallExpression
-                   (dleft,receiver,Symbol.mk(name),actuals); :}
+                   (dleft,receiver,new Symbol(name),actuals); :}
    | LPAREN exp:e RPAREN
      {: RESULT = e; :} ;
 

@@ -158,8 +158,8 @@ public class MethodDeclaration extends CodeDeclaration {
 
 	// the main method is the only <i>static</i> method, where there
 	// is no <tt>this</tt> variable
-	if (getSignature().getName() != Symbol.MAIN)
-	    checker = checker.putVar(Symbol.THIS,clazz);
+	if (!getSignature().getName().equals(Symbol.MAIN))
+	    checker = checker.putVar(Symbol.THIS, clazz);
 
 	// we enrich the type-checker with the formal parameters
 	checker = getFormals() != null ? getFormals().typeCheck(checker) : checker;

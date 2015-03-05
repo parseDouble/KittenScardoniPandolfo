@@ -56,7 +56,7 @@ public class MethodSignature extends CodeSignature {
 
 	public void createMethod(JavaClassGenerator classGen) {
 		MethodGen methodGen;
-		if (getName() == Symbol.MAIN)
+		if (getName().equals(Symbol.MAIN))
 			methodGen = new MethodGen
 				(Constants.ACC_PUBLIC | Constants.ACC_STATIC, // public and static
 				org.apache.bcel.generic.Type.VOID, // return type

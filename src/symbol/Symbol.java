@@ -1,7 +1,5 @@
 package symbol;
 
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -59,7 +57,7 @@ public class Symbol implements Comparable<Symbol> {
 	 * @param name the name (identifier)
 	 */
 
-	private Symbol(String name) {
+	public Symbol(String name) {
 		this.name = name;
 	}
 
@@ -88,5 +86,15 @@ public class Symbol implements Comparable<Symbol> {
 	@Override
 	public int compareTo(Symbol other) {
 		return name.compareTo(other.name);
+	}
+
+	@Override
+	public boolean equals(Object other) {
+		return other instanceof Symbol && ((Symbol) other).name.equals(name);
+	}
+
+	@Override
+	public int hashCode() {
+		return name.hashCode();
 	}
 }

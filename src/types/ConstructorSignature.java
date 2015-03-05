@@ -32,7 +32,7 @@ public class ConstructorSignature extends CodeSignature {
 
 	public ConstructorSignature(ClassType clazz, TypeList parameters, ConstructorDeclaration abstractSyntax) {
 		// a constructor always returns void and its name is by default init
-		super(clazz, VoidType.INSTANCE, parameters, Symbol.mk("<init>"), abstractSyntax);
+		super(clazz, VoidType.INSTANCE, parameters, new Symbol("<init>"), abstractSyntax);
 	}
 
 	@Override
@@ -73,7 +73,7 @@ public class ConstructorSignature extends CodeSignature {
 		//
 		// In this way we respect the constraint of the Java bytecode
 		// that each constructor must call a constructor of the superclass
-		if (getDefiningClass().getName() == Symbol.OBJECT) {
+		if (getDefiningClass().getName().equals(Symbol.OBJECT)) {
 			il.insert(classGen.getFactory().createInvoke
 				("java.lang.Object", // the name of the class
 				Constants.CONSTRUCTOR_NAME, // <init>
@@ -117,7 +117,7 @@ public class ConstructorSignature extends CodeSignature {
 	protected Block addPrefixToCode(Block code) {
 		// we prefix a piece of code that calls the constructor of
 		// the superclass (if any)
-		if (getDefiningClass().getName() != Symbol.OBJECT) {
+		if (!getDefiningClass().getName().equals(Symbol.OBJECT)) {
 			ClassType superclass = getDefiningClass().getSuperclass();
 
 			code = new LOAD(this, 0, getDefiningClass()).followedBy

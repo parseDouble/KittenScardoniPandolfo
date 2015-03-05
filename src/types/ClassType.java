@@ -123,13 +123,13 @@ public final class ClassType extends ReferenceType {
 			// there is a syntax error in the class text or the same class
 			// cannot be found on the file system or cannot be type-checked:
 			// we build a fictitious syntax for the class, so that the processing can go on
-			if (name == Symbol.OBJECT)
+			if (name.equals(Symbol.OBJECT))
 				abstractSyntax = new ClassDefinition(0, name, null, null);
 			else
 				abstractSyntax = new ClassDefinition(0, name, Symbol.OBJECT, null);
 		}
 	
-		if (name != Symbol.OBJECT)
+		if (!name.equals(Symbol.OBJECT))
 			// if this is not Object, we create its superclass also and take
 			// note that we are a direct subclass of our superclass
 			(superclass = mk(abstractSyntax.getSuperclassName())).subclasses.add(this);
@@ -520,7 +520,7 @@ public final class ClassType extends ReferenceType {
 	@Override
 	public final org.apache.bcel.generic.Type toBCEL() {
 		// we transform "String" into "runTime.String"
-		if (name == Symbol.STRING)
+		if (name.equals(Symbol.STRING))
 			return new org.apache.bcel.generic.ObjectType(runTime.String.class.getName());
 		else
 			return new org.apache.bcel.generic.ObjectType(name.toString());
@@ -572,7 +572,7 @@ public final class ClassType extends ReferenceType {
 		if (fileName.endsWith(".kit"))
 			fileName = fileName.substring(0,fileName.length() - 4);
 
-		ClassType result = mk(Symbol.mk(fileName));
+		ClassType result = mk(new Symbol(fileName));
 
 		result.typeCheck();
 

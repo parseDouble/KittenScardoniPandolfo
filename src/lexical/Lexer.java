@@ -113,12 +113,12 @@ public Lexer(Symbol className) throws java.io.FileNotFoundException {
  * @throws java.io.FileNotFoundException if the source file cannot be found
  */
 public Lexer(String fileName) throws java.io.FileNotFoundException {
-  this(Symbol.mk(fileName.endsWith(".kit") ?
+  this(new Symbol(fileName.endsWith(".kit") ?
 		 fileName.substring(0,fileName.length() - 4) : fileName));
 }
 // ritorna il simbolo della classe che si sta parsando
 public Symbol parsedClass() {
-  return Symbol.mk
+  return new Symbol
     (errorMsg.getFileName().substring(0,errorMsg.getFileName().length() - 4));
 }
 int commentCount = 0;
