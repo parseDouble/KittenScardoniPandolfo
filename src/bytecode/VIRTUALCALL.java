@@ -6,7 +6,7 @@ import java.util.List;
 
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.ClassType;
 import types.CodeSignature;
 import types.MethodSignature;
@@ -82,7 +82,7 @@ public class VIRTUALCALL extends CALL implements PointerDereferencer {
 	 */
 
 	@Override
-	public InstructionList generateJB(KittenClassGen classGen) {
+	public InstructionList generateJB(JavaClassGenerator classGen) {
 		// the <tt>MethodSignature</tt> <tt>staticTarget</tt> contains
 		// everything which is needed in order to create
 		// the Java <tt>invokevirtual staticTarget</tt> bytecode

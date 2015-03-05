@@ -25,21 +25,20 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
 
     /**
      * The abstract syntax of the formal parameters of the constructor
-     * or method. This might be <tt>null</tt>.
+     * or method. This might be {@code null}.
      */
 
-    private FormalParameters formals;
+    private final FormalParameters formals;
 
     /**
      * The abstract syntax of the body of the constructor or method.
      */
 
-    private Command body;
+    private final Command body;
 
     /**
-     * The signature of this constructor or method.
-     * This is <tt>null</tt> if this constructor or method has not been
-     * type-checked yet.
+     * The signature of this constructor or method. This is {@code null} if this
+     * constructor or method has not been type-checked yet.
      */
 
     private CodeSignature sig;
@@ -49,31 +48,26 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
      *
      * @param pos the starting position in the source file of
      *            the concrete syntax represented by this abstract syntax
-     * @param formals the abstract syntax of the formal parameters
-     *                of the constructor or method
+     * @param formals the abstract syntax of the formal parameters of the constructor or method
      * @param body the abstract syntax of the body of the constructor or method
-     * @param next the abstract syntax of the declaration of the
-     *             subsequent class member, if any
+     * @param next the abstract syntax of the declaration of the next class member, if any
      */
 
-    protected CodeDeclaration(int pos, FormalParameters formals,
-			      Command body, ClassMemberDeclaration next) {
-	super(pos,next);
+    protected CodeDeclaration(int pos, FormalParameters formals, Command body, ClassMemberDeclaration next) {
+    	super(pos,next);
 
-	this.formals = formals;
-	this.body = body;
+    	this.formals = formals;
+    	this.body = body;
     }
 
     /**
-     * Yields the abstract syntax of the formal parameters of the constructor
-     * or method.
+     * Yields the abstract syntax of the formal parameters of the constructor or method.
      *
-     * @return the abstract syntax of the formal parameters of the constructor
-     *         or method
+     * @return the abstract syntax of the formal parameters of the constructor or method
      */
 
     public FormalParameters getFormals() {
-	return formals;
+    	return formals;
     }
 
     /**
@@ -83,7 +77,7 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
      */
 
     public Command getBody() {
-	return body;
+    	return body;
     }
 
     /**
@@ -93,84 +87,76 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
      */
 
     protected void setSignature(CodeSignature sig) {
-	this.sig = sig;
+    	this.sig = sig;
     }
 
     /**
      * Yields the signature of this method or constructor declaration.
      *
      * @return the signature of this method or constructor declaration.
-     *         Returns <tt>null</tt> if type-checking has not been
-     *         performed yet
+     *         Yields {@code null} if type-checking has not been performed yet
      */
 
+    @Override
     public CodeSignature getSignature() {
-	return sig;
+    	return sig;
     }
 
     /**
      * Translates this constructor or method into intermediate Kitten code.
      * This amounts to translating its body with a continuation containing
-     * a <tt>return</tt> bytecode. This way, if a method does not have an
-     * explicit <tt>return</tt> statement, it is automatically put at its end.
+     * a {@cdoe return} bytecode. This way, if a method does not have an
+     * explicit {@code return} statement, it is automatically put at its end.
      *
-     * @param done the set of <tt>CodeSignature</tt>'s which have been
-     *             already translated
+     * @param done the set of code signatures that have been already translated
      */
 
     public void translate(Set<ClassMemberSignature> done) {
-    	if (done.contains(sig)) return;
-    	else done.add(sig);
+    	if (done.add(sig)) {
+    		// we translate the body of the constructor or
+    		// method with a block containing RETURN as continuation. This way,
+    		// all methods returning void and
+    		// with some missing return command are correctly
+    		// terminated anyway. If the method is not void, this
+    		// precaution is useless since we know that every execution path
+    		// ends with a return command, as guaranteed by
+    		// checkForDeadCode() (see typeCheck() in MethodDeclaration.java)
+    		sig.setCode(getBody().translate(sig, new Block(new RETURN(sig, VoidType.INSTANCE))));
 
-    	// we translate the body of the constructor or
-    	// method with a block containing RETURN as continuation. This way,
-    	// all methods returning <tt>void</tt> and
-    	// with some missing <tt>return</tt> command are correctly
-    	// terminated anyway. If the method is not <tt>void</tt>, this
-    	// precaution is useless since we know that every execution path
-    	// ends with a <tt>return</tt> command, as guaranteed by
-    	// <tt>checkForDeadCode()</tt> (see <tt>typeCheck()</tt> in
-    	// <tt>MethodDeclaration.java</tt>)
-    	sig.setCode(getBody().translate(sig, new Block(new RETURN(sig, VoidType.INSTANCE))));
-
-    	// we translate all methods and constructors which are referenced
-    	// from the code we have generated
-    	translateReferenced(sig.getCode(),done,new HashSet<Block>());
+    		// we translate all methods and constructors that are referenced
+    		// from the code we have generated
+    		translateReferenced(sig.getCode(), done, new HashSet<Block>());
+    	}
     }
 
     /**
-     * Auxiliary method which
-     * translates into Kitten bytecode all class members which are
+     * Auxiliary method that translates into Kitten bytecode all class members that are
      * referenced from the given block and the blocks reachable from it.
      *
-     * @param cb the block
-     * @param done the <tt>ClassMemberSignature</tt>'s already translated
-     * @param blocksDone the blocks which have been already processed
+     * @param block the block
+     * @param done the class member signatures already translated
+     * @param blocksDone the blocks that have been already processed
      */
 
-    private void translateReferenced
-	(Block cb,
-	 Set<ClassMemberSignature> done, Set<Block> blocksDone) {
+    private void translateReferenced(Block block, Set<ClassMemberSignature> done, Set<Block> blocksDone) {
+    	// if we already processed the block, we return immediately
+    	if (!blocksDone.add(block))
+    		return;
 
-	// if we already processed the block, we return immediately
-	if (blocksDone.contains(cb)) return;
+    	for (BytecodeList cursor = block.getBytecode(); cursor != null; cursor = cursor.getTail()) {
+    		Bytecode h = cursor.getHead();
 
-	// we have processed the block
-	blocksDone.add(cb);
+    		if (h instanceof GETFIELD)
+    			done.add(((GETFIELD) h).getField());
+    		else if (h instanceof PUTFIELD)
+    			done.add(((PUTFIELD) h).getField());
+    		else if (h instanceof CALL)
+    			for (CodeSignature callee: ((CALL)h).getDynamicTargets())
+    				callee.getAbstractSyntax().translate(done);
+    	}
 
-	for (BytecodeList cursor = cb.getBytecode(); cursor != null;
-	     cursor = cursor.getTail()) {
-	    Bytecode h = cursor.getHead();
-
-	    if (h instanceof GETFIELD) done.add(((GETFIELD)h).getField());
-	    else if (h instanceof PUTFIELD) done.add(((PUTFIELD)h).getField());
-	    else if (h instanceof CALL)
-		for (CodeSignature callee: ((CALL)h).getDynamicTargets())
-		    callee.getAbstractSyntax().translate(done);
-	}
-
-	// we continue with the following blocks
-	for (Block f: cb.getFollows())
-	    translateReferenced(f,done,blocksDone);
+    	// we continue with the following blocks
+    	for (Block follow: block.getFollows())
+    		translateReferenced(follow, done, blocksDone);
     }
 }

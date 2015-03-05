@@ -3,7 +3,7 @@ package bytecode;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.CodeSignature;
 import types.IntType;
 import types.NumericalType;
@@ -77,7 +77,7 @@ public class LE extends ComparisonNumericalBinOpBytecode {
      * @return the Java bytecode as above, depending on <tt>type</tt>
      */
        
-    public InstructionList generateJB(KittenClassGen classGen) {
+    public InstructionList generateJB(JavaClassGenerator classGen) {
 	InstructionList il = new InstructionList
 	    (new org.apache.bcel.generic.NOP());
 	InstructionHandle after, follow;

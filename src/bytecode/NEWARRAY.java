@@ -2,7 +2,7 @@ package bytecode;
 
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.ArrayType;
 import types.CodeSignature;
 import types.ReferenceType;
@@ -101,7 +101,7 @@ public class NEWARRAY extends CreationBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(KittenClassGen classGen) {
+	public InstructionList generateJB(JavaClassGenerator classGen) {
 		// we use the instruction factory to simplify the choice between
 		// the <tt>newarray</tt> and <tt>anewarray</tt> bytecode. Moreover,
 		// it automatically puts the type of the elements of the array inside

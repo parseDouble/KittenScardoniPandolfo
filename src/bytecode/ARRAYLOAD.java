@@ -3,7 +3,7 @@ package bytecode;
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.CodeSignature;
 import types.Type;
 
@@ -84,7 +84,7 @@ public class ARRAYLOAD extends NonCallingSequentialBytecode
      *         bytecode, depending on <tt>type</tt>
      */
 
-    public InstructionList generateJB(KittenClassGen classGen) {
+    public InstructionList generateJB(JavaClassGenerator classGen) {
 	// we use the instruction factory to simplify the choice among
 	// the three possible Java bytecodes
 	return new InstructionList(InstructionFactory.createArrayLoad(type.toBCEL()));

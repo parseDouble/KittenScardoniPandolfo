@@ -2,7 +2,7 @@ package bytecode;
 
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.CodeSignature;
 import types.NumericalType;
 
@@ -39,7 +39,7 @@ public class SUB extends ArithmeticBinOpBytecode {
 	 *         <tt>float</tt>
 	 */
 
-	public InstructionList generateJB(KittenClassGen classGen) {
+	public InstructionList generateJB(JavaClassGenerator classGen) {
 		InstructionList il = new InstructionList();
 
 		getType().sub(il);

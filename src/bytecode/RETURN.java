@@ -3,7 +3,7 @@ package bytecode;
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.CodeSignature;
 import types.Type;
 
@@ -85,7 +85,7 @@ public class RETURN extends FinalBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(KittenClassGen classGen) {
+	public InstructionList generateJB(JavaClassGenerator classGen) {
 		// we use the instruction factory to simplify the selection of the
 		// right <tt>return</tt> bytecode, depending on <tt>type</tt>
 		return new InstructionList(InstructionFactory.createReturn(type.toBCEL()));

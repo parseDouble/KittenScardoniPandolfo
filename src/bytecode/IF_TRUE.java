@@ -3,7 +3,7 @@ package bytecode;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.BooleanType;
 import types.CodeSignature;
 import types.Type;
@@ -78,7 +78,7 @@ public class IF_TRUE extends BranchingConstantComparisonBytecode {
 
 	@Override
 	protected void generateJB$0
-	(InstructionList il, KittenClassGen classGen, InstructionHandle yes) {
+	(InstructionList il, JavaClassGenerator classGen, InstructionHandle yes) {
 
 		// builds the instructions which go to <tt>yes</tt> if the test is true
 		il.append(new org.apache.bcel.generic.IFNE(yes));

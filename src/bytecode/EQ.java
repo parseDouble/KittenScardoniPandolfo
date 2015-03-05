@@ -3,7 +3,7 @@ package bytecode;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.BooleanType;
 import types.CodeSignature;
 import types.ComparableType;
@@ -91,7 +91,7 @@ public class EQ extends ComparisonBinOpBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(KittenClassGen classGen) {
+	public InstructionList generateJB(JavaClassGenerator classGen) {
 		InstructionList il = new InstructionList
 				(new org.apache.bcel.generic.NOP());
 		InstructionHandle after, follow;

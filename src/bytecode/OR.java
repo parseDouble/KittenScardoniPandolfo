@@ -2,7 +2,7 @@ package bytecode;
 
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.CodeSignature;
 
 /**
@@ -36,7 +36,7 @@ public class OR extends BooleanBinOpBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(KittenClassGen classGen) {
+	public InstructionList generateJB(JavaClassGenerator classGen) {
 		return new InstructionList(new org.apache.bcel.generic.IOR());
 	}
 }

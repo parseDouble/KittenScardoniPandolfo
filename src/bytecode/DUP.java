@@ -2,7 +2,7 @@ package bytecode;
 
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.CodeSignature;
 import types.Type;
 
@@ -48,7 +48,7 @@ public class DUP extends NonCallingSequentialBytecode {
 	 * @return the Java <tt>dup</tt> bytecode
 	 */
 
-	public InstructionList generateJB(KittenClassGen classGen) {
+	public InstructionList generateJB(JavaClassGenerator classGen) {
 		return new InstructionList(new org.apache.bcel.generic.DUP());
 	}
 

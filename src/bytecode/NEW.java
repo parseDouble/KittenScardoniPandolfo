@@ -2,7 +2,7 @@ package bytecode;
 
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.ClassType;
 import types.CodeSignature;
 import types.ReferenceType;
@@ -75,7 +75,7 @@ public class NEW extends CreationBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(KittenClassGen classGen) {
+	public InstructionList generateJB(JavaClassGenerator classGen) {
 		// we use the instruction factory to simplify the addition of the
 		// class name into the constant pool
 		return new InstructionList

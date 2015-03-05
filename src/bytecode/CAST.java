@@ -4,7 +4,7 @@ import org.apache.bcel.generic.F2I;
 import org.apache.bcel.generic.I2F;
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.CodeSignature;
 import types.FloatType;
 import types.IntType;
@@ -120,7 +120,7 @@ public class CAST extends NonCallingSequentialBytecode {
      *         <tt>NumericalType</tt>'s
      */
 
-    public InstructionList generateJB(KittenClassGen classGen) {
+    public InstructionList generateJB(JavaClassGenerator classGen) {
 	if (intoType instanceof ReferenceType)
 	    // we use the instruction factory to simplify the addition of
 	    // <tt>type</tt> to the constant pool

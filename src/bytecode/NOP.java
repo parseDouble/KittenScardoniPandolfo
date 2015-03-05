@@ -2,7 +2,7 @@ package bytecode;
 
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.CodeSignature;
 
 /**
@@ -33,7 +33,7 @@ public class NOP extends NonCallingSequentialBytecode {
 	 * @return the Java <tt>nop</tt> bytecode
 	 */
 
-	public InstructionList generateJB(KittenClassGen classGen) {
+	public InstructionList generateJB(JavaClassGenerator classGen) {
 		return new InstructionList(new org.apache.bcel.generic.NOP());
 	}
 

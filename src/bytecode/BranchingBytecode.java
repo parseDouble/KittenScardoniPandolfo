@@ -3,7 +3,7 @@ package bytecode;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.CodeSignature;
 
 /**
@@ -53,7 +53,7 @@ public abstract class BranchingBytecode extends Bytecode implements NonCallingBy
 	 *         depending on the outcome of that check
 	 */
 
-	public final InstructionList generateJB(KittenClassGen classGen,
+	public final InstructionList generateJB(JavaClassGenerator classGen,
 			InstructionHandle yes, InstructionHandle no) {
 
 		InstructionList il = new InstructionList();
@@ -77,5 +77,5 @@ public abstract class BranchingBytecode extends Bytecode implements NonCallingBy
 	 *            expressed by this branching bytecode is true
 	 */
 
-	protected abstract void generateJB$0(InstructionList il, KittenClassGen classGen, InstructionHandle yes);
+	protected abstract void generateJB$0(InstructionList il, JavaClassGenerator classGen, InstructionHandle yes);
 }

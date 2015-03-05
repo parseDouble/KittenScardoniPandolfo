@@ -3,7 +3,7 @@ package bytecode;
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.CodeSignature;
 import types.Type;
 
@@ -86,7 +86,7 @@ public class STORE extends NonCallingSequentialBytecode implements LocalModifier
 	 */
 
 	@Override
-	public InstructionList generateJB(KittenClassGen classGen) {
+	public InstructionList generateJB(JavaClassGenerator classGen) {
 		// we use the instruction factory to simplify the choice
 		// between the three Java bytecode
 		return new InstructionList(InstructionFactory.createStore(type.toBCEL(), varNum));

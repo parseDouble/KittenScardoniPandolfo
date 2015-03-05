@@ -4,7 +4,7 @@ import java.util.HashSet;
 
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.CodeSignature;
 import types.ConstructorSignature;
 
@@ -55,7 +55,7 @@ public class CONSTRUCTORCALL extends CALL implements PointerDereferencer {
 	 *         method's implementation
 	 */
 
-	public InstructionList generateJB(KittenClassGen classGen) {
+	public InstructionList generateJB(JavaClassGenerator classGen) {
 		// the <tt>ConstructorSignature</tt> <tt>constructor</tt>
 		// contains everything which is needed in order to create
 		// the Java <tt>invokespecial constuctor</tt> bytecode

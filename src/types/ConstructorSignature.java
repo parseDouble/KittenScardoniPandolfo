@@ -11,7 +11,7 @@ import translate.Block;
 import absyn.ConstructorDeclaration;
 import bytecode.CONSTRUCTORCALL;
 import bytecode.LOAD;
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 
 /**
  * The signature of a constructor of a Kitten class.
@@ -51,7 +51,7 @@ public class ConstructorSignature extends CodeSignature {
 	 * @return an {@code invokespecial} Java bytecode that calls this constructor
 	 */
 
-	public INVOKESPECIAL createINVOKESPECIAL(KittenClassGen classGen) {
+	public INVOKESPECIAL createINVOKESPECIAL(JavaClassGenerator classGen) {
 		return (INVOKESPECIAL) createInvokeInstruction(classGen, Constants.INVOKESPECIAL);
 	}
 
@@ -62,7 +62,7 @@ public class ConstructorSignature extends CodeSignature {
 	 * @param classGen the generator of the class where the constructor lives
 	 */
 
-	public void createConstructor(KittenClassGen classGen) {
+	public void createConstructor(JavaClassGenerator classGen) {
 		InstructionList il = classGen.generateJB(getCode());
 
 		// we add the following code at the beginning of the empty constructor

@@ -34,7 +34,7 @@ import bytecode.BranchingBytecode;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class KittenClassGen extends ClassGen {
+public class JavaClassGenerator extends ClassGen {
 
 	/**
 	 * An <tt>org.apache.bcel.generic.InstructionFactory</tt> is a utility
@@ -44,7 +44,7 @@ public class KittenClassGen extends ClassGen {
 	 * generate them without this helper object, but it would be really complex!
 	 */
 
-	private InstructionFactory factory;
+	private final InstructionFactory factory;
 
 	/**
 	 * An empty set of interfaces, used to generate the Java class.
@@ -71,7 +71,7 @@ public class KittenClassGen extends ClassGen {
 	 *             If this is <tt>null</tt>, all class members are translated
 	 */
 
-	protected KittenClassGen
+	protected JavaClassGenerator
 	(String className, String superName, String[] interfs,
 			String source, int access,
 			Map<Symbol, FieldSignature> fields,
@@ -109,7 +109,7 @@ public class KittenClassGen extends ClassGen {
 	 *             If this is <tt>null</tt>, all class members are translated
 	 */
 
-	public KittenClassGen(ClassType clazz, Set<ClassMemberSignature> sigs) {
+	public JavaClassGenerator(ClassType clazz, Set<ClassMemberSignature> sigs) {
 		this(clazz.getName().toString(), // name of the class
 				// the superclass of the Kitten <tt>Object</tt> class
 				// is set to be the Java <tt>java.lang.Object</tt> class

@@ -2,7 +2,7 @@ package bytecode;
 
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.CodeSignature;
 import types.FieldSignature;
 
@@ -97,7 +97,7 @@ public class PUTFIELD extends FieldWriterBytecode implements PointerDereferencer
 	 */
 
 	@Override
-	public InstructionList generateJB(KittenClassGen classGen) {
+	public InstructionList generateJB(JavaClassGenerator classGen) {
 		// the <tt>FieldSignature</tt> <tt>field</tt>
 		// contains everything which is needed
 		// in order to create the Java <tt>putfield field</tt> bytecode

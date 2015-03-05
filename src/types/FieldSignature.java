@@ -4,7 +4,7 @@ import org.apache.bcel.Constants;
 import org.apache.bcel.generic.FieldGen;
 import org.apache.bcel.generic.FieldInstruction;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import symbol.Symbol;
 import absyn.FieldDeclaration;
 
@@ -94,7 +94,7 @@ public class FieldSignature extends ClassMemberSignature {
      * @return a {@code getfield} Java bytecode that reads the value of this field
      */
 
-    public FieldInstruction createGETFIELD(KittenClassGen classGen) {
+    public FieldInstruction createGETFIELD(JavaClassGenerator classGen) {
     	return classGen.getFactory().createGetField
     		(getDefiningClass().toBCEL().toString(), name.toString(), type.toBCEL());
     }
@@ -108,7 +108,7 @@ public class FieldSignature extends ClassMemberSignature {
      * @return a {@code putfield} Java bytecode that writes a value inside this field
      */
 
-    public FieldInstruction createPUTFIELD(KittenClassGen classGen) {
+    public FieldInstruction createPUTFIELD(JavaClassGenerator classGen) {
     	return classGen.getFactory().createPutField
    			(getDefiningClass().toBCEL().toString(), name.toString(), type.toBCEL());
     }
@@ -120,7 +120,7 @@ public class FieldSignature extends ClassMemberSignature {
      * @param classGen the generator of the class where the field lives
      */
 
-    public void createField(KittenClassGen classGen) {
+    public void createField(JavaClassGenerator classGen) {
     	classGen.addField(new FieldGen
    			(Constants.ACC_PUBLIC, // the field is public
 			getType().toBCEL(), // type

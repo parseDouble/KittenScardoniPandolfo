@@ -2,7 +2,7 @@ package bytecode;
 
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import types.BooleanType;
 import types.CodeSignature;
 import types.FloatType;
@@ -142,7 +142,7 @@ public class CONST extends NonCallingSequentialBytecode {
 	 *         on the basis of the type and size of <tt>constant</tt>
 	 */
 
-	public InstructionList generateJB(KittenClassGen classGen) {
+	public InstructionList generateJB(JavaClassGenerator classGen) {
 		if (constant == null)
 			return new InstructionList
 					(new org.apache.bcel.generic.ACONST_NULL());

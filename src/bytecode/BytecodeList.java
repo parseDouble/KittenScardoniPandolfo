@@ -2,7 +2,7 @@ package bytecode;
 
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 
 /**
  * A list of Kitten bytecodes.
@@ -119,7 +119,7 @@ public class BytecodeList {
      * @return the Java bytecode corresponding to this list of bytecodes
      */
 
-    public InstructionList generateJB(KittenClassGen classGen) {
+    public InstructionList generateJB(JavaClassGenerator classGen) {
     	InstructionList result;
 
     	if (head instanceof NonBranchingBytecode)

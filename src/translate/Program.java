@@ -11,7 +11,7 @@ import types.ClassType;
 import bytecode.Bytecode;
 import bytecode.CALL;
 import bytecode.FieldAccessBytecode;
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 
 /**
  * A program, that is, a set of <tt>ClassMemberSignature</tt>'s.
@@ -213,7 +213,7 @@ public class Program {
 	// we consider one class at the time and we generate its Java bytecode
 	for (ClassType clazz: ClassType.getAll())
 	    try {
-		new KittenClassGen(clazz,sigs).getJavaClass()
+		new JavaClassGenerator(clazz,sigs).getJavaClass()
 		    .dump(clazz + ".class");
 	    }
 	    catch (IOException e) {

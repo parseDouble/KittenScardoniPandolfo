@@ -4,7 +4,7 @@ import org.apache.bcel.Constants;
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import symbol.Symbol;
 import types.CodeSignature;
 import types.ClassType;
@@ -90,7 +90,7 @@ public class NEWSTRING extends CreationBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(KittenClassGen classGen) {
+	public InstructionList generateJB(JavaClassGenerator classGen) {
 		InstructionFactory factory = classGen.getFactory();
 		InstructionList il = new InstructionList();
 

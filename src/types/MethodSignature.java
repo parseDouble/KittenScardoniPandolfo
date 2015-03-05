@@ -4,7 +4,7 @@ import org.apache.bcel.Constants;
 import org.apache.bcel.generic.INVOKEVIRTUAL;
 import org.apache.bcel.generic.MethodGen;
 
-import bytecodeGenerator.KittenClassGen;
+import bytecodeGenerator.JavaClassGenerator;
 import absyn.MethodDeclaration;
 import symbol.Symbol;
 import translate.Block;
@@ -44,7 +44,7 @@ public class MethodSignature extends CodeSignature {
 	 * @return an {@code invokevirtual} Java bytecode that calls this method
 	 */
 
-	public INVOKEVIRTUAL createINVOKEVIRTUAL(KittenClassGen classGen) {
+	public INVOKEVIRTUAL createINVOKEVIRTUAL(JavaClassGenerator classGen) {
 		return (INVOKEVIRTUAL) createInvokeInstruction(classGen,Constants.INVOKEVIRTUAL);
 	}
 
@@ -54,7 +54,7 @@ public class MethodSignature extends CodeSignature {
 	 * @param classGen the generator of the class where the method lives
 	 */
 
-	public void createMethod(KittenClassGen classGen) {
+	public void createMethod(JavaClassGenerator classGen) {
 		MethodGen methodGen;
 		if (getName() == Symbol.MAIN)
 			methodGen = new MethodGen
