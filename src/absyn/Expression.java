@@ -22,7 +22,8 @@ import bytecode.IF_TRUE;
 public abstract class Expression extends Absyn {
 
 	/**
-	 * The static type of this expression, as computed during type-checking.
+	 * The static type of this expression. This is {@code null} if type-checking
+	 * has not yet been computed.
 	 */
 
 	private Type staticType;
