@@ -9,14 +9,14 @@ package absyn;
 
 public abstract class Literal extends Expression {
 
-    /**
-     * Builds the abstract syntax of a literal.
-     *
-     * @param pos the position in the source file where it starts
-     *            the concrete syntax represented by this abstract syntax
-     */
+	/**
+	 * Builds the abstract syntax of a literal.
+	 *
+	 * @param pos the position in the source file where it starts
+	 *            the concrete syntax represented by this abstract syntax
+	 */
 
-    protected Literal(int pos) {
-	super(pos);
-    }
+	protected Literal(int pos) {
+		super(pos);
+	}
 }
