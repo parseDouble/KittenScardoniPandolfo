@@ -37,11 +37,11 @@ public class NOP extends NonCallingSequentialBytecode {
 		return new InstructionList(new org.apache.bcel.generic.NOP());
 	}
 
-	protected int hashCode$0() {
+	protected int hashCodeAux() {
 		return 1;
 	}
 
-	public boolean equals$0(Object other) {
+	public boolean equalsAux(Object other) {
 		return true;
 	}
 }

@@ -1,18 +1,17 @@
 package bytecode;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import types.CodeSignature;
 import types.Type;
 
 /**
- * A bytecode which calls a method of a <i>receiver</i>.
+ * A bytecode that calls a method of a <i>receiver</i>.
  * <br><br>
  * ..., receiver, par_1, ..., par_n -> ..., returned value<br>
- * if the method return type is non-<tt>void</tt><br><br>
+ * if the method return type is non-{@code void}<br><br>
  * ..., receiver, par_1, ..., par_n -> ...<br>
- * if the method's return type is <tt>void</tt>.
+ * if the method's return type is {@code void}</tt>.
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
@@ -24,34 +23,24 @@ public abstract class CALL extends SequentialBytecode {
 	 * might be this type or every subclass of this type.
 	 */
 
-	private Type receiverType;
+	private final Type receiverType;
 
 	/**
-	 * The signature of the static target method or constructor
-	 * of the call. The dynamic target
-	 * of the call might be every redefinition of this
-	 * in <tt>receiverType</tt> and its subclasses.
+	 * The signature of the static target method or constructor of the call. The dynamic target
+	 * of the call might be every redefinition of this in {@link #receiverType} and its subclasses.
 	 */
 
-	private CodeSignature staticTarget;
+	private final CodeSignature staticTarget;
 
 	/**
-	 * The signatures of the dynamic target methods or constructors
-	 * of this call. They are redefinitions of <tt>staticTarget</tt>
-	 * in <tt>receiverType</tt> and its subclasses.
+	 * The signatures of the dynamic target methods or constructors of this call. They are
+	 * redefinitions of {@link #staticTarget} in {@link #receiverType} and its subclasses.
 	 */
 
-	private Set<CodeSignature> dynamicTargets;
+	private final Set<CodeSignature> dynamicTargets;	
 
 	/**
-	 * An overapproximation of the set of local variables that might be modified
-	 * during the execution of one of the dynamic targets of this call.
-	 */
-
-	private HashSet<Integer> modifiedLocals;
-
-	/**
-	 * Constructs a bytecode which calls a method.
+	 * Constructs a bytecode that calls a method.
 	 *
 	 * @param where the method or constructor where this bytecode occurs
 	 * @param receiverType the static type of the receiver of this call
@@ -59,10 +48,7 @@ public abstract class CALL extends SequentialBytecode {
 	 * @param dynamicTargets the set of dynamic targets for the call
 	 */
 
-    protected CALL(CodeSignature where,
-    		Type receiverType, CodeSignature staticTarget,
-    		Set<CodeSignature> dynamicTargets) {
-
+    protected CALL(CodeSignature where, Type receiverType, CodeSignature staticTarget, Set<CodeSignature> dynamicTargets) {
     	super(where);
 
     	this.receiverType = receiverType;
@@ -86,7 +72,7 @@ public abstract class CALL extends SequentialBytecode {
      * @return the static target
      */
 
-    public CodeSignature getStaticTarget() {
+    public final CodeSignature getStaticTarget() {
     	return staticTarget;
     }
 
@@ -96,7 +82,7 @@ public abstract class CALL extends SequentialBytecode {
      * @return the set of dynamic targets
      */
 
-    public Set<CodeSignature> getDynamicTargets() {
+    public final Set<CodeSignature> getDynamicTargets() {
     	return dynamicTargets;
     }
 
@@ -105,15 +91,16 @@ public abstract class CALL extends SequentialBytecode {
     	return "call " + staticTarget + " " + dynamicTargets;
     }
 
-    protected int hashCode$0() {
+    @Override
+    protected int hashCodeAux() {
     	return staticTarget.hashCode();
     }
 
-    protected boolean equals$0(Object other) {
-    	CALL otherCALL = (CALL)other;
+    @Override
+    protected boolean equalsAux(Object other) {
+    	CALL otherCALL = (CALL) other;
 
-    	return receiverType == otherCALL.receiverType &&
-    			staticTarget == otherCALL.staticTarget &&
-    			dynamicTargets.equals(otherCALL.dynamicTargets);
+    	return receiverType == otherCALL.receiverType && staticTarget == otherCALL.staticTarget &&
+   			dynamicTargets.equals(otherCALL.dynamicTargets);
     }
 }

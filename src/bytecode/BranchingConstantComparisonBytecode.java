@@ -57,11 +57,11 @@ public abstract class BranchingConstantComparisonBytecode extends BranchingBytec
 		return getClass().getSimpleName().toLowerCase() + " " + type;
 	}
 
-	protected int hashCode$0() {
+	protected int hashCodeAux() {
 		return type.hashCode();
 	}
 
-	public boolean equals$0(Object other) {
+	public boolean equalsAux(Object other) {
 		return type == ((BranchingConstantComparisonBytecode)other).type;
 	}
 }

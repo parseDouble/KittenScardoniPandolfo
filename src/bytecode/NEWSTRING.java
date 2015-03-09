@@ -55,11 +55,11 @@ public class NEWSTRING extends CreationBytecode {
 		return "newstring " + value.replaceAll("\n","\\\\\\\\n");
 	}
 
-	protected int hashCode$0() {
+	protected int hashCodeAux() {
 		return value.hashCode();
 	}
 
-	public boolean equals$0(Object other) {
+	public boolean equalsAux(Object other) {
 		return value.equals(((NEWSTRING)other).value);
 	}
 

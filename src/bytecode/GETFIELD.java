@@ -68,11 +68,11 @@ public class GETFIELD extends FieldReaderBytecode implements PointerDereferencer
 		return field.getType();
 	}
 
-	protected int hashCode$0() {
+	protected int hashCodeAux() {
 		return field.hashCode();
 	}
 
-	public boolean equals$0(Object other) {
+	public boolean equalsAux(Object other) {
 		return ((GETFIELD)other).field == field;
 	}
 

@@ -71,11 +71,11 @@ public class LOAD extends NonCallingSequentialBytecode {
 		return "load " + varNum + " of type " + type;
 	}
 
-	protected int hashCode$0() {
+	protected int hashCodeAux() {
 		return varNum * type.hashCode();
 	}
 
-	public boolean equals$0(Object other) {
+	public boolean equalsAux(Object other) {
 		return ((LOAD)other).varNum == varNum &&
 				((LOAD)other).type == type;
 	}

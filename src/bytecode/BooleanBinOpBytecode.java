@@ -25,11 +25,11 @@ public abstract class BooleanBinOpBytecode extends BinOpBytecode {
 		super(where);
 	}
 
-	protected int hashCode$0() {
+	protected int hashCodeAux() {
 		return 1;
 	}
 
-	public boolean equals$0(Object other) {
+	public boolean equalsAux(Object other) {
 		return true;
 	}
 }

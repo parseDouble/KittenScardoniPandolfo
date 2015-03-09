@@ -50,11 +50,11 @@ public abstract class ComparisonBinOpBytecode extends BinOpBytecode {
 		return super.toString() + " " + type;
 	}
 
-	protected int hashCode$0() {
+	protected int hashCodeAux() {
 		return type.hashCode();
 	}
 
-	public boolean equals$0(Object other) {
+	public boolean equalsAux(Object other) {
 		return getClass() == other.getClass() &&
 				((ComparisonBinOpBytecode)other).type == type;
 	}

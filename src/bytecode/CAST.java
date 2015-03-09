@@ -100,11 +100,11 @@ public class CAST extends NonCallingSequentialBytecode {
 	return "cast " + fromType + " into " + intoType;
     }
 
-    protected int hashCode$0() {
+    protected int hashCodeAux() {
 	return fromType.hashCode() * intoType.hashCode();
     }
 
-    public boolean equals$0(Object other) {
+    public boolean equalsAux(Object other) {
 	return ((CAST)other).fromType == fromType &&
 	    ((CAST)other).intoType == intoType;
     }

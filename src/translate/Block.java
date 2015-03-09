@@ -23,7 +23,7 @@ import bytecode.NOP;
 public class Block {
 
 	/**
-	 * The successors of this block. This should not be <tt>null</tt>.
+	 * The successors of this block. This should not be {@code null}.
 	 */
 
 	private List<Block> follows;

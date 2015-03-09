@@ -120,11 +120,11 @@ public class CONST extends NonCallingSequentialBytecode {
 		return "const " + constant;
 	}
 
-	protected int hashCode$0() {
+	protected int hashCodeAux() {
 		return constant == null ? 1 : constant.hashCode();
 	}
 
-	public boolean equals$0(Object other) {
+	public boolean equalsAux(Object other) {
 		Object oc = ((CONST)other).constant;
 
 		return constant == null ? oc == null :

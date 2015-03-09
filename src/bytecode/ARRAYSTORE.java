@@ -58,11 +58,11 @@ public class ARRAYSTORE extends NonCallingSequentialBytecode
 	return "store into array of " + type;
     }
 
-    protected int hashCode$0() {
+    protected int hashCodeAux() {
 	return type.hashCode();
     }
 
-    public boolean equals$0(Object other) {
+    public boolean equalsAux(Object other) {
 	return type == ((ARRAYSTORE)other).type;
     }
 

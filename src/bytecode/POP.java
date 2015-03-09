@@ -63,11 +63,11 @@ public class POP extends NonCallingSequentialBytecode {
 		return new InstructionList(new org.apache.bcel.generic.POP());
 	}
 
-	protected int hashCode$0() {
+	protected int hashCodeAux() {
 		return type.hashCode();
 	}
 
-	public boolean equals$0(Object other) {
+	public boolean equalsAux(Object other) {
 		return ((POP)other).type == type;
 	}
 }

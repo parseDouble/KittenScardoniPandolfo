@@ -116,11 +116,11 @@ public class NEWARRAY extends CreationBytecode {
 						.createNewArray(t.toBCEL(),(short)dimensions));
 	}
 
-	protected int hashCode$0() {
+	protected int hashCodeAux() {
 		return elementsType.hashCode() * dimensions;
 	}
 
-	public boolean equals$0(Object other) {
+	public boolean equalsAux(Object other) {
 		return elementsType == ((NEWARRAY)other).elementsType &&
 				dimensions == ((NEWARRAY)other).dimensions;
 	}

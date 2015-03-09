@@ -58,11 +58,11 @@ public class NEW extends CreationBytecode {
 		return "new " + clazz;
 	}
 
-	protected int hashCode$0() {
+	protected int hashCodeAux() {
 		return clazz.hashCode();
 	}
 
-	public boolean equals$0(Object other) {
+	public boolean equalsAux(Object other) {
 		return other instanceof NEW && ((NEW)other).clazz == clazz;
 	}
 

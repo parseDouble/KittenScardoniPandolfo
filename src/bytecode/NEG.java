@@ -116,11 +116,11 @@ public class NEG extends NonCallingSequentialBytecode {
 		return il;
 	}
 
-	protected int hashCode$0() {
+	protected int hashCodeAux() {
 		return type.hashCode();
 	}
 
-	public boolean equals$0(Object other) {
+	public boolean equalsAux(Object other) {
 		return type == ((NEG)other).type;
 	}
 }
