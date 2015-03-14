@@ -8,53 +8,51 @@ import translate.Block;
 import bytecode.CONST;
 
 /**
- * A node of abstract syntax representing a <tt>true</tt> Boolean constant.
+ * A node of abstract syntax representing a {@code true} Boolean constant.
  *
- * @author  <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
+ * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
 public class True extends Literal {
 
-    /**
-     * Constructs the abstract syntax of a <tt>true</tt> Boolean constant.
-     *
-     * @param pos the position in the source file where it starts
-     *            the concrete syntax represented by this abstract syntax
-     */
+	/**
+	 * Constructs the abstract syntax of a {@code true} Boolean constant.
+	 *
+	 * @param pos the position in the source file where it starts
+	 *            the concrete syntax represented by this abstract syntax
+	 */
 
-    public True(int pos) {
-	super(pos);
-    }
+	public True(int pos) {
+		super(pos);
+	}
 
-    /**
-     * Performs the type-checking of the <tt>true</tt> Boolean constant
-     * by using a given type-checker.
-     *
-     * @param checker the type-checker to be used for type-checking
-     * @return the semantical Boolean type
-     */
+	/**
+	 * Performs the type-checking of the {@code true} Boolean constant
+	 * by using a given type-checker.
+	 *
+	 * @param checker the type-checker to be used for type-checking
+	 * @return the semantical Boolean type
+	 */
 
-    protected Type typeCheckAux(TypeChecker checker) {
-	return BooleanType.INSTANCE;
-    }
+	@Override
+	protected Type typeCheckAux(TypeChecker checker) {
+		return BooleanType.INSTANCE;
+	}
 
-    /**
-     * Translates this expression into its intermediate Kitten code.
-     * The result is a piece of code which pushes onto the stack
-     * the value of the expression (namely, a <tt>const</tt> bytecode
-     * which loads on the stack the <tt>boolean</tt> value <i>true</i>)
-     * followed by the given <tt>continuation</tt>.
-     * The original stack elements are not modified.
-     *
-     * @param where the method or constructor where this expression occurs
-     * @param continuation the code executed after this expression
-     * @return the code which evaluates this expression and continues
-     *         with <tt>continuation</tt>
-     */
+	/**
+	 * Translates this expression into its intermediate Kitten code.
+	 * The result is a piece of code which pushes onto the stack
+	 * the value of the expression (namely, a {@code const} bytecode
+	 * that loads on the stack the Boolean value <i>true</i>)
+	 * followed by the given {@code continuation}.
+	 *
+	 * @param where the method or constructor where this expression occurs
+	 * @param continuation the code executed after this expression
+	 * @return the code which evaluates this expression and continues with {@code continuation}
+	 */
 
-    public final Block translate
-	(CodeSignature where, Block continuation) {
-
-	return new CONST(where,true).followedBy(continuation);
-    }
+	@Override
+	public final Block translate(CodeSignature where, Block continuation) {
+		return new CONST(where, true).followedBy(continuation);
+	}
 }

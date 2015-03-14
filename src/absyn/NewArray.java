@@ -12,7 +12,7 @@ import bytecode.NEWARRAY;
 /**
  * A node of abstract syntax representing an array creation expression.
  *
- * @author  <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
+ * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
 public class NewArray extends Expression {
@@ -21,14 +21,13 @@ public class NewArray extends Expression {
 	 * The abstract syntax of the type of the elements of the array.
 	 */
 
-	private TypeExpression elementsType;
+	private final TypeExpression elementsType;
 
 	/**
-	 * The abstract syntax of the expression representing
-	 * the size of the array.
+	 * The abstract syntax of the expression representing the size of the array.
 	 */
 
-	private Expression size;
+	private final Expression size;
 
 	/**
 	 * Constructs the abstract syntax of an array creation expression.
@@ -57,11 +56,9 @@ public class NewArray extends Expression {
 	}
 
 	/**
-	 * Yields the abstract syntax of the expression representing the size
-	 * of the array.
+	 * Yields the abstract syntax of the expression representing the size of the array.
 	 *
-	 * @return the abstract syntax of the expression representing the size of
-	 *         the array
+	 * @return the abstract syntax of the expression representing the size of the array
 	 */
 
 	public Expression getSize() {
@@ -71,24 +68,23 @@ public class NewArray extends Expression {
 	/**
 	 * Adds abstract syntax class-specific information in the dot file
 	 * representing the abstract syntax of an array creation expression.
-	 * This amounts to adding two arcs from the node for the array creation
-	 * to the abstract syntax for its <tt>elementsType</tt> and <tt>size</tt>
-	 * components.
+	 * This amounts to adding two arcs from the node for the array creation to the
+	 * abstract syntax for its {@link #elementsType} and {@link #size}.
 	 *
 	 * @param where the file where the dot representation must be written
 	 */
 
+	@Override
 	protected void toDotAux(FileWriter where) throws java.io.IOException {
-		linkToNode("elementsType",elementsType.toDot(where),where);
-		linkToNode("size",size.toDot(where),where);
+		linkToNode("elementsType", elementsType.toDot(where), where);
+		linkToNode("size", size.toDot(where), where);
 	}
 
 	/**
 	 * Performs the type-checking of the array creation expression
 	 * by using a given type-checker. It type-checks the expression
 	 * representing the size of the array and requires that it has
-	 * <tt>int</tt> type. It then type-checks the type of the elements
-	 * of the array.
+	 * integer type. It then type-checks the type of the elements of the array.
 	 *
 	 * @param checker the type-checker to be used for type-checking
 	 * @return the array type for the type of the elements of the array
@@ -104,14 +100,14 @@ public class NewArray extends Expression {
 	/**
 	 * Translates this command into intermediate
 	 * Kitten bytecode. Namely, it returns a code which pushes onto the stack
-	 * a reference to a new array of the prescribed <tt>elementsType</tt>
-	 * and <tt>size</tt>. The original stack elements are not
+	 * a reference to a new array of the prescribed {@link #elementsType}
+	 * and {@link #size}. The original stack elements are not
 	 * modified. Namely, it returns a code which starts with<br>
 	 * <br>
-	 * <i>translation of <tt>size</tt><br>
-	 * <tt>newarray elementsType.getStaticType()</tt></i><br>
+	 * <i>translation of {@link #size}<br>
+	 * {@code newarray elementsType.getStaticType()}</i><br>
 	 * <br>
-	 * and continues with the given <tt>continuation</tt>.
+	 * and continues with the given {@code continuation}.
 	 *
 	 * @param where the method or constructor where this expression occurs
 	 * @param continuation the continuation to be executed after this command
@@ -120,7 +116,6 @@ public class NewArray extends Expression {
 
 	@Override
 	public Block translate(CodeSignature where, Block continuation) {
-		return size.translate(where, new NEWARRAY(where, elementsType.getStaticType())
-			.followedBy(continuation));
+		return size.translate(where, new NEWARRAY(where, elementsType.getStaticType()).followedBy(continuation));
 	}
 }

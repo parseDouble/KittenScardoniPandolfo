@@ -12,12 +12,12 @@ import translate.Block;
 
 public class Skip extends Command {
 
-    /**
-     * Constructs the abstract syntax of a skip command.
-     *
-     * @param pos the starting position in the source file of
-     *            the concrete syntax represented by this abstract syntax
-     */
+	/**
+	 * Constructs the abstract syntax of a skip command.
+	 *
+	 * @param pos the starting position in the source file of
+	 *            the concrete syntax represented by this abstract syntax
+	 */
 
 	public Skip(int pos) {
 		super(pos);

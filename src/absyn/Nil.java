@@ -8,51 +8,51 @@ import translate.Block;
 import bytecode.CONST;
 
 /**
- * A node of abstract syntax representing the <tt>nil</tt> constant.
+ * A node of abstract syntax representing the {@code nil} constant.
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
 public class Nil extends Literal {
 
-    /**
-     * Constructs the abstract syntax of the <tt>nil</tt> constant.
-     *
-     * @param pos the position in the source file where it starts
-     *            the concrete syntax represented by this abstract syntax
-     */
+	/**
+	 * Constructs the abstract syntax of the {@code nil} constant.
+	 *
+	 * @param pos the position in the source file where it starts
+	 *            the concrete syntax represented by this abstract syntax
+	 */
 
-    public Nil(int pos) {
-	super(pos);
-    }
+	public Nil(int pos) {
+		super(pos);
+	}
 
-    /**
-     * Performs the type-checking of the <tt>nil</tt> constant
-     * by using a given type-checker.
-     *
-     * @param checker the type-checker to be used for type-checking
-     * @return the semantical <i>nil</i> type
-     */
+	/**
+	 * Performs the type-checking of the {@code nil} constant
+	 * by using a given type-checker.
+	 *
+	 * @param checker the type-checker to be used for type-checking
+	 * @return the semantical {@code nil} type
+	 */
 
-    protected Type typeCheckAux(TypeChecker checker) {
-	return NilType.INSTANCE;
-    }
+	@Override
+	protected Type typeCheckAux(TypeChecker checker) {
+		return NilType.INSTANCE;
+	}
 
-    /**
-     * Translates this expression into its intermediate Kitten code.
-     * The result is a piece of code which pushes onto the stack
-     * the value of the expression (namely, a <tt>const</tt> bytecode
-     * which loads on the stack the value <tt>nil</tt>)
-     * followed by the given <tt>continuation</tt>.
-     * The original stack elements are not modified.
-     *
-     * @param where the method or constructor where this expression occurs
-     * @param continuation the code executed after this expression
-     * @return the code which evaluates this expression and continues
-     *         with <tt>continuation</tt>
-     */
+	/**
+	 * Translates this expression into its intermediate Kitten code.
+	 * The result is a piece of code which pushes onto the stack
+	 * the value of the expression (namely, a {@code const} bytecode
+	 * that loads on the stack the value {@code nil})
+	 * followed by the given {@code continuation}.
+	 *
+	 * @param where the method or constructor where this expression occurs
+	 * @param continuation the code executed after this expression
+	 * @return the code which evaluates this expression and continues with {@code continuation}
+	 */
 
-    public Block translate(CodeSignature where, Block continuation) {
-	return new CONST(where).followedBy(continuation);
-    }
+	@Override
+	public Block translate(CodeSignature where, Block continuation) {
+		return new CONST(where).followedBy(continuation);
+	}
 }
