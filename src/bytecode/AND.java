@@ -13,7 +13,7 @@ import org.apache.bcel.generic.InstructionList;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class AND extends BooleanBinOpBytecode {
+public class AND extends BinOpBytecode {
 
 	/**
 	 * Constructs a bytecode that performs a logical <i>and</i> operation
