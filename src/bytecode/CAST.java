@@ -29,108 +29,99 @@ import types.Type;
 
 public class CAST extends NonCallingSequentialBytecode {
 
-    /**
-     * The original, static type of the top of the stack.
-     */
+	/**
+	 * The original, static type of the top of the stack.
+	 */
 
-    private Type fromType;
+	private Type fromType;
 
-    /**
-     * The type the top of the stack is cast into.
-     */
+	/**
+	 * The type the top of the stack is cast into.
+	 */
 
-    private Type intoType;
+	private Type intoType;
 
-    /**
-     * Constructs a bytecode which
-     * casts the top of the stack into the given type.
-     *
-     * @param where the method or constructor where this bytecode occurs
-     * @param fromType the declared semantical type of the top of the stack
-     * @param intoType the semantical type the top of the stack is cast into
-     */
+	/**
+	 * Constructs a bytecode which
+	 * casts the top of the stack into the given type.
+	 *
+	 * @param where the method or constructor where this bytecode occurs
+	 * @param fromType the declared semantical type of the top of the stack
+	 * @param intoType the semantical type the top of the stack is cast into
+	 */
 
-    public CAST(CodeSignature where, Type fromType, ReferenceType intoType) {
-	super(where);
+	public CAST(CodeSignature where, Type fromType, ReferenceType intoType) {
+		super(where);
 
-	this.fromType = fromType;
-	this.intoType = intoType;
-    }
+		this.fromType = fromType;
+		this.intoType = intoType;
+	}
 
-    /**
-     * Constructs a bytecode which
-     * casts the top of the stack into the given type.
-     * They are both <tt>NumericalType</tt>'s.
-     *
-     * @param where the method or constructor where this bytecode occurs
-     * @param fromType the declared semantical type of the top of the stack
-     * @param intoType the semantical type the top of the stack is cast into
-     */
+	/**
+	 * Constructs a bytecode which
+	 * casts the top of the stack into the given type.
+	 * They are both <tt>NumericalType</tt>'s.
+	 *
+	 * @param where the method or constructor where this bytecode occurs
+	 * @param fromType the declared semantical type of the top of the stack
+	 * @param intoType the semantical type the top of the stack is cast into
+	 */
 
-    public CAST
+	public CAST
 	(CodeSignature where, NumericalType fromType, NumericalType intoType) {
 
-	super(where);
+		super(where);
 
-	this.fromType = fromType;
-	this.intoType = intoType;
-    }
+		this.fromType = fromType;
+		this.intoType = intoType;
+	}
 
-    /**
-     * Yields the type from which the value is cast.
-     *
-     * @return the type from which the value is cast
-     */
+	/**
+	 * Yields the type from which the value is cast.
+	 *
+	 * @return the type from which the value is cast
+	 */
 
-    public Type getFromType() {
-	return fromType;
-    }
+	public Type getFromType() {
+		return fromType;
+	}
 
-    /**
-     * Yields the type towards which the value is cast.
-     *
-     * @return the type towards which the value is cast
-     */
+	/**
+	 * Yields the type towards which the value is cast.
+	 *
+	 * @return the type towards which the value is cast
+	 */
 
-    public Type getIntoType() {
-	return intoType;
-    }
+	public Type getIntoType() {
+		return intoType;
+	}
 
-    @Override
-    public String toString() {
-	return "cast " + fromType + " into " + intoType;
-    }
+	@Override
+	public String toString() {
+		return "cast " + fromType + " into " + intoType;
+	}
 
-    protected int hashCodeAux() {
-	return fromType.hashCode() * intoType.hashCode();
-    }
+	/**
+	 * Generates the Java bytecode corresponding to this Kitten bytecode.
+	 *
+	 * @param classGen the Java class generator to be used for this
+	 *                 Java bytecode generation
+	 * @return the Java <tt>checkcast intoType</tt> bytecode for casts between
+	 *         <tt>ReferenceType</tt>'s and a type conversion bytecode
+	 *         such as <tt>i2f</tt> for conversions between
+	 *         <tt>NumericalType</tt>'s
+	 */
 
-    public boolean equalsAux(Object other) {
-	return ((CAST)other).fromType == fromType &&
-	    ((CAST)other).intoType == intoType;
-    }
-
-    /**
-     * Generates the Java bytecode corresponding to this Kitten bytecode.
-     *
-     * @param classGen the Java class generator to be used for this
-     *                 Java bytecode generation
-     * @return the Java <tt>checkcast intoType</tt> bytecode for casts between
-     *         <tt>ReferenceType</tt>'s and a type conversion bytecode
-     *         such as <tt>i2f</tt> for conversions between
-     *         <tt>NumericalType</tt>'s
-     */
-
-    public InstructionList generateJB(JavaClassGenerator classGen) {
-	if (intoType instanceof ReferenceType)
-	    // we use the instruction factory to simplify the addition of
-	    // <tt>type</tt> to the constant pool
-	    return new InstructionList
-		(classGen.getFactory().createCheckCast
-		 ((org.apache.bcel.generic.ReferenceType)intoType.toBCEL()));
-	else if (fromType == IntType.INSTANCE && intoType == FloatType.INSTANCE)
-	    return new InstructionList(new I2F());
-	else // it must be float into int
-	    return new InstructionList(new F2I());
-    }
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
+		if (intoType instanceof ReferenceType)
+			// we use the instruction factory to simplify the addition of
+			// <tt>type</tt> to the constant pool
+			return new InstructionList
+					(classGen.getFactory().createCheckCast
+							((org.apache.bcel.generic.ReferenceType)intoType.toBCEL()));
+		else if (fromType == IntType.INSTANCE && intoType == FloatType.INSTANCE)
+			return new InstructionList(new I2F());
+		else // it must be float into int
+			return new InstructionList(new F2I());
+	}
 }

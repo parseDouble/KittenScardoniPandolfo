@@ -37,7 +37,7 @@ public class OR extends BooleanBinOpBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		return new InstructionList(new org.apache.bcel.generic.IOR());
 	}
 }

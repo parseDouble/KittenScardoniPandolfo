@@ -1,6 +1,6 @@
 package bytecode;
 
-import java.util.HashSet;
+import java.util.Collections;
 import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
@@ -18,7 +18,7 @@ import types.ConstructorSignature;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class CONSTRUCTORCALL extends CALL implements PointerDereferencer {
+public class CONSTRUCTORCALL extends CALL {
 
 	/**
 	 * Constructs a bytecode which calls a constructor of an object.
@@ -29,20 +29,7 @@ public class CONSTRUCTORCALL extends CALL implements PointerDereferencer {
 
 	public CONSTRUCTORCALL(CodeSignature where, ConstructorSignature constructor) {
 		// there is only only dynamic target: the constructor itself
-		super(where,constructor.getDefiningClass(), constructor, singleton(constructor));
-	}
-
-	/**
-	 * Builds a singleton set containing the given target method.
-	 *
-	 * @param target the target method
-	 * @return the singleton set conatining <tt>target</tt>
-	 */
-
-	private static HashSet<CodeSignature> singleton(CodeSignature target) {
-		HashSet<CodeSignature> result = new HashSet<CodeSignature>();
-		result.add(target);
-		return result;
+		super(where, constructor.getDefiningClass(), constructor, Collections.<CodeSignature> singleton(constructor));
 	}
 
 	/**
@@ -55,17 +42,10 @@ public class CONSTRUCTORCALL extends CALL implements PointerDereferencer {
 	 *         method's implementation
 	 */
 
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		// the <tt>ConstructorSignature</tt> <tt>constructor</tt>
 		// contains everything which is needed in order to create
 		// the Java <tt>invokespecial constuctor</tt> bytecode
-		return new InstructionList
-				(((ConstructorSignature)getStaticTarget())
-						.createINVOKESPECIAL(classGen));
-	}
-
-	@Override
-	public String description() {
-		return "calling constructor " + getStaticTarget();
+		return new InstructionList(((ConstructorSignature) getStaticTarget()).createINVOKESPECIAL(classGen));
 	}
 }

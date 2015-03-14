@@ -6,7 +6,6 @@ import org.apache.bcel.generic.InstructionList;
 
 import types.ArrayType;
 import types.CodeSignature;
-import types.ReferenceType;
 import types.Type;
 
 /**
@@ -18,7 +17,7 @@ import types.Type;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class NEWARRAY extends CreationBytecode {
+public class NEWARRAY extends NonCallingSequentialBytecode {
 
 	/**
 	 * The type of the elements of the array.
@@ -76,18 +75,11 @@ public class NEWARRAY extends CreationBytecode {
 	}
 
 	@Override
-	public ReferenceType createdType() {
-		return ArrayType.mk(elementsType, dimensions);
-	}
-
-	@Override
 	public String toString() {
 		if (dimensions == 1)
-			return "newarray of " + elementsType
-					+ " of 1 dimension";
+			return "newarray of " + elementsType + " of 1 dimension";
 		else
-			return "newarray of " + elementsType
-					+ " of " + dimensions + " dimensions";
+			return "newarray of " + elementsType + " of " + dimensions + " dimensions";
 	}
 
 	/**
@@ -102,7 +94,7 @@ public class NEWARRAY extends CreationBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		// we use the instruction factory to simplify the choice between
 		// the <tt>newarray</tt> and <tt>anewarray</tt> bytecode. Moreover,
 		// it automatically puts the type of the elements of the array inside
@@ -115,14 +107,5 @@ public class NEWARRAY extends CreationBytecode {
 		return new InstructionList
 				(classGen.getFactory()
 						.createNewArray(t.toBCEL(),(short)dimensions));
-	}
-
-	protected int hashCodeAux() {
-		return elementsType.hashCode() * dimensions;
-	}
-
-	public boolean equalsAux(Object other) {
-		return elementsType == ((NEWARRAY)other).elementsType &&
-				dimensions == ((NEWARRAY)other).dimensions;
 	}
 }

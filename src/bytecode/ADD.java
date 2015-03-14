@@ -8,7 +8,7 @@ import types.CodeSignature;
 import types.NumericalType;
 
 /**
- * A bytecode which adds the top two elements of the stack.
+ * A bytecode that adds the top two elements of the stack.
  * <br><br>
  * ..., value1, value2 -> ..., value1 + value2
  *
@@ -18,18 +18,18 @@ import types.NumericalType;
 public class ADD extends ArithmeticBinOpBytecode {
 
 	/**
-	 * Constructs a bytecode which adds the top two elements of the stack.
+	 * Constructs a bytecode that adds the top two elements of the stack.
 	 *
 	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the semantical type of the values which are added
 	 */
 
 	public ADD(CodeSignature where, NumericalType type) {
-		super(where,type);
+		super(where, type);
 	}
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		InstructionList il = new InstructionList();
 
 		getType().add(il);

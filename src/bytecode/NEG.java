@@ -97,7 +97,7 @@ public class NEG extends NonCallingSequentialBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		InstructionList il = new InstructionList();
 
 		if (type == BooleanType.INSTANCE) {
@@ -115,13 +115,5 @@ public class NEG extends NonCallingSequentialBytecode {
 		else ((NumericalType)type).neg(il);
 
 		return il;
-	}
-
-	protected int hashCodeAux() {
-		return type.hashCode();
-	}
-
-	public boolean equalsAux(Object other) {
-		return type == ((NEG)other).type;
 	}
 }

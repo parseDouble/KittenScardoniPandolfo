@@ -92,7 +92,7 @@ public class EQ extends ComparisonBinOpBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		InstructionList il = new InstructionList
 				(new org.apache.bcel.generic.NOP());
 		InstructionHandle after, follow;

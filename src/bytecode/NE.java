@@ -42,7 +42,7 @@ public class NE extends ComparisonBinOpBytecode {
 	 */
 
 	public BranchingComparisonBytecode toBranching() {
-		return new IF_CMPNE(getWhere(),getType());
+		return new IF_CMPNE(getWhere(), getType());
 	}
 
 	/**
@@ -91,7 +91,7 @@ public class NE extends ComparisonBinOpBytecode {
 	 * @return the Java bytecode as above, depending on <tt>type</tt>
 	 */
 
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		InstructionList il = new InstructionList
 				(new org.apache.bcel.generic.NOP());
 		InstructionHandle after, follow;

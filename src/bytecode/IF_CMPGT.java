@@ -74,7 +74,7 @@ public class IF_CMPGT extends BranchingNumericalComparisonBytecode {
 	 *            expressed by this branching bytecode is true
 	 */
 
-	protected void generateJB$0
+	protected void generateJavaBytecodeAux
 	(InstructionList il, JavaClassGenerator classGen, InstructionHandle yes) {
 
 		// builds the instructions which go to <tt>yes</tt> if the test is true

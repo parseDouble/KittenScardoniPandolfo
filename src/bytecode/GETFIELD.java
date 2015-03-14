@@ -6,7 +6,6 @@ import org.apache.bcel.generic.InstructionList;
 
 import types.CodeSignature;
 import types.FieldSignature;
-import types.Type;
 
 /**
  * A bytecode which reads the value of a given field of an object,
@@ -18,7 +17,7 @@ import types.Type;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class GETFIELD extends FieldReaderBytecode implements PointerDereferencer, DataSelector {
+public class GETFIELD extends FieldAccessBytecode {
 
 	/**
 	 * The signature of the field which is read by this bytecode.
@@ -64,24 +63,6 @@ public class GETFIELD extends FieldReaderBytecode implements PointerDereferencer
 		return "getfield " + field;
 	}
 
-	@Override
-	public Type accessedType() {
-		return field.getType();
-	}
-
-	protected int hashCodeAux() {
-		return field.hashCode();
-	}
-
-	public boolean equalsAux(Object other) {
-		return ((GETFIELD)other).field == field;
-	}
-
-	@Override
-	public String description() {
-		return "access to field " + field;
-	}
-
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
@@ -91,7 +72,7 @@ public class GETFIELD extends FieldReaderBytecode implements PointerDereferencer
 	 */
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		// the <tt>FieldSignature</tt> <tt>field</tt>
 		// contains everything which is needed
 		// in order to create the Java <tt>getfield field</tt> bytecode

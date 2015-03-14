@@ -4,7 +4,7 @@ import types.CodeSignature;
 import types.NumericalType;
 
 /**
- * A bytecode which computes a binary arithmetic operation on the top two
+ * A bytecode that computes a binary arithmetic operation on the top two
  * elements of the stack.
  * <br><br>
  * ..., value1, value2 -> ..., value1 <i>op</i> value2
@@ -16,15 +16,13 @@ public abstract class ArithmeticBinOpBytecode extends BinOpBytecode {
 
     /**
      * The semantical type of the top two elements of the stack.
-     * This can only be a <tt>NumericalType</tt>.
      */
 
-	private NumericalType type;
+	private final NumericalType type;
 
 	/**
-	 * Constructs a list of instructions made up of a single bytecode which
-	 * computes a binary arithmetic operation on the top two
-	 * elements of the stack.
+	 * Constructs a list of instructions made up of a single bytecode that
+	 * computes a binary arithmetic operation on the top two elements of the stack.
 	 *
 	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the semantical type of the top two values of the stack
@@ -38,7 +36,7 @@ public abstract class ArithmeticBinOpBytecode extends BinOpBytecode {
 
 	/**
 	 * Yields the semantical type of the top two elements of the stack.
-	 * This can only be <tt>int</tt> or <tt>float</tt>.
+	 * This can only be {@code int} or {@code float}.
 	 *
 	 * @return the semantical type of the top two elements of stack
 	 */
@@ -50,13 +48,5 @@ public abstract class ArithmeticBinOpBytecode extends BinOpBytecode {
 	@Override
 	public String toString() {
 		return super.toString() + " " + type;
-	}
-
-	protected int hashCodeAux() {
-		return type.hashCode();
-	}
-
-	public boolean equalsAux(Object other) {
-		return ((ArithmeticBinOpBytecode)other).type == type;
 	}
 }

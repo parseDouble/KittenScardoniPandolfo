@@ -34,15 +34,7 @@ public class NOP extends NonCallingSequentialBytecode {
 	 * @return the Java <tt>nop</tt> bytecode
 	 */
 
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		return new InstructionList(new org.apache.bcel.generic.NOP());
-	}
-
-	protected int hashCodeAux() {
-		return 1;
-	}
-
-	public boolean equalsAux(Object other) {
-		return true;
 	}
 }

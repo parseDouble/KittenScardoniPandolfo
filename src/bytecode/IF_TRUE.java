@@ -7,7 +7,6 @@ import org.apache.bcel.generic.InstructionList;
 
 import types.BooleanType;
 import types.CodeSignature;
-import types.Type;
 
 /**
  * A branching bytecode which checks if the top of the stack is the
@@ -78,7 +77,7 @@ public class IF_TRUE extends BranchingConstantComparisonBytecode {
 	 */
 
 	@Override
-	protected void generateJB$0
+	protected void generateJavaBytecodeAux
 	(InstructionList il, JavaClassGenerator classGen, InstructionHandle yes) {
 
 		// builds the instructions which go to <tt>yes</tt> if the test is true

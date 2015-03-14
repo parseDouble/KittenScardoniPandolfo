@@ -16,19 +16,19 @@ import types.Type;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class STORE extends NonCallingSequentialBytecode implements LocalModifier {
+public class STORE extends NonCallingSequentialBytecode {
 
 	/**
 	 * The number of the local variable which is modified.
 	 */
 
-	private int varNum;
+	private final int varNum;
 
 	/**
 	 * The type of the value stored in the local variable.
 	 */
 
-	private Type type;
+	private final Type type;
 
 	/**
 	 * Constructs a bytecode
@@ -47,11 +47,6 @@ public class STORE extends NonCallingSequentialBytecode implements LocalModifier
 		this.type = type;
 	}
 
-	@Override
-	public int getVarNum() {
-		return varNum;
-	}
-
 	/**
 	 * Yields the type of the local variable which is modified.
 	 *
@@ -67,14 +62,6 @@ public class STORE extends NonCallingSequentialBytecode implements LocalModifier
 		return "store " + varNum + " of type " + type;
 	}
 
-	protected int hashCodeAux() {
-		return varNum * type.hashCode();
-	}
-
-	public boolean equalsAux(Object other) {
-		return ((STORE)other).varNum == varNum && ((STORE)other).type == type;
-	}
-
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
@@ -87,7 +74,7 @@ public class STORE extends NonCallingSequentialBytecode implements LocalModifier
 	 */
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		// we use the instruction factory to simplify the choice
 		// between the three Java bytecode
 		return new InstructionList(InstructionFactory.createStore(type.toBCEL(), varNum));

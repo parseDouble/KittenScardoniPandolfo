@@ -41,7 +41,7 @@ public class DIV extends ArithmeticBinOpBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		InstructionList il = new InstructionList();
 
 		getType().div(il);

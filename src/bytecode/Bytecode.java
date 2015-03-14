@@ -42,35 +42,4 @@ public abstract class Bytecode {
     	// the name of the class. Subclasses may redefine
     	return getClass().getSimpleName().toLowerCase();
     }
-
-    /**
-     * Yields a hashcode of this bytecode that only depends on its parameters.
-     *
-     * @return the hashcode
-     */
-
-    protected abstract int hashCodeAux();
-
-    /**
-     * Determines if this bytecode is equal to another. It only uses the class
-     * and the parameters of the bytecode.
-     *
-     * @param other the other bytecode
-     * @return true if and only if {@code this} and {@code other} belong to the same class and
-     *         have equal parameters
-     */
-
-    public final boolean equalsNoTyping(Bytecode other) {
-    	return getClass() == other.getClass() && equalsAux(other);
-    }
-
-    /**
-     * Determines if this bytecode is equal to another. It only uses the parameters
-     * of the bytecodes since they are guaranteed to belong to the same class.
-     *
-     * @param other the other bytecode
-     * @return true if and only if {@code this} and {@code other} have equal parameters
-     */
-
-    protected abstract boolean equalsAux(Object other);
 }

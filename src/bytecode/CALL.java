@@ -90,17 +90,4 @@ public abstract class CALL extends SequentialBytecode {
     public String toString() {
     	return "call " + staticTarget + " " + dynamicTargets;
     }
-
-    @Override
-    protected int hashCodeAux() {
-    	return staticTarget.hashCode();
-    }
-
-    @Override
-    protected boolean equalsAux(Object other) {
-    	CALL otherCALL = (CALL) other;
-
-    	return receiverType == otherCALL.receiverType && staticTarget == otherCALL.staticTarget &&
-   			dynamicTargets.equals(otherCALL.dynamicTargets);
-    }
 }

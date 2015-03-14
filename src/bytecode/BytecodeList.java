@@ -119,18 +119,18 @@ public class BytecodeList {
      * @return the Java bytecode corresponding to this list of bytecodes
      */
 
-    public InstructionList generateJB(JavaClassGenerator classGen) {
+    public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
     	InstructionList result;
 
     	if (head instanceof NonBranchingBytecode)
     		// we generate the Java bytecode for the first bytecode
     		// if it is not a condition of a branch
-    		result = ((NonBranchingBytecode)head).generateJB(classGen);
+    		result = ((NonBranchingBytecode)head).generateJavaBytecode(classGen);
     	else
     		result = new InstructionList();
 
     	// and for its followers, if any
-    	if (tail != null) result.append(tail.generateJB(classGen));
+    	if (tail != null) result.append(tail.generateJavaBytecode(classGen));
 
     	// if we added no instruction, we add a fictitious one so that
     	// we never return an empty list, and an InstructionHandle to the
@@ -138,16 +138,5 @@ public class BytecodeList {
     	if (result.isEmpty()) result.append(new org.apache.bcel.generic.NOP());
 
     	return result;
-    }
-
-    /**
-     * Yields the last bytecode in this list.
-     *
-     * @return the last bytecode in this list
-     */
-
-    public Bytecode getLast() {
-    	if (tail == null) return head;
-    	else return tail.getLast();
     }
 }

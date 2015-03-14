@@ -24,7 +24,7 @@ import types.MethodSignature;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class VIRTUALCALL extends CALL implements PointerDereferencer {
+public class VIRTUALCALL extends CALL {
 
 	/**
 	 * Constructs a bytecode which calls a method of an object with dynamic
@@ -82,16 +82,10 @@ public class VIRTUALCALL extends CALL implements PointerDereferencer {
 	 */
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		// the <tt>MethodSignature</tt> <tt>staticTarget</tt> contains
 		// everything which is needed in order to create
 		// the Java <tt>invokevirtual staticTarget</tt> bytecode
-		return new InstructionList
-				(((MethodSignature)getStaticTarget()).createINVOKEVIRTUAL(classGen));
-	}
-
-	@Override
-	public String description() {
-		return "calling method " + getStaticTarget();
+		return new InstructionList(((MethodSignature) getStaticTarget()).createINVOKEVIRTUAL(classGen));
 	}
 }

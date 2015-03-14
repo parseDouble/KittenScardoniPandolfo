@@ -9,7 +9,7 @@ import types.CodeSignature;
 import types.Type;
 
 /**
- * A bytecode which loads the value of a local variable on top of the stack.
+ * A bytecode that loads the value of a local variable on top of the stack.
  * <br><br>
  * ... -> ..., value
  *
@@ -22,17 +22,16 @@ public class LOAD extends NonCallingSequentialBytecode {
 	 * The number of the local variable which is loaded on the stack.
 	 */
 
-	private int varNum;
+	private final int varNum;
 
 	/**
 	 * The type of the value contained in the local variable.
 	 */
 
-	private Type type;
+	private final Type type;
 
 	/**
-	 * Constructs a bytecode
-	 * which loads the value of a local variable on top of the stack,
+	 * Constructs a bytecode that loads the value of a local variable on top of the stack,
 	 * followed by the given list of instructions.
 	 *
 	 * @param where the method or constructor where this bytecode occurs
@@ -72,29 +71,17 @@ public class LOAD extends NonCallingSequentialBytecode {
 		return "load " + varNum + " of type " + type;
 	}
 
-	protected int hashCodeAux() {
-		return varNum * type.hashCode();
-	}
-
-	public boolean equalsAux(Object other) {
-		return ((LOAD)other).varNum == varNum &&
-				((LOAD)other).type == type;
-	}
-
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the Java <tt>iload varNum</tt>, <tt>fload varNum</tt> and
-	 *         <tt>aload varNum</tt> Java bytecode, if <tt>type</tt> is
-	 *         <tt>int</tt>, <tt>float</tt> or a <tt>ReferenceType</tt>,
-	 *         respectively
+	 * @param classGen the Java class generator to be used for this Java bytecode generation
+	 * @return the {@code iload varNum}, {@code fload varNum} and {@code aload varNum} Java bytecode,
+	 *         if {@link #type} is {@code int}, {@code float} or a {@code ReferenceType}, respectively
 	 */
 
-	public InstructionList generateJB(JavaClassGenerator classGen) {
-		// we use the instruction factory to simplify the choice
-		// between the three Java bytecode
-		return new InstructionList(InstructionFactory.createLoad(type.toBCEL(),varNum));
+	@Override
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
+		// we use the instruction factory to simplify the choice between the three Java bytecode
+		return new InstructionList(InstructionFactory.createLoad(type.toBCEL(), varNum));
 	}
 }

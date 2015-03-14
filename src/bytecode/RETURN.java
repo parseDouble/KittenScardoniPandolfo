@@ -62,14 +62,6 @@ public class RETURN extends FinalBytecode {
 		return "return " + type;
 	}
 
-	protected int hashCodeAux() {
-		return type.hashCode();
-	}
-
-	public boolean equalsAux(Object other) {
-		return ((RETURN)other).type == type;
-	}
-
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
@@ -86,7 +78,7 @@ public class RETURN extends FinalBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		// we use the instruction factory to simplify the selection of the
 		// right <tt>return</tt> bytecode, depending on <tt>type</tt>
 		return new InstructionList(InstructionFactory.createReturn(type.toBCEL()));

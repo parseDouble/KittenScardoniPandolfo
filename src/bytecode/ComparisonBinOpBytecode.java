@@ -50,15 +50,6 @@ public abstract class ComparisonBinOpBytecode extends BinOpBytecode {
 		return super.toString() + " " + type;
 	}
 
-	protected int hashCodeAux() {
-		return type.hashCode();
-	}
-
-	public boolean equalsAux(Object other) {
-		return getClass() == other.getClass() &&
-				((ComparisonBinOpBytecode)other).type == type;
-	}
-
 	/**
 	 * Yields a branching version of this bytecode. For instance, <tt>eq</tt>
 	 * yields a <tt>if_cmpeq</tt> bytecode and so on.

@@ -39,7 +39,7 @@ public class MUL extends ArithmeticBinOpBytecode {
 	 *         <tt>float</tt>
 	 */
 
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		InstructionList il = new InstructionList();
 
 		getType().mul(il);

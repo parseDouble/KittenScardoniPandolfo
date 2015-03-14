@@ -7,8 +7,7 @@ import org.apache.bcel.generic.InstructionList;
 import types.CodeSignature;
 
 /**
- * A bytecode of the intermediate Kitten language with one or no
- * subsequent bytecode.
+ * A bytecode of the intermediate Kitten language with one or no subsequent bytecode.
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
@@ -36,5 +35,5 @@ public abstract class NonBranchingBytecode extends Bytecode {
 	 * @return the Java bytecode(s) corresponding to this Kitten bytecode
 	 */
 
-	public abstract InstructionList generateJB(JavaClassGenerator classGen);
+	public abstract InstructionList generateJavaBytecode(JavaClassGenerator classGen);
 }

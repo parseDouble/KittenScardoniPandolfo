@@ -18,8 +18,7 @@ import types.Type;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class ARRAYLOAD extends NonCallingSequentialBytecode
-    implements PointerDereferencer, DataSelector {
+public class ARRAYLOAD extends NonCallingSequentialBytecode {
 
     /**
      * The type of the elements of the array which is accessed.
@@ -59,19 +58,6 @@ public class ARRAYLOAD extends NonCallingSequentialBytecode
 	return type;
     }
 
-    @Override
-    public Type accessedType() {
-	return type;
-    }
-
-    protected int hashCodeAux() {
-	return type.hashCode();
-    }
-
-    public boolean equalsAux(Object other) {
-	return type == ((ARRAYLOAD)other).type;
-    }
-
     /**
      * Generates the Java bytecode corresponding
      * to this Kitten bytecode. Namely, it generates an <tt>iaload</tt>
@@ -85,19 +71,9 @@ public class ARRAYLOAD extends NonCallingSequentialBytecode
      *         bytecode, depending on <tt>type</tt>
      */
 
-    public InstructionList generateJB(JavaClassGenerator classGen) {
+    public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 	// we use the instruction factory to simplify the choice among
 	// the three possible Java bytecodes
 	return new InstructionList(InstructionFactory.createArrayLoad(type.toBCEL()));
-    }
-
-    /**
-     * Yields a description of what this instruction performs.
-     *
-     * @return the description
-     */
-
-    public String description() {
-	return "access to array of " + type;
     }
 }

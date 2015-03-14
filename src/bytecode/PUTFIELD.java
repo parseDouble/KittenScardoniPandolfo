@@ -16,21 +16,13 @@ import types.FieldSignature;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class PUTFIELD extends FieldWriterBytecode implements PointerDereferencer {
+public class PUTFIELD extends FieldAccessBytecode {
 
 	/**
 	 * The signature of the field which is written by this bytecode.
 	 */
 
 	private FieldSignature field;
-
-	/**
-	 * True if and only if the receiver of this bytecode can only be reached
-	 * from itself. This information is useful to improve the precision of
-	 * sharing analysis.
-	 */
-
-	private boolean receiverUnreachable;
 
 	/**
 	 * Constructs a bytecode which writes into a field of an object.
@@ -65,28 +57,9 @@ public class PUTFIELD extends FieldWriterBytecode implements PointerDereferencer
 		this.field = field;
 	}
 
-	/**
-	 * Takes note that the receiver of this bytecode can only be reached from
-	 * itself. This information is useful to improve the precision of sharing
-	 * analysis.
-	 */
-
-	public void setReceiverUnreachable() {
-		receiverUnreachable = true;
-	}
-
 	@Override
 	public String toString() {
 		return "putfield " + field;
-	}
-
-	protected int hashCodeAux() {
-		return field.hashCode();
-	}
-
-	public boolean equalsAux(Object other) {
-		return ((PUTFIELD)other).field == field
-				&& ((PUTFIELD)other).receiverUnreachable == receiverUnreachable;
 	}
 
 	/**
@@ -98,15 +71,10 @@ public class PUTFIELD extends FieldWriterBytecode implements PointerDereferencer
 	 */
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		// the <tt>FieldSignature</tt> <tt>field</tt>
 		// contains everything which is needed
 		// in order to create the Java <tt>putfield field</tt> bytecode
 		return new InstructionList(field.createPUTFIELD(classGen));
-	}
-
-	@Override
-	public String description() {
-		return "update of field " + field;
 	}
 }

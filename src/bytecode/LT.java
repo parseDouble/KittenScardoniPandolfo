@@ -79,7 +79,7 @@ public class LT extends ComparisonNumericalBinOpBytecode {
      * @return the Java bytecode as above, depending on <tt>type</tt>
      */
        
-    public InstructionList generateJB(JavaClassGenerator classGen) {
+    public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 	InstructionList il = new InstructionList
 	    (new org.apache.bcel.generic.NOP());
 	InstructionHandle after, follow;

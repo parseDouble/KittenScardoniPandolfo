@@ -60,15 +60,7 @@ public class POP extends NonCallingSequentialBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		return new InstructionList(new org.apache.bcel.generic.POP());
-	}
-
-	protected int hashCodeAux() {
-		return type.hashCode();
-	}
-
-	public boolean equalsAux(Object other) {
-		return ((POP)other).type == type;
 	}
 }

@@ -11,21 +11,21 @@ import types.CodeSignature;
 
 public abstract class FieldAccessBytecode extends NonCallingSequentialBytecode {
 
-    /**
-     * Builds a bytecode that accesses a field.
-     *
-     * @param where the method or constructor where this bytecode occurs
-     */
+	/**
+	 * Builds a bytecode that accesses a field.
+	 *
+	 * @param where the method or constructor where this bytecode occurs
+	 */
 
-    protected FieldAccessBytecode(CodeSignature where) {
-	super(where);
-    }
+	protected FieldAccessBytecode(CodeSignature where) {
+		super(where);
+	}
 
-    /**
-     * Yields the field signature of this field access bytecode.
-     *
-     * @return the field signature
-     */
+	/**
+	 * Yields the field signature of this field access bytecode.
+	 *
+	 * @return the field signature
+	 */
 
-    public abstract FieldSignature getField();
+	public abstract FieldSignature getField();
 }

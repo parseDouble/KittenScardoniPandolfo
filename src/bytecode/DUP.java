@@ -49,15 +49,8 @@ public class DUP extends NonCallingSequentialBytecode {
 	 * @return the Java <tt>dup</tt> bytecode
 	 */
 
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	@Override
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		return new InstructionList(new org.apache.bcel.generic.DUP());
-	}
-
-	protected int hashCodeAux() {
-		return type.hashCode();
-	}
-
-	public boolean equalsAux(Object other) {
-		return ((DUP)other).type == type;
 	}
 }

@@ -6,7 +6,6 @@ import org.apache.bcel.generic.InstructionList;
 
 import types.ClassType;
 import types.CodeSignature;
-import types.ReferenceType;
 
 /**
  * A bytecode which creates an object of a given class and
@@ -18,7 +17,7 @@ import types.ReferenceType;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class NEW extends CreationBytecode {
+public class NEW extends NonCallingSequentialBytecode {
 
 	/**
 	 * The class type which is instantiated by this bytecode.
@@ -50,21 +49,8 @@ public class NEW extends CreationBytecode {
 	}
 
 	@Override
-	public ReferenceType createdType() {
-		return clazz;
-	}
-
-	@Override
 	public String toString() {
 		return "new " + clazz;
-	}
-
-	protected int hashCodeAux() {
-		return clazz.hashCode();
-	}
-
-	public boolean equalsAux(Object other) {
-		return other instanceof NEW && ((NEW)other).clazz == clazz;
 	}
 
 	/**
@@ -76,7 +62,7 @@ public class NEW extends CreationBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		// we use the instruction factory to simplify the addition of the
 		// class name into the constant pool
 		return new InstructionList

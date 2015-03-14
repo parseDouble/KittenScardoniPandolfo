@@ -141,7 +141,7 @@ public class JavaClassGenerator extends ClassGen {
 
 		// we generate the Java bytecode for the code inside the block, and
 		// we put it at the end of the instructions already generated
-		result = instructions.append(block.getBytecode().generateJB(this));
+		result = instructions.append(block.getBytecode().generateJavaBytecode(this));
 
 		// we record the beginning of the Java bytecode generated for the block, for future lookup
 		done.put(block, result);
@@ -185,7 +185,7 @@ public class JavaClassGenerator extends ClassGen {
 				InstructionHandle yesH = generateJavaBytecode(follows.get(0), done, instructions);
 
 				// in between, we put some code that jumps to yesH if condition holds, and to noH otherwise
-				instructions.append(ourLast, condition.generateJB(this, yesH, noH));
+				instructions.append(ourLast, condition.generateJavaBytecode(this, yesH, noH));
 			}
 			else {
 				// we append the code for the first follower

@@ -78,7 +78,7 @@ public class IF_CMPEQ extends BranchingComparisonBytecode {
 	 *            expressed by this branching bytecode is true
 	 */
 
-	protected void generateJB$0
+	protected void generateJavaBytecodeAux
 	(InstructionList il, JavaClassGenerator classGen, InstructionHandle yes) {
 
 		// builds the instructions which go to <tt>yes</tt> if the test is true

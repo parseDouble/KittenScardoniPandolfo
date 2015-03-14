@@ -7,8 +7,6 @@ import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
 import types.CodeSignature;
-import types.ClassType;
-import types.ReferenceType;
 
 /**
  * A bytecode which creates an object of class <tt>String</tt> and
@@ -19,7 +17,7 @@ import types.ReferenceType;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class NEWSTRING extends CreationBytecode {
+public class NEWSTRING extends NonCallingSequentialBytecode {
 
 	/**
 	 * The lexical value of the <tt>String</tt> which is created.
@@ -40,28 +38,9 @@ public class NEWSTRING extends CreationBytecode {
 		this.value = value;
 	}
 
-	/**
-	 * Yields the type of the value which is created by this bytecode.
-	 *
-	 * @return the class created by this bytecode
-	 */
-
-	@Override
-	public ReferenceType createdType() {
-		return ClassType.mk("String");
-	}
-
 	@Override
 	public String toString() {
 		return "newstring " + value.replaceAll("\n","\\\\\\\\n");
-	}
-
-	protected int hashCodeAux() {
-		return value.hashCode();
-	}
-
-	public boolean equalsAux(Object other) {
-		return value.equals(((NEWSTRING)other).value);
 	}
 
 	/**
@@ -90,7 +69,7 @@ public class NEWSTRING extends CreationBytecode {
 	 */
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		InstructionFactory factory = classGen.getFactory();
 		InstructionList il = new InstructionList();
 

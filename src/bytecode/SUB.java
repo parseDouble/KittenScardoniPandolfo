@@ -40,7 +40,7 @@ public class SUB extends ArithmeticBinOpBytecode {
 	 *         <tt>float</tt>
 	 */
 
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		InstructionList il = new InstructionList();
 
 		getType().sub(il);

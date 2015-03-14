@@ -7,7 +7,7 @@ import org.apache.bcel.generic.InstructionList;
 import types.CodeSignature;
 
 /**
- * A bytecode which performs a logical <i>and</i> operation on the top
+ * A bytecode that performs a logical <i>and</i> operation on the top
  * two elements of the stack.
  * <br><br>
  * ..., value1, value2 -> ..., value1 <i>and</i> value2
@@ -18,7 +18,7 @@ import types.CodeSignature;
 public class AND extends BooleanBinOpBytecode {
 
 	/**
-	 * Constructs a bytecode which performs a logical <i>and</i> operation
+	 * Constructs a bytecode that performs a logical <i>and</i> operation
 	 * on the top two elements of the stack.
 	 *
 	 * @param where the method or constructor where this bytecode occurs
@@ -29,7 +29,7 @@ public class AND extends BooleanBinOpBytecode {
 	}
 
 	@Override
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		return new InstructionList(new org.apache.bcel.generic.IAND());
 	}
 }

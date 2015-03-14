@@ -29,14 +29,13 @@ public class CONST extends NonCallingSequentialBytecode {
 	private Object constant;
 
 	/**
-	 * Constructs a bytecode which loads the given constant on top
-	 * of the stack.
+	 * Constructs a bytecode which loads the given constant on top of the stack.
 	 *
 	 * @param where the method or constructor where this bytecode occurs
 	 * @param constant the constant to be loaded on top of the stack
 	 */
 
-	protected CONST(CodeSignature where, Object constant) {
+	private CONST(CodeSignature where, Object constant) {
 		super(where);
 
 		this.constant = constant;
@@ -121,18 +120,6 @@ public class CONST extends NonCallingSequentialBytecode {
 		return "const " + constant;
 	}
 
-	protected int hashCodeAux() {
-		return constant == null ? 1 : constant.hashCode();
-	}
-
-	public boolean equalsAux(Object other) {
-		Object oc = ((CONST)other).constant;
-
-		return constant == null ? oc == null :
-			(oc != null && constant.getClass() == oc.getClass() &&
-			constant.equals(oc));
-	}
-
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
@@ -143,7 +130,7 @@ public class CONST extends NonCallingSequentialBytecode {
 	 *         on the basis of the type and size of <tt>constant</tt>
 	 */
 
-	public InstructionList generateJB(JavaClassGenerator classGen) {
+	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		if (constant == null)
 			return new InstructionList
 					(new org.apache.bcel.generic.ACONST_NULL());
@@ -152,7 +139,6 @@ public class CONST extends NonCallingSequentialBytecode {
 			// among <tt>iconst</tt>, <tt>fconst</tt>, <tt>bipush</tt> and
 			// <tt>ldc</tt>. Moreover, it will put the constant inside
 			// the constant pool, if needed
-			return new InstructionList
-					(classGen.getFactory().createConstant(constant));
+			return new InstructionList(classGen.getFactory().createConstant(constant));
 	}
 }
