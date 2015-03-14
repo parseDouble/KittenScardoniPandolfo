@@ -1,10 +1,11 @@
 package types;
 
+import javaBytecodeGenerator.JavaClassGenerator;
+
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.FieldGen;
 import org.apache.bcel.generic.FieldInstruction;
 
-import bytecodeGenerator.JavaClassGenerator;
 import absyn.FieldDeclaration;
 
 /**

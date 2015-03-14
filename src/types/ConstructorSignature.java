@@ -1,5 +1,7 @@
 package types;
 
+import javaBytecodeGenerator.JavaClassGenerator;
+
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.INVOKESPECIAL;
 import org.apache.bcel.generic.InstructionFactory;
@@ -10,7 +12,6 @@ import translate.Block;
 import absyn.ConstructorDeclaration;
 import bytecode.CONSTRUCTORCALL;
 import bytecode.LOAD;
-import bytecodeGenerator.JavaClassGenerator;
 
 /**
  * The signature of a constructor of a Kitten class.
@@ -62,7 +63,7 @@ public class ConstructorSignature extends CodeSignature {
 	 */
 
 	public void createConstructor(JavaClassGenerator classGen) {
-		InstructionList il = classGen.generateJB(getCode());
+		InstructionList il = classGen.generateJavaBytecode(getCode());
 
 		// we add the following code at the beginning of the empty constructor
 		// for the Kitten Object class:

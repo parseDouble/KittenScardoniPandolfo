@@ -1,10 +1,11 @@
 package types;
 
+import javaBytecodeGenerator.JavaClassGenerator;
+
 import org.apache.bcel.Constants;
 import org.apache.bcel.generic.INVOKEVIRTUAL;
 import org.apache.bcel.generic.MethodGen;
 
-import bytecodeGenerator.JavaClassGenerator;
 import absyn.MethodDeclaration;
 import translate.Block;
 
@@ -64,7 +65,7 @@ public class MethodSignature extends CodeSignature {
 				null, // parameters names: we do not care
 				"main", // method's name
 				classGen.getClassName(), // defining class
-				classGen.generateJB(getCode()), // bytecode of the method
+				classGen.generateJavaBytecode(getCode()), // bytecode of the method
 				classGen.getConstantPool()); // constant pool
 		else
 			methodGen = new MethodGen
@@ -74,7 +75,7 @@ public class MethodSignature extends CodeSignature {
 				null, // parameters names: we do not care
 				getName().toString(), // method's name
 				classGen.getClassName(), // defining class
-				classGen.generateJB(getCode()), // bytecode of the method
+				classGen.generateJavaBytecode(getCode()), // bytecode of the method
 				classGen.getConstantPool()); // constant pool
 
 		// we must always call these methods before the getMethod()

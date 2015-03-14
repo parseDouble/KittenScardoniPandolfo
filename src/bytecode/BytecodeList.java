@@ -1,8 +1,8 @@
 package bytecode;
 
-import org.apache.bcel.generic.InstructionList;
+import javaBytecodeGenerator.JavaClassGenerator;
 
-import bytecodeGenerator.JavaClassGenerator;
+import org.apache.bcel.generic.InstructionList;
 
 /**
  * A list of Kitten bytecodes.

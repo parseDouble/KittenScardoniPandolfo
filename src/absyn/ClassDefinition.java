@@ -175,24 +175,22 @@ public class ClassDefinition extends Absyn {
      * Type-checks this class definition. Namely, it type-checks its members
      * and checks that the empty constructor exists.
      *
-     * @param currentClass the semantical type of this class.
-     *                     This will be bound to the implicit <tt>this</tt>
-     *                     parameter of all its constructors and methods
+     * @param currentClass the semantical type of this class. This will be bound to the implicit
+     *                     {@code this} parameter of all its constructors and methods
      */
 
     public void typeCheck(ClassType currentClass) {
     	staticType = currentClass;
 
-    	if (declarations != null) declarations.typeCheck(currentClass);
+    	if (declarations != null)
+    		declarations.typeCheck(currentClass);
     }
 
     /**
      * Translates this class definition into intermediate Kitten code.
-     * Only the methods reachable from <tt>main</tt> are compiled, if any.
+     * Only the methods reachable from {@code main} are compiled, if any.
      *
-     * @return the set of <tt>ClassMemberSignature</tt>'s which are reachable
-     *         from the empty constructor or the <tt>main</tt> method of the
-     *         class compiled by Kitten
+     * @return the program reachable from the {@code main} method of the class compiled by Kitten
      */
 
     public Program translate() {
@@ -201,11 +199,10 @@ public class ClassDefinition extends Absyn {
     	// we look up for the main method, if any
     	MethodSignature main = staticType.methodLookup("main", TypeList.EMPTY);
 
-    	// we translate everything which is reachable from the main
-    	// method of this class (if any)
+    	// we translate everything that is reachable from the main method of this class (if any)
     	if (main != null)
     		main.getAbstractSyntax().translate(done);
 
-    	return new Program(done,name.toString(),main);
+    	return new Program(done, name.toString(), main);
     }
 }

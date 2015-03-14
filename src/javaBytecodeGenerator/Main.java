@@ -1,4 +1,4 @@
-package bytecodeGenerator;
+package javaBytecodeGenerator;
 
 import errorMsg.ErrorMsg;
 import types.ClassType;

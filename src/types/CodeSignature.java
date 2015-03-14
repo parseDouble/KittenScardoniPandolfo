@@ -1,8 +1,9 @@
 package types;
 
+import javaBytecodeGenerator.JavaClassGenerator;
+
 import org.apache.bcel.generic.InvokeInstruction;
 
-import bytecodeGenerator.JavaClassGenerator;
 import translate.Block;
 import absyn.CodeDeclaration;
 

@@ -4,6 +4,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
+import javaBytecodeGenerator.JavaClassGenerator;
 
 import types.ClassMemberSignature;
 import types.CodeSignature;
@@ -11,7 +12,6 @@ import types.ClassType;
 import bytecode.Bytecode;
 import bytecode.CALL;
 import bytecode.FieldAccessBytecode;
-import bytecodeGenerator.JavaClassGenerator;
 
 /**
  * A program, that is, a set of class member signatures.

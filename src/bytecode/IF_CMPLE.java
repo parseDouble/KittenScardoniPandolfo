@@ -1,9 +1,10 @@
 package bytecode;
 
+import javaBytecodeGenerator.JavaClassGenerator;
+
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
-import bytecodeGenerator.JavaClassGenerator;
 import types.CodeSignature;
 import types.NumericalType;
 
