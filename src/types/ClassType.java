@@ -12,7 +12,7 @@ import java.util.Set;
 
 import lexical.Lexer;
 import syntactical.Parser;
-import translate.Program;
+import translation.Program;
 import absyn.ClassDefinition;
 import errorMsg.ErrorMsg;
 

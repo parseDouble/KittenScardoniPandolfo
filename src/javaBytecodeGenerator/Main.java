@@ -2,7 +2,7 @@ package javaBytecodeGenerator;
 
 import errorMsg.ErrorMsg;
 import types.ClassType;
-import translate.Program;
+import translation.Program;
 
 public class Main {
 	public static void main(String[] args) {

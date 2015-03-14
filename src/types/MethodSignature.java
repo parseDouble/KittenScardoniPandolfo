@@ -7,7 +7,7 @@ import org.apache.bcel.generic.INVOKEVIRTUAL;
 import org.apache.bcel.generic.MethodGen;
 
 import absyn.MethodDeclaration;
-import translate.Block;
+import translation.Block;
 
 /**
  * The signature of a method of a Kitten class.

@@ -4,7 +4,7 @@ import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InvokeInstruction;
 
-import translate.Block;
+import translation.Block;
 import absyn.CodeDeclaration;
 
 /**

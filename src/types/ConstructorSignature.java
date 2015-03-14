@@ -8,7 +8,7 @@ import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.MethodGen;
 
-import translate.Block;
+import translation.Block;
 import absyn.ConstructorDeclaration;
 import bytecode.CONSTRUCTORCALL;
 import bytecode.LOAD;

@@ -3,7 +3,7 @@ package absyn;
 import java.io.FileWriter;
 
 import semantical.TypeChecker;
-import translate.Block;
+import translation.Block;
 import types.CodeSignature;
 import types.Type;
 import types.VoidType;

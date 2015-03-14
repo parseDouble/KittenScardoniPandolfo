@@ -1,4 +1,4 @@
-package translate;
+package translation;
 
 import java.util.ArrayList;
 import java.util.HashSet;

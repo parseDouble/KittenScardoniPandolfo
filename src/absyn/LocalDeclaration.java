@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import semantical.TypeChecker;
 import types.Type;
 import types.CodeSignature;
-import translate.Block;
+import translation.Block;
 import bytecode.STORE;
 
 /**

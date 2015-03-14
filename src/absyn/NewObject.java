@@ -4,7 +4,7 @@ import java.io.FileWriter;
 import java.util.Set;
 
 import semantical.TypeChecker;
-import translate.Block;
+import translation.Block;
 import types.ClassType;
 import types.CodeSignature;
 import types.ConstructorSignature;

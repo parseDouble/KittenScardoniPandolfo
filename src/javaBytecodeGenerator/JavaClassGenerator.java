@@ -16,7 +16,7 @@ import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.TargetLostException;
 
-import translate.Block;
+import translation.Block;
 import types.ClassMemberSignature;
 import types.ClassType;
 import types.ConstructorSignature;

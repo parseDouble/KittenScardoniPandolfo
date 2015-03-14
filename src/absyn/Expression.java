@@ -8,7 +8,7 @@ import types.FloatType;
 import types.IntType;
 import types.Type;
 import types.CodeSignature;
-import translate.Block;
+import translation.Block;
 import bytecode.CAST;
 import bytecode.IF_TRUE;
 

@@ -1,6 +1,6 @@
 package absyn;
 
-import translate.Block;
+import translation.Block;
 import types.CodeSignature;
 import types.Type;
 import bytecode.ComparisonBinOpBytecode;

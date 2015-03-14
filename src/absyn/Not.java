@@ -6,7 +6,7 @@ import types.BooleanType;
 import types.Type;
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.Block;
+import translation.Block;
 import bytecode.NEG;
 
 /**

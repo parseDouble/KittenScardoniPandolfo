@@ -7,7 +7,7 @@ import types.NumericalType;
 import types.ReferenceType;
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.Block;
+import translation.Block;
 import bytecode.CAST;
 
 /**

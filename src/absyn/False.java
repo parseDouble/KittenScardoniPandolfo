@@ -4,7 +4,7 @@ import semantical.TypeChecker;
 import types.BooleanType;
 import types.Type;
 import types.CodeSignature;
-import translate.Block;
+import translation.Block;
 import bytecode.CONST;
 
 /**

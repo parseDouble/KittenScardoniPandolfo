@@ -2,35 +2,30 @@ package runTime;
 
 import java.io.IOException;
 
-
-/* La classe che implementa le stringhe in Java bytecode.
-   Qui "String" sta per "RunTime.String" e quando dobbiamo fare riferimento
-   alla classe "java.lang.String" dobbiamo farlo esplicitamente */
+/**
+ * The class the implements Kitten strings. When we refer to Java's java.lang.String,
+ * we must use its fully qualified name.
+ */
 
 public class String {
 	private java.lang.String value;
 
-	/* crea una stringa vuota */
+	/* creates the empty string */
 	public String() {
 		value = new java.lang.String();
 	}
 
-	/* clona una stringa */
+	/* clones a string */
 	public String(java.lang.String other) {
-		value = new java.lang.String(other);
+		value = other;
 	}
 
-	// la lunghezza della stringa */
+	// yields the length of a string */
 	public int length() {
 		return value.length();
 	}
 
-	// l'i-esimo carattere della stringa */
-	public char charAt(int i) {
-		return value.charAt(i);
-	}
-
-	/* converte nell'intero rappresentato dalla stringa */
+	/* converts a string into integer */
 	public int toInt() {
 		try {
 			return Integer.parseInt(value);
@@ -41,7 +36,7 @@ public class String {
 		}
 	}
 
-	/* converte nel float rappresentato dalla stringa */
+	/* converts a string into float */
 	public float toFloat() {
 		try {
 			return Float.parseFloat(value);
@@ -52,52 +47,47 @@ public class String {
 		}
 	}
 
-	/* vero se e solo se "this" e' uguale a "other" */
+	/* checks that two strings are equal */
 	public boolean equals(String other) {
 		return value.equals(other.value);
 	}
 
-	/* stampa la stringa a video */
+	/* prints the string to the screen */
 	public void output() {
 		System.out.print(value);
 	}
 
-	/* legge una sequenza di caratteri (fino al primo newline)
-       da tastiera e la memorizza nella stringa */
+	/* reads from the keyboard a sequence of character until the first newline and
+	   stores it into the string */
 	public void input() {
 		char c;
 
 		value = new java.lang.String();
 
 		try {
-			while ((c = (char)System.in.read()) != '\n') value += c;
+			while ((c = (char) System.in.read()) != '\n') value += c;
 		}
 		catch (IOException e) {
 			System.out.println("I/O exception");
 		}
 	}
 
-	/* ritorna la concatenazione di "this" e poi "s" */
+	/* yields the concatenation of "this" and then "s" */
 	public String concat(String s) {
 		return new String(value + s.value);
 	}
 
-	/* ritorna la concatenazione di "this" e poi "f" */
+	/* yields the concatenation of "this" and then "f" */
 	public String concat(float f) {
 		return new String(value + f);
 	}
 
-	/* ritorna la concatenazione di "this" e poi "i" */
+	/* yields the concatenation of "this" and then "i" */
 	public String concat(int i) {
 		return new String(value + i);
 	}
 
-	/* ritorna la concatenazione di "this" e poi "c" */
-	public String concat(char c) {
-		return new String(value + c);
-	}
-
-	/* ritorna la concatenazione di "this" e poi "b" */
+	/* yields the concatenation of "this" and then "b" */
 	public String concat(boolean b) {
 		return new String(value + b);
 	}

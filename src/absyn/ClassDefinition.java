@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 
-import translate.Program;
+import translation.Program;
 import types.ClassMemberSignature;
 import types.ClassType;
 import types.MethodSignature;

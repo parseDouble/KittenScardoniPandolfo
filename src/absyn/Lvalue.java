@@ -1,7 +1,7 @@
 package absyn;
 
 import types.CodeSignature;
-import translate.Block;
+import translation.Block;
 
 /**
  * A node of abstract syntax representing a <i>leftvalue</i>, that is,

@@ -5,7 +5,7 @@ import java.io.FileWriter;
 import types.Type;
 import types.CodeSignature;
 import bytecode.BinOpBytecode;
-import translate.Block;
+import translation.Block;
 
 /**
  * A node of abstract syntax representing a binary operation between two expressions.

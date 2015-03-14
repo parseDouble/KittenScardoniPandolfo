@@ -1,7 +1,7 @@
 package absyn;
 
 import semantical.TypeChecker;
-import translate.Block;
+import translation.Block;
 import types.CodeSignature;
 import types.FloatType;
 import types.Type;

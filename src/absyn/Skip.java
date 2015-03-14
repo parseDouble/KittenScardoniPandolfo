@@ -2,7 +2,7 @@ package absyn;
 
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.Block;
+import translation.Block;
 
 /**
  * A node of abstract syntax representing a skip command.

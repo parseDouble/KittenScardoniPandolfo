@@ -1,7 +1,7 @@
 package bytecode;
 
 import types.CodeSignature;
-import translate.Block;
+import translation.Block;
 
 /**
  * A sequential bytecode of the intermediate Kitten language, that is,

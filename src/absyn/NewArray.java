@@ -6,7 +6,7 @@ import types.Type;
 import types.ArrayType;
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.Block;
+import translation.Block;
 import bytecode.NEWARRAY;
 
 /**

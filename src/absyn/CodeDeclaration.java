@@ -3,7 +3,7 @@ package absyn;
 import java.util.HashSet;
 import java.util.Set;
 
-import translate.Block;
+import translation.Block;
 import types.ClassMemberSignature;
 import types.CodeSignature;
 import types.VoidType;

@@ -4,7 +4,7 @@ import types.Type;
 import types.ClassType;
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.Block;
+import translation.Block;
 import bytecode.NEWSTRING;
 
 /**

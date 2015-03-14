@@ -4,7 +4,7 @@ import types.IntType;
 import types.Type;
 import types.CodeSignature;
 import semantical.TypeChecker;
-import translate.Block;
+import translation.Block;
 import bytecode.CONST;
 
 /**
