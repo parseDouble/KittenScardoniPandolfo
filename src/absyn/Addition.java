@@ -1,10 +1,9 @@
 package absyn;
 
-import types.Type;
 import types.NumericalType;
-import types.CodeSignature;
-import bytecode.BinOpBytecode;
+import types.Type;
 import bytecode.ADD;
+import bytecode.BinOpBytecode;
 
 /**
  * A node of abstract syntax representing the addition of two expressions.
@@ -32,14 +31,13 @@ public class Addition extends ArithmeticBinOp {
 	 * computation on the left and right sides of this binary operation.
 	 * Namely, an {@code add} bytecode.
 	 *
-	 * @param where the method or constructor where this expression occurs
 	 * @param type the type of the values of the left and right sides of this
 	 *             binary expression
 	 * @return an {@code add} bytecode
 	 */
 
 	@Override
-	protected BinOpBytecode operator(CodeSignature where, Type type) {
-		return new ADD(where, (NumericalType) type);
+	protected BinOpBytecode operator(Type type) {
+		return new ADD((NumericalType) type);
 	}
 }

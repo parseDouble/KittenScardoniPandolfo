@@ -96,6 +96,6 @@ public class Minus extends Expression {
 
 	@Override
 	public Block translate(CodeSignature where, Block continuation) {
-		return expression.translate(where, new NEG(where, IntType.INSTANCE).followedBy(continuation));
+		return expression.translate(where, new NEG(IntType.INSTANCE).followedBy(continuation));
 	}
 }

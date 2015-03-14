@@ -203,7 +203,7 @@ public class MethodCallExpression extends Expression {
 	@Override
 	public Block translate(CodeSignature where, Block continuation) {
 		// we put an instruction which calls the method
-		continuation = new VIRTUALCALL(where, (ClassType) receiver.getStaticType(), method)
+		continuation = new VIRTUALCALL((ClassType) receiver.getStaticType(), method)
 			.followedBy(continuation);
 
 		// we translate the actual parameters

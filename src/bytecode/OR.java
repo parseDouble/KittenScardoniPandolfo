@@ -4,8 +4,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
-
 /**
  * A bytecode which performs a logical <i>or</i> operation on the top
  * two elements of the stack.
@@ -20,13 +18,9 @@ public class OR extends BooleanBinOpBytecode {
 	/**
 	 * Constructs a bytecode which performs a logical <i>or</i> operation
 	 * on the top two elements of the stack.
-	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 */
 
-	public OR(CodeSignature where) {
-		super(where);
-	}
+	public OR() {}
 
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.

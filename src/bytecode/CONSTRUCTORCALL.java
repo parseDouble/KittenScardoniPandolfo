@@ -23,13 +23,12 @@ public class CONSTRUCTORCALL extends CALL {
 	/**
 	 * Constructs a bytecode which calls a constructor of an object.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param constructor the signature of the constructor which is called
 	 */
 
-	public CONSTRUCTORCALL(CodeSignature where, ConstructorSignature constructor) {
+	public CONSTRUCTORCALL(ConstructorSignature constructor) {
 		// there is only only dynamic target: the constructor itself
-		super(where, constructor.getDefiningClass(), constructor, Collections.<CodeSignature> singleton(constructor));
+		super(constructor.getDefiningClass(), constructor, Collections.<CodeSignature> singleton(constructor));
 	}
 
 	/**
@@ -42,6 +41,7 @@ public class CONSTRUCTORCALL extends CALL {
 	 *         method's implementation
 	 */
 
+	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		// the <tt>ConstructorSignature</tt> <tt>constructor</tt>
 		// contains everything which is needed in order to create

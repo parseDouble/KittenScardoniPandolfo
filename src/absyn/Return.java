@@ -126,7 +126,7 @@ public class Return extends Command {
 		Type returnType = getTypeChecker().getReturnType();
 
 		// we get a code which is made of a block containing the bytecode return
-		continuation = new Block(new RETURN(where, returnType));
+		continuation = new Block(new RETURN(returnType));
 
 		// if there is an initialising expression, we translate it
 		if (returned != null)

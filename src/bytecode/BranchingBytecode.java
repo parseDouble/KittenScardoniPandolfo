@@ -5,8 +5,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
-
 /**
  * A bytecode with two subsequent bytecodes. It checks a condition and consequently routes
  * the computation at the end of a branching block of code.
@@ -18,13 +16,9 @@ public abstract class BranchingBytecode extends Bytecode implements NonCallingBy
 
 	/**
 	 * Constructs a branching bytecode.
-	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 */
 
-	protected BranchingBytecode(CodeSignature where) {
-		super(where);
-	}
+	protected BranchingBytecode() {}
 
 	/**
 	 * Yields a branching bytecode that expresses the opposite condition of this.

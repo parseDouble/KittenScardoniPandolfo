@@ -1,6 +1,5 @@
 package absyn;
 
-import types.CodeSignature;
 import types.Type;
 import bytecode.BinOpBytecode;
 import bytecode.OR;
@@ -30,13 +29,12 @@ public class Or extends BooleanBinOp {
 	 * A binary operation-specific bytecode which performs a binary
 	 * computation on the left and right sides of this binary operation.
 	 *
-	 * @param where the method or constructor where this expression occurs
 	 * @param type the type of the values of the left and right sides of this binary expression
 	 * @return an {@code or} bytecode
 	 */
 
 	@Override
-	protected BinOpBytecode operator(CodeSignature where, Type type) {
-		return new OR(where);
+	protected BinOpBytecode operator(Type type) {
+		return new OR();
 	}
 }

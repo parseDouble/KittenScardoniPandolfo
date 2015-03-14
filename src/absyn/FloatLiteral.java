@@ -87,6 +87,6 @@ public class FloatLiteral extends Literal {
 
 	@Override
 	public Block translate(CodeSignature where, Block continuation) {
-		return new CONST(where, value).followedBy(continuation);
+		return new CONST(value).followedBy(continuation);
 	}
 }

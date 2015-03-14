@@ -6,7 +6,6 @@ import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
 import types.BooleanType;
-import types.CodeSignature;
 import types.ComparableType;
 import types.FloatType;
 import types.IntType;
@@ -31,8 +30,8 @@ public class NE extends ComparisonBinOpBytecode {
 	 * @param type the semantical type of the values which are added
 	 */
 
-	public NE(CodeSignature where, ComparableType type) {
-		super(where,type);
+	public NE(ComparableType type) {
+		super(type);
 	}
 
 	/**
@@ -42,7 +41,7 @@ public class NE extends ComparisonBinOpBytecode {
 	 */
 
 	public BranchingComparisonBytecode toBranching() {
-		return new IF_CMPNE(getWhere(), getType());
+		return new IF_CMPNE(getType());
 	}
 
 	/**

@@ -4,7 +4,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.NumericalType;
 
 /**
@@ -22,12 +21,11 @@ public class DIV extends ArithmeticBinOpBytecode {
 	 * Constructs a bytecode that
 	 * divides the top element of the stack by the underlying element.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the semantical type of the values which are subtracted
 	 */
 
-	public DIV(CodeSignature where, NumericalType type) {
-		super(where,type);
+	public DIV(NumericalType type) {
+		super(type);
 	}
 
 	/**

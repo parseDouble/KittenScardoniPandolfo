@@ -5,7 +5,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 import org.apache.bcel.generic.InstructionList;
 
 import types.BooleanType;
-import types.CodeSignature;
 import types.FloatType;
 import types.IntType;
 import types.NilType;
@@ -31,51 +30,43 @@ public class CONST extends NonCallingSequentialBytecode {
 	/**
 	 * Constructs a bytecode which loads the given constant on top of the stack.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param constant the constant to be loaded on top of the stack
 	 */
 
-	private CONST(CodeSignature where, Object constant) {
-		super(where);
-
+	private CONST(Object constant) {
 		this.constant = constant;
 	}
 
 	/**
-	 * Constructs a bytecode which loads a <tt>nil</tt> constant on top
+	 * Constructs a bytecode that loads a <tt>nil</tt> constant on top
 	 * of the stack.
-	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 */
 
-	public CONST(CodeSignature where) {
-		this(where, null);
+	public CONST() {
+		this(null);
 	}
 
 	/**
 	 * Constructs a bytecode which
 	 * loads a <tt>boolean</tt> constant on top of the stack.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param constant the <tt>boolean</tt> constant which is loaded on top
 	 *                 of the stack
 	 */
 
-	public CONST(CodeSignature where, boolean constant) {
-		this(where, new Boolean(constant));
+	public CONST(boolean constant) {
+		this(new Boolean(constant));
 	}
 
 	/**
 	 * Constructs a bytecode which
 	 * loads an <tt>int</tt> constant on top of the stack.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
-	 * @param constant the <tt>int</tt> constant which is loaded on top
-	 *                 of the stack
+	 * @param constant the <tt>int</tt> constant which is loaded on top of the stack
 	 */
 
-	public CONST(CodeSignature where, int constant) {
-		this(where, new Integer(constant));
+	public CONST(int constant) {
+		this(new Integer(constant));
 	}
 
 	/**
@@ -87,8 +78,8 @@ public class CONST extends NonCallingSequentialBytecode {
 	 *                 of the stack
 	 */
 
-	public CONST(CodeSignature where, float constant) {
-		this(where, new Float(constant));
+	public CONST(float constant) {
+		this(new Float(constant));
 	}
 
 	/**

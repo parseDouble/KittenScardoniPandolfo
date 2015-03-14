@@ -175,11 +175,11 @@ public class NewObject extends Expression {
 
 	@Override
 	public Block translate(CodeSignature where, Block continuation) {
-		continuation = new CONSTRUCTORCALL(where, constructor).followedBy(continuation);
+		continuation = new CONSTRUCTORCALL(constructor).followedBy(continuation);
 		if (actuals != null)
 			continuation = actuals.translateAs(where, constructor.getParameters(), continuation);
 
-		return new NEW(where, constructor.getDefiningClass()).followedBy
-			(new DUP(where, constructor.getDefiningClass()).followedBy(continuation));
+		return new NEW(constructor.getDefiningClass()).followedBy
+			(new DUP(constructor.getDefiningClass()).followedBy(continuation));
 	}
 }

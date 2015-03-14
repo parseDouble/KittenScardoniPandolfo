@@ -5,7 +5,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 import org.apache.bcel.generic.InstructionList;
 
 import types.ClassType;
-import types.CodeSignature;
 
 /**
  * A bytecode which creates an object of a given class and
@@ -28,13 +27,10 @@ public class NEW extends NonCallingSequentialBytecode {
 	/**
 	 * Constructs a bytecode which creates an object of a given class.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param clazz the class type which is instantiated by this bytecode
 	 */
 
-	public NEW(CodeSignature where, ClassType clazz) {
-		super(where);
-
+	public NEW(ClassType clazz) {
 		this.clazz = clazz;
 	}
 

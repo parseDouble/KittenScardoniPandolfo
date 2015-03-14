@@ -4,8 +4,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
-
 /**
  * A bytecode which does not do anything.
  * <br><br>
@@ -18,13 +16,9 @@ public class NOP extends NonCallingSequentialBytecode {
 
 	/**
 	 * Constructs a bytecode which does not do anything.
-	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 */
 
-	public NOP(CodeSignature where) {
-		super(where);
-	}
+	public NOP() {}
 
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.

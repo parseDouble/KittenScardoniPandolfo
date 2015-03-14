@@ -5,7 +5,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.NumericalType;
 
 /**
@@ -26,12 +25,11 @@ public class IF_CMPLT extends BranchingNumericalComparisonBytecode {
 	 * Constructs a bytecode which compares the top two elements of the
 	 * stack to check if the one but last is less than the top one.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the semantical type of the values which are compared
 	 */
 
-	public IF_CMPLT(CodeSignature where, NumericalType type) {
-		super(where,type);
+	public IF_CMPLT(NumericalType type) {
+		super(type);
 	}
 
 	/**
@@ -42,7 +40,7 @@ public class IF_CMPLT extends BranchingNumericalComparisonBytecode {
 	 */
 
 	public BranchingBytecode negate() {
-		return new IF_CMPGE(getWhere(),getType());
+		return new IF_CMPGE(getType());
 	}
 
 	/**

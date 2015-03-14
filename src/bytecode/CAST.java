@@ -6,7 +6,6 @@ import org.apache.bcel.generic.F2I;
 import org.apache.bcel.generic.I2F;
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.FloatType;
 import types.IntType;
 import types.NumericalType;
@@ -45,14 +44,11 @@ public class CAST extends NonCallingSequentialBytecode {
 	 * Constructs a bytecode which
 	 * casts the top of the stack into the given type.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param fromType the declared semantical type of the top of the stack
 	 * @param intoType the semantical type the top of the stack is cast into
 	 */
 
-	public CAST(CodeSignature where, Type fromType, ReferenceType intoType) {
-		super(where);
-
+	public CAST(Type fromType, ReferenceType intoType) {
 		this.fromType = fromType;
 		this.intoType = intoType;
 	}
@@ -62,16 +58,11 @@ public class CAST extends NonCallingSequentialBytecode {
 	 * casts the top of the stack into the given type.
 	 * They are both <tt>NumericalType</tt>'s.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param fromType the declared semantical type of the top of the stack
 	 * @param intoType the semantical type the top of the stack is cast into
 	 */
 
-	public CAST
-	(CodeSignature where, NumericalType fromType, NumericalType intoType) {
-
-		super(where);
-
+	public CAST(NumericalType fromType, NumericalType intoType) {
 		this.fromType = fromType;
 		this.intoType = intoType;
 	}

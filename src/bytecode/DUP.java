@@ -4,7 +4,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.Type;
 
 /**
@@ -26,13 +25,10 @@ public class DUP extends NonCallingSequentialBytecode {
 	/**
 	 * Constructs a bytecode which duplicates the top element of the stack.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the type of the element which is duplicated
 	 */
 
-	public DUP(CodeSignature where, Type type) {
-		super(where);
-
+	public DUP(Type type) {
 		this.type = type;
 	}
 

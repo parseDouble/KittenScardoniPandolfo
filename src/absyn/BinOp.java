@@ -101,19 +101,18 @@ public abstract class BinOp extends Expression {
 
 		return getLeft().translateAs
 			(where, type,getRight().translateAs
-				(where, type, operator(where, type).followedBy(continuation)));
+				(where, type, operator(type).followedBy(continuation)));
 	}
 
 	/**
 	 * A binary operation-specific bytecode that performs a binary
 	 * computation on the left and right-hand sides of this binary operator.
 	 *
-	 * @param where the method or constructor where this expression occurs
 	 * @param type the type of the values computed by the left and right-hand
 	 *             sides of this binary expression
 	 * @return a binary bytecode that performs a binary operation-specific
 	 *         computation on the values of the left and right-hand sides
 	 */
 
-	protected abstract BinOpBytecode operator(CodeSignature where, Type type);
+	protected abstract BinOpBytecode operator(Type type);
 }

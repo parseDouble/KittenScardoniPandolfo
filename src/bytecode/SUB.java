@@ -4,7 +4,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.NumericalType;
 
 /**
@@ -22,12 +21,11 @@ public class SUB extends ArithmeticBinOpBytecode {
 	 * Constructs a bytecode which
 	 * subtracts the top element of the stack from the underlying element.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the semantical type of the values which are subtracted
 	 */
 
-	public SUB(CodeSignature where, NumericalType type) {
-		super(where,type);
+	public SUB(NumericalType type) {
+		super(type);
 	}
 
 	/**

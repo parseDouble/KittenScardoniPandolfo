@@ -1,6 +1,5 @@
 package bytecode;
 
-import types.CodeSignature;
 import types.NumericalType;
 
 /**
@@ -19,12 +18,11 @@ public abstract class ComparisonNumericalBinOpBytecode extends ComparisonBinOpBy
 	 * computes a numerical binary comparison operation on the top two
 	 * elements of the stack.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the semantical type of the top two values of the stack
 	 */
 
-	protected ComparisonNumericalBinOpBytecode(CodeSignature where, NumericalType type) {
-		super(where,type);
+	protected ComparisonNumericalBinOpBytecode(NumericalType type) {
+		super(type);
 	}
 
 	/**
@@ -33,6 +31,7 @@ public abstract class ComparisonNumericalBinOpBytecode extends ComparisonBinOpBy
 	 * @return the semantical type of the top two elements of stack
 	 */
 
+	@Override
 	public NumericalType getType() {
 		return (NumericalType)super.getType();
 	}

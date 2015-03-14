@@ -1,7 +1,5 @@
 package bytecode;
 
-import types.CodeSignature;
-
 /**
  * A bytecode which performs a binary operation on the top two elements of
  * the stack.
@@ -16,11 +14,7 @@ public abstract class BinOpBytecode extends NonCallingSequentialBytecode {
 	/**
 	 * Constructs a list of instructions made up of a single bytecode which
 	 * performs a binary operation on the top two elements of the stack.
-	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 */
 
-	protected BinOpBytecode(CodeSignature where) {
-		super(where);
-	}
+	protected BinOpBytecode() {}
 }

@@ -5,7 +5,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.Type;
 
 /**
@@ -41,9 +40,7 @@ public class RETURN extends FinalBytecode {
 	 *             by the <tt>return</tt> bytecode
 	 */
 
-	public RETURN(CodeSignature where, Type type) {
-		super(where);
-
+	public RETURN(Type type) {
 		this.type = type;
 	}
 

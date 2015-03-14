@@ -4,7 +4,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.NumericalType;
 
 /**
@@ -21,12 +20,11 @@ public class MUL extends ArithmeticBinOpBytecode {
 	 * Constructs a bytecode which
 	 * multiplies the top two elements of the stack.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the semantical type of the values which are multiplied
 	 */
 
-	public MUL(CodeSignature where, NumericalType type) {
-		super(where,type);
+	public MUL(NumericalType type) {
+		super(type);
 	}
 
 	/**

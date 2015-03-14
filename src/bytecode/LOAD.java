@@ -5,7 +5,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.Type;
 
 /**
@@ -34,14 +33,11 @@ public class LOAD extends NonCallingSequentialBytecode {
 	 * Constructs a bytecode that loads the value of a local variable on top of the stack,
 	 * followed by the given list of instructions.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param varNum the number of the local variable which is read
 	 * @param type the type of the value loaded on top of the stack
 	 */
 
-	public LOAD(CodeSignature where, int varNum, Type type) {
-		super(where);
-
+	public LOAD(int varNum, Type type) {
 		this.varNum = varNum;
 		this.type = type;
 	}

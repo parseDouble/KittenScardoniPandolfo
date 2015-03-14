@@ -1,6 +1,5 @@
 package bytecode;
 
-import types.CodeSignature;
 import translation.Block;
 
 /**
@@ -15,12 +14,9 @@ public abstract class SequentialBytecode extends NonBranchingBytecode {
 
 	/**
 	 * Builds a sequential bytecode.
-	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 */
 
-	protected SequentialBytecode(CodeSignature where) {
-		super(where);
+	protected SequentialBytecode() {
 	}
 
 	/**

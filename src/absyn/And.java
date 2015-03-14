@@ -1,6 +1,5 @@
 package absyn;
 
-import types.CodeSignature;
 import types.Type;
 import bytecode.AND;
 import bytecode.BinOpBytecode;
@@ -30,14 +29,13 @@ public class And extends BooleanBinOp {
 	 * A binary operation-specific bytecode that performs a binary
 	 * computation on the left and right sides of this binary operation.
 	 *
-	 * @param where the method or constructor where this expression occurs
 	 * @param type the type of the values of the left and right sides of this
 	 *             binary expression
 	 * @return an {@code and} bytecode
 	 */
 
 	@Override
-	protected BinOpBytecode operator(CodeSignature where, Type type) {
-		return new AND(where);
+	protected BinOpBytecode operator(Type type) {
+		return new AND();
 	}
 }

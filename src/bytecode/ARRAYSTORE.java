@@ -5,7 +5,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.Type;
 
 /**
@@ -30,14 +29,11 @@ public class ARRAYSTORE extends NonCallingSequentialBytecode {
 	 * writes a value into an element of an array. Note that the index, where
 	 * the array is modified, is provided at run-time through the stack.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the type of the elements of the array which
 	 *             is created by this bytecode
 	 */
 
-	public ARRAYSTORE(CodeSignature where, Type type) {
-		super(where);
-
+	public ARRAYSTORE(Type type) {
 		this.type = type;
 	}
 

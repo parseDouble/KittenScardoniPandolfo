@@ -120,8 +120,8 @@ public class ConstructorSignature extends CodeSignature {
 		if (!getDefiningClass().getName().equals("Object")) {
 			ClassType superclass = getDefiningClass().getSuperclass();
 
-			code = new LOAD(this, 0, getDefiningClass()).followedBy
-				(new CONSTRUCTORCALL(this, superclass.constructorLookup(TypeList.EMPTY))
+			code = new LOAD(0, getDefiningClass()).followedBy
+				(new CONSTRUCTORCALL(superclass.constructorLookup(TypeList.EMPTY))
 				.followedBy(code));
 		}
 

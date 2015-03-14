@@ -116,6 +116,6 @@ public class NewArray extends Expression {
 
 	@Override
 	public Block translate(CodeSignature where, Block continuation) {
-		return size.translate(where, new NEWARRAY(where, elementsType.getStaticType()).followedBy(continuation));
+		return size.translate(where, new NEWARRAY(elementsType.getStaticType()).followedBy(continuation));
 	}
 }

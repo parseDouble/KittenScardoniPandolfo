@@ -168,7 +168,7 @@ public class FieldAccess extends Lvalue {
 
     @Override
     public Block translate(CodeSignature where, Block continuation) {
-    	return receiver.translate(where, new GETFIELD(where, field).followedBy(continuation));
+    	return receiver.translate(where, new GETFIELD(field).followedBy(continuation));
     }
 
     /**
@@ -198,6 +198,6 @@ public class FieldAccess extends Lvalue {
 
     @Override
     public Block translateAfterAssignment(CodeSignature where, Block continuation) {
-    	return new PUTFIELD(where, field).followedBy(continuation);
+    	return new PUTFIELD(field).followedBy(continuation);
     }
 }

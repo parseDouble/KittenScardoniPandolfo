@@ -4,8 +4,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
-
 /**
  * A bytecode of the intermediate Kitten language with one or no subsequent bytecode.
  *
@@ -16,12 +14,10 @@ public abstract class NonBranchingBytecode extends Bytecode {
 
 	/**
 	 * Constructs a non-branching bytecode.
-	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 */
 
-	protected NonBranchingBytecode(CodeSignature where) {
-		super(where);
+	protected NonBranchingBytecode() {
+		super();
 	}
 
 	/**

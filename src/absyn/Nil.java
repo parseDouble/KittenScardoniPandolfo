@@ -53,6 +53,6 @@ public class Nil extends Literal {
 
 	@Override
 	public Block translate(CodeSignature where, Block continuation) {
-		return new CONST(where).followedBy(continuation);
+		return new CONST().followedBy(continuation);
 	}
 }

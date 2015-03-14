@@ -4,7 +4,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.FieldSignature;
 
 /**
@@ -27,13 +26,10 @@ public class PUTFIELD extends FieldAccessBytecode {
 	/**
 	 * Constructs a bytecode which writes into a field of an object.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param field the signature of the field which is written
 	 */
 
-	public PUTFIELD(CodeSignature where, FieldSignature field) {
-		super(where);
-
+	public PUTFIELD(FieldSignature field) {
 		this.field = field;
 	}
 

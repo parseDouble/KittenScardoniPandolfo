@@ -204,7 +204,7 @@ public abstract class Expression extends Absyn {
 	public final Block translateAs(CodeSignature where, Type type, Block continuation) {
 		if (staticType == IntType.INSTANCE && type == FloatType.INSTANCE)
 			// type promotion
-			continuation = new CAST(where, IntType.INSTANCE, FloatType.INSTANCE).followedBy(continuation);
+			continuation = new CAST(IntType.INSTANCE, FloatType.INSTANCE).followedBy(continuation);
 
 		return translate(where, continuation);
 	}
@@ -225,7 +225,7 @@ public abstract class Expression extends Absyn {
 	 */
 
 	public Block translateAsTest(CodeSignature where, Block yes, Block no) {
-		return translate(where, new Block(new IF_TRUE(where), yes, no));
+		return translate(where, new Block(new IF_TRUE(), yes, no));
 	}
 
 	/**

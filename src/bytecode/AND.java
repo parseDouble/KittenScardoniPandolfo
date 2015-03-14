@@ -4,8 +4,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
-
 /**
  * A bytecode that performs a logical <i>and</i> operation on the top
  * two elements of the stack.
@@ -24,9 +22,7 @@ public class AND extends BooleanBinOpBytecode {
 	 * @param where the method or constructor where this bytecode occurs
 	 */
 
-	public AND(CodeSignature where) {
-		super(where);
-	}
+	public AND() {}
 
 	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {

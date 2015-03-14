@@ -1,6 +1,5 @@
 package bytecode;
 
-import types.CodeSignature;
 import types.ComparableType;
 
 /**
@@ -29,9 +28,7 @@ public abstract class ComparisonBinOpBytecode extends BinOpBytecode {
 	 * @param type the semantical type of the top two values of the stack
 	 */
 
-	protected ComparisonBinOpBytecode(CodeSignature where, ComparableType type) {
-		super(where);
-
+	protected ComparisonBinOpBytecode(ComparableType type) {
 		this.type = type;
 	}
 

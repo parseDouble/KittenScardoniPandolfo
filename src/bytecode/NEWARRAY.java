@@ -5,7 +5,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 import org.apache.bcel.generic.InstructionList;
 
 import types.ArrayType;
-import types.CodeSignature;
 import types.Type;
 
 /**
@@ -36,15 +35,12 @@ public class NEWARRAY extends NonCallingSequentialBytecode {
 	 * dimensions. Note that the size of the array
 	 * is provided at run-time through the stack.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param elementsType the type of the elements of the array which
 	 *                     is created by this bytecode
 	 * @param dimensions the number of dimensions of the array
 	 */
 
-	public NEWARRAY(CodeSignature where, Type elementsType, int dimensions) {
-		super(where);
-
+	public NEWARRAY(Type elementsType, int dimensions) {
 		this.elementsType = elementsType;
 		this.dimensions = dimensions;
 	}
@@ -59,8 +55,8 @@ public class NEWARRAY extends NonCallingSequentialBytecode {
 	 *                     is created by this bytecode
 	 */
 
-	public NEWARRAY(CodeSignature where, Type elementsType) {
-		this(where, elementsType, 1);
+	public NEWARRAY(Type elementsType) {
+		this(elementsType, 1);
 	}
 
 	/**

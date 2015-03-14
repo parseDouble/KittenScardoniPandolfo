@@ -2,9 +2,8 @@ package absyn;
 
 import semantical.TypeChecker;
 import types.BooleanType;
-import types.Type;
 import types.ComparableType;
-import types.CodeSignature;
+import types.Type;
 import bytecode.BinOpBytecode;
 import bytecode.NE;
 
@@ -58,13 +57,12 @@ public class NotEqual extends ComparisonBinOp {
 	 * computation on the left and right sides of this binary operation.
 	 * Namely, an {@code ne} bytecode.
 	 *
-	 * @param where the method or constructor where this expression occurs
 	 * @param type the type of the values of the left and right sides of this binary expression
 	 * @return an {@code ne} bytecode
 	 */
 
 	@Override
-	protected BinOpBytecode operator(CodeSignature where, Type type) {
-		return new NE(where, (ComparableType) type);
+	protected BinOpBytecode operator(Type type) {
+		return new NE((ComparableType) type);
 	}
 }

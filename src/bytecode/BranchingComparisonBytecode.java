@@ -1,6 +1,5 @@
 package bytecode;
 
-import types.CodeSignature;
 import types.ComparableType;
 
 /**
@@ -26,13 +25,10 @@ public abstract class BranchingComparisonBytecode extends BranchingBytecode {
 	 * Constructs a bytecode which compares the top two elements of the
 	 * stack to decide where to branch.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the semantical type of the values which are compared
 	 */
 
-	protected BranchingComparisonBytecode(CodeSignature where, ComparableType type) {
-		super(where);
-
+	protected BranchingComparisonBytecode(ComparableType type) {
 		this.type = type;
 	}
 

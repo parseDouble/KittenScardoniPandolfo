@@ -4,7 +4,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.FieldSignature;
 
 /**
@@ -28,13 +27,10 @@ public class GETFIELD extends FieldAccessBytecode {
 	/**
 	 * Constructs a bytecode which reads a field of an object.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param field the signature of the field which is read
 	 */
 
-	public GETFIELD(CodeSignature where, FieldSignature field) {
-		super(where);
-
+	public GETFIELD(FieldSignature field) {
 		this.field = field;
 	}
 

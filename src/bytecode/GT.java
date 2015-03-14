@@ -5,7 +5,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.IntType;
 import types.NumericalType;
 
@@ -26,12 +25,11 @@ public class GT extends ComparisonNumericalBinOpBytecode {
      * checks if the element under the top of the stack
      * is greater than the element on top of the stack.
      *
-     * @param where the method or constructor where this bytecode occurs
      * @param type the semantical type of the values which are added
      */
 
-    public GT(CodeSignature where, NumericalType type) {
-	super(where,type);
+    public GT(NumericalType type) {
+	super(type);
     }
 
     /**
@@ -41,7 +39,7 @@ public class GT extends ComparisonNumericalBinOpBytecode {
      */
 
     public BranchingComparisonBytecode toBranching() {
-	return new IF_CMPGT(getWhere(),getType());
+	return new IF_CMPGT(getType());
     }
 
     /**

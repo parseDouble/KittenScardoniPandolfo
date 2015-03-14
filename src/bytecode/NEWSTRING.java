@@ -6,8 +6,6 @@ import org.apache.bcel.Constants;
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
-
 /**
  * A bytecode which creates an object of class <tt>String</tt> and
  * pushes it on top of the stack.
@@ -20,21 +18,18 @@ import types.CodeSignature;
 public class NEWSTRING extends NonCallingSequentialBytecode {
 
 	/**
-	 * The lexical value of the <tt>String</tt> which is created.
+	 * The lexical value of the string that is created.
 	 */
 
-	private String value;
+	private final String value;
 
 	/**
 	 * Constructs a bytecode which creates a <tt>String</tt> object.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param value the lexical value of the <tt>String</tt> which is created
 	 */
 
-	public NEWSTRING(CodeSignature where, String value) {
-		super(where);
-
+	public NEWSTRING(String value) {
 		this.value = value;
 	}
 

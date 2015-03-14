@@ -95,6 +95,6 @@ public class Not extends Expression {
 
 	@Override
 	public Block translate(CodeSignature where, Block continuation) {
-		return expression.translate(where, new NEG(where, BooleanType.INSTANCE).followedBy(continuation));
+		return expression.translate(where, new NEG(BooleanType.INSTANCE).followedBy(continuation));
 	}
 }

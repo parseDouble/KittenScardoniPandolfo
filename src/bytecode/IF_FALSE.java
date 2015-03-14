@@ -6,7 +6,6 @@ import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
 import types.BooleanType;
-import types.CodeSignature;
 
 /**
  * A branching bytecode which checks if the top of the stack is the
@@ -26,13 +25,11 @@ public class IF_FALSE extends BranchingConstantComparisonBytecode {
 	 * bytecode which checks if the top of the stack is the
 	 * Boolean value <i>false</i>. It routes accordingly the computation
 	 * at the end of a conditional block of code.
-	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 */
 
-	public IF_FALSE(CodeSignature where) {
-		// we are comparing with a <tt>boolean</tt> constant
-		super(where, BooleanType.INSTANCE);
+	public IF_FALSE() {
+		// we are comparing with a Boolean constant
+		super(BooleanType.INSTANCE);
 	}
 
 	@Override
@@ -48,7 +45,7 @@ public class IF_FALSE extends BranchingConstantComparisonBytecode {
 	 */
 
 	public BranchingBytecode negate() {
-		return new IF_TRUE(getWhere());
+		return new IF_TRUE();
 	}
 
 	/**

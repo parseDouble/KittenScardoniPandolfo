@@ -47,6 +47,6 @@ public abstract class ComparisonBinOp extends BinOp {
 		Type type = getLeft().getStaticType().leastCommonSupertype(getRight().getStaticType());
 
 		return getLeft().translateAs(where, type,getRight().translateAs(where, type,
-			(new Block(((ComparisonBinOpBytecode) operator(where, type)).toBranching(), yes, no))));
+			(new Block(((ComparisonBinOpBytecode) operator(type)).toBranching(), yes, no))));
 	}
 }

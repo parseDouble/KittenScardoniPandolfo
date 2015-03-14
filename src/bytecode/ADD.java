@@ -4,7 +4,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.NumericalType;
 
 /**
@@ -24,8 +23,8 @@ public class ADD extends ArithmeticBinOpBytecode {
 	 * @param type the semantical type of the values which are added
 	 */
 
-	public ADD(CodeSignature where, NumericalType type) {
-		super(where, type);
+	public ADD(NumericalType type) {
+		super(type);
 	}
 
 	@Override

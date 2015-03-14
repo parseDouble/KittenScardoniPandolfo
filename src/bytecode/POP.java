@@ -4,7 +4,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.Type;
 
 /**
@@ -26,13 +25,10 @@ public class POP extends NonCallingSequentialBytecode {
 	/**
 	 * Constructs a bytecode which pops the top value of the stack.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the type of the value which is popped from the stack
 	 */
 
-	public POP(CodeSignature where, Type type) {
-		super(where);
-
+	public POP(Type type) {
 		this.type = type;
 	}
 

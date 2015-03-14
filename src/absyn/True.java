@@ -53,6 +53,6 @@ public class True extends Literal {
 
 	@Override
 	public final Block translate(CodeSignature where, Block continuation) {
-		return new CONST(where, true).followedBy(continuation);
+		return new CONST(true).followedBy(continuation);
 	}
 }

@@ -5,7 +5,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.Type;
 
 /**
@@ -24,7 +23,7 @@ public class ARRAYLOAD extends NonCallingSequentialBytecode {
      * The type of the elements of the array which is accessed.
      */
 
-    private Type type;
+    private final Type type;
 
     /**
      * Constructs a bytecode which
@@ -32,15 +31,12 @@ public class ARRAYLOAD extends NonCallingSequentialBytecode {
      * Note that the index, where the array
      * is read, is provided at run-time through the stack.
      *
-     * @param where the method or constructor where this bytecode occurs
      * @param type the type of the elements of the array which
      *             is read by this bytecode
      */
 
-    public ARRAYLOAD(CodeSignature where, Type type) {
-	super(where);
-
-	this.type = type;
+    public ARRAYLOAD(Type type) {
+    	this.type = type;
     }
 
     @Override

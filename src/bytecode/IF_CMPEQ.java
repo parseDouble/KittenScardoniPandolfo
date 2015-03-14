@@ -5,7 +5,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.ComparableType;
 
 /**
@@ -26,12 +25,11 @@ public class IF_CMPEQ extends BranchingComparisonBytecode {
 	 * Constructs a bytecode which compares the top two elements of the
 	 * stack to check if they are the same.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the semantical type of the values which are compared
 	 */
 
-	public IF_CMPEQ(CodeSignature where, ComparableType type) {
-		super(where,type);
+	public IF_CMPEQ(ComparableType type) {
+		super(type);
 	}
 
 	/**
@@ -42,7 +40,7 @@ public class IF_CMPEQ extends BranchingComparisonBytecode {
 	 */
 
 	public BranchingBytecode negate() {
-		return new IF_CMPNE(getWhere(),getType());
+		return new IF_CMPNE(getType());
 	}
 
 	/**

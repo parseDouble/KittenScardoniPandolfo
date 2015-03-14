@@ -1,6 +1,5 @@
 package bytecode;
 
-import types.CodeSignature;
 import types.NumericalType;
 
 /**
@@ -28,9 +27,7 @@ public abstract class ArithmeticBinOpBytecode extends BinOpBytecode {
 	 * @param type the semantical type of the top two values of the stack
 	 */
 
-	protected ArithmeticBinOpBytecode(CodeSignature where, NumericalType type) {
-		super(where);
-
+	protected ArithmeticBinOpBytecode(NumericalType type) {
 		this.type = type;
 	}
 

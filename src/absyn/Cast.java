@@ -140,11 +140,11 @@ public class Cast extends Expression {
 
     	if (intoType instanceof NumericalType)
     		return expression.translate
-   				(where, new CAST(where, (NumericalType) fromType, (NumericalType) intoType)
+   				(where, new CAST((NumericalType) fromType, (NumericalType) intoType)
    				.followedBy(continuation));
     	else
     		return expression.translate
-   				(where, new CAST(where, (ReferenceType) fromType, (ReferenceType) intoType)
+   				(where, new CAST((ReferenceType) fromType, (ReferenceType) intoType)
    				.followedBy(continuation));
     }
 }

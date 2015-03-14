@@ -96,6 +96,6 @@ public class StringLiteral extends Literal {
 	 */
 
 	public Block translate(CodeSignature where, Block continuation) {
-		return new NEWSTRING(where, value).followedBy(continuation);
+		return new NEWSTRING(value).followedBy(continuation);
 	}
 }

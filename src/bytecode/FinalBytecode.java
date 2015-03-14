@@ -6,17 +6,12 @@ package bytecode;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-import types.CodeSignature;
 
 public abstract class FinalBytecode extends NonBranchingBytecode implements NonCallingBytecode {
 
 	/**
 	 * Constructs a final bytecode.
-	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 */
 
-	protected FinalBytecode(CodeSignature where) {
-		super(where);
-	}
+	protected FinalBytecode() {}
 }

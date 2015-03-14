@@ -6,7 +6,6 @@ import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
 import types.BooleanType;
-import types.CodeSignature;
 import types.ComparableType;
 import types.FloatType;
 import types.IntType;
@@ -27,12 +26,11 @@ public class EQ extends ComparisonBinOpBytecode {
 	 * Constructs a bytecode that
 	 * checks if the top two elements of the stack are the same.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the semantical type of the values which are added
 	 */
 
-	public EQ(CodeSignature where, ComparableType type) {
-		super(where,type);
+	public EQ(ComparableType type) {
+		super(type);
 	}
 
 	/**
@@ -41,8 +39,9 @@ public class EQ extends ComparisonBinOpBytecode {
 	 * @return an <tt>if_cmpeq</tt> bytecode for the same type as <tt>this</tt>
 	 */
 
+	@Override
 	public BranchingComparisonBytecode toBranching() {
-		return new IF_CMPEQ(getWhere(),getType());
+		return new IF_CMPEQ(getType());
 	}
 
 	/**

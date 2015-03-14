@@ -1,7 +1,5 @@
 package bytecode;
 
-import types.CodeSignature;
-
 /**
  * A bytecode of the intermediate Kitten language. It is a more typed,
  * simplified version of the Java bytecode.
@@ -12,30 +10,10 @@ import types.CodeSignature;
 public abstract class Bytecode {
 
     /**
-     * The method or constructor where this bytecode occurs.
-     */
-
-    private final CodeSignature where;
-
-    /**
      * Constructs a bytecode.
-     *
-     * @param where the method or constructor where this bytecode occurs
      */
 
-    protected Bytecode(CodeSignature where) {
-    	this.where = where;
-    }
-
-    /**
-     * Yields the method or constructor where this bytecode occurs.
-     *
-     * @return the method or constructor where this bytecode occurs
-     */
-
-    public CodeSignature getWhere() {
-    	return where;
-    }
+    protected Bytecode() {}
 
     @Override
     public String toString() {

@@ -93,7 +93,7 @@ public class Block {
 	 */
 
 	public Block(BranchingBytecode condition, Block yes, Block no) {
-		this(new BytecodeList(new NOP(condition.getWhere())), new ArrayList<Block>());
+		this(new BytecodeList(new NOP()), new ArrayList<Block>());
 
 		// we prefix the condition and its negation to the code of the following blocks
 		follows.add(no.prefixedBy(condition.negate()));
@@ -109,7 +109,7 @@ public class Block {
 
 	public Block(CodeSignature where) {
 		// we use nop for the initial code of a pivot
-		this(new BytecodeList(new NOP(where)), new ArrayList<Block>());
+		this(new BytecodeList(new NOP()), new ArrayList<Block>());
 
 		// a pivot cannot be merged, otherwise cycles cannot be built
 		mergeable = false;

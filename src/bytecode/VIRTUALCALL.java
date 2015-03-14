@@ -31,15 +31,14 @@ public class VIRTUALCALL extends CALL {
 	 * lookup. The set of run-time targets is assumed to be that obtained
 	 * from every subclass of the static type of the receiver.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param receiverType the static type of the receiver of this call
 	 * @param staticTarget the signature of the static target of the call
 	 */
 
-	public VIRTUALCALL(CodeSignature where, ClassType receiverType, MethodSignature staticTarget) {
+	public VIRTUALCALL(ClassType receiverType, MethodSignature staticTarget) {
 		// we compute the dynamic targets by assuming that the run-time
 		// type of the receiver is any subclass of its static type
-		super(where, receiverType, staticTarget, dynamicTargets(receiverType.getInstances(), staticTarget));
+		super(receiverType, staticTarget, dynamicTargets(receiverType.getInstances(), staticTarget));
 	}
 
 	/**

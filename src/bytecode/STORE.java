@@ -5,7 +5,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.Type;
 
 /**
@@ -35,14 +34,11 @@ public class STORE extends NonCallingSequentialBytecode {
 	 * which stores the value on top of the stack inside a local variable,
 	 * followed by the given list of instructions.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param varNum the number of the local variable which is modified
 	 * @param type the type of the value stored inside the local variable
 	 */
 
-	public STORE(CodeSignature where, int varNum, Type type) {
-		super(where);
-
+	public STORE(int varNum, Type type) {
 		this.varNum = varNum;
 		this.type = type;
 	}

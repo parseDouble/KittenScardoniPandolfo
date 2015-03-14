@@ -1,8 +1,7 @@
 package absyn;
 
-import types.Type;
 import types.NumericalType;
-import types.CodeSignature;
+import types.Type;
 import bytecode.BinOpBytecode;
 import bytecode.DIV;
 
@@ -32,14 +31,12 @@ public class Division extends ArithmeticBinOp {
 	 * computation on the left and right sides of this binary operation.
 	 * Namely, a {@code div} bytecode.
 	 *
-	 * @param where the method or constructor where this expression occurs
-	 * @param type the type of the values of the left and right sides of this
-	 *             binary expression
+	 * @param type the type of the values of the left and right sides of this binary expression
 	 * @return a {@code div} bytecode
 	 */
 
 	@Override
-	protected BinOpBytecode operator(CodeSignature where, Type type) {
-		return new DIV(where, (NumericalType) type);
+	protected BinOpBytecode operator(Type type) {
+		return new DIV((NumericalType) type);
 	}
 }

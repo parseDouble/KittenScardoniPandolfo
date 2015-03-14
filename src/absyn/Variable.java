@@ -107,7 +107,7 @@ public class Variable extends Lvalue {
 
 	@Override
 	public Block translate(CodeSignature where, Block continuation) {
-		return new LOAD(where,getVarNum(), getStaticType()).followedBy(continuation);
+		return new LOAD(getVarNum(), getStaticType()).followedBy(continuation);
 	}
 
 	/**
@@ -137,6 +137,6 @@ public class Variable extends Lvalue {
 
 	@Override
 	public Block translateAfterAssignment(CodeSignature where, Block continuation) {
-		return new STORE(where,getVarNum(), getStaticType()).followedBy(continuation);
+		return new STORE(getVarNum(), getStaticType()).followedBy(continuation);
 	}
 }

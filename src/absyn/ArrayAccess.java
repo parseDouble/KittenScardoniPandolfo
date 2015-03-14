@@ -137,7 +137,7 @@ public class ArrayAccess extends Lvalue {
 	@Override
 	public Block translate(CodeSignature where, Block continuation) {
 		return array.translate(where,index.translate
-			(where, new ARRAYLOAD(where,getStaticType()).followedBy(continuation)));
+			(where, new ARRAYLOAD(getStaticType()).followedBy(continuation)));
 	}
 
 	/**
@@ -169,6 +169,6 @@ public class ArrayAccess extends Lvalue {
 
 	@Override
 	public Block translateAfterAssignment(CodeSignature where, Block continuation) {
-		return new ARRAYSTORE(where,getStaticType()).followedBy(continuation);
+		return new ARRAYSTORE(getStaticType()).followedBy(continuation);
 	}
 }

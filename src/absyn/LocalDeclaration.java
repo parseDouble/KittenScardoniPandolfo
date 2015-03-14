@@ -170,6 +170,6 @@ public class LocalDeclaration extends Command {
 		// we return a code which starts with the translation of the initialising expression,
 		// followed by the STORE bytecode, followed by the continuation
 		return initialiser.translateAs
-			(where, staticType, new STORE(where, varNum, staticType).followedBy(continuation));
+			(where, staticType, new STORE(varNum, staticType).followedBy(continuation));
 	}
 }

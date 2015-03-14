@@ -7,7 +7,6 @@ import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
 import types.BooleanType;
-import types.CodeSignature;
 import types.NumericalType;
 import types.Type;
 
@@ -32,13 +31,10 @@ public class NEG extends NonCallingSequentialBytecode {
 	 * Constructs a bytecode which negates the top element of the stack,
 	 * which holds a Boolean value.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the Boolean type
 	 */
 
-	public NEG(CodeSignature where, BooleanType type) {
-		super(where);
-
+	public NEG(BooleanType type) {
 		this.type = type;
 	}
 
@@ -46,13 +42,10 @@ public class NEG extends NonCallingSequentialBytecode {
 	 * Constructs a bytecode which negates the top element of the stack,
 	 * which holds a numerical value.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param type the type of the numerical constant which is negated
 	 */
 
-	public NEG(CodeSignature where, NumericalType type) {
-		super(where);
-
+	public NEG(NumericalType type) {
 		this.type = type;
 	}
 

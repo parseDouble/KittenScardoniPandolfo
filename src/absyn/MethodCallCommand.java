@@ -220,10 +220,10 @@ public class MethodCallCommand extends Command {
 	public Block translate(CodeSignature where, Block continuation) {
 		if (method.getReturnType() != VoidType.INSTANCE)
 			// if the method does return a value, we must throw it away
-			continuation = new POP(where, method.getReturnType()).followedBy(continuation);
+			continuation = new POP(method.getReturnType()).followedBy(continuation);
 
 		// we put an instruction which calls the method
-		continuation = new VIRTUALCALL(where, (ClassType) receiver.getStaticType(), method)
+		continuation = new VIRTUALCALL((ClassType) receiver.getStaticType(), method)
 			.followedBy(continuation);
 
 		// we translate the actual parameters

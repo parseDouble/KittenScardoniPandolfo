@@ -42,15 +42,12 @@ public abstract class CALL extends SequentialBytecode {
 	/**
 	 * Constructs a bytecode that calls a method.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param receiverType the static type of the receiver of this call
 	 * @param staticTarget the signature of the static target of the call
 	 * @param dynamicTargets the set of dynamic targets for the call
 	 */
 
-    protected CALL(CodeSignature where, Type receiverType, CodeSignature staticTarget, Set<CodeSignature> dynamicTargets) {
-    	super(where);
-
+    protected CALL(Type receiverType, CodeSignature staticTarget, Set<CodeSignature> dynamicTargets) {
     	this.receiverType = receiverType;
     	this.staticTarget = staticTarget;
     	this.dynamicTargets = dynamicTargets;

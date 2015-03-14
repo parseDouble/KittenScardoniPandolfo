@@ -5,7 +5,6 @@ import javaBytecodeGenerator.JavaClassGenerator;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
-import types.CodeSignature;
 import types.IntType;
 import types.NumericalType;
 
@@ -25,12 +24,11 @@ public class LE extends ComparisonNumericalBinOpBytecode {
      * Constructs a bytecode which checks if the element under the top of the
      * stack is less than or equal to the element on top of the stack.
      *
-     * @param where the method or constructor where this bytecode occurs
      * @param type the semantical type of the values which are added
      */
 
-    public LE(CodeSignature where, NumericalType type) {
-	super(where,type);
+    public LE(NumericalType type) {
+	super(type);
     }
 
     /**
@@ -40,7 +38,7 @@ public class LE extends ComparisonNumericalBinOpBytecode {
      */
 
     public BranchingComparisonBytecode toBranching() {
-	return new IF_CMPLE(getWhere(),getType());
+	return new IF_CMPLE(getType());
     }
 
     /**
