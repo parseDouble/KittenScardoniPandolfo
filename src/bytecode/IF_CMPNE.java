@@ -8,10 +8,8 @@ import org.apache.bcel.generic.InstructionList;
 import types.ComparableType;
 
 /**
- * A branching bytecode which compares the top two elements of the stack
- * to check if they are the same.
- * It is used to route the computation at the end of a branching
- * block of code.
+ * A branching bytecode that compares the top two elements of the stack to check if
+ * they are the same. It is used to route the computation at the end of a branching block of code.
  * <br><br>
  * ..., value1, value2 -> ...<br>
  * (checks if value1 != value2)
@@ -22,10 +20,10 @@ import types.ComparableType;
 public class IF_CMPNE extends BranchingComparisonBytecode {
 
 	/**
-	 * Constructs a bytecode which compares the top two elements of the
+	 * Constructs a bytecode that compares the top two elements of the
 	 * stack to check if they are the same.
 	 *
-	 * @param type the semantical type of the values which are compared
+	 * @param type the semantical type of the values that are compared
 	 */
 
 	public IF_CMPNE(ComparableType type) {
@@ -33,38 +31,35 @@ public class IF_CMPNE extends BranchingComparisonBytecode {
 	}
 
 	/**
-	 * Yields a branching bytecode which expresses the opposite condition
-	 * of this.
+	 * Yields a branching bytecode that expresses the opposite condition of this.
 	 *
-	 * @return an <tt>IF_CMPEQ</tt> bytecode of the same type as this
+	 * @return an {@code if_cmpeq} bytecode of the same type as this
 	 */
 
+	@Override
 	public BranchingBytecode negate() {
 		return new IF_CMPEQ(getType());
 	}
 
 	/**
-	 * Auxiliary method which adds to the given list of instructions the
-	 * code which goes to <tt>yes</tt> if the outcome of the test expressed
-	 * by this branching bytecode is true.
+	 * Auxiliary method that adds to the given list of instructions the code that goes
+	 * to {@code yes} if the outcome of the test expressed by this branching bytecode is true.
 	 * Namely, it generates the Java bytecode<br>
 	 * <br>
-	 * <tt>if_icmpne yes</tt><br>
+	 * {@code if_icmpne yes}<br>
 	 * <br>
-	 * for <tt>int</tt> and <tt>boolean</tt> (Booleans are represented as
-	 * integers in Java bytecode, with the assumption that
-	 * 0 = <i>false</i> and 1 = <i>true</i>),<br>
+	 * for {@code int} and Boolean values (Booleans are represented as integers in Java bytecode,
+	 * with the assumption that 0 = <i>false</i> and 1 = <i>true</i>),<br>
 	 * <br>
-	 * <tt>if_acmpeq yes</tt><br>
+	 * {@code if_acmpeq yes}<br>
 	 * <br>
 	 * for objects and arrays, and<br>
 	 * <br>
-	 * <tt>fcmpl</tt><br>
-	 * <tt>ifeq yes</tt><br>
+	 * {@code fcmpl}<br>
+	 * {@code ifeq yes}<br>
 	 * <br>
-	 * for <tt>float</tt>. The <tt>fcmpl</tt> Java bytecode operates over
-	 * two <tt>float</tt> values on top of the stack and produces an
-	 * <tt>int</tt> value at their place, as it follows:<br>
+	 * for {@code float}. The {@code fcmpl} Java bytecode operates over two {@code float} values
+	 * on top of the stack and produces an {@code int} value at their place, as it follows:<br>
 	 * <br>
 	 * ..., value1, value2 -> ..., 1   if value1 &gt; value2<br>
 	 * ..., value1, value2 -> ..., 0   if value1 = value2<br>
@@ -76,10 +71,8 @@ public class IF_CMPNE extends BranchingComparisonBytecode {
 	 *            expressed by this branching bytecode is true
 	 */
 
-	protected void generateJavaBytecodeAux
-	(InstructionList il, JavaClassGenerator classGen, InstructionHandle yes) {
-
-		// builds the instructions which go to <tt>yes</tt> if the test is true
+	@Override
+	protected void generateJavaBytecodeAux(InstructionList il, JavaClassGenerator classGen, InstructionHandle yes) {
 		getType().JB_if_cmpne(il,yes);
 	}
 }

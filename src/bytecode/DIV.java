@@ -7,8 +7,7 @@ import org.apache.bcel.generic.InstructionList;
 import types.NumericalType;
 
 /**
- * A bytecode which divides the top element of the stack by the
- * underlying element.
+ * A bytecode that divides the top element of the stack by the underlying element.
  * <br><br>
  * ..., value1, value2 -> ..., value1 / value2
  *
@@ -18,10 +17,9 @@ import types.NumericalType;
 public class DIV extends ArithmeticBinOpBytecode {
 
 	/**
-	 * Constructs a bytecode that
-	 * divides the top element of the stack by the underlying element.
+	 * Constructs a bytecode that divides the top element of the stack by the underlying element.
 	 *
-	 * @param type the semantical type of the values which are subtracted
+	 * @param type the semantical type of the values that are divided
 	 */
 
 	public DIV(NumericalType type) {
@@ -31,11 +29,9 @@ public class DIV extends ArithmeticBinOpBytecode {
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the <tt>idiv</tt> Java bytecode if <tt>type</tt> is <tt>int</tt>
-	 *         and the <tt>fdiv</tt> Java bytecode if <tt>type</tt> is
-	 *         <tt>float</tt>
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the {@code idiv} Java bytecode if {@link #type} is {@code int}
+	 *         and the {@code fdiv} Java bytecode {@link #type} is {@code float}
 	 */
 
 	@Override

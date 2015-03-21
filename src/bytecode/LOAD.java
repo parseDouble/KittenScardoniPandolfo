@@ -72,7 +72,7 @@ public class LOAD extends NonCallingSequentialBytecode {
 	 *
 	 * @param classGen the Java class generator to be used for this Java bytecode generation
 	 * @return the {@code iload varNum}, {@code fload varNum} and {@code aload varNum} Java bytecode,
-	 *         if {@link #type} is {@code int}, {@code float} or a {@code ReferenceType}, respectively
+	 *         if {@link #type} is {@code int}, {@code float} or a reference type, respectively
 	 */
 
 	@Override

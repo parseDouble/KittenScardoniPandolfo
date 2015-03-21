@@ -7,7 +7,7 @@ import org.apache.bcel.generic.InstructionList;
 import types.Type;
 
 /**
- * A bytecode which duplicates the top element of the stack.
+ * A bytecode that duplicates the top element of the stack.
  * <br><br>
  * ..., value -> ..., value, value
  *
@@ -20,12 +20,12 @@ public class DUP extends NonCallingSequentialBytecode {
 	 * The type of the element which is duplicated.
 	 */
 
-	private Type type;
+	private final Type type;
 
 	/**
-	 * Constructs a bytecode which duplicates the top element of the stack.
+	 * Constructs a bytecode that duplicates the top element of the stack.
 	 *
-	 * @param type the type of the element which is duplicated
+	 * @param type the type of the element that is duplicated
 	 */
 
 	public DUP(Type type) {
@@ -40,9 +40,8 @@ public class DUP extends NonCallingSequentialBytecode {
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the Java <tt>dup</tt> bytecode
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the Java {@code dup} bytecode
 	 */
 
 	@Override

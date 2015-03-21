@@ -8,9 +8,8 @@ import org.apache.bcel.generic.InstructionList;
 import types.BooleanType;
 
 /**
- * A branching bytecode which checks if the top of the stack is the
- * Boolean value <i>false</i>. It routes accordingly the computation
- * at the end of a branching block of code.
+ * A branching bytecode that checks if the top of the stack is the Boolean value <i>false</i>.
+ * It routes accordingly the computation at the end of a branching block of code.
  * <br><br>
  * ..., value -> ...<br>
  * (checks if value is false)
@@ -21,14 +20,12 @@ import types.BooleanType;
 public class IF_FALSE extends BranchingConstantComparisonBytecode {
 
 	/**
-	 * Constructs a branching
-	 * bytecode which checks if the top of the stack is the
+	 * Constructs a branching bytecode that checks if the top of the stack is the
 	 * Boolean value <i>false</i>. It routes accordingly the computation
 	 * at the end of a conditional block of code.
 	 */
 
 	public IF_FALSE() {
-		// we are comparing with a Boolean constant
 		super(BooleanType.INSTANCE);
 	}
 
@@ -38,27 +35,25 @@ public class IF_FALSE extends BranchingConstantComparisonBytecode {
 	}
 
 	/**
-	 * Yields a branching bytecode which expresses the opposite condition
-	 * of this.
+	 * Yields a branching bytecode that expresses the opposite condition of this.
 	 *
-	 * @return an <tt>IF_TRUE</tt> bytecode
+	 * @return an {@code if_true} bytecode
 	 */
 
+	@Override
 	public BranchingBytecode negate() {
 		return new IF_TRUE();
 	}
 
 	/**
-	 * Auxiliary method which adds to the given list of instructions the
-	 * code which goes to <tt>yes</tt> if the outcome of the test expressed
-	 * by this branching bytecode is true.
+	 * Auxiliary method that adds to the given list of instructions the code that goes
+	 * to {@code yes} if the outcome of the test expressed by this branching bytecode is true.
 	 * Namely, it generates the Java bytecode<br>
 	 * <br>
-	 * <tt>ifeq yes</tt><br>
+	 * {@code ifeq yes}<br>
 	 * <br>
-	 * Note that in Java bytecodes Boolean values are represented as
-	 * integers (0 = <i>false</i>, 1 = <i>true</i>),
-	 * so that we use <tt>ifeq</tt> to check if the Boolean
+	 * Note that in Java bytecodes Boolean values are represented as integers
+	 * (0 = <i>false</i>, 1 = <i>true</i>), so that we use {@code ifeq} to check if the Boolean
 	 * value on top of the stack is <i>true</i>.
 	 *
 	 * @param il the list of instructions which must be expanded
@@ -67,10 +62,8 @@ public class IF_FALSE extends BranchingConstantComparisonBytecode {
 	 *            expressed by this branching bytecode is true
 	 */
 
-	protected void generateJavaBytecodeAux
-	(InstructionList il, JavaClassGenerator classGen, InstructionHandle yes) {
-
-		// builds the instructions which go to <tt>yes</tt> if the test is true
+	@Override
+	protected void generateJavaBytecodeAux(InstructionList il, JavaClassGenerator classGen, InstructionHandle yes) {
 		il.append(new org.apache.bcel.generic.IFEQ(yes));
 	}
 }
