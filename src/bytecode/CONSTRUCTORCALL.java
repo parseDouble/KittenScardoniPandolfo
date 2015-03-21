@@ -9,9 +9,8 @@ import types.CodeSignature;
 import types.ConstructorSignature;
 
 /**
- * A bytecode which calls a constructor of an object.
- * That object is the <i>receiver</i> of the call. If the receiver is
- * <tt>nil</tt>, the computation stops.
+ * A bytecode that calls a constructor of an object. That object is the <i>receiver</i> of the call.
+ * If the receiver is {@code nil}, the computation stops.
  * <br><br>
  * ..., receiver, par_1, ..., par_n -> ...
  *
@@ -21,7 +20,7 @@ import types.ConstructorSignature;
 public class CONSTRUCTORCALL extends CALL {
 
 	/**
-	 * Constructs a bytecode which calls a constructor of an object.
+	 * Constructs a bytecode that calls a constructor of an object.
 	 *
 	 * @param constructor the signature of the constructor which is called
 	 */
@@ -34,18 +33,14 @@ public class CONSTRUCTORCALL extends CALL {
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the Java <tt>invokespecial method</tt> bytecode, which calls
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the Java {@code invokespecial method} bytecode, that calls
 	 *         a method by using a hard-wired class name to look up for the
 	 *         method's implementation
 	 */
 
 	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
-		// the <tt>ConstructorSignature</tt> <tt>constructor</tt>
-		// contains everything which is needed in order to create
-		// the Java <tt>invokespecial constuctor</tt> bytecode
 		return new InstructionList(((ConstructorSignature) getStaticTarget()).createINVOKESPECIAL(classGen));
 	}
 }

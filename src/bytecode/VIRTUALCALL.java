@@ -57,11 +57,11 @@ public class VIRTUALCALL extends CALL {
 
 		for (ClassType rec: possibleRunTimeClasses) {
 			// we look up for the method from the dynamic receiver
-			MethodSignature candidate = rec.methodLookup
-					(staticTarget.getName(), staticTarget.getParameters());
+			MethodSignature candidate = rec.methodLookup(staticTarget.getName(), staticTarget.getParameters());
 
 			// we add the dynamic target. If it was already there, the set is not modified
-			if (candidate != null) dynamicTargets.add(candidate);
+			if (candidate != null)
+				dynamicTargets.add(candidate);
 		}
 
 		return dynamicTargets;

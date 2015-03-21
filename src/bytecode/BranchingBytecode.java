@@ -29,7 +29,7 @@ public abstract class BranchingBytecode extends Bytecode implements NonCallingBy
 	public abstract BranchingBytecode negate();
 
 	/**
-	 * Generates the Java bytecode which checks the condition expressed by this
+	 * Generates the Java bytecode that checks the condition expressed by this
 	 * bytecode and goes to one of two possible targets depending on the
 	 * outcome of that check. Namely, it generates the code
 	 * <br><br>

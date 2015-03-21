@@ -8,8 +8,8 @@ import org.apache.bcel.generic.InstructionList;
 import types.Type;
 
 /**
- * A bytecode which writes a value into an element of an array.
- * If the reference to the array is <tt>nil</tt>, the computation stops.
+ * A bytecode that writes a value into an element of an array.
+ * If the reference to the array is {@code nil}, the computation stops.
  * <br><br>
  * ..., array reference, index, value -> ...
  *
@@ -22,15 +22,13 @@ public class ARRAYSTORE extends NonCallingSequentialBytecode {
 	 * The type of the elements of the array which is modified.
 	 */
 
-	private Type type;
+	private final Type type;
 
 	/**
-	 * Constructs a bytecode which
-	 * writes a value into an element of an array. Note that the index, where
-	 * the array is modified, is provided at run-time through the stack.
+	 * Constructs a bytecode that writes a value into an element of an array. The index, where
+	 * the array is modified, is provided at runtime through the stack.
 	 *
-	 * @param type the type of the elements of the array which
-	 *             is created by this bytecode
+	 * @param type the type of the elements of the array that is created by this bytecode
 	 */
 
 	public ARRAYSTORE(Type type) {
@@ -38,11 +36,9 @@ public class ARRAYSTORE extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Yields the type of the elements of the array which is modified by this
-	 * bytecode.
+	 * Yields the type of the elements of the array.
 	 *
-	 * @return the type of the elements of the array which is modified by this
-	 *         bytecode
+	 * @return the type of the elements of the array
 	 */
 
 	public Type getType() {
@@ -55,22 +51,18 @@ public class ARRAYSTORE extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Generates the Java bytecode corresponding
-	 * to this Kitten bytecode. Namely, it generates an <tt>iastore</tt>
-	 * if <tt>type</tt> is <tt>int</tt>, an <tt>fastore</tt> if
-	 * <tt>type</tt> is <tt>float</tt> and an <tt>aastore</tt> if
-	 * <tt>type</tt> is a class or array type.
+	 * Generates the Java bytecode corresponding to this Kitten bytecode. Namely,
+	 * it generates an {@code iastore} if {@link #type} is {@code nil}, an {@code fastore} if
+	 * {@link #type} is {@code float} and an {@code aastore} if {@link #type} is a class or array type.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the Java <tt>iastore</tt>, <tt>fastore</tt> or <tt>aastore</tt>
-	 *         bytecode, depending on <tt>type</tt>
+	 * @param classGen the Java class generator to be used for this Java bytecode generation
+	 * @return the Java {@code iastore}, {@code fastore} or {@code aastore}
+	 *         bytecode, depending on {@link #type}
 	 */
 
+	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
-		// we use the instruction factory to simplify the choice among
-		// the three possible Java bytecodes
-		return new InstructionList
-				(InstructionFactory.createArrayStore(type.toBCEL()));
+		// we use the instruction factory to simplify the choice among the possible Java bytecodes
+		return new InstructionList(InstructionFactory.createArrayStore(type.toBCEL()));
 	}
 }

@@ -11,8 +11,8 @@ import types.NilType;
 import types.Type;
 
 /**
- * A bytecode which loads a <tt>nil</tt>, <tt>boolean</tt>, <tt>int</tt> or
- * <tt>float</tt> constant on top of the stack.
+ * A bytecode that loads a {@code nil}, Boolean, {@code int} or {@code float}
+ * constant on top of the stack.
  * <br><br>
  * ... -> ..., constant
  *
@@ -22,13 +22,13 @@ import types.Type;
 public class CONST extends NonCallingSequentialBytecode {
 
 	/**
-	 * The constant which is loaded on top of the stack.
+	 * The constant that is loaded on top of the stack.
 	 */
 
-	private Object constant;
+	private final Object constant;
 
 	/**
-	 * Constructs a bytecode which loads the given constant on top of the stack.
+	 * Constructs a bytecode that loads the given constant on top of the stack.
 	 *
 	 * @param constant the constant to be loaded on top of the stack
 	 */
@@ -38,8 +38,7 @@ public class CONST extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Constructs a bytecode that loads a <tt>nil</tt> constant on top
-	 * of the stack.
+	 * Constructs a bytecode that loads a {@code nil} constant on top of the stack.
 	 */
 
 	public CONST() {
@@ -47,11 +46,9 @@ public class CONST extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Constructs a bytecode which
-	 * loads a <tt>boolean</tt> constant on top of the stack.
+	 * Constructs a bytecode that loads a Boolean constant on top of the stack.
 	 *
-	 * @param constant the <tt>boolean</tt> constant which is loaded on top
-	 *                 of the stack
+	 * @param constant the Boolean constant that is loaded on top of the stack
 	 */
 
 	public CONST(boolean constant) {
@@ -59,10 +56,9 @@ public class CONST extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Constructs a bytecode which
-	 * loads an <tt>int</tt> constant on top of the stack.
+	 * Constructs a bytecode that loads an integer constant on top of the stack.
 	 *
-	 * @param constant the <tt>int</tt> constant which is loaded on top of the stack
+	 * @param constant the integer constant that is loaded on top of the stack
 	 */
 
 	public CONST(int constant) {
@@ -70,12 +66,9 @@ public class CONST extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Constructs a bytecode which
-	 * loads a <tt>float</tt> constant on top of the stack.
+	 * Constructs a bytecode that loads a {@code float} constant on top of the stack.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
-	 * @param constant the <tt>float</tt> constant which is loaded on top
-	 *                 of the stack
+	 * @param constant the {@code float} constant that is loaded on top of the stack
 	 */
 
 	public CONST(float constant) {
@@ -83,9 +76,9 @@ public class CONST extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Yields the constant which is loaded on top of the stack.
+	 * Yields the constant that is loaded on top of the stack.
 	 *
-	 * @return the constant which is loaded on top of the stack
+	 * @return the constant that is loaded on top of the stack
 	 */
 
 	protected Object getConstant() {
@@ -93,17 +86,20 @@ public class CONST extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Yields the type of the constant which is loaded on top of the stack.
+	 * Yields the type of the constant that is loaded on top of the stack.
 	 *
-	 * @return the semantical type of the constant which is loaded on top
-	 *         of the stack
+	 * @return the semantical type of the constant that is loaded on top of the stack
 	 */
 
 	public Type getType() {
-		if (constant == null) return NilType.INSTANCE;
-		else if (constant instanceof Boolean) return BooleanType.INSTANCE;
-		else if (constant instanceof Integer) return IntType.INSTANCE;
-		else return FloatType.INSTANCE;
+		if (constant == null)
+			return NilType.INSTANCE;
+		else if (constant instanceof Boolean)
+			return BooleanType.INSTANCE;
+		else if (constant instanceof Integer)
+			return IntType.INSTANCE;
+		else
+			return FloatType.INSTANCE;
 	}
 
 	@Override
@@ -114,22 +110,18 @@ public class CONST extends NonCallingSequentialBytecode {
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the Java <tt>iconst</tt>, <tt>fconst</tt>, <tt>ldc</tt>,
-	 *         <tt>aconst_null</tt> or <tt>bipush</tt> Java bytecode,
-	 *         on the basis of the type and size of <tt>constant</tt>
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the Java {@code iconst}, {@code fconst}, {@code ldc},
+	 *         {@code aconst_null} or {@code bipush} Java bytecode,
+	 *         on the basis of the type and size of {@link #constant}
 	 */
 
+	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		if (constant == null)
-			return new InstructionList
-					(new org.apache.bcel.generic.ACONST_NULL());
+			return new InstructionList(new org.apache.bcel.generic.ACONST_NULL());
 		else
 			// the instruction factory will create the appropriate instruction
-			// among <tt>iconst</tt>, <tt>fconst</tt>, <tt>bipush</tt> and
-			// <tt>ldc</tt>. Moreover, it will put the constant inside
-			// the constant pool, if needed
 			return new InstructionList(classGen.getFactory().createConstant(constant));
 	}
 }

@@ -13,11 +13,11 @@ import types.ReferenceType;
 import types.Type;
 
 /**
- * A bytecode which casts the top of the stack into a given type.
+ * A bytecode that casts the top of the stack into a given type.
  * If the cast is not possible, the program stops.
  * A reference value can only be cast towards its type or a subtype of
  * its type. In that case, the cast value is original value, unmodified.
- * The value <tt>nil</tt> can be cast towards any reference type and remains
+ * The value {@code nil} can be cast towards any reference type and remains
  * unmodified. A numerical type can be cast into any numerical type through
  * a type conversion. No other casts are possible.
  * <br><br>
@@ -32,17 +32,16 @@ public class CAST extends NonCallingSequentialBytecode {
 	 * The original, static type of the top of the stack.
 	 */
 
-	private Type fromType;
+	private final Type fromType;
 
 	/**
 	 * The type the top of the stack is cast into.
 	 */
 
-	private Type intoType;
+	private final Type intoType;
 
 	/**
-	 * Constructs a bytecode which
-	 * casts the top of the stack into the given type.
+	 * Constructs a bytecode that casts the top of the stack into the given type.
 	 *
 	 * @param fromType the declared semantical type of the top of the stack
 	 * @param intoType the semantical type the top of the stack is cast into
@@ -54,9 +53,8 @@ public class CAST extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Constructs a bytecode which
-	 * casts the top of the stack into the given type.
-	 * They are both <tt>NumericalType</tt>'s.
+	 * Constructs a bytecode that casts the top of the stack into the given type.
+	 * They are both numericla types.
 	 *
 	 * @param fromType the declared semantical type of the top of the stack
 	 * @param intoType the semantical type the top of the stack is cast into
@@ -95,21 +93,19 @@ public class CAST extends NonCallingSequentialBytecode {
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the Java <tt>checkcast intoType</tt> bytecode for casts between
-	 *         <tt>ReferenceType</tt>'s and a type conversion bytecode
-	 *         such as <tt>i2f</tt> for conversions between
-	 *         <tt>NumericalType</tt>'s
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the Java {@cdoe checkcast intoType} bytecode for casts between
+	 *         reference types and a type conversion bytecode such as {@code i2f}
+	 *         for conversions between numercial types
 	 */
 
+	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		if (intoType instanceof ReferenceType)
-			// we use the instruction factory to simplify the addition of
-			// <tt>type</tt> to the constant pool
+			// we use the instruction factory to simplify the addition of the type to the constant pool
 			return new InstructionList
-					(classGen.getFactory().createCheckCast
-							((org.apache.bcel.generic.ReferenceType)intoType.toBCEL()));
+				(classGen.getFactory().createCheckCast
+					((org.apache.bcel.generic.ReferenceType) intoType.toBCEL()));
 		else if (fromType == IntType.INSTANCE && intoType == FloatType.INSTANCE)
 			return new InstructionList(new I2F());
 		else // it must be float into int

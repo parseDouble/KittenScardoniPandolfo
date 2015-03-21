@@ -3,9 +3,8 @@ package bytecode;
 import types.ComparableType;
 
 /**
- * A bytecode which compares the top two elements of
- * the stack. It is used to route the computation at the end of a branching
- * block of code.
+ * A bytecode that compares the top two elements of the stack. It is used to route
+ * the computation at the end of a branching block of code.
  * <br><br>
  * ..., value1, value2 -> ...
  *
@@ -15,17 +14,16 @@ import types.ComparableType;
 public abstract class BranchingComparisonBytecode extends BranchingBytecode {
 
 	/**
-	 * The semantical type of the top two elements of the stack, which are
-	 * compared.
+	 * The semantical type of the top two elements of the stack, that are compared.
 	 */
 
 	private ComparableType type;
 
 	/**
-	 * Constructs a bytecode which compares the top two elements of the
+	 * Constructs a bytecode that compares the top two elements of the
 	 * stack to decide where to branch.
 	 *
-	 * @param type the semantical type of the values which are compared
+	 * @param type the semantical type of the values that are compared
 	 */
 
 	protected BranchingComparisonBytecode(ComparableType type) {
@@ -43,14 +41,5 @@ public abstract class BranchingComparisonBytecode extends BranchingBytecode {
 	@Override
 	public String toString() {
 		return super.toString() + " " + type;
-	}
-
-	protected int hashCodeAux() {
-		return type.hashCode();
-	}
-
-	public boolean equalsAux(Object other) {
-		return other instanceof BranchingComparisonBytecode &&
-			((BranchingComparisonBytecode)other).type == type;
 	}
 }

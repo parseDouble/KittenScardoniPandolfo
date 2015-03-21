@@ -3,9 +3,8 @@ package bytecode;
 import types.ComparableType;
 
 /**
- * A bytecode which computes a binary comparison operation between the top two
- * elements of the stack. It pushes the Boolean result of the comparison
- * on the stack.
+ * A bytecode that computes a binary comparison operation between the top two
+ * elements of the stack. It pushes the Boolean result of the comparison on the stack.
  * <br><br>
  * ..., value1, value2 -> ..., value1 <i>comp</i> value2
  *
@@ -18,12 +17,11 @@ public abstract class ComparisonBinOpBytecode extends BinOpBytecode {
 	 * The semantical type of the top two elements of the stack.
 	 */
 
-	private ComparableType type;
+	private final ComparableType type;
 
 	/**
-	 * Constructs a list of instructions made up of a single bytecode which
-	 * computes a binary comparison operation on the top two
-	 * elements of the stack.
+	 * Constructs a list of instructions made up of a single bytecode that
+	 * computes a binary comparison operation on the top two elements of the stack.
 	 *
 	 * @param type the semantical type of the top two values of the stack
 	 */
@@ -48,11 +46,10 @@ public abstract class ComparisonBinOpBytecode extends BinOpBytecode {
 	}
 
 	/**
-	 * Yields a branching version of this bytecode. For instance, <tt>eq</tt>
-	 * yields a <tt>if_cmpeq</tt> bytecode and so on.
+	 * Yields a branching version of this bytecode. For instance, for {@code eq} it yields
+	 * an {@code if_cmpeq} bytecode and so on.
 	 *
-	 * @return the branching bytecode corresponding to this comparfison
-	 *         bytecode
+	 * @return the branching bytecode corresponding to this comparison bytecode
 	 */
 
 	public abstract BranchingComparisonBytecode toBranching();

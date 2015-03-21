@@ -1,8 +1,7 @@
 package bytecode;
 
 /**
- * A bytecode which performs a binary operation on the top two elements of
- * the stack.
+ * A bytecode that performs a binary operation on the top two elements of the stack.
  * <br><br>
  * ..., value1, value2 -> ..., value1 <i>op</i> value2
  *
@@ -12,7 +11,7 @@ package bytecode;
 public abstract class BinOpBytecode extends NonCallingSequentialBytecode {
 
 	/**
-	 * Constructs a list of instructions made up of a single bytecode which
+	 * Constructs a list of instructions made up of a single bytecode that
 	 * performs a binary operation on the top two elements of the stack.
 	 */
 

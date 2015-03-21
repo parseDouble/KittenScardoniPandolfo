@@ -47,44 +47,44 @@ public abstract class CALL extends SequentialBytecode {
 	 * @param dynamicTargets the set of dynamic targets for the call
 	 */
 
-    protected CALL(Type receiverType, CodeSignature staticTarget, Set<CodeSignature> dynamicTargets) {
-    	this.receiverType = receiverType;
-    	this.staticTarget = staticTarget;
-    	this.dynamicTargets = dynamicTargets;
-    }
+	protected CALL(Type receiverType, CodeSignature staticTarget, Set<CodeSignature> dynamicTargets) {
+		this.receiverType = receiverType;
+		this.staticTarget = staticTarget;
+		this.dynamicTargets = dynamicTargets;
+	}
 
-    /**
-     * Yields the type of the receiver of this call.
-     *
-     * @return the type of the receiver of this call
-     */
+	/**
+	 * Yields the type of the receiver of this call.
+	 *
+	 * @return the type of the receiver of this call
+	 */
 
-    public final Type getReceiverType() {
-    	return receiverType;
-    }
+	public final Type getReceiverType() {
+		return receiverType;
+	}
 
-    /**
-     * Yields the static target of this method call instruction.
-     *
-     * @return the static target
-     */
+	/**
+	 * Yields the static target of this method call instruction.
+	 *
+	 * @return the static target
+	 */
 
-    public final CodeSignature getStaticTarget() {
-    	return staticTarget;
-    }
+	public final CodeSignature getStaticTarget() {
+		return staticTarget;
+	}
 
-    /**
-     * Yields the set of dynamic targets of this instruction.
-     *
-     * @return the set of dynamic targets
-     */
+	/**
+	 * Yields the set of dynamic targets of this instruction.
+	 *
+	 * @return the set of dynamic targets
+	 */
 
-    public final Set<CodeSignature> getDynamicTargets() {
-    	return dynamicTargets;
-    }
+	public final Set<CodeSignature> getDynamicTargets() {
+		return dynamicTargets;
+	}
 
-    @Override
-    public String toString() {
-    	return "call " + staticTarget + " " + dynamicTargets;
-    }
+	@Override
+	public String toString() {
+		return "call " + staticTarget + " " + dynamicTargets;
+	}
 }
