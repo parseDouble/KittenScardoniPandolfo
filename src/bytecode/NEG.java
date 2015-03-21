@@ -11,8 +11,8 @@ import types.NumericalType;
 import types.Type;
 
 /**
- * A bytecode which negates the top element of the stack. It works on
- * numerical values as well as on <tt>boolean</tt> values.
+ * A bytecode that negates the top element of the stack. It works on
+ * numerical values as well as on Boolean values.
  * <br><br>
  * ..., value -> ..., negation of value
  *
@@ -25,11 +25,10 @@ public class NEG extends NonCallingSequentialBytecode {
 	 * The type of the element on top of the stack.
 	 */
 
-	private Type type;
+	private final Type type;
 
 	/**
-	 * Constructs a bytecode which negates the top element of the stack,
-	 * which holds a Boolean value.
+	 * Constructs a bytecode that negates the Boolean top element of the stack
 	 *
 	 * @param type the Boolean type
 	 */
@@ -39,10 +38,9 @@ public class NEG extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Constructs a bytecode which negates the top element of the stack,
-	 * which holds a numerical value.
+	 * Constructs a bytecode that negates the numerical top element of the stack.
 	 *
-	 * @param type the type of the numerical constant which is negated
+	 * @param type the type of the numerical constant that is negated
 	 */
 
 	public NEG(NumericalType type) {
@@ -50,10 +48,10 @@ public class NEG extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Yield sthe type of the value which is negated by this bytecode.
-	 * This is whether the Boolean type or a numerical type.
+	 * Yields the type of the value that is negated by this bytecode.
+	 * This is either the Boolean type or a numerical type.
 	 *
-	 * @return the type of the value which is negated by this bytecode
+	 * @return the type of the value that is negated by this bytecode
 	 */
 
 	public Type getType() {
@@ -66,27 +64,23 @@ public class NEG extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Generates the Java bytecode corresponding
-	 * to this Kitten bytecode. Namely, it generates an <tt>ineg</tt>
-	 * Java bytecode if <tt>type</tt> is <tt>int</tt>,
-	 * an <tt>fneg</tt> Java bytecode if <tt>type</tt> is <tt>float</tt> and
-	 * the code
+	 * Generates the Java bytecode corresponding to this Kitten bytecode. Namely,
+	 * it generates an {@code ineg} Java bytecode if {@link #type} is {@code int},
+	 * an {@code fneg} Java bytecode if {@link #type} is {@code float} and the code
 	 * <br>
-	 * <tt>ifeq</tt> <i>after</i><br>
-	 * <tt>iconst 0</tt><br>
-	 * <tt>goto</tt> <i>end</i><br>
-	 * <i>after:</i> <tt>iconst 1</tt><br>
-	 * <i>end:</i> <tt>nop</tt>
+	 * {@code ifeq} <i>after</i><br>
+	 * {@code iconst 0}<br>
+	 * {@code goto} <i>end</i><br>
+	 * <i>after:</i> {@code iconst 1}<br>
+	 * <i>end:</i> {@code nop}
 	 * <br>
-	 * if <tt>type</tt> is <tt>boolean</tt>, since in the Java bytecode
-	 * the integer constant <tt>0</tt> is used to represent <tt>false</tt>
-	 * and the integer constant <tt>1</tt> is used to represent <tt>true</tt>.
+	 * if {@link #type} is {@code boolean}, since in the Java bytecode the integer constant
+	 * <i>0</i> is used for <i>false</i> and <i>1</i> is used for <i>true</i>.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the Java <tt>ineg</tt> or similar bytecode, if <tt>type</tt> is
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the Java {@code ineg} or similar bytecode, if {@link #type} is
 	 *         the corresponding numerical type, or the sequence seen above
-	 *         if <tt>type</tt> is the Boolean type
+	 *         if {@link #type} is {@code boolean}
 	 */
 
 	@Override
@@ -94,18 +88,15 @@ public class NEG extends NonCallingSequentialBytecode {
 		InstructionList il = new InstructionList();
 
 		if (type == BooleanType.INSTANCE) {
-			// the negation of a Boolean value: it becomes an alternative
-			// which loads 0 or 1 on the stack
-			InstructionFactory factory = classGen.getFactory();
-
-			InstructionHandle end =
-					il.insert(new org.apache.bcel.generic.NOP());
-			InstructionHandle after = il.insert(factory.createConstant(1));
+			// the negation of a Boolean value: it becomes an alternative of 0 or 1 on the stack
+			InstructionHandle end =	il.insert(InstructionFactory.NOP);
+			InstructionHandle after = il.insert(InstructionFactory.ICONST_1);
 			il.insert(new org.apache.bcel.generic.GOTO(end));
-			il.insert(factory.createConstant(0));
+			il.insert(InstructionFactory.ICONST_0);
 			il.insert(new org.apache.bcel.generic.IFEQ(after));
 		}
-		else ((NumericalType)type).neg(il);
+		else
+			((NumericalType) type).neg(il);
 
 		return il;
 	}

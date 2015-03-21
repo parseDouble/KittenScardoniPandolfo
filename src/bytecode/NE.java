@@ -2,6 +2,7 @@ package bytecode;
 
 import javaBytecodeGenerator.JavaClassGenerator;
 
+import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionHandle;
 import org.apache.bcel.generic.InstructionList;
 
@@ -11,9 +12,8 @@ import types.FloatType;
 import types.IntType;
 
 /**
- * A bytecode which checks if the top two elements of the stack
- * are not the same. It leaves on the stack the Boolean result
- * of the comparison.
+ * A bytecode that checks if the top two elements of the stack are not the same.
+ * It leaves on the stack the Boolean result of the comparison.
  * <br><br>
  * ..., value1, value2 -> ..., value1 &ne; value2
  *
@@ -23,11 +23,10 @@ import types.IntType;
 public class NE extends ComparisonBinOpBytecode {
 
 	/**
-	 * Constructs a bytecode which
-	 * checks if the top two elements of the stack are not the same.
+	 * Constructs a bytecode that checks if the top two elements of the stack are not the same.
 	 *
 	 * @param where the method or constructor where this bytecode occurs
-	 * @param type the semantical type of the values which are added
+	 * @param type the semantical type of the values that are added
 	 */
 
 	public NE(ComparableType type) {
@@ -37,74 +36,68 @@ public class NE extends ComparisonBinOpBytecode {
 	/**
 	 * Yields a branching version of this bytecode.
 	 *
-	 * @return an <tt>if_cmpne</tt> bytecode for the same type as <tt>this</tt>
+	 * @return an {@code if_cmpne} bytecode for the same type as this
 	 */
 
+	@Override
 	public BranchingComparisonBytecode toBranching() {
 		return new IF_CMPNE(getType());
 	}
 
 	/**
-	 * Generates the Java bytecode which leaves on the stack the
-	 * <tt>boolean</tt> value resulting from a disequality
-	 * comparison of two values.
-	 * Namely, it generates the Java bytecode<br>
+	 * Generates Java bytecode that leaves on the stack the Boolean value resulting
+	 * from a disequality comparison of two values. Namely, it generates the Java bytecode<br>
 	 * <br>
-	 * <tt>if_icmpne after</tt><br>
-	 * <tt>iconst 0</tt><br>
-	 * <tt>goto follow</tt><br>
-	 * <tt>after: iconst 1</tt><br>
-	 * <tt>follow: nop</tt><br>
+	 * {@code if_icmpne after}<br>
+	 * {@code iconst 0}<br>
+	 * {@code goto follow}<br>
+	 * {@code after: iconst 1}<br>
+	 * {@code follow: nop}<br>
 	 * <br>
-	 * if <tt>type</tt> is <tt>int</tt> or <tt>boolean</tt>
-	 * (Booleans are represented as
-	 * integers in Java bytecode, with the assumption that
-	 * 0 = <i>false</i> and 1 = <i>true</i>),<br>
+	 * if {@link #type} is {@code int} or a Boolean value (Booleans are represented as integers
+	 * in Java bytecode, with the assumption that 0 = <i>false</i> and 1 = <i>true</i>),<br>
 	 * <br>
-	 * <tt>if_acmpne after</tt><br>
-	 * <tt>iconst 0</tt><br>
-	 * <tt>goto follow</tt><br>
-	 * <tt>after: iconst 1</tt><br>
-	 * <tt>follow: nop</tt><br>
+	 * {@code if_acmpne after}<br>
+	 * {@code iconst 0}<br>
+	 * {@code goto follow}<br>
+	 * {@code after: iconst 1}<br>
+	 * {@code follow: nop}<br>
 	 * <br>
-	 * if <tt>type</tt> is a class or array type, and<br>
+	 * if {@link #type} is a class or array type, and<br>
 	 * <br>
-	 * <tt>fcmpl</tt><br>
-	 * <tt>ifne after</tt><br>
-	 * <tt>iconst 0</tt><br>
-	 * <tt>goto follow</tt><br>
-	 * <tt>after: iconst 1</tt><br>
-	 * <tt>follow: nop</tt><br>
+	 * {@code fcmpl}<br>
+	 * {@code ifne after}<br>
+	 * {@code iconst 0}<br>
+	 * {@code goto follow}<br>
+	 * {@code after: iconst 1}<br>
+	 * {@code follow: nop}<br>
 	 * <br>
-	 * if <tt>type</tt> is <tt>float</tt>.
-	 * The <tt>fcmpl</tt> Java bytecode operates over
-	 * two <tt>float</tt> values on top of the stack and produces an
-	 * <tt>int</tt> value at their place, as it follows:<br>
+	 * if {@link #type} is {@code float}. The {@code fcmpl} Java bytecode operates over
+	 * two {@code float} values on top of the stack and produces an
+	 * {@code int} value at their place, as it follows:<br>
 	 * <br>
 	 * ..., value1, value2 -> ..., 1   if value1 &gt; value2<br>
 	 * ..., value1, value2 -> ..., 0   if value1 = value2<br>
 	 * ..., value1, value2 -> ..., -1  if value1 &lt; value2
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the Java bytecode as above, depending on <tt>type</tt>
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the Java bytecode as above, depending on {@link #type}
 	 */
 
+	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
-		InstructionList il = new InstructionList
-				(new org.apache.bcel.generic.NOP());
-		InstructionHandle after, follow;
+		InstructionList il = new InstructionList(InstructionFactory.NOP);
 
-		follow = il.getStart();
-		after = il.insert(new org.apache.bcel.generic.ICONST(1));
+		InstructionHandle follow = il.getStart();
+		InstructionHandle after = il.insert(InstructionFactory.ICONST_1);
 		il.insert(new org.apache.bcel.generic.GOTO(follow));
-		il.insert(new org.apache.bcel.generic.ICONST(0));
+		il.insert(InstructionFactory.ICONST_0);
 
 		if (getType() == IntType.INSTANCE || getType() == BooleanType.INSTANCE)
 			il.insert(new org.apache.bcel.generic.IF_ICMPNE(after));
 		else if (getType() == FloatType.INSTANCE) {
 			il.insert(new org.apache.bcel.generic.IFNE(after));
-			il.insert(new org.apache.bcel.generic.FCMPL());
+			il.insert(InstructionFactory.FCMPL);
 		}
 		else // classes or arrays
 			il.insert(new org.apache.bcel.generic.IF_ACMPNE(after));

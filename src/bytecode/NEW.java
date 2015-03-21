@@ -7,9 +7,8 @@ import org.apache.bcel.generic.InstructionList;
 import types.ClassType;
 
 /**
- * A bytecode which creates an object of a given class and
- * pushes it on top of the stack. Note that no constructor is called
- * on the newly created object.
+ * A bytecode that creates an object of a given class and pushes it on top of the stack.
+ * Note that the constructor is not called on the newly created object.
  * <br><br>
  * ... -> ..., new object
  *
@@ -19,15 +18,15 @@ import types.ClassType;
 public class NEW extends NonCallingSequentialBytecode {
 
 	/**
-	 * The class type which is instantiated by this bytecode.
+	 * The class type that is instantiated by this bytecode.
 	 */
 
-	private ClassType clazz;
+	private final ClassType clazz;
 
 	/**
-	 * Constructs a bytecode which creates an object of a given class.
+	 * Constructs a bytecode that creates an object of a given class.
 	 *
-	 * @param clazz the class type which is instantiated by this bytecode
+	 * @param clazz the class type that is instantiated by this bytecode
 	 */
 
 	public NEW(ClassType clazz) {
@@ -35,7 +34,7 @@ public class NEW extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Yields the class which is instantiated by this bytecode.
+	 * Yields the class that is instantiated by this bytecode.
 	 *
 	 * @return the class instantiated by this bytecode
 	 */
@@ -52,16 +51,12 @@ public class NEW extends NonCallingSequentialBytecode {
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the Java <tt>new clazz</tt> bytecode
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the Java {@code new clazz}
 	 */
 
 	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
-		// we use the instruction factory to simplify the addition of the
-		// class name into the constant pool
-		return new InstructionList
-				(classGen.getFactory().createNew(clazz.toBCEL().toString()));
+		return new InstructionList(classGen.getFactory().createNew(clazz.toBCEL().toString()));
 	}
 }

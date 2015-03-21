@@ -39,25 +39,20 @@ public class NEWSTRING extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Generates the Java bytecode corresponding
-	 * to this Kitten bytecode. Kitten <tt>String</tt>s are emulated through
-	 * <tt>runTime.String</tt>
-	 * wrappers of Java bytecode <tt>String</tt>s. This way, all methods
-	 * over Kitten <tt>String</tt>s can be emulated through Java methods
-	 * inside the <tt>runTime.String</tt> class (see there).
-	 * Namely, this method generates the Java bytecode<br>
+	 * Generates the Java bytecode corresponding to this Kitten bytecode. Kitten strings
+	 * are emulated through {@see runTime.String} wrappers of Java bytecode strings. This way,
+	 * all methods over Kitten strings can be emulated through Java methods
+	 * inside that class (see there). Namely, this method generates the Java bytecode<br>
 	 * <br>
-	 * <tt>new runTime.String</tt><br>
-	 * <tt>dup</tt><br>
-	 * <tt>ldc value</tt><br>
-	 * <tt>invokespecial runTime.String.&lt;init&gt;</tt><br>
+	 * {@code new runTime.String}<br>
+	 * {@code dup}<br>
+	 * {@code ldc value}<br>
+	 * {@code invokespecial runTime.String.&lt;init&gt;}<br>
 	 * <br>
-	 * which creates a <tt>runTime.String</tt> objects and initialises it with
-	 * the lexical value <tt>value</tt> of the Kitten <tt>String</tt> we want
-	 * to create.
+	 * that creates a {@code runTime.String} objects and initialises it with
+	 * the lexical value {@link #value} of the Kitten string we want to create.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
+	 * @param classGen the Java class generator to be used for this generation
 	 * @return a Java bytecode that creates a <tt>runTime.String</tt>
 	 *         object initialised with the lexical <tt>value</tt> of the
 	 *         Kitten <tt>String</tt> we want to create.
@@ -67,21 +62,21 @@ public class NEWSTRING extends NonCallingSequentialBytecode {
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		InstructionFactory factory = classGen.getFactory();
 		InstructionList il = new InstructionList();
+		String kittenStringName = runTime.String.class.getName();
 
-		// we create the <tt>invokespecial</tt>
+		// we create the invokespecial to the constructor
 		il.insert(factory.createInvoke
-				("runTime.String", // class name of the method
-						Constants.CONSTRUCTOR_NAME, // name of the method
-						org.apache.bcel.generic.Type.VOID, // return type
-						new org.apache.bcel.generic.Type[] // parameters types
-								{ org.apache.bcel.generic.Type.getType
-						("Ljava/lang/String;") },
-						Constants.INVOKESPECIAL)); // invokespecial
+			(kittenStringName, // class name of the method
+			Constants.CONSTRUCTOR_NAME, // name of the method
+			org.apache.bcel.generic.Type.VOID, // return type
+			new org.apache.bcel.generic.Type[] // parameters types
+				{ org.apache.bcel.generic.Type.getType("Ljava/lang/String;") },
+			Constants.INVOKESPECIAL)); // invokespecial
 
 		// we prepend the rest of the code
 		il.insert(factory.createConstant(value));
-		il.insert(new org.apache.bcel.generic.DUP());
-		il.insert(factory.createNew("runTime.String"));
+		il.insert(InstructionFactory.DUP);
+		il.insert(factory.createNew(kittenStringName));
 
 		return il;
 	}

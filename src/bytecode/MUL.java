@@ -7,18 +7,17 @@ import org.apache.bcel.generic.InstructionList;
 import types.NumericalType;
 
 /**
- * A bytecode which multiplies the top two elements of the stack.
+ * A bytecode that multiplies the top two elements of the stack.
  * <br><br>
  * ..., value1, value2 -> ..., value1 * value2
  *
- * @author  <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
+ * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
 public class MUL extends ArithmeticBinOpBytecode {
 
 	/**
-	 * Constructs a bytecode which
-	 * multiplies the top two elements of the stack.
+	 * Constructs a bytecode that multiplies the top two elements of the stack.
 	 *
 	 * @param type the semantical type of the values which are multiplied
 	 */
@@ -30,13 +29,12 @@ public class MUL extends ArithmeticBinOpBytecode {
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the <tt>imul</tt> Java bytecode if <tt>type</tt> is <tt>int</tt>
-	 *         and the <tt>fmul</tt> Java bytecode if <tt>type</tt> is
-	 *         <tt>float</tt>
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the {@code imul} Java bytecode if {@link #type} is {@code int}
+	 *         and the {@code fmul} Java bytecode if {@link #type} is {@code float}
 	 */
 
+	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		InstructionList il = new InstructionList();
 
