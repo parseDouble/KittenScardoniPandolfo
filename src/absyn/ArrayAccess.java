@@ -41,7 +41,7 @@ public class ArrayAccess extends Lvalue {
 	 * @param array the abstract syntax of the {@code array} expression in the
 	 *              {@code array[index]} notation
 	 * @param index the abstract syntax of the {@code index} expression in the
-	 *              {@code array[index]] notation
+	 *              {@code array[index]} notation
 	 */
 
 	public ArrayAccess(int pos, Expression array, Expression index) {
@@ -122,9 +122,9 @@ public class ArrayAccess extends Lvalue {
 	 * The result is a piece of code which pushes onto the stack
 	 * the value of an element of an array. Namely, the code which is generated is<br>
 	 * <br>
-	 * <i>translation of {@code array}<br>
-	 * <i>translation of {@code index}<br>
-	 * <i>{@code arrayload} type of the elements of the array<br>
+	 * <i>translation of {@code array}</i><br>
+	 * <i>translation of {@code index}</i><br>
+	 * <i>{@code arrayload} type of the elements of the array</i><br>
 	 * <br>
 	 * followed by the given {@code continuation}.
 	 *
@@ -136,7 +136,7 @@ public class ArrayAccess extends Lvalue {
 
 	@Override
 	public Block translate(CodeSignature where, Block continuation) {
-		return array.translate(where,index.translate
+		return array.translate(where, index.translate
 			(where, new ARRAYLOAD(getStaticType()).followedBy(continuation)));
 	}
 

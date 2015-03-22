@@ -92,7 +92,7 @@ public class StringLiteral extends Literal {
 	 *
 	 * @param where the method or constructor where this expression occurs
 	 * @param continuation the code executed after this expression
-	 * @return the code which evaluates this expression and continues with {@¢ode continuation}
+	 * @return the code which evaluates this expression and continues with {@code continuation}
 	 */
 
 	public Block translate(CodeSignature where, Block continuation) {

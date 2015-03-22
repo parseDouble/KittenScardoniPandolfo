@@ -16,9 +16,9 @@ import types.MethodSignature;
  * That object is the <i>receiver</i> of the call. If the receiver is
  * {@code nil}, the computation stops.
  * <br><br>
- * ..., receiver, par_1, ..., par_n -> ..., returned value<br>
+ * ..., receiver, par_1, ..., par_n -&gt; ..., returned value<br>
  * if the method return type is non-{@code void}<br><br>
- * ..., receiver, par_1, ..., par_n -> ...<br>
+ * ..., receiver, par_1, ..., par_n -&gt; ...<br>
  * if the method's return type is {@code void}
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>

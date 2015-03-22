@@ -164,6 +164,8 @@ public final class ClassType extends ReferenceType {
 
 	/**
 	 * Yields the name of this class.
+	 * 
+	 * @return the name of this class
 	 */
 
 	public final String getName() {

@@ -10,7 +10,7 @@ import types.ClassType;
  * A bytecode that creates an object of a given class and pushes it on top of the stack.
  * Note that the constructor is not called on the newly created object.
  * <br><br>
- * ... -> ..., new object
+ * ... -&gt; ..., new object
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

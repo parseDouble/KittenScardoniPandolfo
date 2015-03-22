@@ -11,7 +11,7 @@ import types.Type;
  * A bytecode which reads an element of an array and pushes its value on the
  * stack. If the reference to the array is {@code nil}, the computation stops.
  * <br><br>
- * ..., array reference, index -> ..., value
+ * ..., array reference, index -&gt; ..., value
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

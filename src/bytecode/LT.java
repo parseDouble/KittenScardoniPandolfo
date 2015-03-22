@@ -13,7 +13,7 @@ import types.NumericalType;
  * A bytecode that checks if the one but last element of the stack is less than
  * its last element. It leaves on the stack the Boolean result of the comparison.
  * <br><br>
- * ..., value1, value2 -> ..., value1 < value2
+ * ..., value1, value2 -&gt; ..., value1 &lt; value2
  *
  * @author  <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
@@ -65,9 +65,9 @@ public class LT extends ComparisonNumericalBinOpBytecode {
 	 * two {@code float} values on top of the stack and produces an
 	 * {@code int} value at their place, as it follows:<br>
 	 * <br>
-	 * ..., value1, value2 -> ..., 1   if value1 &gt; value2<br>
-	 * ..., value1, value2 -> ..., 0   if value1 = value2<br>
-	 * ..., value1, value2 -> ..., -1  if value1 &lt; value2
+	 * ..., value1, value2 -&gt; ..., 1   if value1 &gt; value2<br>
+	 * ..., value1, value2 -&gt; ..., 0   if value1 = value2<br>
+	 * ..., value1, value2 -&gt; ..., -1  if value1 &lt; value2
 	 *
 	 * @param classGen the Java class generator to be used for this generation
 	 * @return the Java bytecode as above, depending on {@link #type}

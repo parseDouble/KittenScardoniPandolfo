@@ -31,7 +31,7 @@ public class IntType extends IntegralType {
 
 	/**
 	 * Determines whether this type can be assigned to a given type.
-	 * Type {@code int} can only be assigned to itself and to {@¢ode float}.
+	 * Type {@code int} can only be assigned to itself and to {@code float}.
 	 *
 	 * @param other what this type should be assigned to
 	 * @return true if and only if {@code other} is {@code int} or {@code float}
@@ -86,7 +86,7 @@ public class IntType extends IntegralType {
 
 	/**
 	 * Adds to {@code il} the Java bytecodes that subtract two values of this
-	 * type, namely an {@¢ode isub} bytecode.
+	 * type, namely an {@code isub} bytecode.
 	 *
 	 * @param il the list of instructions that must be expanded
 	 */

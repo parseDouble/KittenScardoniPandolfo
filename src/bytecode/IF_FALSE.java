@@ -11,7 +11,7 @@ import types.BooleanType;
  * A branching bytecode that checks if the top of the stack is the Boolean value <i>false</i>.
  * It routes accordingly the computation at the end of a branching block of code.
  * <br><br>
- * ..., value -> ...<br>
+ * ..., value -&gt; ...<br>
  * (checks if value is false)
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>

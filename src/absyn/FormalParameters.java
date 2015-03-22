@@ -1,6 +1,7 @@
 package absyn;
 
 import java.io.FileWriter;
+import java.io.IOException;
 
 import semantical.TypeChecker;
 import types.TypeList;
@@ -86,9 +87,10 @@ public class FormalParameters extends Absyn {
 	 *
 	 * @param where the file where the dot representation must be written
 	 * @return the name used to refer to this node in the dot file
+	 * @throws IOException if there is a problem while writing into the file
 	 */
 
-	public final String toDot(FileWriter where) throws java.io.IOException {
+	public final String toDot(FileWriter where) throws IOException {
 		// dumps in the file the name of the node in the dot file,
 		// followed by the label used to show the node to the user of dot
 		where.write(dotNodeName() + " [ label = \"" + label() + "\"];\n");

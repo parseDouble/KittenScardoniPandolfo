@@ -11,7 +11,7 @@ import types.ComparableType;
  * A branching bytecode that compares the top two elements of the stack to check if
  * they are the same. It is used to route the computation at the end of a branching block of code.
  * <br><br>
- * ..., value1, value2 -> ...<br>
+ * ..., value1, value2 -&gt; ...<br>
  * (checks if value1 = value2)
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
@@ -33,7 +33,7 @@ public class IF_CMPEQ extends BranchingComparisonBytecode {
 	/**
 	 * Yields a branching bytecode that expresses the opposite condition of this.
 	 *
-	 * @return an {@coe if_cmpne} bytecode of the same type as this
+	 * @return an {@code if_cmpne} bytecode of the same type as this
 	 */
 
 	@Override

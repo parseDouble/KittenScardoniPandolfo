@@ -14,7 +14,7 @@ import types.Type;
  * A bytecode that negates the top element of the stack. It works on
  * numerical values as well as on Boolean values.
  * <br><br>
- * ..., value -> ..., negation of value
+ * ..., value -&gt; ..., negation of value
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

@@ -1,6 +1,7 @@
 package absyn;
 
 import java.io.FileWriter;
+import java.io.IOException;
 
 import types.CodeSignature;
 import semantical.TypeChecker;
@@ -54,9 +55,10 @@ public abstract class Command extends Absyn {
 	 *
 	 * @param where the file where the dot representation must be written
 	 * @return the name used to refer to this node in the dot file
+	 * @throws IOException if there is a problem while writing the file
 	 */
 
-	public final String toDot(FileWriter where) throws java.io.IOException {
+	public final String toDot(FileWriter where) throws IOException {
 		// dumps in the file the name of the node in the dot file,
 		// followed by the label used to show the node to the user of dot
 		where.write(dotNodeName() + " [ label = \"" + label() + "\"];\n");
@@ -107,7 +109,7 @@ public abstract class Command extends Absyn {
 	/**
 	 * Checks that this command does not contain <i>dead-code</i>, that is,
 	 * commands which can never be executed. This method considers a
-	 * syntactical definition of dead-code</b>. It is actually undecidable to
+	 * syntactical definition of dead-code. It is actually undecidable to
 	 * determine if a piece of code will never be executed at run-time. The
 	 * only guarantee provided by this method is that if some dead-code is
 	 * found, then it really is dead-code. The converse might not hold

@@ -119,7 +119,7 @@ public class TypeChecker {
 	 *         of the variables seen so far by this type-checker. It is
 	 *         guaranteed that progressive numbers are non-negative and that
 	 *         two distinct variables have distinct progressive numbers. Yields
-	 *         -1 if <{@code var} is not bound in this type-checker
+	 *         -1 if {@code var} is not bound in this type-checker
 	 */
 
 	public int getVarNum(String var) {

@@ -11,7 +11,7 @@ import types.Type;
  * A bytecode that creates an array of a given type and size and then
  * pushes on top of the stack a reference to that array.
  * <br><br>
- * ..., dim_11, ..., dim_n -> ..., array reference
+ * ..., dim_11, ..., dim_n -&gt; ..., array reference
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
@@ -48,7 +48,6 @@ public class NEWARRAY extends NonCallingSequentialBytecode {
 	 * one dimension. Note that the size of the array
 	 * is provided at runtime through the stack.
 	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 * @param elementsType the type of the elements of the array that is created by this bytecode
 	 */
 

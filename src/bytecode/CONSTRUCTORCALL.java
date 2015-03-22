@@ -12,7 +12,7 @@ import types.ConstructorSignature;
  * A bytecode that calls a constructor of an object. That object is the <i>receiver</i> of the call.
  * If the receiver is {@code nil}, the computation stops.
  * <br><br>
- * ..., receiver, par_1, ..., par_n -> ...
+ * ..., receiver, par_1, ..., par_n -&gt; ...
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

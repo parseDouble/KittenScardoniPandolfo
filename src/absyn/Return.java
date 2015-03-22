@@ -98,7 +98,7 @@ public class Return extends Command {
 	}
 
 	/**
-	 * Checks that this {@code return}> command does not contain <i>dead-code</i>, that is,
+	 * Checks that this {@code return} command does not contain <i>dead-code</i>, that is,
 	 * commands that can never be executed. This is always true for {@code return} commands.
 	 *
 	 * @return true, since this command always terminates with a {@code return} command (itself)

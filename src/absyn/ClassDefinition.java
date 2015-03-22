@@ -148,6 +148,7 @@ public class ClassDefinition extends Absyn {
      * Writes in a file named as this class (plus the trailing {@code .dot})
      * a dot representation of the abstract syntax of this class.
      *
+     * @param directory the directory where the file must be dumped
      * @throws IOException if the dot file cannot be created
      */
 
@@ -203,6 +204,6 @@ public class ClassDefinition extends Absyn {
     	if (main != null)
     		main.getAbstractSyntax().translate(done);
 
-    	return new Program(done, name.toString(), main);
+    	return new Program(done, main);
     }
 }

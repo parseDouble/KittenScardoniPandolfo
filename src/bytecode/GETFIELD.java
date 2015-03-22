@@ -10,7 +10,7 @@ import types.FieldSignature;
  * A bytecode that reads the value of a given field of an object,
  * called <i>receiver</i>. If the receiver is {@code nil}, the computation stops.
  * <br><br>
- * ..., receiver object -> ..., value
+ * ..., receiver object -&gt; ..., value
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

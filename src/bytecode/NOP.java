@@ -8,7 +8,7 @@ import org.apache.bcel.generic.InstructionList;
 /**
  * A bytecode that does not do anything.
  * <br><br>
- * ... -> ...
+ * ... -&gt; ...
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

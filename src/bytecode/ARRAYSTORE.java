@@ -11,7 +11,7 @@ import types.Type;
  * A bytecode that writes a value into an element of an array.
  * If the reference to the array is {@code nil}, the computation stops.
  * <br><br>
- * ..., array reference, index, value -> ...
+ * ..., array reference, index, value -&gt; ...
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

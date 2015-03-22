@@ -9,7 +9,7 @@ import org.apache.bcel.generic.InstructionList;
  * A bytecode that performs a logical <i>or</i> operation on the top
  * two elements of the stack.
  * <br><br>
- * ..., value1, value2 -> ..., value1 <i>or</i> value2
+ * ..., value1, value2 -&gt; ..., value1 <i>or</i> value2
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

@@ -106,7 +106,7 @@ public class JavaClassGenerator extends ClassGen {
 	 * and then {@link #removeRedundancies(InstructionList)}.
 	 *
 	 * @param block the code from which the generation starts
-	 * @return the Java bytecode for {@¢ode block} and all blocks reachable from it
+	 * @return the Java bytecode for {@code block} and all blocks reachable from it
 	 */
 
 	public InstructionList generateJavaBytecode(Block block) {

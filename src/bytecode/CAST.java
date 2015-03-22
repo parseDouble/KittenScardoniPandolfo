@@ -21,7 +21,7 @@ import types.Type;
  * unmodified. A numerical type can be cast into any numerical type through
  * a type conversion. No other casts are possible.
  * <br><br>
- * ..., value -> ..., cast value
+ * ..., value -&gt; ..., cast value
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
@@ -94,7 +94,7 @@ public class CAST extends NonCallingSequentialBytecode {
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
 	 * @param classGen the Java class generator to be used for this generation
-	 * @return the Java {@cdoe checkcast intoType} bytecode for casts between
+	 * @return the Java {@code checkcast intoType} bytecode for casts between
 	 *         reference types and a type conversion bytecode such as {@code i2f}
 	 *         for conversions between numercial types
 	 */

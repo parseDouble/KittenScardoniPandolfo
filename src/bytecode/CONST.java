@@ -14,7 +14,7 @@ import types.Type;
  * A bytecode that loads a {@code nil}, Boolean, {@code int} or {@code float}
  * constant on top of the stack.
  * <br><br>
- * ... -> ..., constant
+ * ... -&gt; ..., constant
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

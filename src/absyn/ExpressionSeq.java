@@ -1,6 +1,7 @@
 package absyn;
 
 import java.io.FileWriter;
+import java.io.IOException;
 
 import semantical.TypeChecker;
 import translation.Block;
@@ -70,9 +71,10 @@ public class ExpressionSeq extends Absyn {
 	 *
 	 * @param where the file where the dot representation must be written
 	 * @return the name used to refer to this node in the dot file
+	 * @throws IOException if there is a problem while writing into the file
 	 */
 
-	public final String toDot(FileWriter where) throws java.io.IOException {
+	public final String toDot(FileWriter where) throws IOException {
 		// dumps in the file the name of the node in the dot file,
 		// followed by the label used to show the node to the user of dot
 		where.write(dotNodeName() + " [ label = \"" + label() + "\"];\n");
@@ -109,7 +111,7 @@ public class ExpressionSeq extends Absyn {
 	 * of the expressions, with the value of the last expression on top, and
 	 * then continues with the given {@code continuation}.
 	 * This methods calls itself recursively on {@link #tail} and then calls
-	 * {@link #absyn.Expression.translateAs} on {@link #head}.
+	 * {@code absyn.Expression.translateAs} on {@link #head}.
 	 *
 	 * @param where the method or constructor where this expression occurs
 	 * @param types the list of types of the values which must be left onto the

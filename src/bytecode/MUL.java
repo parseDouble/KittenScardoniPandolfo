@@ -9,7 +9,7 @@ import types.NumericalType;
 /**
  * A bytecode that multiplies the top two elements of the stack.
  * <br><br>
- * ..., value1, value2 -> ..., value1 * value2
+ * ..., value1, value2 -&gt; ..., value1 * value2
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

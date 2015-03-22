@@ -12,7 +12,7 @@ import types.NumericalType;
  * to check if the one but last is less than the top one. It is used to route
  * the computation at the end of a branching block of code.
  * <br><br>
- * ..., value1, value2 -> ...<br>
+ * ..., value1, value2 -&gt; ...<br>
  * (checks if value1 &lt; value2)
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>

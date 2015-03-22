@@ -187,7 +187,7 @@ public class MethodCallExpression extends Expression {
 	 * Auxiliary method which translates this command into intermediate
 	 * Kitten bytecode. Namely, it returns a code which starts with
 	 * <br>
-	 * <i>translation of {@link #receiver}<br>
+	 * <i>translation of {@link #receiver}</i><br>
 	 * <i>translation of the first actual parameter</i><br>
 	 * ...<br>
 	 * <i>translation of the last actual parameter</i><br>

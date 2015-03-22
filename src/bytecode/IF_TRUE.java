@@ -12,7 +12,7 @@ import types.BooleanType;
  * Boolean value <i>true</i>. It routes accordingly the computation
  * at the end of a branching block of code.
  * <br><br>
- * ..., value -> ...<br>
+ * ..., value -&gt; ...<br>
  * (checks if value is true)
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>

@@ -105,7 +105,7 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
     /**
      * Translates this constructor or method into intermediate Kitten code.
      * This amounts to translating its body with a continuation containing
-     * a {@cdoe return} bytecode. This way, if a method does not have an
+     * a {@code return} bytecode. This way, if a method does not have an
      * explicit {@code return} statement, it is automatically put at its end.
      *
      * @param done the set of code signatures that have been already translated

@@ -74,7 +74,7 @@ public class BytecodeList {
      *
      * @param other the list of bytecodes that must be appended after this
      * @return the result of the concatenation of this list of bytecodes with {@code other}.
-     *         This list and {@¢ode other} are not modified
+     *         This list and {@code other} are not modified
      */
 
     public BytecodeList append(BytecodeList other) {
@@ -107,7 +107,7 @@ public class BytecodeList {
 
     /**
      * Generates the Java bytecode corresponding to this list of bytecodes.
-     * This just calls {@link #NonBranchingBytecode.generateJavaBytecode(JavaClassGenerator)} on each
+     * This just calls {@code bytecode.NonBranchingBytecode.generateJavaBytecode(JavaClassGenerator)} on each
      * non-branching bytecode in the list and appends the results.
      *
      * @param classGen the Java class generator to be used for this generation

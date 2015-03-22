@@ -3,7 +3,7 @@ package runTime;
 import java.io.IOException;
 
 /**
- * The class the implements Kitten strings. When we refer to Java's java.lang.String,
+ * The class the implements Kitten strings. When we refer to Java's {@code java.lang.String},
  * we must use its fully qualified name.
  */
 
@@ -20,7 +20,7 @@ public class String {
 		value = other;
 	}
 
-	// yields the length of a string */
+	/* yields the length of a string */
 	public int length() {
 		return value.length();
 	}

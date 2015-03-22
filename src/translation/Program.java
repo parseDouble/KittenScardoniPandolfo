@@ -28,13 +28,6 @@ public class Program {
 	private final Set<ClassMemberSignature> sigs;
 
 	/**
-	 * The name of the program. This is usually the name
-	 * of the class passed at compile line to Kitten.
-	 */
-
-	private final String name;
-
-	/**
 	 * The starting code of this program. This is usually the {@code main} method of this program.
 	 */
 
@@ -44,13 +37,11 @@ public class Program {
 	 * Builds a program, that is, a set of class member signatures.
 	 *
 	 * @param sigs the set of signatures
-	 * @param name the name of the program
 	 * @param start the code where the program starts
 	 */
 
-	public Program(Set<ClassMemberSignature> sigs, String name, CodeSignature start) {
+	public Program(Set<ClassMemberSignature> sigs, CodeSignature start) {
 		this.sigs = sigs;
-		this.name = name;
 		this.start = start;
 
 		// we clean-up the code, in order to remove useless nop's and merge blocks whenever possible
@@ -66,15 +57,6 @@ public class Program {
 
 	public Set<ClassMemberSignature> getSigs() {
 		return sigs;
-	}
-
-	/**
-	 * Yields the name of the program. This is usually the name
-	 * of the class passed at compile line to Kitten.
-	 */
-
-	public String getName() {
-		return name;
 	}
 
 	/**

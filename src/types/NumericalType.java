@@ -33,7 +33,7 @@ public abstract class NumericalType extends PrimitiveType {
 	}
 
 	/**
-	 * Adds to {@code il} the Java bytecodes that go to {@code yes}>
+	 * Adds to {@code il} the Java bytecodes that go to {@code yes}
 	 * if the element under the top of the stack is greater than the element
 	 * at the top of the stack.
 	 * In this case, it adds an {@code if_icmpgt} Java bytecode.

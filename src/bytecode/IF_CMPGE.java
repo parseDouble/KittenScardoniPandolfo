@@ -12,7 +12,7 @@ import types.NumericalType;
  * to check if the one but last is less than the top one. It is used to route
  * the computation at the end of a branching block of code.
  * <br><br>
- * ..., value1, value2 -> ...<br>
+ * ..., value1, value2 -&gt; ...<br>
  * (checks if value1 &ge; value2)
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
@@ -34,7 +34,7 @@ public class IF_CMPGE extends BranchingNumericalComparisonBytecode {
 	/**
 	 * Yields a branching bytecode that expresses the opposite condition of this.
 	 *
-	 * @return an {@coee if_cmplt} bytecode of the same type as this
+	 * @return an {@code if_cmplt} bytecode of the same type as this
 	 */
 
 	@Override

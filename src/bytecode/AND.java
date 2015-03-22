@@ -8,7 +8,7 @@ import org.apache.bcel.generic.InstructionList;
  * A bytecode that performs a logical <i>and</i> operation on the top
  * two elements of the stack.
  * <br><br>
- * ..., value1, value2 -> ..., value1 <i>and</i> value2
+ * ..., value1, value2 -&gt; ..., value1 <i>and</i> value2
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
@@ -18,8 +18,6 @@ public class AND extends BinOpBytecode {
 	/**
 	 * Constructs a bytecode that performs a logical <i>and</i> operation
 	 * on the top two elements of the stack.
-	 *
-	 * @param where the method or constructor where this bytecode occurs
 	 */
 
 	public AND() {}

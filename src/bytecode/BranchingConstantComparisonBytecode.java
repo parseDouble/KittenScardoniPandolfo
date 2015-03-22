@@ -6,7 +6,7 @@ import types.ComparableType;
  * A bytecode that compares the top element of the stack with a constant.
  * It is used to route the computation at the end of a branching block of code.
  * <br><br>
- * ..., value -> ...
+ * ..., value -&gt; ...
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
@@ -34,6 +34,8 @@ public abstract class BranchingConstantComparisonBytecode extends BranchingBytec
 
 	/**
 	 * Yields the semantical type of the top element of the stack.
+	 * 
+	 * @return the semantical type
 	 */
 
 	public ComparableType getType() {

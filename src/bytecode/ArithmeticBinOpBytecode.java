@@ -6,7 +6,7 @@ import types.NumericalType;
  * A bytecode that computes a binary arithmetic operation on the top two
  * elements of the stack.
  * <br><br>
- * ..., value1, value2 -> ..., value1 <i>op</i> value2
+ * ..., value1, value2 -&gt; ..., value1 <i>op</i> value2
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

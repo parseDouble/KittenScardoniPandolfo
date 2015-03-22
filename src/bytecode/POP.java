@@ -10,7 +10,7 @@ import types.Type;
 /**
  * A bytecode that pops the top value of the stack.
  * <br><br>
- * ..., value -> ...
+ * ..., value -&gt; ...
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

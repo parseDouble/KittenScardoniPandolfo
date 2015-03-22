@@ -12,11 +12,11 @@ import types.Type;
  * and gives back the control to the caller. If there is a return value on top
  * of the stack, the stack elements that are under that value are just discarded.
  * <br><br>
- * ..., value -> value
+ * ..., value -&gt; value
  * <br>
  * if this {@code return} instruction returns a non-{@code void} value, and
  * <br><br>
- * ... -> emptystack
+ * ... -&gt; emptystack
  * <br>
  * if it returns {@code void}.
  *

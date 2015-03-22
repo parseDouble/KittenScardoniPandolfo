@@ -9,7 +9,7 @@ import org.apache.bcel.generic.InstructionList;
 /**
  * A bytecode that creates a string and pushes a reference to it on top of the stack.
  * <br><br>
- * ... -> ..., new string
+ * ... -&gt; ..., new string
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
@@ -39,7 +39,7 @@ public class NEWSTRING extends NonCallingSequentialBytecode {
 
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode. Kitten strings
-	 * are emulated through {@see runTime.String} wrappers of Java bytecode strings. This way,
+	 * are emulated through {@code runTime.String} wrappers of Java bytecode strings. This way,
 	 * all methods over Kitten strings can be emulated through Java methods
 	 * inside that class (see there). Namely, this method generates the Java bytecode<br>
 	 * <br>
@@ -52,7 +52,7 @@ public class NEWSTRING extends NonCallingSequentialBytecode {
 	 * the lexical value {@link #value} of the Kitten string we want to create.
 	 *
 	 * @param classGen the Java class generator to be used for this generation
-	 * @return a Java bytecode that creates a {@see #runTime.String}
+	 * @return a Java bytecode that creates a {@code runTime.String}
 	 *         object initialised with the lexical {@link #value} of the
 	 *         Kitten string that we want to create.
 	 */

@@ -8,10 +8,10 @@ import types.Type;
 /**
  * A bytecode that calls a method of a <i>receiver</i>.
  * <br><br>
- * ..., receiver, par_1, ..., par_n -> ..., returned value<br>
+ * ..., receiver, par_1, ..., par_n -&gt; ..., returned value<br>
  * if the method return type is non-{@code void}<br><br>
- * ..., receiver, par_1, ..., par_n -> ...<br>
- * if the method's return type is {@code void}</tt>.
+ * ..., receiver, par_1, ..., par_n -&gt; ...<br>
+ * if the method's return type is {@code void}.
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

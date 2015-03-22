@@ -56,6 +56,7 @@ public class ArrayType extends ReferenceType {
 	 * type and dimensions.
 	 *
 	 * @param elementsType the type of the elements of the array
+	 * @param dimensions the number of dimensions
 	 * @return the unique {@code ArrayType} with elements of type
 	 *         {@code elementsType} and dimensions {@code dimensions}
 	 */

@@ -60,6 +60,7 @@ public abstract class ClassMemberDeclaration extends Absyn {
 	 *
 	 * @param where the file where the dot representation must be written
 	 * @return the name used to refer to this node in the dot file
+	 * @throws IOException if there is a problem while writing into the file
 	 */
 
 	public final String toDot(FileWriter where) throws IOException {

@@ -6,7 +6,7 @@ import types.NumericalType;
  * A bytecode that computes a numerical binary comparison operation between
  * the top two elements of the stack.
  * <br><br>
- * ..., value1, value2 -> ..., value1 <i>comp</i> value2
+ * ..., value1, value2 -&gt; ..., value1 <i>comp</i> value2
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

@@ -3,7 +3,7 @@ package tables;
 /**
  * A table mapping symbols to objects.
  *
- * @author  <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
+ * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
 public abstract class Table<E> {
@@ -18,6 +18,7 @@ public abstract class Table<E> {
     /**
      * Yields the empty table.
      *
+     * @param <T> the type of the elements that will be added to the empty table
      * @return the empty table
      */
 

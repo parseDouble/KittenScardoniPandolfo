@@ -10,7 +10,7 @@ import types.Type;
 /**
  * A bytecode that loads the value of a local variable on top of the stack.
  * <br><br>
- * ... -> ..., value
+ * ... -&gt; ..., value
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

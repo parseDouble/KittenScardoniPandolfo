@@ -83,7 +83,7 @@ public abstract class BinOp extends Expression {
 	 * The result is a piece of code which pushes onto the stack
 	 * the value of the expression (namely, the translation of the
 	 * left and right sides of the binary expression, followed by
-	 * the binary bytecode returned by {@link #operator(CodeSignature, Type)}
+	 * the binary bytecode returned by {@link #operator(Type)}
 	 * and that performs a binary operation-specific
 	 * computation on the values of the left and right-hand sides)
 	 * followed by the given {@code continuation}.

@@ -9,7 +9,7 @@ import types.NumericalType;
 /**
  * A bytecode that subtracts the top element of the stack from the underlying element.
  * <br><br>
- * ..., value1, value2 -> ..., value1 - value2
+ * ..., value1, value2 -&gt; ..., value1 - value2
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */

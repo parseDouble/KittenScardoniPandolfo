@@ -9,7 +9,7 @@ import types.Type;
 /**
  * A bytecode that duplicates the top element of the stack.
  * <br><br>
- * ..., value -> ..., value, value
+ * ..., value -&gt; ..., value, value
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
