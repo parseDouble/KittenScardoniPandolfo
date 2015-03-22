@@ -7,8 +7,7 @@ import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
 /**
- * A bytecode which creates an object of class <tt>String</tt> and
- * pushes it on top of the stack.
+ * A bytecode that creates a string and pushes a reference to it on top of the stack.
  * <br><br>
  * ... -> ..., new string
  *
@@ -24,9 +23,9 @@ public class NEWSTRING extends NonCallingSequentialBytecode {
 	private final String value;
 
 	/**
-	 * Constructs a bytecode which creates a <tt>String</tt> object.
+	 * Constructs a bytecode that creates a string and pushes a reference to it un the stack.
 	 *
-	 * @param value the lexical value of the <tt>String</tt> which is created
+	 * @param value the lexical value of string
 	 */
 
 	public NEWSTRING(String value) {
@@ -53,9 +52,9 @@ public class NEWSTRING extends NonCallingSequentialBytecode {
 	 * the lexical value {@link #value} of the Kitten string we want to create.
 	 *
 	 * @param classGen the Java class generator to be used for this generation
-	 * @return a Java bytecode that creates a <tt>runTime.String</tt>
-	 *         object initialised with the lexical <tt>value</tt> of the
-	 *         Kitten <tt>String</tt> we want to create.
+	 * @return a Java bytecode that creates a {@see #runTime.String}
+	 *         object initialised with the lexical {@link #value} of the
+	 *         Kitten string that we want to create.
 	 */
 
 	@Override

@@ -2,12 +2,13 @@ package bytecode;
 
 import javaBytecodeGenerator.JavaClassGenerator;
 
+import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
 import types.Type;
 
 /**
- * A bytecode which pops the top value of the stack.
+ * A bytecode that pops the top value of the stack.
  * <br><br>
  * ..., value -> ...
  *
@@ -17,15 +18,15 @@ import types.Type;
 public class POP extends NonCallingSequentialBytecode {
 
 	/**
-	 * The type of the value which is popped from the stack.
+	 * The type of the value that is popped from the stack.
 	 */
 
-	private Type type;
+	private final Type type;
 
 	/**
-	 * Constructs a bytecode which pops the top value of the stack.
+	 * Constructs a bytecode that pops the top value of the stack.
 	 *
-	 * @param type the type of the value which is popped from the stack
+	 * @param type the type of the value that is popped from the stack
 	 */
 
 	public POP(Type type) {
@@ -33,9 +34,9 @@ public class POP extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Yields the type of the value which is popped off the stack.
+	 * Yields the type of the value that is popped off the stack.
 	 *
-	 * @return the type of the value which is popped off the stack
+	 * @return the type of the value that is popped off the stack
 	 */
 
 	public Type getType() {
@@ -50,13 +51,12 @@ public class POP extends NonCallingSequentialBytecode {
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return a Java <tt>pop</tt> bytecode
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return a Java {@code pop} bytecode
 	 */
 
 	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
-		return new InstructionList(new org.apache.bcel.generic.POP());
+		return new InstructionList(InstructionFactory.POP);
 	}
 }

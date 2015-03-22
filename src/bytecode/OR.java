@@ -2,10 +2,11 @@ package bytecode;
 
 import javaBytecodeGenerator.JavaClassGenerator;
 
+import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
 /**
- * A bytecode which performs a logical <i>or</i> operation on the top
+ * A bytecode that performs a logical <i>or</i> operation on the top
  * two elements of the stack.
  * <br><br>
  * ..., value1, value2 -> ..., value1 <i>or</i> value2
@@ -16,7 +17,7 @@ import org.apache.bcel.generic.InstructionList;
 public class OR extends BinOpBytecode {
 
 	/**
-	 * Constructs a bytecode which performs a logical <i>or</i> operation
+	 * Constructs a bytecode that performs a logical <i>or</i> operation
 	 * on the top two elements of the stack.
 	 */
 
@@ -25,13 +26,12 @@ public class OR extends BinOpBytecode {
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the Java <tt>ior</tt> bytecode
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the Java {@code ior} bytecode
 	 */
 
 	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
-		return new InstructionList(new org.apache.bcel.generic.IOR());
+		return new InstructionList(InstructionFactory.IOR);
 	}
 }

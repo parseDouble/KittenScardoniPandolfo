@@ -7,8 +7,7 @@ import org.apache.bcel.generic.InstructionList;
 import types.NumericalType;
 
 /**
- * A bytecode which subtracts the top element of the stack from the
- * underlying element.
+ * A bytecode that subtracts the top element of the stack from the underlying element.
  * <br><br>
  * ..., value1, value2 -> ..., value1 - value2
  *
@@ -18,10 +17,9 @@ import types.NumericalType;
 public class SUB extends ArithmeticBinOpBytecode {
 
 	/**
-	 * Constructs a bytecode which
-	 * subtracts the top element of the stack from the underlying element.
+	 * Constructs a bytecode that subtracts the top element of the stack from the underlying element.
 	 *
-	 * @param type the semantical type of the values which are subtracted
+	 * @param type the semantical type of the values that are subtracted
 	 */
 
 	public SUB(NumericalType type) {
@@ -31,13 +29,12 @@ public class SUB extends ArithmeticBinOpBytecode {
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the <tt>isub</tt> Java bytecode if <tt>type</tt> is <tt>int</tt>
-	 *         and the <tt>fsub</tt> Java bytecode if <tt>type</tt> is
-	 *         <tt>float</tt>
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the {@code isub} Java bytecode if {@link #type} is {@code int}
+	 *         and the {@code fsub} Java bytecode if it is {@code float}
 	 */
 
+	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		InstructionList il = new InstructionList();
 

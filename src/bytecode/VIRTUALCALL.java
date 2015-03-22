@@ -12,14 +12,14 @@ import types.CodeSignature;
 import types.MethodSignature;
 
 /**
- * A bytecode which calls a method of an object with dynamic lookup.
+ * A bytecode that calls a method of an object with dynamic lookup.
  * That object is the <i>receiver</i> of the call. If the receiver is
- * <tt>nil</tt>, the computation stops.
+ * {@code nil}, the computation stops.
  * <br><br>
  * ..., receiver, par_1, ..., par_n -> ..., returned value<br>
- * if the method return type is non-<tt>void</tt><br><br>
+ * if the method return type is non-{@code void}<br><br>
  * ..., receiver, par_1, ..., par_n -> ...<br>
- * if the method's return type is <tt>void</tt>
+ * if the method's return type is {@code void}
  *
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
@@ -27,8 +27,8 @@ import types.MethodSignature;
 public class VIRTUALCALL extends CALL {
 
 	/**
-	 * Constructs a bytecode which calls a method of an object with dynamic
-	 * lookup. The set of run-time targets is assumed to be that obtained
+	 * Constructs a bytecode that calls a method of an object with dynamic
+	 * lookup. The set of runtime targets is assumed to be that obtained
 	 * from every subclass of the static type of the receiver.
 	 *
 	 * @param receiverType the static type of the receiver of this call
@@ -36,17 +36,17 @@ public class VIRTUALCALL extends CALL {
 	 */
 
 	public VIRTUALCALL(ClassType receiverType, MethodSignature staticTarget) {
-		// we compute the dynamic targets by assuming that the run-time
+		// we compute the dynamic targets by assuming that the runtime
 		// type of the receiver is any subclass of its static type
 		super(receiverType, staticTarget, dynamicTargets(receiverType.getInstances(), staticTarget));
 	}
 
 	/**
-	 * Yields the set of run-time receivers of this call. They are all
-	 * methods with the same signature of the static target which might
-	 * be called from a given set of run-time classes for the receiver.
+	 * Yields the set of runtime receivers of this call. They are all
+	 * methods with the same signature of the static target and that might
+	 * be called from a given set of runtime classes for the receiver.
 	 *
-	 * @param possibleRunTimeClasses the set of run-time classes for the receiver
+	 * @param possibleRunTimeClasses the set of runtime classes for the receiver
 	 * @param staticTarget the static target of the call
 	 * @return the set of method signatures that might be called
 	 *         with the given set of classes as receiver
@@ -59,7 +59,7 @@ public class VIRTUALCALL extends CALL {
 			// we look up for the method from the dynamic receiver
 			MethodSignature candidate = rec.methodLookup(staticTarget.getName(), staticTarget.getParameters());
 
-			// we add the dynamic target. If it was already there, the set is not modified
+			// we add the dynamic target
 			if (candidate != null)
 				dynamicTargets.add(candidate);
 		}
@@ -68,23 +68,16 @@ public class VIRTUALCALL extends CALL {
 	}
 
 	/**
-	 * Generates the Java bytecode corresponding
-	 * to this Kitten bytecode. Namely, it generates an
-	 * <tt>invokevirtual staticTarget</tt> Java bytecode.
-	 * The Java <tt>invokevirtual</tt> bytecode calls a method by using
-	 * the run-time class of the receiver to look up for the
-	 * method's implementation.
+	 * Generates the Java bytecode corresponding to this Kitten bytecode. Namely, it generates an
+	 * {@code invokevirtual staticTarget} Java bytecode. The Java {@code invokevirtual} bytecode
+	 * calls a method by using the runtime class of the receiver to look up for the method's implementation.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the Java <tt>invokevirtual staticTarget</tt> bytecode
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the Java {@code invokevirtual staticTarget} bytecode
 	 */
 
 	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
-		// the <tt>MethodSignature</tt> <tt>staticTarget</tt> contains
-		// everything which is needed in order to create
-		// the Java <tt>invokevirtual staticTarget</tt> bytecode
 		return new InstructionList(((MethodSignature) getStaticTarget()).createINVOKEVIRTUAL(classGen));
 	}
 }

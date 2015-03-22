@@ -8,7 +8,7 @@ import org.apache.bcel.generic.InstructionList;
 import types.Type;
 
 /**
- * A bytecode which stores the top of the stack inside a local variable.
+ * A bytecode that stores the top of the stack inside a local variable.
  * <br><br>
  * ..., value -> ...
  *
@@ -18,7 +18,7 @@ import types.Type;
 public class STORE extends NonCallingSequentialBytecode {
 
 	/**
-	 * The number of the local variable which is modified.
+	 * The number of the local variable that is assigned.
 	 */
 
 	private final int varNum;
@@ -30,11 +30,9 @@ public class STORE extends NonCallingSequentialBytecode {
 	private final Type type;
 
 	/**
-	 * Constructs a bytecode
-	 * which stores the value on top of the stack inside a local variable,
-	 * followed by the given list of instructions.
+	 * Constructs a bytecode that stores the value on top of the stack inside a local variable
 	 *
-	 * @param varNum the number of the local variable which is modified
+	 * @param varNum the number of the local variable that is assigned
 	 * @param type the type of the value stored inside the local variable
 	 */
 
@@ -44,9 +42,9 @@ public class STORE extends NonCallingSequentialBytecode {
 	}
 
 	/**
-	 * Yields the type of the local variable which is modified.
+	 * Yields the type of the local variable that is assigned.
 	 *
-	 * @return the type of the local variable which is modified
+	 * @return the type of the local variable that is assigned
 	 */
 
 	public Type getType() {
@@ -61,18 +59,15 @@ public class STORE extends NonCallingSequentialBytecode {
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the Java <tt>istore varNum</tt>, <tt>fstore varNum</tt> or
-	 *         <tt>astore varNum</tt> bytecode, if <tt>type</tt> is
-	 *         <tt>int</tt>, <tt>float</tt> or a class or array type,
-	 *         respectively.
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the Java {@code istore varNum}, {@code fstore varNum} or
+	 *         {@code astore varNum} bytecode, if {@link #type} is {@code int},
+	 *         {@code float} or a class or array type, respectively.
 	 */
 
 	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
-		// we use the instruction factory to simplify the choice
-		// between the three Java bytecode
+		// we use the instruction factory to simplify the choice between the three Java bytecodes
 		return new InstructionList(InstructionFactory.createStore(type.toBCEL(), varNum));
 	}
 }

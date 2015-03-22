@@ -7,8 +7,8 @@ import org.apache.bcel.generic.InstructionList;
 import types.FieldSignature;
 
 /**
- * A bytecode which writes a value into a given field of an object,
- * called <i>receiver</i>. If the receiver is <tt>nil</tt>, the computation stops.
+ * A bytecode that writes a value into a given field of an object,
+ * called <i>receiver</i>. If the receiver is {@code nil}, the computation stops.
  * <br><br>
  * ..., receiver object, value -> ...
  *
@@ -18,15 +18,15 @@ import types.FieldSignature;
 public class PUTFIELD extends FieldAccessBytecode {
 
 	/**
-	 * The signature of the field which is written by this bytecode.
+	 * The signature of the field that is written by this bytecode.
 	 */
 
-	private FieldSignature field;
+	private final FieldSignature field;
 
 	/**
-	 * Constructs a bytecode which writes into a field of an object.
+	 * Constructs a bytecode that writes into a field of an object.
 	 *
-	 * @param field the signature of the field which is written
+	 * @param field the signature of the field that is written
 	 */
 
 	public PUTFIELD(FieldSignature field) {
@@ -39,18 +39,9 @@ public class PUTFIELD extends FieldAccessBytecode {
 	 * @return the field signature
 	 */
 
+	@Override
 	public FieldSignature getField() {
 		return field;
-	}
-
-	/**
-	 * Sets the field signature of this bytecode.
-	 *
-	 * @param field the field signature
-	 */
-
-	protected void setField(FieldSignature field) {
-		this.field = field;
 	}
 
 	@Override
@@ -61,16 +52,12 @@ public class PUTFIELD extends FieldAccessBytecode {
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the Java <tt>putfield field</tt> bytecode
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the Java {@code putfield field} bytecode
 	 */
 
 	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
-		// the <tt>FieldSignature</tt> <tt>field</tt>
-		// contains everything which is needed
-		// in order to create the Java <tt>putfield field</tt> bytecode
 		return new InstructionList(field.createPUTFIELD(classGen));
 	}
 }

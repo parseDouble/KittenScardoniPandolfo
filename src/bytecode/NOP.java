@@ -2,10 +2,11 @@ package bytecode;
 
 import javaBytecodeGenerator.JavaClassGenerator;
 
+import org.apache.bcel.generic.InstructionFactory;
 import org.apache.bcel.generic.InstructionList;
 
 /**
- * A bytecode which does not do anything.
+ * A bytecode that does not do anything.
  * <br><br>
  * ... -> ...
  *
@@ -15,7 +16,7 @@ import org.apache.bcel.generic.InstructionList;
 public class NOP extends NonCallingSequentialBytecode {
 
 	/**
-	 * Constructs a bytecode which does not do anything.
+	 * Constructs a bytecode that does not do anything.
 	 */
 
 	public NOP() {}
@@ -23,12 +24,11 @@ public class NOP extends NonCallingSequentialBytecode {
 	/**
 	 * Generates the Java bytecode corresponding to this Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
-	 * @return the Java <tt>nop</tt> bytecode
+	 * @param classGen the Java class generator to be used for this generation
+	 * @return the Java {@code nop} bytecode
 	 */
 
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
-		return new InstructionList(new org.apache.bcel.generic.NOP());
+		return new InstructionList(InstructionFactory.NOP);
 	}
 }

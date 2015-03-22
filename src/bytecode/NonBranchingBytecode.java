@@ -26,8 +26,7 @@ public abstract class NonBranchingBytecode extends Bytecode {
 	 * languages. Other times, instead, one needs to generate more than one
 	 * Java bytecode to emulate the semantics of a single Kitten bytecode.
 	 *
-	 * @param classGen the Java class generator to be used for this
-	 *                 Java bytecode generation
+	 * @param classGen the Java class generator to be used for this generation
 	 * @return the Java bytecode(s) corresponding to this Kitten bytecode
 	 */
 
