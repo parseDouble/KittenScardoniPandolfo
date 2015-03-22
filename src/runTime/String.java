@@ -1,6 +1,6 @@
 package runTime;
 
-import java.io.IOException;
+import java.util.Scanner;
 
 /**
  * The class the implements Kitten strings. When we refer to Java's {@code java.lang.String},
@@ -57,19 +57,12 @@ public class String {
 		System.out.print(value);
 	}
 
+	private final Scanner keyboard = new Scanner(System.in);
+
 	/* reads from the keyboard a sequence of character until the first newline and
 	   stores it into the string */
 	public void input() {
-		char c;
-
-		value = new java.lang.String();
-
-		try {
-			while ((c = (char) System.in.read()) != '\n') value += c;
-		}
-		catch (IOException e) {
-			System.out.println("I/O exception");
-		}
+		value = keyboard.nextLine();
 	}
 
 	/* yields the concatenation of "this" and then "s" */
