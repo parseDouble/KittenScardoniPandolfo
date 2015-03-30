@@ -21,7 +21,7 @@ public class String {
 	}
 
 	/* clones a Java string */
-	private String(java.lang.String value) {
+	public String(java.lang.String value) {
 		this.value = value;
 	}
 
