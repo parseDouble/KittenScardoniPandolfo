@@ -39,7 +39,7 @@ public class FieldSignature extends ClassMemberSignature {
      */
 
     public FieldSignature(ClassType clazz, Type type, String name, FieldDeclaration abstractSyntax) {
-    	super(clazz,abstractSyntax);
+    	super(clazz, abstractSyntax);
 
     	this.type = type;
     	this.name = name;

@@ -151,7 +151,7 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
     		else if (h instanceof PUTFIELD)
     			done.add(((PUTFIELD) h).getField());
     		else if (h instanceof CALL)
-    			for (CodeSignature callee: ((CALL)h).getDynamicTargets())
+    			for (CodeSignature callee: ((CALL) h).getDynamicTargets())
     				callee.getAbstractSyntax().translate(done);
     	}
 

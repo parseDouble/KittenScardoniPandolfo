@@ -31,7 +31,7 @@ public class MethodSignature extends CodeSignature {
 	public MethodSignature(ClassType clazz, Type returnType,
 		TypeList parameters, String name, MethodDeclaration abstractSyntax) {
 
-		super(clazz,returnType,parameters,name,abstractSyntax);
+		super(clazz, returnType, parameters, name, abstractSyntax);
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class MethodSignature extends CodeSignature {
 	 */
 
 	public INVOKEVIRTUAL createINVOKEVIRTUAL(JavaClassGenerator classGen) {
-		return (INVOKEVIRTUAL) createInvokeInstruction(classGen,Constants.INVOKEVIRTUAL);
+		return (INVOKEVIRTUAL) createInvokeInstruction(classGen, Constants.INVOKEVIRTUAL);
 	}
 
 	/**
