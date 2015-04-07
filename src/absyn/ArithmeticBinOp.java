@@ -2,7 +2,6 @@ package absyn;
 
 import semantical.TypeChecker;
 import types.FloatType;
-import types.IntType;
 import types.Type;
 
 /**
