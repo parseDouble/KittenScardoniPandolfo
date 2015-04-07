@@ -19,7 +19,7 @@ import types.Type;
  * @author <A HREF="mailto:fausto.spoto@univr.it">Fausto Spoto</A>
  */
 
-public class NEG extends NonCallingSequentialBytecode {
+public class NEG extends SequentialBytecode {
 
 	/**
 	 * The type of the element on top of the stack.
