@@ -28,6 +28,7 @@ public class NOP extends SequentialBytecode {
 	 * @return the Java {@code nop} bytecode
 	 */
 
+	@Override
 	public InstructionList generateJavaBytecode(JavaClassGenerator classGen) {
 		return new InstructionList(InstructionFactory.NOP);
 	}

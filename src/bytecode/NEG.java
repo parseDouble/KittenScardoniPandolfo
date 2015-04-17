@@ -89,7 +89,7 @@ public class NEG extends SequentialBytecode {
 
 		if (type == BooleanType.INSTANCE) {
 			// the negation of a Boolean value: it becomes an alternative of 0 or 1 on the stack
-			InstructionHandle end =	il.insert(InstructionFactory.NOP);
+			InstructionHandle end = il.insert(InstructionFactory.NOP);
 			InstructionHandle after = il.insert(InstructionFactory.ICONST_1);
 			il.insert(new org.apache.bcel.generic.GOTO(end));
 			il.insert(InstructionFactory.ICONST_0);
