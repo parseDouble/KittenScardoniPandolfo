@@ -4,6 +4,7 @@ import java.io.FileWriter;
 
 import semantical.TypeChecker;
 import translation.Block;
+import types.CodeSignature;
 import types.Type;
 
 /**
@@ -142,4 +143,11 @@ public class Assignment extends Command {
    			(rvalue.translateAs(lvalue.getStaticType(),
    				lvalue.translateAfterAssignment(continuation)));
     }
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		return lvalue.translateBeforeAssignment
+	   			(rvalue.translateAs(lvalue.getStaticType(),
+	   				lvalue.translateAfterAssignment(continuation)));
+	}
 }

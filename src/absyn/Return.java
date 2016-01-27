@@ -4,6 +4,7 @@ import java.io.FileWriter;
 
 import semantical.TypeChecker;
 import translation.Block;
+import types.CodeSignature;
 import types.Type;
 import types.VoidType;
 import bytecode.RETURN;
@@ -131,5 +132,11 @@ public class Return extends Command {
 			continuation = returned.translateAs(returnType, continuation);
 
 		return continuation;
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

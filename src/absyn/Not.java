@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import semantical.TypeChecker;
 import translation.Block;
 import types.BooleanType;
+import types.CodeSignature;
 import types.Type;
 import bytecode.NEG;
 
@@ -94,5 +95,11 @@ public class Not extends Expression {
 	@Override
 	public Block translate(Block continuation) {
 		return expression.translate(new NEG(BooleanType.INSTANCE).followedBy(continuation));
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

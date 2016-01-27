@@ -1,4 +1,37 @@
 class Miao {
-  method void main()
-    "miao\n".output()
+	
+	field int i
+	
+	constructor() {
+		this.i := 5
+	}
+	
+	fixture {
+		this.i := 10
+	}
+	
+	fixture {
+		this.i := 20
+	}
+	
+	fixture {
+		this.i := 30
+	}
+		
+	test test1 {
+		this.i := 30;
+        assert(this.i > 10)
+	}
+	
+	test test2 {
+		this.i := 30;
+		assert(this.i > 20);
+		assert(this.i < 0)
+	}
+
+	method void main() {
+		Miao m := new Miao();
+    	"miao\n".output()
+	}
+	
 }

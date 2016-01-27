@@ -2,6 +2,7 @@ package absyn;
 
 import semantical.TypeChecker;
 import translation.Block;
+import types.CodeSignature;
 import types.NilType;
 import types.Type;
 import bytecode.CONST;
@@ -52,5 +53,11 @@ public class Nil extends Literal {
 	@Override
 	public Block translate(Block continuation) {
 		return new CONST().followedBy(continuation);
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

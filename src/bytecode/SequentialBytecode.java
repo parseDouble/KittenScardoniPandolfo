@@ -1,5 +1,6 @@
 package bytecode;
 
+
 import translation.Block;
 
 /**
@@ -27,6 +28,7 @@ public abstract class SequentialBytecode extends NonBranchingBytecode {
 	 */
 
 	public Block followedBy(Block continuation) {
+		
 		return continuation.prefixedBy(this);
 	}
 }

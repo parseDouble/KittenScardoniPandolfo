@@ -1,7 +1,9 @@
 package absyn;
 
 import semantical.TypeChecker;
+
 import types.BooleanType;
+
 import types.ComparableType;
 import types.Type;
 import bytecode.BinOpBytecode;
@@ -65,4 +67,5 @@ public class NotEqual extends ComparisonBinOp {
 	protected BinOpBytecode operator(Type type) {
 		return new NE((ComparableType) type);
 	}
+
 }

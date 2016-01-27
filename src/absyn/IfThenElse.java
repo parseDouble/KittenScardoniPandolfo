@@ -2,8 +2,11 @@ package absyn;
 
 import java.io.FileWriter;
 
+import javax.swing.JOptionPane;
+
 import semantical.TypeChecker;
 import translation.Block;
+import types.CodeSignature;
 
 /**
  * A node of abstract syntax representing a conditional command.
@@ -165,10 +168,24 @@ public class IfThenElse extends Command {
 		// prefix to it, we avoid duplicating it in the then and
 		// else branch. This is just an optimisation!
 		// Try removing this line: everything will work, but the code will be larger
+		
 		continuation.doNotMerge();
-
 		// we compile the condition by using, as yes and no continuations,
 		// the translations of the "then" and "_else" components
-		return condition.translateAsTest(then.translate(continuation), _else.translate(continuation));
+		return condition.translateAsTest(null,then.translate(continuation), _else.translate(continuation));
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// by making the continuation unmergeable with whatever we
+				// prefix to it, we avoid duplicating it in the then and
+				// else branch. This is just an optimisation!
+				// Try removing this line: everything will work, but the code will be larger
+				
+				continuation.doNotMerge();
+				JOptionPane.showMessageDialog(null, condition.getClass());
+				// we compile the condition by using, as yes and no continuations,
+				// the translations of the "then" and "_else" components
+				return condition.translateAsTest(code,then.translate(continuation), _else.translate(continuation));
 	}
 }

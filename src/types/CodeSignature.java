@@ -1,5 +1,6 @@
 package types;
 
+
 import javaBytecodeGenerator.JavaClassGenerator;
 
 import org.apache.bcel.generic.InvokeInstruction;
@@ -78,7 +79,7 @@ public abstract class CodeSignature extends ClassMemberSignature {
     @Override
     public int hashCode() {
     	return getDefiningClass().hashCode()
-   			+ name.hashCode() + parameters.hashCode() + returnType.hashCode();
+	   			+ name.hashCode() + parameters.hashCode() + returnType.hashCode();
     }
 
     @Override

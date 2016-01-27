@@ -2,8 +2,11 @@ package absyn;
 
 import java.io.FileWriter;
 
+
+
 import semantical.TypeChecker;
 import translation.Block;
+import types.CodeSignature;
 
 /**
  * A node of abstract syntax representing a sequence of two commands.
@@ -101,6 +104,14 @@ public class CommandSeq extends Command {
 
 	@Override
 	public Block translate(Block continuation) {
-		return first.translate(second.translate(continuation));
+		Block con2 = second.translate(continuation);
+		
+		return first.translate(con2);
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		
+		return first.translate(code,second.translate(code,continuation));
 	}
 }

@@ -1,5 +1,6 @@
 package absyn;
 
+
 import types.Type;
 import bytecode.BinOpBytecode;
 import bytecode.OR;
@@ -23,6 +24,7 @@ public class Or extends BooleanBinOp {
 
 	public Or(int pos, Expression left, Expression right) {
 		super(pos, left, right);
+		
 	}
 
 	/**
@@ -37,4 +39,5 @@ public class Or extends BooleanBinOp {
 	protected BinOpBytecode operator(Type type) {
 		return new OR();
 	}
+
 }

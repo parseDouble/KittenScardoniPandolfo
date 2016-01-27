@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import semantical.TypeChecker;
 import translation.Block;
 import types.ClassType;
+import types.CodeSignature;
 import types.FieldSignature;
 import types.Type;
 import bytecode.GETFIELD;
@@ -196,4 +197,10 @@ public class FieldAccess extends Lvalue {
     public Block translateAfterAssignment(Block continuation) {
     	return new PUTFIELD(field).followedBy(continuation);
     }
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

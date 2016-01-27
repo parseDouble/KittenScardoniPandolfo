@@ -4,6 +4,7 @@ import java.io.FileWriter;
 
 import semantical.TypeChecker;
 import translation.Block;
+import types.CodeSignature;
 import types.FloatType;
 import types.IntType;
 import types.Type;
@@ -95,5 +96,11 @@ public class Minus extends Expression {
 	@Override
 	public Block translate(Block continuation) {
 		return expression.translate(new NEG(IntType.INSTANCE).followedBy(continuation));
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

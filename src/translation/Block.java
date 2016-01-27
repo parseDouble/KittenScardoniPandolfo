@@ -5,7 +5,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import types.ClassMemberSignature;
 import types.CodeSignature;
+import types.FixtureSignature;
+import types.TestSignature;
 import bytecode.BranchingBytecode;
 import bytecode.Bytecode;
 import bytecode.BytecodeList;
@@ -52,6 +55,9 @@ public class Block {
 
 	private static int counter = 0;
 
+	
+	
+	
 	/**
 	 * Builds a block of code with no predecessors and with the given bytecode and successors.
 	 *
@@ -68,6 +74,7 @@ public class Block {
 		this.id = counter++;
 	}
 
+	
 	/**
 	 * Builds a block of code containing a final bytecode and having no
 	 * predecessors nor successors.
@@ -79,6 +86,9 @@ public class Block {
 		this(new BytecodeList(bytecode), new ArrayList<Block>());
 	}
 
+	
+	
+	
 	/**
 	 * Builds a block of code containing {@code nop}, with no predecessors
 	 * and two successors. The branching to the two successors is decided
@@ -100,6 +110,10 @@ public class Block {
 		follows.add(yes.prefixedBy(condition));
 	}
 
+	
+	
+	
+	
 	/**
 	 * Builds a block of code containing {@code nop} and with no
 	 * successors nor predecessors.
@@ -112,6 +126,7 @@ public class Block {
 		// a pivot cannot be merged, otherwise cycles cannot be built
 		mergeable = false;
 	}
+	
 
 	/**
 	 * Builds a new block of code with no predecessors, no successors and with
@@ -226,8 +241,22 @@ public class Block {
 
 	void cleanUp(Program program) {
 		// the start method of the program is definitely called
-		program.getSigs().add(program.getStart());
 
+		program.getSigs().add(program.getStart());
+		
+		//add tests
+		for (Set<TestSignature> tests : program.getTsigs().values()) {
+			for (TestSignature test: tests) {
+				program.getSigs().add((ClassMemberSignature) test);
+			}
+		}
+		
+		//add fixtures
+		for (FixtureSignature fix : program.getFsigs()) {	
+			program.getSigs().add((ClassMemberSignature) fix);
+		}
+		
+		
 		cleanUp(new HashSet<Block>(), program);
 	}
 

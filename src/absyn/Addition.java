@@ -40,4 +40,5 @@ public class Addition extends ArithmeticBinOp {
 	protected BinOpBytecode operator(Type type) {
 		return new ADD((NumericalType) type);
 	}
+
 }

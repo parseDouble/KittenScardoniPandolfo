@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import semantical.TypeChecker;
 import translation.Block;
+import types.CodeSignature;
 
 /**
  * A node of abstract syntax representing a Kitten command.
@@ -128,8 +129,9 @@ public abstract class Command extends Absyn {
 	 * @param continuation the continuation to be executed after this command
 	 * @return the code executing this command
 	 */
-
 	public abstract Block translate(Block continuation);
+	
+	public abstract Block translate(CodeSignature code, Block continuation);
 
 	/**
 	 * Outputs an error message to the user, by using the type-checker

@@ -3,10 +3,9 @@ package javaBytecodeGenerator;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.Set;
 import java.util.List;
 
-import org.apache.bcel.Constants;
+
 import org.apache.bcel.generic.ClassGen;
 import org.apache.bcel.generic.ConstantPoolGen;
 import org.apache.bcel.generic.GOTO;
@@ -17,11 +16,7 @@ import org.apache.bcel.generic.InstructionList;
 import org.apache.bcel.generic.TargetLostException;
 
 import translation.Block;
-import types.ClassMemberSignature;
-import types.ClassType;
-import types.ConstructorSignature;
-import types.FieldSignature;
-import types.MethodSignature;
+
 import bytecode.BranchingBytecode;
 
 /**
@@ -52,17 +47,18 @@ public class JavaClassGenerator extends ClassGen {
 
 	/**
 	 * Builds a class generator for the given class type.
+	 * If this class contains one or more tests, builds a test class generator
 	 *
 	 * @param clazz the class type
 	 * @param sigs a set of class member signatures. These are those that must be translated
 	 */
 
-	public JavaClassGenerator(ClassType clazz, Set<ClassMemberSignature> sigs) {
-		super(clazz.getName(), // name of the class
+	public JavaClassGenerator(String nome, String classType, int cons) {
+		super(nome, // name of the class
 			// the superclass of the Kitten Object class is set to be the Java java.lang.Object class
-			clazz.getSuperclass() != null ? clazz.getSuperclass().getName() : "java.lang.Object",
-			clazz.getName() + ".kit", // source file
-			Constants.ACC_PUBLIC, // Java attributes: public!
+			classType,
+			nome + ".kit", // source file
+			cons, // Java attributes
 			noInterfaces, // no interfaces
 			new ConstantPoolGen()); // empty constant pool, at the beginning
 
@@ -71,21 +67,6 @@ public class JavaClassGenerator extends ClassGen {
 		// complex bytecodes that access the constant pool
 		this.factory = new InstructionFactory(getConstantPool());
 
-		// we add the fields
-		for (FieldSignature field: clazz.getFields().values())
-			if (sigs.contains(field))
-				field.createField(this);
-
-		// we add the constructors
-		for (ConstructorSignature constructor: clazz.getConstructors())
-			if (sigs.contains(constructor))
-				constructor.createConstructor(this);
-
-		// we add the methods
-		for (Set<MethodSignature> s: clazz.getMethods().values())
-			for (MethodSignature method: s)
-				if (sigs.contains(method))
-					method.createMethod(this);
 	}
 
 	/**

@@ -193,12 +193,16 @@ String myString = "";
 <YYINITIAL>"|"          {return tok(sym.OR, null);}
 <YYINITIAL>"!"          {return tok(sym.NOT, null);}
 <YYINITIAL>":="         {return tok(sym.ASSIGN, null);}
+<YYINITIAL>test         {return tok(sym.TEST, null);}
+<YYINITIAL>assert       {return tok(sym.ASSERT, null);}
+<YYINITIAL>fixture      {return tok(sym.FIXTURE, null);}
+
 <YYINITIAL>"*/"         {err("Unopen comment");}
 <YYINITIAL>[a-zA-Z][a-zA-Z0-9_]*
                         {return tok(sym.ID, yytext());}
 <YYINITIAL>[0-9]+       {return tok(sym.INTEGER, new Integer(yytext()));}
 <YYINITIAL>[0-9]*"."[0-9]+
-                        {return tok(sym.FLOATING, new Float(yytext()));}
+                        {return tok(sym.FLOATING, new Float(yytext()));}         
 <YYINITIAL>.            {err("Unmatched input");}
 
 <STRING>\\n             {myString+="\n";}

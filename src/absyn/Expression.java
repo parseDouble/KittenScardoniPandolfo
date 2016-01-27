@@ -3,6 +3,8 @@ package absyn;
 import java.io.FileWriter;
 import java.io.IOException;
 
+
+
 import semantical.TypeChecker;
 import types.BooleanType;
 import types.FloatType;
@@ -185,8 +187,9 @@ public abstract class Expression extends Absyn {
 	 * @return the code which evaluates this expression and continues
 	 *         with {@code continuation}
 	 */
-
 	public abstract Block translate(Block continuation);
+	
+	public abstract Block translate(CodeSignature code, Block continuation);
 
 	/**
 	 * Translates this expression by requiring that it leaves onto the
@@ -208,6 +211,14 @@ public abstract class Expression extends Absyn {
 
 		return translate(continuation);
 	}
+	
+	public final Block translateAs(CodeSignature code, Type type, Block continuation) {
+		if (staticType == IntType.INSTANCE && type == FloatType.INSTANCE)
+			// type promotion
+			continuation = new CAST(IntType.INSTANCE, FloatType.INSTANCE).followedBy(continuation);
+
+		return translate(code, continuation);
+	}
 
 	/**
 	 * Translates this expression by assuming that it has {@code boolean} type.
@@ -220,11 +231,11 @@ public abstract class Expression extends Absyn {
 	 * @param no the continuation that is the <i>no</i> destination
 	 * @return the code that evaluates the expression and, on the basis
 	 *         of its {@code boolean} value, routes the computation to the
-	 *         {@code yes} or {@code no} continuation, respectively
 	 */
 
-	public Block translateAsTest(Block yes, Block no) {
-		return translate(new Block(new IF_TRUE(), yes, no));
+	public Block translateAsTest(CodeSignature code, Block yes, Block no) {
+		
+		return translate(code, new Block(new IF_TRUE(), yes, no));
 	}
 
 	/**

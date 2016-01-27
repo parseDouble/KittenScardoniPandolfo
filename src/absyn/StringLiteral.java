@@ -3,6 +3,7 @@ package absyn;
 import semantical.TypeChecker;
 import translation.Block;
 import types.ClassType;
+import types.CodeSignature;
 import types.Type;
 import bytecode.NEWSTRING;
 
@@ -96,5 +97,11 @@ public class StringLiteral extends Literal {
 	@Override
 	public Block translate(Block continuation) {
 		return new NEWSTRING(value).followedBy(continuation);
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

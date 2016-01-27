@@ -1,5 +1,6 @@
 package absyn;
 
+
 import types.NumericalType;
 import types.Type;
 import bytecode.BinOpBytecode;
@@ -39,4 +40,5 @@ public class Division extends ArithmeticBinOp {
 	protected BinOpBytecode operator(Type type) {
 		return new DIV((NumericalType) type);
 	}
+
 }

@@ -4,6 +4,7 @@ import java.io.FileWriter;
 
 import semantical.TypeChecker;
 import translation.Block;
+import types.CodeSignature;
 
 /**
  * A node of abstract syntax representing a <tt>while</tt> command.
@@ -140,7 +141,7 @@ public class While extends Command {
 
 		// we translate the condition of the loop. If the condition is true, we execute
 		// the translation of the body. Otherwise we execute what follows this command
-		Block result = condition.translateAsTest(body.translate(pivot), continuation);
+		Block result = condition.translateAsTest(null, body.translate(pivot), continuation);
 
 		result.doNotMerge();
 
@@ -148,5 +149,11 @@ public class While extends Command {
 		pivot.linkTo(result);
 
 		return result;
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

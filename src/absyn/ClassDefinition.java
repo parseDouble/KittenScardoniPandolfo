@@ -9,7 +9,9 @@ import java.util.Set;
 import translation.Program;
 import types.ClassMemberSignature;
 import types.ClassType;
+import types.FixtureSignature;
 import types.MethodSignature;
+import types.TestSignature;
 import types.TypeList;
 
 /**
@@ -196,6 +198,16 @@ public class ClassDefinition extends Absyn {
 
     public Program translate() {
     	Set<ClassMemberSignature> done = new HashSet<>();
+    	
+    	for (FixtureSignature fix : staticType.getFixture()) {
+    		fix.getAbstractSyntax().translate(done);
+		}
+    	
+    	for (Set<TestSignature> tests : staticType.getTest().values()) {
+			for (TestSignature test : tests) {
+				test.getAbstractSyntax().translate(done);
+			}
+		}
 
     	// we look up for the main method, if any
     	MethodSignature main = staticType.methodLookup("main", TypeList.EMPTY);
@@ -204,6 +216,6 @@ public class ClassDefinition extends Absyn {
     	if (main != null)
     		main.getAbstractSyntax().translate(done);
 
-    	return new Program(done, main);
+    	return new Program(done, main, staticType.getTest(), staticType.getFixture());
     }
 }

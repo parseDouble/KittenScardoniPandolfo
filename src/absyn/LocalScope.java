@@ -2,8 +2,12 @@ package absyn;
 
 import java.io.FileWriter;
 
+
+
 import semantical.TypeChecker;
 import translation.Block;
+import types.CodeSignature;
+
 
 /**
  * A node of abstract syntax representing a local scope, <i>i.e.</i>, a block
@@ -103,6 +107,13 @@ public class LocalScope extends Command {
 	@Override
 	public Block translate(Block continuation) {
 		// we translate the body of the local scope with the given continuation
+		
 		return body.translate(continuation);
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		
+		return body.translate(code, continuation);
 	}
 }

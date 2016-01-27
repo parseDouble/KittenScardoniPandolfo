@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+
+
 import lexical.Lexer;
 import syntactical.Parser;
 import translation.Program;
@@ -57,8 +59,17 @@ public final class ClassType extends ReferenceType {
 	/**
 	 * The set of constructor signatures in this class.
 	 */
-
 	private final Set<ConstructorSignature> constructors = new HashSet<>();
+	
+	/**
+	 * The map of test symbols to their signature.
+	 */
+	private final Map<String,Set<TestSignature>> testSigs = new HashMap<>();
+	
+	/**
+	 * The set of fixture signatures in this class.
+	 */
+	private final Set<FixtureSignature> fixSigs = new HashSet<>();
 
 	/**
 	 * A map from method symbols to the set of signatures of the methods with
@@ -121,7 +132,7 @@ public final class ClassType extends ReferenceType {
 			else
 				abstractSyntax = new ClassDefinition(0, name, "Object", null);
 		}
-
+		
 		// we add the fields, constructors and methods of this class
 		(this.abstractSyntax = abstractSyntax).addMembersTo(this);
 
@@ -268,6 +279,30 @@ public final class ClassType extends ReferenceType {
 	public void addField(String name, FieldSignature sig) {
 		fields.put(name,sig);
 	}
+	
+	
+	/**
+	 * Adds a test to this class. If a test with the given name
+	 * already existed, it is overwritten.
+	 *
+	 * @param name the name of the test
+	 * @param sig the signature of the test
+	 */
+	public void addTest(String name, TestSignature sig){
+		Set<TestSignature> set = testSigs.get(name);
+		if (set == null)
+			testSigs.put(name, set = new HashSet<>());
+		set.add(sig);
+	}
+	
+	/**
+	 * Adds a fixture to this class. 
+	 *
+	 * @param sig the signature of the fixture
+	 */
+	public void addFix(FixtureSignature sig){
+		fixSigs.add(sig);
+	}
 
 	/**
 	 * Adds a constructor to this class. If a constructor with the given
@@ -316,6 +351,24 @@ public final class ClassType extends ReferenceType {
 
 	public Set<ConstructorSignature> getConstructors() {
 		return constructors;
+	}
+	
+	/**
+	 * Yields the tests of this class.
+	 *
+	 * @return the tests
+	 */
+	public Map<String, Set<TestSignature>> getTest() {
+		return testSigs;
+	}
+	
+	/**
+	 * Yields the fixture of this class.
+	 *
+	 * @return the fixture
+	 */
+	public Set<FixtureSignature> getFixture() {
+		return fixSigs;
 	}
 
 	/**
@@ -540,6 +593,7 @@ public final class ClassType extends ReferenceType {
 		if ((result = memory.get(name)) != null)
 			return result;
 		else
+			
 			return new ClassType(name);
 	}
 
@@ -560,7 +614,7 @@ public final class ClassType extends ReferenceType {
 	public static ClassType mkFromFileName(String fileName) {
 		if (fileName.endsWith(".kit"))
 			fileName = fileName.substring(0, fileName.length() - 4);
-
+		
 		ClassType result = mk(fileName);
 
 		result.typeCheck();

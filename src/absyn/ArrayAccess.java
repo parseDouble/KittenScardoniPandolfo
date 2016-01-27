@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import semantical.TypeChecker;
 import translation.Block;
 import types.ArrayType;
+import types.CodeSignature;
 import types.Type;
 import bytecode.ARRAYLOAD;
 import bytecode.ARRAYSTORE;
@@ -166,5 +167,11 @@ public class ArrayAccess extends Lvalue {
 	@Override
 	public Block translateAfterAssignment(Block continuation) {
 		return new ARRAYSTORE(getStaticType()).followedBy(continuation);
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -4,6 +4,7 @@ import java.io.FileWriter;
 
 import semantical.TypeChecker;
 import translation.Block;
+import types.CodeSignature;
 import types.Type;
 import bytecode.LOAD;
 import bytecode.STORE;
@@ -134,5 +135,11 @@ public class Variable extends Lvalue {
 	@Override
 	public Block translateAfterAssignment(Block continuation) {
 		return new STORE(getVarNum(), getStaticType()).followedBy(continuation);
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

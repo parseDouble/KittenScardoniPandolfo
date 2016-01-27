@@ -38,4 +38,5 @@ public class And extends BooleanBinOp {
 	protected BinOpBytecode operator(Type type) {
 		return new AND();
 	}
+
 }

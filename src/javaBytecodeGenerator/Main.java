@@ -1,5 +1,6 @@
 package javaBytecodeGenerator;
 
+
 import errorMsg.ErrorMsg;
 import types.ClassType;
 import translation.Program;
@@ -16,6 +17,7 @@ public class Main {
 		// we build the class type for the file name passed as a parameter.
 		// This triggers type-checking of that class and of all classes referenced from it
 		long time = System.currentTimeMillis();
+		
 		ClassType clazz = ClassType.mkFromFileName(args[0]);
 		ErrorMsg errorMsg = clazz.getErrorMsg();
 		System.out.println("Parsing and type-checking completed     \t[" + (System.currentTimeMillis() - time) + "ms]");

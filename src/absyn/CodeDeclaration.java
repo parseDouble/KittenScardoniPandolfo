@@ -3,13 +3,18 @@ package absyn;
 import java.util.HashSet;
 import java.util.Set;
 
+
+
 import translation.Block;
 import types.ClassMemberSignature;
 import types.CodeSignature;
+import types.NilType;
+import types.TestSignature;
 import types.VoidType;
 import bytecode.Bytecode;
 import bytecode.BytecodeList;
 import bytecode.CALL;
+import bytecode.CONST;
 import bytecode.GETFIELD;
 import bytecode.PUTFIELD;
 import bytecode.RETURN;
@@ -121,10 +126,17 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
     		// precaution is useless since we know that every execution path
     		// ends with a return command, as guaranteed by
     		// checkForDeadCode() (see typeCheck() in MethodDeclaration.java)
-    		sig.setCode(getBody().translate(new Block(new RETURN(VoidType.INSTANCE))));
-
+    		
+    		if(sig instanceof TestSignature){
+    			
+    			sig.setCode(getBody().translate(sig, 
+    					new CONST().followedBy(new Block(new RETURN(NilType.INSTANCE)))));
+    		}else{
+    			sig.setCode(getBody().translate(new Block(new RETURN(VoidType.INSTANCE))));
+    		}
     		// we translate all methods and constructors that are referenced
     		// from the code we have generated
+    		
     		translateReferenced(sig.getCode(), done, new HashSet<Block>());
     	}
     }
@@ -142,7 +154,7 @@ public abstract class CodeDeclaration extends ClassMemberDeclaration {
     	// if we already processed the block, we return immediately
     	if (!blocksDone.add(block))
     		return;
-
+    	
     	for (BytecodeList cursor = block.getBytecode(); cursor != null; cursor = cursor.getTail()) {
     		Bytecode h = cursor.getHead();
 

@@ -4,6 +4,7 @@ import java.io.FileWriter;
 
 import semantical.TypeChecker;
 import translation.Block;
+import types.CodeSignature;
 import types.NumericalType;
 import types.ReferenceType;
 import types.Type;
@@ -144,4 +145,10 @@ public class Cast extends Expression {
     		return expression.translate
    				(new CAST((ReferenceType) fromType, (ReferenceType) intoType).followedBy(continuation));
     }
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

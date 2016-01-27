@@ -2,13 +2,21 @@ package translation;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
-import javaBytecodeGenerator.JavaClassGenerator;
+
+
+
+import javaBytecodeGenerator.DefaultClassGenerator;
+import javaBytecodeGenerator.TestClassGenerator;
 
 import types.ClassMemberSignature;
 import types.CodeSignature;
 import types.ClassType;
+import types.FixtureSignature;
+import types.TestSignature;
 import bytecode.Bytecode;
 import bytecode.CALL;
 import bytecode.FieldAccessBytecode;
@@ -28,6 +36,18 @@ public class Program {
 	private final Set<ClassMemberSignature> sigs;
 
 	/**
+	 * The map of test symbols to their signature.
+	 */
+	private final Map<String, Set<TestSignature>> tsigs;
+	
+	/**
+	 * The set of fixture signatures making up this program.
+	 */
+	private final Set<FixtureSignature> fsigs;
+	
+
+	
+	/**
 	 * The starting code of this program. This is usually the {@code main} method of this program.
 	 */
 
@@ -43,6 +63,28 @@ public class Program {
 	public Program(Set<ClassMemberSignature> sigs, CodeSignature start) {
 		this.sigs = sigs;
 		this.start = start;
+		this.tsigs = new HashMap<String, Set<TestSignature>>();
+		this.fsigs = new HashSet<FixtureSignature>();
+
+		// we clean-up the code, in order to remove useless nop's and merge blocks whenever possible
+		if (start != null)
+			cleanUp();
+	}
+	
+	/**
+	 * Builds a program, that is, a set of class member signatures.
+	 *
+	 * @param sigs the set of signatures
+	 * @param start the code where the program starts
+	 * @param testsigs the map of test signatures
+	 * @param fixsigs the set of fixture signatures
+	 */
+	public Program(Set<ClassMemberSignature> sigs, CodeSignature start, 
+			Map<String, Set<TestSignature>> testsigs, Set<FixtureSignature> fixsigs) {
+		this.sigs = sigs;
+		this.start = start;
+		this.tsigs = testsigs;
+		this.fsigs = fixsigs;
 
 		// we clean-up the code, in order to remove useless nop's and merge blocks whenever possible
 		if (start != null)
@@ -67,6 +109,26 @@ public class Program {
 
 	public CodeSignature getStart() {
 		return start;
+	}
+	
+	
+	/**
+	 * Yields the test signatures that make up this program.
+	 *
+	 * @return the signatures
+	 */
+	public Map<String, Set<TestSignature>> getTsigs() {
+		return tsigs;
+	}
+	
+	
+	/**
+	 * Yields the fixture signatures that make up this program.
+	 *
+	 * @return the signatures
+	 */
+	public Set<FixtureSignature> getFsigs() {
+		return fsigs;
 	}
 
 	/**
@@ -175,7 +237,13 @@ public class Program {
 		// we consider one class at the time and we generate its Java bytecode
 		for (ClassType clazz: ClassType.getAll())
 			try {
-				new JavaClassGenerator(clazz, sigs).getJavaClass().dump(clazz + ".class");
+				new DefaultClassGenerator(clazz, sigs).getJavaClass().dump(clazz + ".class");
+				//if there are tests, generate the test class
+				if (clazz.getTest().size() > 0){
+					new TestClassGenerator(clazz, sigs).getJavaClass().dump(
+							clazz + "Test.class");
+					
+				}
 			}
 			catch (IOException e) {
 				System.out.println("Could not dump the Java bytecode for class " + clazz);
@@ -190,10 +258,26 @@ public class Program {
 	 */
 
 	protected void storeBytecode(Bytecode bytecode) {
-		if (bytecode instanceof FieldAccessBytecode)
+		if (bytecode instanceof FieldAccessBytecode){
 			sigs.add(((FieldAccessBytecode) bytecode).getField());
-		else if (bytecode instanceof CALL)
+			sigs.addAll(((FieldAccessBytecode) bytecode).getField()
+				.getDefiningClass().getFixture());
+			for (String name : ((FieldAccessBytecode) bytecode).getField()
+					.getDefiningClass().getTest().keySet()) {
+				sigs.addAll(((FieldAccessBytecode) bytecode).getField()
+						.getDefiningClass().getTest().get(name));
+			}
+			
+		}else if (bytecode instanceof CALL){
 			// a call instruction might call many methods or constructors at runtime
 			sigs.addAll(((CALL) bytecode).getDynamicTargets());
+			sigs.addAll(((CALL) bytecode).getStaticTarget().getDefiningClass()
+				.getFixture());
+			for (String name : ((CALL) bytecode).getStaticTarget()
+					.getDefiningClass().getTest().keySet()) {
+				sigs.addAll(((CALL) bytecode).getStaticTarget().getDefiningClass()
+						.getTest().get(name));
+			}
+		}
 	}
 }

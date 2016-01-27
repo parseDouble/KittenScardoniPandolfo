@@ -2,8 +2,11 @@ package absyn;
 
 import java.io.FileWriter;
 
+
+
 import semantical.TypeChecker;
 import translation.Block;
+import types.CodeSignature;
 import types.Type;
 import bytecode.STORE;
 
@@ -164,10 +167,22 @@ public class LocalDeclaration extends Command {
 		// we get the number and type of the variable
 		int varNum = getTypeChecker().getVarNum(name);
 		Type staticType = type.getStaticType();
+		
+		// we return a code which starts with the translation of the initialising expression,
+		// followed by the STORE bytecode, followed by the continuation
+		
+		return initialiser.translateAs
+			(staticType, new STORE(varNum, staticType).followedBy(continuation));
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		int varNum = getTypeChecker().getVarNum(name);
+		Type staticType = type.getStaticType();
 
 		// we return a code which starts with the translation of the initialising expression,
 		// followed by the STORE bytecode, followed by the continuation
 		return initialiser.translateAs
-			(staticType, new STORE(varNum, staticType).followedBy(continuation));
+			(code, staticType, new STORE(varNum, staticType).followedBy(continuation));
 	}
 }

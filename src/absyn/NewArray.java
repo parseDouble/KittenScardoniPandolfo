@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import semantical.TypeChecker;
 import translation.Block;
 import types.ArrayType;
+import types.CodeSignature;
 import types.Type;
 import bytecode.NEWARRAY;
 
@@ -115,5 +116,11 @@ public class NewArray extends Expression {
 	@Override
 	public Block translate(Block continuation) {
 		return size.translate(new NEWARRAY(elementsType.getStaticType()).followedBy(continuation));
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

@@ -105,4 +105,41 @@ public class ErrorMsg {
 
 		System.out.println(fileName + "::" + where + ": " + msg);
 	}
+	
+	
+	/**
+	 * Create the error message for a failed assert
+	 * 
+	 * @param pos the position where the error must be reported
+	 *            (number of characters from the beginning of the file).
+	 *            If this is negative, the message is printed without
+	 *            any line number reference
+	 * @param msg the message to be reported("at row::column")
+	 * @return the error message
+	 */
+	public String getAssertErrorMsg(int pos, String msg){
+		anyErrors=false;
+		
+		String resMsg;
+		if (pos >= 0) {
+			int last = 0, n = 1;
+
+			// we look for the last new line before position pos
+			for (int line: linePos) {
+				if (line >= pos) break;
+
+				last = line;
+				n++;
+			}
+
+			resMsg = "at " + n + "::" + (pos - last);
+
+		}
+		else
+			resMsg = "";
+		
+		
+		
+		return resMsg;
+	}
 }

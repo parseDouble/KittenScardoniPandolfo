@@ -3,6 +3,7 @@ package absyn;
 import semantical.TypeChecker;
 import translation.Block;
 import types.BooleanType;
+import types.CodeSignature;
 import types.Type;
 import bytecode.CONST;
 
@@ -54,5 +55,11 @@ public class False extends Literal {
 	@Override
 	public final Block translate(Block continuation) {
 		return new CONST(false).followedBy(continuation);
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

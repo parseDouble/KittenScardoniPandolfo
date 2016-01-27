@@ -1,6 +1,7 @@
 package absyn;
 
 import translation.Block;
+import types.CodeSignature;
 import types.Type;
 import bytecode.ComparisonBinOpBytecode;
 
@@ -40,7 +41,7 @@ public abstract class ComparisonBinOp extends BinOp {
 	 */
 
 	@Override
-	public Block translateAsTest(Block yes, Block no) {
+	public Block translateAsTest(CodeSignature notUsed, Block yes, Block no) {
 		// we compute the least common supertype of the two sides of this binary expression
 		Type type = getLeft().getStaticType().leastCommonSupertype(getRight().getStaticType());
 

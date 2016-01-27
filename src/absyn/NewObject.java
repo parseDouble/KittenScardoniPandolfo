@@ -6,6 +6,7 @@ import java.util.Set;
 import semantical.TypeChecker;
 import translation.Block;
 import types.ClassType;
+import types.CodeSignature;
 import types.ConstructorSignature;
 import types.Type;
 import types.TypeList;
@@ -179,5 +180,11 @@ public class NewObject extends Expression {
 
 		return new NEW(constructor.getDefiningClass()).followedBy
 			(new DUP(constructor.getDefiningClass()).followedBy(continuation));
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

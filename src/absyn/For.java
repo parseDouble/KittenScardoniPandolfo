@@ -4,6 +4,7 @@ import java.io.FileWriter;
 
 import semantical.TypeChecker;
 import translation.Block;
+import types.CodeSignature;
 
 /**
  * A node of abstract syntax representing a {@code for} command.
@@ -174,7 +175,7 @@ public class For extends Command {
     	// Otherwise we execute what follows this command. This code will be
     	// used to translate the initialisation component
     	Block test = condition.translateAsTest
-   			(body.translate(update.translate(pivot)), continuation);
+   			(null, body.translate(update.translate(pivot)), continuation);
 
     	test.doNotMerge();
 
@@ -183,4 +184,10 @@ public class For extends Command {
 
     	return initialisation.translate(test);
     }
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

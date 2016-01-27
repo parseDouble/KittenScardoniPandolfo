@@ -2,6 +2,7 @@ package absyn;
 
 import semantical.TypeChecker;
 import translation.Block;
+import types.CodeSignature;
 
 /**
  * A node of abstract syntax representing a skip command.
@@ -60,5 +61,11 @@ public class Skip extends Command {
 	@Override
 	public Block translate(Block continuation) {
 		return continuation;
+	}
+
+	@Override
+	public Block translate(CodeSignature code, Block continuation) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

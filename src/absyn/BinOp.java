@@ -3,6 +3,7 @@ package absyn;
 import java.io.FileWriter;
 
 import translation.Block;
+import types.CodeSignature;
 import types.Type;
 import bytecode.BinOpBytecode;
 
@@ -96,7 +97,15 @@ public abstract class BinOp extends Expression {
 	@Override
 	public final Block translate(Block continuation) {
 		Type type = getLeft().getStaticType().leastCommonSupertype(getRight().getStaticType());
-
+		
+		return getLeft().translateAs
+			(type, getRight().translateAs(type, operator(type).followedBy(continuation)));
+	}
+	
+	@Override
+	public final Block translate(CodeSignature code, Block continuation) {
+		Type type = getLeft().getStaticType().leastCommonSupertype(getRight().getStaticType());
+		
 		return getLeft().translateAs
 			(type, getRight().translateAs(type, operator(type).followedBy(continuation)));
 	}
